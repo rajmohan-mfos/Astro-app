@@ -133,6 +133,14 @@ function App() {
 
               <section className="panel">
                 <h2>
+                  Prediction
+                  <span className="status-chip">{result.prediction.status}</span>
+                </h2>
+                <PredictionPanel prediction={result.prediction} />
+              </section>
+
+              <section className="panel">
+                <h2>
                   Rasi chart
                   <button className="link-btn" onClick={() =>
                     navigator.clipboard.writeText(chartAsText(result))}>
@@ -145,14 +153,6 @@ function App() {
               <section className="panel">
                 <h2>Grahas</h2>
                 <GrahaTable grahas={result.grahas} lagna={result.lagna} />
-              </section>
-
-              <section className="panel">
-                <h2>
-                  Prediction
-                  <span className="status-chip">{result.prediction.status}</span>
-                </h2>
-                <PredictionPanel prediction={result.prediction} />
               </section>
             </>
           )}

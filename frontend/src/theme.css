@@ -453,6 +453,26 @@ body {
   font-weight: 600;
 }
 
+/* sub-tabs inside the Prediction panel: flatter than the top-level ones,
+   and they wrap on narrow screens rather than overflowing */
+.view-tabs.sub-tabs {
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+.view-tabs.sub-tabs .tab {
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+}
+
+.view-tabs.sub-tabs .tab.active {
+  background: var(--bg);
+}
+
 .kp-view {
   display: flex;
   flex-direction: column;
