@@ -64,6 +64,9 @@ function Ring({ cell, edge }: { cell: ChartCell; edge: Edge }) {
       ))}
     </div>
   )
+  // Top/bottom cells lay their bodies out as COLUMNS (see the cell
+  // renderer), and the ring uses the same equal-share columns, so label
+  // N sits directly over body N.
 
   if (cell.items.length === 0) return null
   return <>{list('sub_short')}{list('star_short')}</>
@@ -80,18 +83,26 @@ export default function AuthorPanchangChart({ result }: { result: ComputeResult 
       <div className="author-chart">
         {cells.map((cell) => {
           const [row, col] = CELL[cell.sign]
+          // In the reference, cells on the TOP and BOTTOM edges write
+          // their bodies as rotated columns rather than as lines, so the
+          // ring above/below can align one label per body.
+          const vertical = EDGE[cell.sign] === 'top'
+            || EDGE[cell.sign] === 'bottom'
           return (
-            <div key={cell.sign} className="author-cell"
+            <div key={cell.sign}
+              className={`author-cell${vertical ? ' cell-vertical' : ''}`}
               style={{ gridRow: row + 2, gridColumn: col + 2 }}>
               <div className="author-rasi">{RASIS_TA[cell.sign]}</div>
-              {cell.items.map((it, i) => (
-                <div key={i} className="author-body">
-                  <span className={it.retro ? 'token-retro' : undefined}>
-                    {it.short}{it.retro ? '(R)' : ''}
-                  </span>
-                  <span className="author-deg">{it.deg}</span>
-                </div>
-              ))}
+              <div className="author-bodies">
+                {cell.items.map((it, i) => (
+                  <div key={i} className="author-body">
+                    <span className={it.retro ? 'token-retro' : undefined}>
+                      {it.short}{it.retro ? '(R)' : ''}
+                    </span>
+                    <span className="author-deg">{it.deg}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )
         })}
@@ -114,9 +125,10 @@ export default function AuthorPanchangChart({ result }: { result: ComputeResult 
           style={{ gridRow: '4 / 6', gridColumn: '4 / 6' }}>
           <div className="author-date">{d}-{m}-{y}</div>
           <div className="author-weekday">{weekday}</div>
+          {/* the cells are cast on LAHIRI (see transit.chart_cells) —
+              this used to print the KP ayanamsa beside Lahiri figures */}
           <div className="author-time">
-            {result.input.time} · KP
-            {result.kp?.ayanamsa != null && ` ${result.kp.ayanamsa}°`}
+            {result.input.time} · Lahiri {result.ayanamsa}°
           </div>
         </div>
       </div>

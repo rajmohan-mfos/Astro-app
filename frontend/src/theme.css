@@ -361,6 +361,29 @@ body {
   gap: 0.4rem;
 }
 
+/* Top/bottom cells: bodies become rotated COLUMNS, matching the
+   reference. Equal-share flex on both the cell and its ring means
+   label N sits directly over body N. */
+.author-cell.cell-vertical .author-bodies {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: calc(100% - var(--row-h));
+}
+
+.author-cell.cell-vertical .author-body {
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column-reverse;   /* degree above, name below */
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.author-cell.cell-vertical .author-body > span {
+  writing-mode: vertical-rl;
+}
+
 .author-deg {
   color: var(--accent);
 }
@@ -379,15 +402,20 @@ body {
   z-index: 1;
 }
 
+/* same equal-share columns as .cell-vertical, so the labels line up
+   with the bodies they describe */
 .ring-cell.ring-vertical {
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
-  gap: 0.3rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .ring-cell.ring-vertical .ring-lord {
+  flex: 1 1 0;
+  min-width: 0;
   writing-mode: vertical-rl;
+  text-align: center;
 }
 
 /* Nested frames, drawn behind the cells. Each sits in the 2px grid gap
