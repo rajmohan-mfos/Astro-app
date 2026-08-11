@@ -11,11 +11,18 @@ import PredictionGraph from './components/PredictionGraph'
 import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 
-// opens on today at 05:42 (≈ sunrise, the chain chart's cast moment)
+// Opens on today at 09:00 — just before the 09:15 open, and the moment
+// the author's own reference charts are cast at.
+//
+// This does NOT move the prediction. graph.cast_chart always recasts the
+// chain at sunrise whatever time is shown, so the intraday/weekly/
+// long-term calls are unchanged. What it moves is everything cast at the
+// displayed moment: the rasi chart, the panchang chart, the KP
+// planet-position sheet and the no-number prasanam reading.
 const NOW = new Date()
 const DEFAULT_REQUEST: ComputeRequest = {
   year: NOW.getFullYear(), month: NOW.getMonth() + 1, day: NOW.getDate(),
-  hour: 5, minute: 42,
+  hour: 9, minute: 0,
   // Mumbai — the NSE's own location, so the market chart is cast where
   // the market is. Sunrise there is ~30 min later than Chennai, which
   // moves the sunrise-cast chain; see RULES-SOURCES.md.

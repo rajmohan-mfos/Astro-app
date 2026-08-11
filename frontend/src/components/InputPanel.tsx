@@ -24,8 +24,8 @@ export default function InputPanel({ onCompute, busy, error }: Props) {
   const [month, setMonth] = useState(String(today.getMonth() + 1))
   const [year, setYear] = useState(String(today.getFullYear()))
   // 05:42 ≈ sunrise, the moment the day's chain chart is cast
-  const [hour, setHour] = useState('5')
-  const [minute, setMinute] = useState('42')
+  const [hour, setHour] = useState('9')
+  const [minute, setMinute] = useState('0')
   const [place, setPlace] = useState('Mumbai')
   const [lat, setLat] = useState('19.076')
   const [lon, setLon] = useState('72.8777')
