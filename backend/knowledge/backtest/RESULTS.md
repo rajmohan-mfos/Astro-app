@@ -293,3 +293,73 @@ here (42.4%–57.0%) is the expected range under pure noise for 14 draws.
 Mars 57.0% and Rahu 42.4% are identical under both ayanamsas, which
 confirms they are properties of the rule stack rather than the zodiac —
 and they were already inside the noise band in the star-lord slice above.
+
+### Sliced by thithi family and horai (`scripts/slice_ayanamsa.py`)
+
+**These two buckets are ayanamsa-invariant, unlike the nakshatra lord**,
+and for a reason worth recording. Thithi and karanam derive from the
+Moon−Sun *elongation*, so the ayanamsa cancels exactly in the
+subtraction — measured over 366 days, the thithi number, thithi family
+and karanam differ on **0** days. Yogam is a *sum* of the two longitudes,
+so the offset doubles instead of cancelling: it differs on 6/366 (1.64%),
+and that alone accounts for the 2 panchang-tally disagreements reported
+above. Horai is invariant by construction — `horai_timeline` takes no
+ayanamsa argument, depending only on sunrise/sunset and the weekday.
+
+So both tables below compare the two zodiacs inside *identical* buckets.
+
+**By thithi family** (n≈247 each):
+
+| Family | KP hit | Lahiri hit | disagree | up-rate |
+|---|---|---|---|---|
+| Nanda | 47.8% (n=226) | 48.9% (n=225) | 4 | 48.6% |
+| Bhadra | 48.1% (n=216) | 47.2% (n=216) | 4 | 50.4% |
+| Jaya | 46.5% (n=230) | 46.5% (n=230) | 0 | 44.4% |
+| Rikta | 50.7% (n=209) | 50.5% (n=208) | 4 | 46.1% |
+| Purna | 48.3% (n=209) | 48.6% (n=208) | 0 | 52.5% |
+
+Jaya and Purna contain no discordant days at all. Largest gap 1.1pp
+(Nanda), on 4 days.
+
+**By horai** — 4,334 hourly bars over 724 sessions, each bar scored
+against the chain segment covering it. This is the fairest test available
+to the two ayanamsas: the daily test collapses a session to one number,
+so they can only differ when the whole day flips sign, whereas
+segment-level scoring gives them many more chances to diverge. It also
+tests intraday *shape*, which RESULTS.md notes elsewhere is otherwise
+untested.
+
+| Horai | bars | KP hit | Lahiri hit | disagree | up-rate |
+|---|---|---|---|---|---|
+| Sun | 578 | 46.7% (n=452) | 46.0% (n=450) | 3 | 49.7% |
+| Moon | 579 | 47.9% (n=455) | 47.7% (n=453) | 1 | 50.8% |
+| Mars | 722 | 48.9% (n=571) | 48.3% (n=571) | 4 | 50.1% |
+| Mercury | 722 | 49.6% (n=568) | 49.8% (n=566) | 1 | 51.1% |
+| Jupiter | 579 | 49.8% (n=462) | 49.8% (n=460) | 3 | 50.8% |
+| Venus | 575 | 51.9% (n=445) | 51.8% (n=444) | 3 | 51.0% |
+| Saturn | 579 | 49.7% (n=463) | 49.7% (n=459) | 1 | 48.9% |
+
+Overall: **KP 49.2%** (1681/3416) vs **Lahiri 49.0%** (1668/3403). Even
+at segment granularity the two agree on 99.6% of bars — they disagree on
+16 of 4,334.
+
+**The one asymmetry in the whole exercise, and why it is not one.** On
+those 16 discordant bars KP is right 11 times to Lahiri's 5 (*p* = 0.210).
+That is the largest gap anywhere in this comparison, and it does not
+survive inspection:
+
+- **The bars are not independent.** They fall on only **8 distinct
+  sessions**. When a day's segment differs, consecutive bars inherit the
+  same disagreement *and* largely the same market move, so 16 is not 16
+  votes. One vote per session gives KP 6, Lahiri 2 — *p* = 0.289.
+- **The moves are noise.** 10 of the 16 bars moved less than 0.1%. The
+  "wins" are sign calls on essentially flat bars.
+- **It is one of ~46 comparisons** in this document. A *p* = 0.21 among
+  46 tests is entirely unremarkable; the expected number of sub-0.05
+  results under the null alone is ~2, and this is not even one of them.
+
+**Bottom line, unchanged.** Four cuts — weekday, nakshatra lord, thithi
+family, horai — and 1,235 daily plus 4,334 hourly observations produce no
+separation between the two ayanamsas. The daily split is 6–6, the
+session-level intraday split 6–2 at *p* = 0.29. KP remains the right
+choice for the prediction path on source-fidelity grounds alone.
