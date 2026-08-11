@@ -4,10 +4,18 @@ Sources: PRASANAM VIDEO 1 (cWhvsCFCtCE), prasanam 2 (Hzvl4LKxy1s),
 LT part 2 (ka0QwvUnJx0). The teacher's procedure: hold the question in
 mind, cast a KP chart (he uses AstroSage "KP Murai", old KP method, with a
 1–249 seed number; casting at the question moment is the same mechanism).
-Read the lagna's SUB lord as the QUESTION planet and that planet's
-nakshatra lord as the ANSWER planet [P1 @ 09:56–11:09]; judge by their
-houses: 2/6/11 = profit, 5/8/12 = loss [P1 @ 10:09–10:27], with 6 median /
-11 heavy profit and 5/12 median / 8 heavy loss [LT2 @ 05:16–05:48].
+
+QUESTION planet = the Moon's nakshatra lord; ANSWER planet = that
+planet's own star lord [LT2: "the moon is the question… the Buddha is an
+answer"]. NOTE: P1 instead phrases the question planet as the lagna's
+sub-lord ("Lakhna Upanachathram"). The two transcripts genuinely
+disagree; the Moon reading is used per user adjudication (2026-08-11)
+because LT2 states it repeatedly and works a full example with it. The
+lagna sub-lord is still returned as `lagna_sub_lord` and still triggers
+the Rahu/Ketu cancel.
+
+Judge by houses: 2/6/11 = profit, 5/8/12 = loss [P1 @ 10:09–10:27], with
+2/6 median and 11 heavy profit, 5/12 median and 8 heavy loss [LT2].
 
 This module casts at the chart moment. The 1–249 seed-number variant needs
 a UI input and is not implemented yet.
@@ -20,7 +28,9 @@ SECTION = "prasanam"
 PROFIT_HOUSES = {2, 6, 11}
 LOSS_HOUSES = {5, 8, 12}
 
-HOUSE_GRADE = {2: "profit", 6: "median profit", 11: "heavy profit",
+# [LT2] "5 to 12 is the medium loss, 8 is the heavy loss, 2, 6 is the
+# medium profit, 11 is the heavy profit"
+HOUSE_GRADE = {2: "median profit", 6: "median profit", 11: "heavy profit",
                5: "median loss", 12: "median loss", 8: "heavy loss"}
 
 
@@ -67,12 +77,13 @@ def rules(chart: dict) -> list[Finding]:
         verdict, reason = "CANCEL", (
             f"the Moon sits in house {c['moon_house']} (5/8/12) — do not "
             f"cast a prasanam at this time; ask later")
-    elif c["question"] in ("Rahu", "Ketu"):
-        # [guide §2.3] Rahu/Ketu as lagna sub-lord → deceptive, inverted
-        # outcomes — cancel the trade outright
+    elif c["lagna_sub_lord"] in ("Rahu", "Ketu"):
+        # [C3] "if Raghukethu comes as Lakhanam's Upanachathram… avoid" —
+        # tied to the LAGNA's sub-lord specifically, not the question
+        # planet; "there is a chance you will be 100% opposite"
         verdict, reason = "CANCEL", (
-            f"the lagna sub-lord is {c['question']} — Rahu/Ketu horary "
-            f"charts give deceptive answers; cancel the trade")
+            f"the lagna sub-lord is {c['lagna_sub_lord']} — Rahu/Ketu "
+            f"horary charts can invert the answer completely; cancel")
     elif c["question_house"] not in PROFIT_HOUSES | LOSS_HOUSES:
         # [LT2-Buzz] the QUESTION planet must connect to 2/6/11 or 5/8/12
         # else "the question doesn't connect to the universe"
@@ -87,15 +98,16 @@ def rules(chart: dict) -> list[Finding]:
         Finding(
             SECTION,
             f"Question planet: {c['question']} (house {c['question_house']})",
-            f"The lagna's sub lord at this moment is {c['question']} — it "
-            f"represents the question itself.",
-            "Prasanam video 1 @ 09:56–11:09"),
+            f"The Moon's nakshatra lord at this moment is {c['question']} — "
+            f"'the moon is the question'. (Lagna sub-lord: "
+            f"{c['lagna_sub_lord']}.)",
+            "LT part 2 — 'the moon is the question'"),
         Finding(
             SECTION,
             f"Answer planet: {c['answer']} (house {c['answer_house']})",
-            f"The nakshatra lord of {c['question']}'s position — it carries "
-            f"the answer.",
-            "Prasanam video 1 @ 07:47–08:04"),
+            f"The star lord of {c['question']}'s position — 'the star of "
+            f"the star' — it carries the answer.",
+            "LT part 2 + Prasanam video 1 @ 07:47–08:04"),
         Finding(
             SECTION,
             "Gap up / gap down is a prasanam question, not a graph read",
@@ -108,9 +120,30 @@ def rules(chart: dict) -> list[Finding]:
         Finding(
             SECTION,
             f"Verdict for a question asked at this moment: {verdict}",
-            f"{reason}. Judgment scale: 2/6/11 profit (6 median, 11 heavy); "
-            f"5/12 median loss, 8 heavy loss. Treat the chart time as the "
-            f"question time; the 1–249 seed-number variant is a future "
-            f"input. Never re-ask the same question immediately.",
+            f"{reason}. Judgment scale: 2/6 median profit, 11 heavy "
+            f"profit; 5/12 median loss, 8 heavy loss. Treat the chart time "
+            f"as the question time; the 1–249 seed-number variant is a "
+            f"future input.",
             "Prasanam video 1 @ 10:09 + LT part 2 @ 03:32–05:48"),
+        Finding(
+            SECTION,
+            "The three rules for a valid question [LT2]",
+            "(1) Right timing — cast on a clean day (your Moon not in "
+            "5/8/12, not over natal Rahu/Ketu). (2) The question must be "
+            "exact — one instrument, one direction, an explicit target and "
+            "horizon ('will Reliance exceed 4000 in 2 years?'). (3) The "
+            "question planet must connect to 2/6/11 or 5/8/12, else it "
+            "'doesn't connect to the universe' — discard it.",
+            "LT part 2 — 'you should not forget these 3 rules'"),
+        Finding(
+            SECTION,
+            "Re-asking etiquette and horizon [LT2]",
+            "Do not re-ask the same question for 2–3 hours, and leave the "
+            "same stock 1–2 weeks before asking again; batch a basket over "
+            "several sittings rather than in one go. On a NO, lower the "
+            "target and re-ask ('above 3000 or 3500?') to find the level "
+            "the chart will grant. Prasanam answers out to ~5 years — "
+            "further than the Jupiter graph method, which he limits to "
+            "about a year.",
+            "LT part 2 — re-ask intervals, target laddering, 5-year scope"),
     ]

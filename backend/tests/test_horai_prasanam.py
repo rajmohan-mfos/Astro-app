@@ -267,3 +267,45 @@ def test_example_chart_saturn_horai_timing_exact():
                if s['lord'] == 'Saturn' and 9 < s['start'] < 11)
     assert abs(sat['start'] - (9 + 24 / 60)) < 0.02
     assert abs(sat['end'] - (10 + 21 / 60)) < 0.02
+
+
+def test_moon_is_the_question_planet():
+    """[LT2] 'The moon is the question... the star in the moon is the
+    question. The Buddha is an answer.' The question planet is the Moon's
+    star lord; the answer is that planet's own star lord."""
+    from app import transit
+    from app.rules.graph import nak_lord_of
+    import swisseph as swe
+    c = transit.prasanam_chain(2021, 5, 5, 11, 58, 5.5, 13.0827, 80.2707)
+
+    swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
+    jd = swe.julday(2021, 5, 5, 11 + 58 / 60 - 5.5)
+    moon = swe.calc_ut(jd, swe.MOON, transit.FLAGS)[0][0] % 360
+    assert c['question'] == transit.lords_of(moon)['nak_lord']
+    # and it is NOT simply the lagna sub-lord any more
+    assert 'lagna_sub_lord' in c
+    # answer chains one more star level down from the question planet
+    assert c['answer'] in transit.DASHA_LORDS
+
+
+def test_rahu_ketu_cancel_follows_the_lagna_sub_lord():
+    """[C3] 'if Raghukethu comes as Lakhanam's Upanachathram... avoid' -
+    the cancel is tied to the lagna sub-lord, not the question planet."""
+    import datetime
+    from app import engine
+    from app.rules import prasanam
+    found = False
+    for d in range(1, 40):
+        day = datetime.date(2021, 5, 1) + datetime.timedelta(days=d)
+        c = engine.compute(day.year, day.month, day.day, 11, 58, 5.5,
+                           13.0827, 80.2707)
+        chain = __import__('app.transit', fromlist=['x']).prasanam_chain(
+            day.year, day.month, day.day, 11, 58, 5.5, 13.0827, 80.2707)
+        if chain['lagna_sub_lord'] in ('Rahu', 'Ketu') and \
+                chain['moon_house'] not in prasanam.LOSS_HOUSES:
+            verdict = next(f for f in prasanam.rules(c)
+                           if f.title.startswith('Verdict'))
+            assert 'CANCEL' in verdict.title
+            found = True
+            break
+    assert found, 'no Rahu/Ketu lagna-sub-lord day found to test'

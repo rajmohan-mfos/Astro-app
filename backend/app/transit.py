@@ -317,7 +317,12 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
     def house_of(planet: str) -> int:
         return (int(lons[planet] // 30) - asc_sign) % 12 + 1
 
-    question = lords_of(asc)["sub_lord"]
+    # [LT2] "The moon is the question. You should take the moon… the star
+    # in the moon is the question." The question planet is the Moon's
+    # nakshatra lord; the answer is that planet's own star lord (user
+    # adjudication 2026-08-11, over P1's lagna-sub-lord phrasing — the two
+    # transcripts genuinely disagree; see RULES-SOURCES.md).
+    question = lords_of(lons["Moon"])["nak_lord"]
     answer = lords_of(lons[question])["nak_lord"]
     return {
         "asc": round(asc, 4),
@@ -326,6 +331,7 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
         "answer": answer,
         "answer_house": house_of(answer),
         "moon_house": house_of("Moon"),
+        "lagna_sub_lord": lords_of(asc)["sub_lord"],
     }
 
 

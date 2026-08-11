@@ -295,6 +295,58 @@ house frame mismatch; day-lord outranking house 8 / angle.
   (கிரகங்கள்.docx) fixes Mercury and the Moon as sideways planets for
   trading. Candidate refinements only — flagged here, not applied.
 
+## Prasanam question planet — RESOLVED (user, 2026-08-11): the MOON
+
+The transcripts genuinely disagree with each other:
+- **P1**: "Lakhna Upanachathram is the Savai" — question = the LAGNA's
+  sub-lord.
+- **LT2**: "The moon is the question. You should take the moon… the star
+  in the moon is the question… First, the moon is a question, the Buddha
+  is an answer" — question = the MOON's star lord, and he works the whole
+  Reliance-4000 example that way.
+
+User adjudicated in favour of the **Moon** reading. `prasanam_chain` now
+returns question = Moon's nakshatra lord, answer = that planet's star
+lord, and still exposes `lagna_sub_lord`. The Rahu/Ketu CANCEL rule was
+moved onto `lagna_sub_lord`, because [C3] ties it specifically to
+"Lakhanam's Upanachathram", not to the question planet. Validation
+(2/6/11 or 5/8/12) stays on the question planet, which under the Moon
+reading is what LT2 means by "in the question of the moon… there should
+be a connection".
+
+Also applied from LT2: house 2 regraded "median profit" ("2, 6 is the
+medium profit"); the three-rules-for-a-valid-question finding; re-ask
+etiquette (2–3 h same question, 1–2 weeks same stock, ladder the target
+down on a NO) and the ~5-year prasanam horizon vs ~1 year for the
+Jupiter graph method. Still deferred: 3+11 = profit-with-delay, which
+needs KP significator sets rather than one house per planet.
+
+## Weekly video cross-check (2026-08-11) — two discrepancies, NOT changed
+
+His February window matches ours (Sun in Dhanishta/Mars, ~7→19 Feb, next
+lord Rahu, chain X=Mars Y=Venus, split into halves, stocks of the half's
+planet, prasanam mandatory). Two numbers do not, and in both cases the
+sources contradict each other, so the engine was left alone:
+
+1. **Mars 12 vs our 11.** Sun 294.17°, Mars 255.77° → arc 321.6°, i.e.
+   21.6° INTO degree-house 11 — not a boundary case. Whole-sign counting
+   gives exactly his 12. So in this video he used a whole-sign count for
+   X while preaching degree counting in the same breath. C4/C6/C7/C10 and
+   the guide all insist on degree counting (C6 explicitly corrects 11→10
+   by degree), so degree counting stands.
+
+2. **Venus as Y1 by self-occupancy.** He says "Venus is in Venus, so Y1
+   is there" and counts Venus→Sun = 2 (our reverse count is 35.79° →
+   house 2, an exact match), making the second half an ANGLE and giving
+   his "1st down, 2nd up". Our `occupants_of_stars` excludes the lord
+   itself, so we read a bare Y=Venus forward at 11.
+   **Why not changed:** C11 has the identical structure — "X is Mars,
+   again it is in Mars" — yet counts Mars FORWARD at 6, which our engine
+   reproduces exactly along with his stocks and outcomes. Treating
+   self-occupancy as X1/Y1 would fix Weekly and break the fully verified
+   C11 example. The two videos are inconsistent; C11 is the better-
+   evidenced example, so it wins. Revisit if a third source settles it.
+
 ## Open questions / pending
 
 0. **RESOLVED — cast time & occupant counting.** The chain chart is cast
