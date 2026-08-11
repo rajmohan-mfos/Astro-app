@@ -1,0 +1,54 @@
+name: Daily prediction to Telegram
+
+# 02:45 UTC = 08:15 IST, Monday–Friday.
+#
+# Deliberately an hour before the 09:15 open rather than minutes before.
+# GitHub's scheduled workflows are best-effort: they routinely start 5–20
+# minutes late, and during peak load can be delayed much further or
+# skipped altogether. An hour of slack means an ordinary delay still
+# arrives in time. Do not tighten this to 09:00 IST expecting punctuality.
+#
+# NSE trading holidays are NOT handled — the job fires on any weekday,
+# so you will get a message on holidays too.
+#
+# GitHub disables cron on repositories with no activity for 60 days; if
+# the messages stop, push any commit or re-enable the workflow.
+
+on:
+  schedule:
+    - cron: '45 2 * * 1-5'
+  workflow_dispatch:        # lets you run it by hand to test
+    inputs:
+      date:
+        description: 'Date to compute (YYYY-MM-DD), blank = today'
+        required: false
+      dry_run:
+        description: 'Print the message instead of sending (1 = yes)'
+        required: false
+        default: '0'
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'      # pyswisseph builds cleanly here
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyswisseph
+
+      - name: Send prediction
+        working-directory: backend
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ASTRO_DATE: ${{ github.event.inputs.date }}
+          ASTRO_DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: python scripts/daily_push.py
