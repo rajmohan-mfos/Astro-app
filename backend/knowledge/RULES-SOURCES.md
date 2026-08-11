@@ -377,10 +377,21 @@ and the 1/4/10 satisfaction axis. P1's own example — question 4/9/10/11,
 answer 4/10/12 — is a regression test and returns NO on the 12, matching
 his "it will be a joke" and the market falling.
 
-Known wrinkle: significators use whole-sign houses while the KP
-planet-position sheet displays Placidus cusps, so a planet can appear to
-own a house on one screen and not the other. Pre-existing, now more
-visible. `judge(int, int)` is retained and still passes its cases.
+RESOLVED 2026-08-11 — house frame is now PLACIDUS. KP is cusp-based by
+definition and the teacher's "KP Murai / old method" computes Placidus,
+so the prasanam side moved, not the sheet. Occupancy uses cusp
+containment; ownership uses the canonical KP rule (a planet owns the
+house whose CUSP falls in a rasi it rules), so a sign may hold two cusps
+or none — interception, not a bug. Verified: 28/28 planet-house pairs
+match the planet-position sheet across 14 dates.
+
+This changes verdicts, not just display: 07/01/2022's question planet
+went from [1,2,4,9,11] to [1,2,3,4,9,11] — house 3 appears because its
+cusp falls in a Jupiter-ruled sign — so with 11 present the chart now
+reads profit-but-DELAYED rather than plain profit. Verdicts computed
+before this commit are not comparable with those after it.
+
+`judge(int, int)` is retained and still passes its cases.
 
 ## Open questions / pending
 

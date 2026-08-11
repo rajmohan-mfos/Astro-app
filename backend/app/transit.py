@@ -296,15 +296,19 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
                    tz_offset: float, lat: float, lon: float) -> dict:
     """KP horary chain for a chart cast at the question moment.
 
-    Question planet = the lagna's SUB lord; answer planet = the nakshatra
-    lord of the question planet's own position. Houses are whole-sign from
-    the KP lagna. All positions use the KP ayanamsa.
+    Question planet = the Moon's star lord; answer planet = that planet's
+    own star lord. Houses are PLACIDUS cusps — KP is a cusp-based system
+    and the teacher's "KP Murai" setting is Placidus, so this now matches
+    the planet-position sheet exactly (it previously used whole-sign,
+    which could put a planet in a different house from the one displayed).
+    All positions use the KP ayanamsa.
     """
     swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
     jd = swe.julday(year, month, day, hour + minute / 60 - tz_offset)
-    _, ascmc = swe.houses_ex(jd, lat, lon, b'W', swe.FLG_SIDEREAL)
+    cusps, ascmc = swe.houses_ex(jd, lat, lon, b'P', swe.FLG_SIDEREAL)
+    if len(cusps) == 13:            # some builds return a leading dummy
+        cusps = cusps[1:]
     asc = ascmc[0] % 360
-    asc_sign = int(asc // 30)
 
     bodies = {"Sun": swe.SUN, "Moon": swe.MOON, "Mars": swe.MARS,
               "Mercury": swe.MERCURY, "Jupiter": swe.JUPITER,
@@ -315,7 +319,12 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
     lons["Ketu"] = (lons["Rahu"] + 180) % 360
 
     def house_of(planet: str) -> int:
-        return (int(lons[planet] // 30) - asc_sign) % 12 + 1
+        pl = lons[planet]
+        for i in range(12):
+            c1, c2 = cusps[i] % 360, cusps[(i + 1) % 12] % 360
+            if (c1 <= pl < c2) if c1 <= c2 else (pl >= c1 or pl < c2):
+                return i + 1
+        return 1
 
     # [LT2] "The moon is the question. You should take the moon… the star
     # in the moon is the question." The question planet is the Moon's
@@ -329,9 +338,12 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
     # OWNS, plus those its STAR LORD occupies and owns [P1: "the star is
     # the question - 4, 9, 10, 11 are there; Rahu is here - 4, 10, 12"].
     # Rahu/Ketu own no rasi, so they act through their sign lord.
+    # KP ownership is cusp-based: a planet owns the house whose CUSP falls
+    # in a rasi it rules. With Placidus a sign can hold two cusps (or
+    # none), which is normal — interception, not a bug.
     def owned_houses(pl: str) -> set:
-        return {(i - asc_sign) % 12 + 1
-                for i, lord in enumerate(RASI_LORDS) if lord == pl}
+        return {i + 1 for i, c in enumerate(cusps)
+                if RASI_LORDS[int((c % 360) // 30)] == pl}
 
     def significators(pl: str) -> set:
         out = {house_of(pl)} | owned_houses(pl)
