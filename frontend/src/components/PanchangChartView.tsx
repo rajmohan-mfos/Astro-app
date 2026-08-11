@@ -3,6 +3,7 @@
 // and the பஞ்ச அங்கங்கள் block with end times.
 import type { ComputeResult, TransitRow } from '../types'
 import PlanetPosition from './PlanetPosition'
+import PanchangTiles from './PanchangTiles'
 
 const CELL: Record<number, [number, number]> = {
   11: [1, 1], 0: [1, 2], 1: [1, 3], 2: [1, 4],
@@ -106,38 +107,17 @@ export default function PanchangChartView({ result }: { result: ComputeResult })
       </div>
 
       <section className="panel">
-        <h2>பஞ்ச அங்கங்கள் — with end times</h2>
-        <div className="tiles">
-          <div className="tile">
-            <div className="tile-label">வாரம்</div>
-            <div className="tile-main">{kp.vaara}</div>
-            <div className="tile-sub">அதிபதி {kp.day_lord.ta}</div>
-          </div>
-          <div className="tile">
-            <div className="tile-label">நட்சத்திரம்</div>
-            <div className="tile-main">{ends.natchathiram.name_ta ?? ends.natchathiram.name}</div>
-            <div className="tile-sub">ends {ends.natchathiram.ends ?? '—'}</div>
-          </div>
-          <div className="tile">
-            <div className="tile-label">திதி</div>
-            <div className="tile-main">{ends.thithi.name}</div>
-            <div className="tile-sub">ends {ends.thithi.ends ?? '—'}</div>
-          </div>
-          <div className="tile">
-            <div className="tile-label">யோகம்</div>
-            <div className="tile-main">{ends.yogam.name}</div>
-            <div className="tile-sub">ends {ends.yogam.ends ?? '—'}</div>
-          </div>
-          <div className="tile">
-            <div className="tile-label">கரணம்</div>
-            <div className="tile-main">{ends.karanam.name}</div>
-            <div className="tile-sub">ends {ends.karanam.ends ?? '—'}</div>
-          </div>
-        </div>
+        <h2>பஞ்ச அங்கங்கள் — panchang with end times</h2>
+        <PanchangTiles panchang={result.panchang} ends={ends}
+          dayLord={kp.day_lord} />
         <p className="muted-note">
-          End times are for the elements running at local midnight, KP
-          (Krishnamurti) ayanamsa — matching the author's chart format. Hours
-          past 24:00 fall after midnight.
+          The five elements shown once, with end times. Names, paksha and
+          element numbers are from the chart's own moment; end times are
+          for the elements running at local midnight, KP (Krishnamurti)
+          ayanamsa — matching the author's chart format. Hours past 24:00
+          fall after midnight. Thithi and karanam are identical under both
+          ayanamsas (they come from the Moon−Sun elongation, so the
+          ayanamsa cancels); natchathiram and yogam can differ.
         </p>
       </section>
 

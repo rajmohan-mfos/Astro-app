@@ -277,6 +277,20 @@ body {
   margin-top: 0.1rem;
 }
 
+/* end time / day lord line, only rendered where the data is available */
+.tile .tile-ends {
+  font-size: 0.72rem;
+  color: var(--accent2);
+  margin-top: 0.3rem;
+  padding-top: 0.25rem;
+  border-top: 1px dashed var(--line);
+}
+
+/* the merged tiles carry a fourth line, so labels need room to wrap */
+.tile .tile-label {
+  white-space: normal;
+}
+
 /* ---------- SouthIndianChart ---------- */
 
 .chart-wrap {

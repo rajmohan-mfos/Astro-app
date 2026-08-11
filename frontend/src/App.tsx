@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { compute } from './api'
 import type { ComputeRequest, ComputeResult } from './types'
 import InputPanel from './components/InputPanel'
-import PanchangTiles from './components/PanchangTiles'
 import SouthIndianChart from './components/SouthIndianChart'
 import GrahaTable from './components/GrahaTable'
 import PredictionPanel from './components/PredictionPanel'
@@ -53,7 +52,12 @@ function App() {
   const [result, setResult] = useState<ComputeResult | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [view, setView] = useState<'jothidam' | 'panchang'>('jothidam')
+  // Three non-overlapping views. Prediction is the default because it is
+  // what the app is opened for; the rasi chart and graha table used to
+  // sit underneath it, which meant they appeared below EVERY prediction
+  // sub-tab. They now have one home of their own.
+  const [view, setView] =
+    useState<'prediction' | 'jothidam' | 'panchang'>('prediction')
 
   const run = (req: ComputeRequest) => {
     setBusy(true)
@@ -90,22 +94,17 @@ function App() {
 
         <div className="output-col">
           <div className="view-tabs">
+            <button className={view === 'prediction' ? 'tab active' : 'tab'}
+              onClick={() => setView('prediction')}>Prediction</button>
             <button className={view === 'jothidam' ? 'tab active' : 'tab'}
-              onClick={() => setView('jothidam')}>Jothidam</button>
+              onClick={() => setView('jothidam')}>Rasi chart (Lahiri)</button>
             <button className={view === 'panchang' ? 'tab active' : 'tab'}
               onClick={() => setView('panchang')}>Panchang chart (KP)</button>
           </div>
 
           {!result && !error && <div className="loading">Computing…</div>}
-          {result && view === 'jothidam' && (
+          {result && view === 'prediction' && (
             <>
-              <section className="panel">
-                <h2>Panchang</h2>
-                <PanchangTiles panchang={result.panchang} />
-              </section>
-
-              {/* Planet position (KP) lives in the Panchang (KP) tab —
-                  it is KP data and was duplicating the graha table here */}
               {result.prediction.graph_segments &&
                 result.prediction.graph_segments.length > 0 && (
                 <section className="panel">
@@ -141,7 +140,11 @@ function App() {
                     lat: result.input.lat, lon: result.input.lon,
                   }} />
               </section>
+            </>
+          )}
 
+          {result && view === 'jothidam' && (
+            <>
               <section className="panel">
                 <h2>
                   Rasi chart
@@ -151,6 +154,11 @@ function App() {
                   </button>
                 </h2>
                 <SouthIndianChart result={result} />
+                <p className="muted-note">
+                  Sidereal Lahiri, ayanamsa {result.ayanamsa}° — the SPEC §5
+                  display chart. The Panchang (KP) tab shows the same sky on
+                  the KP ayanamsa, ~6′ apart.
+                </p>
               </section>
 
               <section className="panel">
@@ -159,6 +167,7 @@ function App() {
               </section>
             </>
           )}
+
           {result && view === 'panchang' && <PanchangChartView result={result} />}
         </div>
       </div>
