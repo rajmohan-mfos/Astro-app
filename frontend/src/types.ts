@@ -122,6 +122,11 @@ export interface KpDayChart {
   vaara: string
   day_lord: { en: string; ta: string }
   planet_position?: PlanetPositionSheet
+  // KP-ayanamsa positions for this tab's own rasi chart — distinct from
+  // the top-level Lahiri `grahas`/`lagna` the Jothidam tab draws
+  grahas?: Graha[]
+  lagna?: Lagna
+  ayanamsa?: number
   panchang_ends: {
     thithi: PanchangEnd
     natchathiram: PanchangEnd

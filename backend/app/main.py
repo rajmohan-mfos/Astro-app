@@ -168,6 +168,17 @@ def panchang_chart(req: ComputeRequest):
                                 req.minute, req.tz_offset, req.lat, req.lon)
         result["kp"] = transit.day_chart(req.year, req.month, req.day,
                                          req.tz_offset)
+        # The KP tab draws its own rasi chart. It used to reuse the
+        # Lahiri grahas from `result`, so a chart on the KP screen was
+        # showing Lahiri positions beside KP tables — the same
+        # numbers as the Jothidam tab, mislabelled. Give it real KP
+        # positions; the Jothidam tab keeps Lahiri per SPEC §5.
+        kp_chart = engine.compute(req.year, req.month, req.day, req.hour,
+                                  req.minute, req.tz_offset, req.lat,
+                                  req.lon, ayanamsa_mode=engine.KP)
+        result["kp"]["grahas"] = kp_chart["grahas"]
+        result["kp"]["lagna"] = kp_chart["lagna"]
+        result["kp"]["ayanamsa"] = kp_chart["ayanamsa"]
         pp = transit.planet_position(
             req.year, req.month, req.day, req.hour, req.minute,
             req.tz_offset, req.lat, req.lon)

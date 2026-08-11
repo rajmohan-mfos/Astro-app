@@ -9,7 +9,6 @@ import PredictionPanel from './components/PredictionPanel'
 import PanchangChartView from './components/PanchangChartView'
 import ProfilePanel from './components/ProfilePanel'
 import PredictionGraph from './components/PredictionGraph'
-import PlanetPosition from './components/PlanetPosition'
 import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 
@@ -105,13 +104,8 @@ function App() {
                 <PanchangTiles panchang={result.panchang} />
               </section>
 
-              {result.kp?.planet_position && (
-                <section className="panel">
-                  <h2>Planet position (KP) — {result.input.date} · {result.input.time}</h2>
-                  <PlanetPosition sheet={result.kp.planet_position} />
-                </section>
-              )}
-
+              {/* Planet position (KP) lives in the Panchang (KP) tab —
+                  it is KP data and was duplicating the graha table here */}
               {result.prediction.graph_segments &&
                 result.prediction.graph_segments.length > 0 && (
                 <section className="panel">
