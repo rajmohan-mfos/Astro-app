@@ -211,10 +211,15 @@ def sun_nak_window(year: int, month: int, day: int, tz_offset: float) -> dict:
 
 
 def moon_rasi_exit(year: int, month: int, day: int, tz_offset: float) -> str:
-    """Local datetime when the transit Moon leaves its current rasi
-    (Lahiri, matching the jothidam engine). The Moon spends ~2.5 days per
-    rasi, so the search window is 3 days from 09:15 local."""
-    swe.set_sid_mode(swe.SIDM_LAHIRI, 0, 0)
+    """Local datetime when the transit Moon leaves its current rasi.
+
+    KP, matching the /api/can-trade charts this feeds. The two MUST agree:
+    `rasi_until` answers "when does the Moon leave THIS rasi", where "this"
+    is the `transit_rasi` computed in `can_trade`. Under a different
+    ayanamsa the two name different rasis on boundary days and the exit
+    time is wrong by up to ~2.5 days. The Moon spends ~2.5 days per rasi,
+    so the search window is 3 days from 09:15 local."""
+    swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
     jd_ref = swe.julday(year, month, day, 9.25 - tz_offset)
     moon = _lon_fn(swe.MOON)
     target = (int(moon(jd_ref) // 30) + 1) * 30 % 360

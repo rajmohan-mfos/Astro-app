@@ -434,11 +434,28 @@ weekly Mars count on 2022-02-10 stays **11**, so the documented
 degree-vs-whole-sign conflict below (our 11 against the video's 12) is
 neither resolved nor worsened by this change.
 
-Deliberately left on Lahiri: the kundali profile check (`main.py`
-birth/transit charts and `transit.moon_rasi_exit`). That reading is
-natal rasi counting in whole-sign buckets — both charts shift together,
-so 0.097° almost never changes the count — and the birth chart, transit
-chart and `rasi_until` are mutually consistent as they stand.
+The kundali profile check (`/api/can-trade`) moved to KP in a third pass,
+at the user's direction. It had been left on Lahiri as internally
+consistent, and the measured impact is indeed small: over 2196
+(birth, day) pairs — 6 birth charts × the whole of 2024 — any field
+changes on 0.55% of pairs and the VERDICT itself on 0.36%. All of those
+are days where the transit Moon sits within 0.097° of a sign boundary
+(Kanya/Tula, Makara/Kumbha in the sampled cases); no sampled birth lagna
+changed sign. Both the birth chart and the transit chart moved, and
+`transit.moon_rasi_exit` moved with them — it must, since `rasi_until`
+names when the Moon leaves the rasi that `transit_rasi` reports, and a
+split there would be the same straddle bug inside a single response.
+The KP crossing for the 2021-05-05 fixture is 05:43 against Lahiri's
+05:55, a ~12 minute shift.
+
+Cast time for this check stays at **09:15**, deliberately: "can I trade
+today" is a market-open gochara read, unlike the panchang day that
+`graph.cast_chart` opens at sunrise. Moving it to sunrise would be the
+larger change by far — 5.19% of pairs and 4.05% of verdicts, against the
+ayanamsa's 0.36% — and is left as an open question rather than folded in.
+
+Still Lahiri, and staying that way: the `/api/compute` and
+`/api/panchang-chart` display endpoints (SPEC §5).
 
 ## Open questions / pending
 

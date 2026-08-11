@@ -51,10 +51,17 @@ GOOD_COUNTS = {2, 6, 11}
 def can_trade(req: CanTradeRequest):
     try:
         b = req.birth
+        # KP, like the rest of the prediction path (see RULES-SOURCES.md).
+        # Only the /api/compute display endpoints stay Lahiri per SPEC §5.
+        # Cast time stays 09:15 — this is a "can I trade today" gochara
+        # read, so market open is the relevant moment; the sunrise cast
+        # used by graph.cast_chart belongs to the panchang day, not here.
         birth_chart = engine.compute(b.year, b.month, b.day, b.hour,
-                                     b.minute, b.tz_offset, b.lat, b.lon)
+                                     b.minute, b.tz_offset, b.lat, b.lon,
+                                     ayanamsa_mode=engine.KP)
         today_chart = engine.compute(req.year, req.month, req.day, 9, 15,
-                                     req.tz_offset, b.lat, b.lon)
+                                     req.tz_offset, b.lat, b.lon,
+                                     ayanamsa_mode=engine.KP)
     except ValueError as e:
         return JSONResponse(status_code=400, content={"error": str(e)})
 

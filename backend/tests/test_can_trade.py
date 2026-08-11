@@ -1,4 +1,11 @@
-﻿"""Tests for the /api/can-trade gochara check."""
+"""Tests for the /api/can-trade gochara check.
+
+Charts here are KP, like the rest of the prediction path — only the
+/api/compute display endpoints stay Lahiri (SPEC §5). Cast time stays
+09:15: this is a "can I trade today" read, so market open is the relevant
+moment rather than the sunrise used for the panchang day.
+"""
+from app import engine, transit
 from app.main import CanTradeRequest, ComputeRequest, can_trade
 
 
@@ -10,23 +17,87 @@ def make_req(by, bm, bd, y, m, d):
 
 
 def test_can_trade_counts_and_verdict():
-    # Birth 1990-01-01: Moon 306.465 â†’ Kumbha (sign 10)
+    # Birth 1990-01-01: Moon ~306.4 -> Kumbha (sign 10)
     r = can_trade(make_req(1990, 1, 1, 2021, 5, 5))
     assert r["birth_rasi"]["en"] == "Kumbha"
-    # 2021-05-05 09:15: Moon â‰ˆ 306.8 â†’ Kumbha â†’ count 1 â†’ neutral OK
+    # 2021-05-05 09:15: Moon ~306.7 -> Kumbha -> count 1 -> neutral OK
     assert r["transit_rasi"]["en"] == "Kumbha"
     assert r["count"] == 1
     # lagna Meena: transit Moon is 12th FROM THE LAGNA -> AVOID [guide 2.1]
     assert r["lagna_count"] == 12
     assert r["verdict"] == "AVOID"
-    assert r["rasi_until"] != "â€”"
 
-    # 2021-05-11: Moon in Mesha (sign 0) â†’ (0-10)%12+1 = 3 â†’ neutral;
-    # walk a few days to hit an AVOID (count 5 = Mithuna â‰ˆ May 16)
+    # 2021-05-11: Moon in Mesha (sign 0) -> (0-10)%12+1 = 3 -> neutral;
+    # walk a few days to hit an AVOID (count 5 = Mithuna ~ May 16)
     r = can_trade(make_req(1990, 1, 1, 2021, 5, 16))
     assert r["count"] in (4, 5)          # boundary tolerance
     if r["count"] == 5:
         assert r["verdict"] == "AVOID"
+
+
+def test_rasi_until_is_a_real_timestamp():
+    """The old assertion compared against a mojibake em dash, so it could
+    never fail — it passed even when moon_rasi_exit returned its "—"
+    sentinel. Check the actual shape instead."""
+    r = can_trade(make_req(1990, 1, 1, 2021, 5, 5))
+    until = r["rasi_until"]
+    assert until != "—", "moon_rasi_exit found no crossing"
+    import datetime
+    parsed = datetime.datetime.strptime(until, "%Y-%m-%d %H:%M")
+    # the Moon spends ~2.5 days per rasi, so the exit is within 3 days
+    assert 0 <= (parsed - datetime.datetime(2021, 5, 5, 9, 15)).days <= 3
+
+
+def test_rasi_until_agrees_with_transit_rasi():
+    """`rasi_until` answers "when does the Moon leave THIS rasi" — so the
+    Moon must still be in `transit_rasi` just before that moment and out
+    of it just after.
+
+    The probe below computes on KP, so this pins the whole path to KP as
+    well as tying its two halves together: it fails if `can_trade` drops
+    back to Lahiri (transit_rasi stops matching), and `test_moon_rasi_exit_is_kp`
+    fails if `moon_rasi_exit` does. Between them, a revert of either half
+    is caught. A single-ayanamsa mismatch would name different rasis on
+    boundary days and put the exit time out by up to ~2.5 days.
+    """
+    import datetime
+
+    for day in (5, 11, 16, 23):
+        r = can_trade(make_req(1990, 1, 1, 2021, 5, day))
+        t = datetime.datetime.strptime(r["rasi_until"], "%Y-%m-%d %H:%M")
+
+        def rasi_at(dt):
+            c = engine.compute(dt.year, dt.month, dt.day, dt.hour,
+                               dt.minute, 5.5, 13.0827, 80.2707,
+                               ayanamsa_mode=engine.KP)
+            return next(g for g in c["grahas"] if g["name"] == "Moon")["rasi"]
+
+        before = rasi_at(t - datetime.timedelta(minutes=10))
+        after = rasi_at(t + datetime.timedelta(minutes=10))
+        assert before == r["transit_rasi"]["en"], (day, before, r)
+        assert after != before, (day, after, r)
+
+
+def test_moon_rasi_exit_is_kp():
+    """Pin the ayanamsa by its observable consequence.
+
+    The Moon covers 0.55°/hour, so the 0.097° Lahiri/KP offset moves a
+    rasi crossing by ~12 minutes: this crossing is 05:43 under KP and
+    05:55 under Lahiri. Asserting the KP value is what catches a revert —
+    an earlier version of this test compared two calls to the same
+    function, which returns the same answer either way and so could never
+    fail.
+    """
+    assert transit.moon_rasi_exit(2021, 5, 5, 5.5) == "2021-05-07 05:43"
+
+
+def test_moon_rasi_exit_sets_its_own_sid_mode():
+    """Must not inherit whatever ayanamsa the previous caller left set."""
+    import swisseph as swe
+
+    expected = transit.moon_rasi_exit(2021, 5, 5, 5.5)
+    swe.set_sid_mode(swe.SIDM_LAHIRI, 0, 0)
+    assert transit.moon_rasi_exit(2021, 5, 5, 5.5) == expected
 
 
 def test_verdict_classes():
