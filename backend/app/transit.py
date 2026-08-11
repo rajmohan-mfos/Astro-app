@@ -758,7 +758,8 @@ def jupiter_nak_window(year: int, month: int, day: int,
     }
 
 
-def day_chart(year: int, month: int, day: int, tz_offset: float) -> dict:
+def day_chart(year: int, month: int, day: int, tz_offset: float,
+              include_transits: bool = True) -> dict:
     """The KP day-chart extras: day lord, panchang end times, transit tables.
 
     Uses the KP (Krishnamurti) ayanamsa — this is a KP chart, and the author's
@@ -767,6 +768,15 @@ def day_chart(year: int, month: int, day: int, tz_offset: float) -> dict:
     The window runs from local midnight to +30h so late-night rows show as
     24:xx / 25:xx, matching the author's chart. The panchang block lists the
     elements running at day start with their end times, as the author does.
+
+    `include_transits` gates the two transit tables, which are by far the
+    expensive part — seven bodies of boundary-crossing searches, the Moon
+    stepped every 20 minutes across 30 hours. The UI stopped showing them
+    (user's call, 2026-08-11) and nothing in the prediction path reads
+    them, so /api/panchang-chart passes False. The computation and its
+    tests are kept: they are validated against the author's printed
+    05/05/2021 chart and are the evidence that the KP timing convention
+    is right.
     """
     swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
     jd0 = swe.julday(year, month, day, -tz_offset)          # local 00:00
@@ -774,6 +784,13 @@ def day_chart(year: int, month: int, day: int, tz_offset: float) -> dict:
     jd_ref = jd0 + 1e-6
 
     lord = WEEKDAY_LORDS[datetime.date(year, month, day).weekday()]
+    out = {
+        "vaara": WEEKDAYS[datetime.date(year, month, day).weekday()],
+        "day_lord": {"en": lord, "ta": GRAHA_TA[lord]},
+        "panchang_ends": _panchang_ends(jd_ref, jd0),
+    }
+    if not include_transits:
+        return out
 
     moon_rows = _transits(swe.MOON, jd0, jd_end, step=20 / 1440)
 
@@ -785,10 +802,6 @@ def day_chart(year: int, month: int, day: int, tz_offset: float) -> dict:
             planet_rows.append({"graha": name, "graha_ta": GRAHA_TA[name], **row})
     planet_rows.sort(key=lambda r: r["time"])
 
-    return {
-        "vaara": WEEKDAYS[datetime.date(year, month, day).weekday()],
-        "day_lord": {"en": lord, "ta": GRAHA_TA[lord]},
-        "panchang_ends": _panchang_ends(jd_ref, jd0),
-        "moon_transits": moon_rows,
-        "planet_transits": planet_rows,
-    }
+    out["moon_transits"] = moon_rows
+    out["planet_transits"] = planet_rows
+    return out

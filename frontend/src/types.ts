@@ -154,8 +154,10 @@ export interface KpDayChart {
     yogam: PanchangEnd
     karanam: PanchangEnd
   }
-  moon_transits: TransitRow[]
-  planet_transits: TransitRow[]
+  // optional: /api/panchang-chart omits these (nothing displays them),
+  // but transit.day_chart can still produce them
+  moon_transits?: TransitRow[]
+  planet_transits?: TransitRow[]
 }
 
 export interface ComputeResult {

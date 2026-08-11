@@ -166,8 +166,12 @@ def panchang_chart(req: ComputeRequest):
     try:
         result = engine.compute(req.year, req.month, req.day, req.hour,
                                 req.minute, req.tz_offset, req.lat, req.lon)
+        # transit tables omitted: the UI no longer shows them and nothing
+        # in the prediction path reads them, so skip the seven bodies of
+        # crossing searches they cost
         result["kp"] = transit.day_chart(req.year, req.month, req.day,
-                                         req.tz_offset)
+                                         req.tz_offset,
+                                         include_transits=False)
         # The KP tab draws its own rasi chart. It used to reuse the
         # Lahiri grahas from `result`, so a chart on the KP screen was
         # showing Lahiri positions beside KP tables — the same
