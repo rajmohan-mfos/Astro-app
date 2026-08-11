@@ -389,3 +389,40 @@ reproduces the numbers above rather than silently drifting. Nothing in the
 conclusions turns on it: at a 48.3% hit rate against a 48.3% base rate, a
 2% reshuffle cannot manufacture an edge. If the study is ever redone, it
 should move to Mumbai for consistency with the app.
+
+## Re-run at Mumbai (`scripts/backtest_nifty.py 5 mumbai`)
+
+Run 2026-08-11 after the app's default cast location moved to Mumbai.
+1,235 trading days, 2021-08-11 → 2026-08-11. Per-day data in
+`nifty_backtest_mumbai.csv`; the Chennai run is untouched in
+`nifty_backtest.csv`.
+
+| Test | Chennai | Mumbai |
+|---|---|---|
+| Baseline: share of up days | 48.3% | 48.3% |
+| **Engine direction, all directional days** | **48.3%** (n=1085) | **48.2%** (n=1086) |
+| Strong-signal days (\|score\| ≥ 0.5) | 46.4% (n=468) | 46.6% (n=461) |
+| Days with a real move (\|ret\| ≥ 0.25%) | 48.7% (n=725) | 49.0% (n=729) |
+| Thithi positive → up | 48.7% | 48.6% |
+| Thithi negative → down | 51.9% | 52.1% |
+| Yogam positive → up | 46.8% | 46.8% |
+| Yogam negative → down | 49.3% | 49.6% |
+| Yogam **very** negative → down | 49.6% | 49.6% |
+| Panchang tally ≥ +0.5 → up | 47.8% | 47.8% |
+| Panchang tally ≤ −0.5 → down | 48.2% | 48.5% |
+| **Chain AND panchang agree (confluence)** | **45.5%** | **45.3%** |
+
+Per-year (Mumbai): 40.7 / 52.9 / 45.0 / 49.8 / 49.1 / 45.6 (2021→2026),
+against Chennai's 41.4 / 54.3 / 45.2 / 49.8 / 48.4 / 44.6.
+
+**Nothing moves.** Every cell lands within ~1pp of the Chennai run, well
+inside the ±3pp confidence interval at this sample size — as expected,
+since the two configurations differ on only 2.0% of days. The engine sits
+at 48.2% against a 48.3% base rate, so it is still a coin flip that loses
+to "always predict down" (51.7%), and confluence is still the single worst
+cell in the study at 45.3%.
+
+That the result is location-invariant is mildly useful in itself: the
+finding is not an artifact of casting at Chennai, and moving the app to
+the exchange's own city does not rescue it. The method still does not
+forecast Nifty.

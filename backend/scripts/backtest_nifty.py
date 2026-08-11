@@ -6,8 +6,12 @@ sideways-bearish -0.5, bearish -1). Predicted direction = sign(score).
 Actual direction = sign(close - open) — the session shape the graph
 claims to predict. Educational evaluation only.
 
-Usage: python scripts/backtest_nifty.py [years]
-Writes per-day results to knowledge/backtest/nifty_backtest.csv.
+Usage: python scripts/backtest_nifty.py [years] [place]
+  place = chennai (default) | mumbai
+
+Chennai is the default so the published RESULTS.md tables stay
+reproducible; Mumbai matches the app's own default cast location (the NSE
+is there). Each place writes its own CSV, so neither overwrites the other.
 """
 import csv
 import json
@@ -20,7 +24,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from app import engine                                  # noqa: E402
 from app.rules import graph, panchang_rules             # noqa: E402
 
-LAT, LON, TZ = 13.0827, 80.2707, 5.5
+PLACES = {"chennai": (13.0827, 80.2707), "mumbai": (19.076, 72.8777)}
+LAT, LON, TZ = 13.0827, 80.2707, 5.5      # set from argv in main()
 WEIGHTS = {"bullish": 1.0, "sideways-bullish": 0.5, "sideways": 0.0,
            "angle": 0.0, "sideways-bearish": -0.5, "bearish": -1.0}
 
@@ -64,10 +69,16 @@ def day_prediction(d):
 
 
 def main():
+    global LAT, LON
     years = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+    place = (sys.argv[2] if len(sys.argv) > 2 else "chennai").lower()
+    if place not in PLACES:
+        raise SystemExit(f"place must be one of {sorted(PLACES)}")
+    LAT, LON = PLACES[place]
     days = fetch_nifty(years)
     print(f"{len(days)} trading days fetched "
-          f"({days[0][0]} → {days[-1][0]})")
+          f"({days[0][0]} → {days[-1][0]})  place={place} "
+          f"({LAT}, {LON})")
 
     rows = []
     for d, o, c in days:
@@ -85,7 +96,9 @@ def main():
     out_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge",
                            "backtest")
     os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "nifty_backtest.csv")
+    name = ("nifty_backtest.csv" if place == "chennai"
+            else f"nifty_backtest_{place}.csv")
+    path = os.path.join(out_dir, name)
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=rows[0].keys())
         w.writeheader()
