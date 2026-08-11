@@ -6,6 +6,9 @@ Environment:
   ASTRO_LAT/ASTRO_LON  optional, default Mumbai (the NSE's location)
   ASTRO_DATE           optional YYYY-MM-DD, for testing a specific day
   ASTRO_DRY_RUN        set to 1 to print the message instead of sending
+  ASTRO_DIAGNOSE       set to 1 to check the token and list the chat ids
+                       the bot can see, instead of sending. Use this when
+                       Telegram answers "chat not found".
 
 Nothing here stores a phone number: Telegram addresses a chat id, so the
 number never enters the repository or its logs.
@@ -114,7 +117,64 @@ def send(text: str) -> None:
     print("sent")
 
 
+def _api(token: str, method: str) -> dict:
+    with urllib.request.urlopen(
+            f"https://api.telegram.org/bot{token}/{method}", timeout=30) as r:
+        return json.load(r)
+
+
+def diagnose() -> None:
+    """Work out why a send failed, without ever printing the token.
+
+    Prints chat ids and names only — never message text, since this lands
+    in the Actions log.
+    """
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token:
+        raise SystemExit("TELEGRAM_BOT_TOKEN is not set")
+    print(f"TELEGRAM_CHAT_ID is {'set' if chat else 'NOT SET'}"
+          + (f" ({len(chat)} chars, "
+             f"{'numeric' if chat.lstrip('-').isdigit() else 'NOT NUMERIC'})"
+             if chat else ""))
+    if chat and chat != chat.strip():
+        print("  WARNING: it has leading/trailing whitespace — that alone "
+              "causes 'chat not found'")
+
+    try:
+        me = _api(token, "getMe")
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"token rejected: HTTP {e.code} — regenerate it "
+                         f"with @BotFather")
+    print(f"token OK — bot is @{me['result'].get('username')}")
+
+    ups = _api(token, "getUpdates")
+    chats = {}
+    for u in ups.get("result", []):
+        m = u.get("message") or u.get("channel_post") or {}
+        c = m.get("chat")
+        if c:
+            chats[c["id"]] = (c.get("type"), c.get("first_name")
+                              or c.get("title") or c.get("username"))
+    if not chats:
+        print("\nThe bot has received NO messages, so it cannot know your "
+              "chat id.\nOpen Telegram, find the bot by the @username "
+              "above, press Start,\nsend it any message, then run this "
+              "again.")
+        return
+    print("\nchat ids this bot can message:")
+    for cid, (kind, who) in chats.items():
+        mark = "  <-- matches your secret" if str(cid) == (chat or "") else ""
+        print(f"  {cid}   ({kind}, {who}){mark}")
+    if chat and str(chat) not in {str(c) for c in chats}:
+        print("\nYour TELEGRAM_CHAT_ID matches none of these. Set it to one "
+              "of the ids above.")
+
+
 def main() -> None:
+    if os.environ.get("ASTRO_DIAGNOSE") == "1":
+        diagnose()
+        return
     raw = os.environ.get("ASTRO_DATE")
     d = (datetime.date.fromisoformat(raw) if raw
          else datetime.datetime.now(IST).date())

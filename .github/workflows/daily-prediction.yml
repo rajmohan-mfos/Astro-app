@@ -26,6 +26,10 @@ on:
         description: 'Print the message instead of sending (1 = yes)'
         required: false
         default: '0'
+      diagnose:
+        description: 'Check token and list visible chat ids (1 = yes)'
+        required: false
+        default: '0'
 
 jobs:
   send:
@@ -51,4 +55,5 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ASTRO_DATE: ${{ github.event.inputs.date }}
           ASTRO_DRY_RUN: ${{ github.event.inputs.dry_run }}
+          ASTRO_DIAGNOSE: ${{ github.event.inputs.diagnose }}
         run: python scripts/daily_push.py
