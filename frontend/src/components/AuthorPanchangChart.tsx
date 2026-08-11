@@ -51,11 +51,16 @@ function Ring({ cell, edge }: { cell: ChartCell; edge: Edge }) {
     ? { gridRow: track, gridColumn: col + 2 }
     : { gridRow: row + 2, gridColumn: track }
 
+  // The ring is a table aligned ROW BY ROW with the cell beside it: one
+  // line per body, same order, same line height, and a spacer matching
+  // the cell's rasi label so line 1 of the ring sits on line 1 of the
+  // cell. The reference chart aligns them exactly this way.
   const list = (key: 'sub_short' | 'star_short') => (
     <div className={`ring-cell${vertical ? ' ring-vertical' : ''}`}
       style={place(key === 'sub_short' ? subTrack : starTrack)}>
+      {!vertical && <div className="ring-spacer" aria-hidden="true" />}
       {cell.items.map((it, i) => (
-        <span key={i} className="ring-lord">{it[key]}</span>
+        <div key={i} className="ring-lord">{it[key]}</div>
       ))}
     </div>
   )
@@ -95,6 +100,16 @@ export default function AuthorPanchangChart({ result }: { result: ComputeResult 
           <Ring key={`r${cell.sign}`} cell={cell} edge={EDGE[cell.sign]} />
         ))}
 
+        {/* Three nested frames, as the reference draws them:
+              container border | sub column | FRAME B | star column | grid
+            Frame B sits BETWEEN the two lord columns — that is the line
+            separating e.g. "Ven" from "Mer" — so it spans tracks 2..7,
+            leaving the outer sub column outside it. */}
+        <div className="author-frame" aria-hidden="true"
+          style={{ gridRow: '2 / 8', gridColumn: '2 / 8' }} />
+        <div className="author-frame author-frame-inner" aria-hidden="true"
+          style={{ gridRow: '3 / 7', gridColumn: '3 / 7' }} />
+
         <div className="author-center"
           style={{ gridRow: '4 / 6', gridColumn: '4 / 6' }}>
           <div className="author-date">{d}-{m}-{y}</div>
@@ -110,7 +125,11 @@ export default function AuthorPanchangChart({ result }: { result: ComputeResult 
         outside its cell and its <strong>sub lord</strong> one track further
         out. Includes the lagna and the outer planets (Uranus, Neptune,
         Pluto), which the nine-graha jothidam chart omits. Degrees are
-        DD.MM — 26.36 is 26°36′, not 26.6°.
+        DD.MM — 26.36 is 26°36′, not 26.6°. Positions are{' '}
+        <strong>Lahiri</strong>, matching the reference chart: solving the
+        ayanamsa from its own printed degrees gives Lahiri to 0.3′ and KP
+        to 5.5′. The transit tables below stay KP, which is what their
+        timings reproduce on.
       </p>
     </div>
   )

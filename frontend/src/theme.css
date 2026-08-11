@@ -311,60 +311,98 @@ body {
   min-width: 640px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 0.4rem;
-  border: 1px solid var(--line);
+  /* padding separates the outermost border from the second frame, which
+     hugs the label ring — the nesting the reference chart shows */
+  padding: 0.85rem;
+  border: 1px solid var(--accent2);
   border-radius: 6px;
   font-size: 0.74rem;
+}
+
+/* Cells and ring share one type scale so their rows line up exactly. */
+.author-chart {
+  --row-h: 1.35em;
+  --pad-y: 0.25rem;
 }
 
 .author-cell {
   border: 1px solid var(--accent2);
   border-radius: 3px;
-  padding: 0.25rem 0.3rem;
+  padding: var(--pad-y) 0.3rem;
   background: var(--cell);
   min-width: 0;
+  z-index: 1;
 }
 
-.author-rasi {
+.author-rasi,
+.ring-spacer {
   font-size: 0.6rem;
+  line-height: var(--row-h);
   color: var(--muted);
-  margin-bottom: 0.15rem;
+}
+
+/* the spacer is empty, so it needs an explicit height to stand in for
+   the rasi label — otherwise the ring starts one row too high */
+.ring-spacer {
+  height: var(--row-h);
+  flex: 0 0 auto;
+}
+
+.author-body,
+.ring-lord {
+  line-height: var(--row-h);
+  font-family: ui-monospace, monospace;
+  white-space: nowrap;
 }
 
 .author-body {
   display: flex;
   justify-content: space-between;
   gap: 0.4rem;
-  font-family: ui-monospace, monospace;
-  white-space: nowrap;
 }
 
 .author-deg {
   color: var(--accent);
 }
 
-/* the label ring: one lord per body, in the same order as the cell */
+/* The label ring is a TABLE aligned row-by-row with its cell: same line
+   height, same order, and a spacer standing in for the rasi label, so
+   ring line N sits exactly on cell line N (as the reference does). */
 .ring-cell {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-end;
-  padding: 0.25rem 0.2rem;
+  padding: var(--pad-y) 0.25rem;
   gap: 0;
   font-family: ui-monospace, monospace;
-  font-size: 0.63rem;
   color: var(--accent2);
+  z-index: 1;
 }
 
 .ring-cell.ring-vertical {
   flex-direction: row;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .ring-cell.ring-vertical .ring-lord {
   writing-mode: vertical-rl;
+}
+
+/* Nested frames, drawn behind the cells. Each sits in the 2px grid gap
+   at its track boundary, so the -1px margin centres it in that gap
+   rather than crowding the text on either side. */
+.author-frame {
+  border: 1px solid var(--accent2);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 0;
+  margin: -1px;
+}
+
+.author-frame-inner {
+  opacity: 0.75;
 }
 
 .author-center {

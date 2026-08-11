@@ -559,20 +559,36 @@ CHART_BODIES = [
 
 
 def chart_cells(year: int, month: int, day: int, hour: int, minute: int,
-                tz_offset: float, lat: float, lon_geo: float) -> list[dict]:
+                tz_offset: float, lat: float, lon_geo: float,
+                ayanamsa_mode: int = swe.SIDM_LAHIRI) -> list[dict]:
     """The author's panchang chart: 12 rasi cells, each listing the bodies
     in it with degree, star lord and sub lord.
 
-    Reproduces the reference image's content exactly — including the
-    LAGNA and the three outer planets (Uranus, Neptune, Pluto), which the
-    nine-graha jothidam chart does not carry. Degrees are DD.MM as the
-    author prints them (26.36 = 26 deg 36 min), not decimal.
+    Reproduces the reference image's content — including the LAGNA and the
+    three outer planets (Uranus, Neptune, Pluto), which the nine-graha
+    jothidam chart does not carry. Degrees are DD.MM as the author prints
+    them (26.36 = 26 deg 36 min), not decimal. The star and sub lord per
+    body are the ring OUTSIDE the grid, star lord nearest the cell.
 
-    The star and sub lord per body are what the image shows in the ring
-    OUTSIDE the grid, star lord nearest the cell. Verified against the
-    06-01-2022 reference on 11 of 12 bodies.
+    AYANAMSA IS LAHIRI, established from the reference chart itself rather
+    than assumed. Solving the implied ayanamsa from its printed degrees
+    (06-01-2022) gives 24.1599 deg from the slow bodies, ~1 arcmin scatter:
+    Lahiri is 24.1646 (0.3 arcmin away), KP is 24.0678 (5.5 arcmin away).
+    Casting on Lahiri reproduces all 12 bodies to within 0.5 arcmin and
+    12 of 13 star/sub lord pairs; KP misses every degree by 5-6 arcmin.
+
+    This conflicts with the transit TIMING tables, which reproduce on KP
+    and are ~10 min out on Lahiri (see RULES-SOURCES.md). Both are
+    measured; they are different artifacts and may come from different
+    tools. The chart follows the chart evidence.
+
+    The reference's Lagna is the one body that does not fit — it sits
+    ~10 deg from the ascendant at the moment its planets imply, so that
+    chart was cast for a different place or the lagna was entered by
+    hand. Planets are location-independent, so this does not affect the
+    ayanamsa finding.
     """
-    swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
+    swe.set_sid_mode(ayanamsa_mode, 0, 0)
     jd = swe.julday(year, month, day, hour + minute / 60 - tz_offset)
     asc = swe.houses_ex(jd, lat, lon_geo, b'P', swe.FLG_SIDEREAL)[1][0] % 360
 

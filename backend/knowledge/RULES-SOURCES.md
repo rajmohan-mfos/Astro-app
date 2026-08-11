@@ -432,6 +432,43 @@ before this commit are not comparable with those after it.
 
 `judge(int, int)` is retained and still passes its cases.
 
+## The author's own panchang chart is LAHIRI (measured 2026-08-11)
+
+Established from the reference chart the user supplied ("I need the
+panchang chart in this manner.png", dated 06-01-2022) by solving the
+ayanamsa from its own printed degrees rather than assuming one:
+
+| source | ayanamsa at that instant | distance from the chart |
+|---|---|---|
+| implied by the chart's slow bodies | **24.1599°** (~1′ scatter) | — |
+| SIDM_LAHIRI | 24.1646° | **0.3′** |
+| SIDM_KRISHNAMURTI | 24.0678° | 5.5′ |
+
+Casting on Lahiri reproduces **all 12 bodies to within 0.5 arcmin** and
+**12 of 13** star/sub lord pairs. KP misses every degree by 5–6′ and also
+gets Rahu's sub lord wrong. The one body that does not fit under either is
+the **Lagna**, which sits ~10° from the ascendant at the moment its own
+planets imply — that chart was cast for a different place, or its lagna
+was entered by hand. Planets are location-independent, so this does not
+weaken the ayanamsa result.
+
+`transit.chart_cells` therefore defaults to Lahiri, and the KP tab's
+author-format chart is drawn on it.
+
+**This conflicts with the transit-timing evidence below**, which found the
+teacher's Moon sub-lord table reproduces on KP and is ~10 min out on
+Lahiri. Both are measured, on different artifacts, and may simply come
+from different tools — a rasi chart printed by one program and a transit
+table by another. Neither measurement is being discarded: the chart
+follows the chart evidence, the timing tables follow the timing evidence,
+and each says which it uses on screen. If a third source ever settles it,
+this is the entry to revisit.
+
+Also corrected here: an earlier commit (`751f6bc`) called the KP tab's
+Lahiri positions a bug and "fixed" them to KP. That was wrong — the
+Lahiri positions were what matched the author's chart, and the change is
+what introduced the degree mismatch the user then reported.
+
 ## Ayanamsa: KP for the prediction path, Lahiri for the display
 
 Two sidereal zodiacs are in play and they differ by 0.097° (5.8 arcmin):
