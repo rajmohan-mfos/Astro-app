@@ -179,6 +179,10 @@ def panchang_chart(req: ComputeRequest):
         result["kp"]["grahas"] = kp_chart["grahas"]
         result["kp"]["lagna"] = kp_chart["lagna"]
         result["kp"]["ayanamsa"] = kp_chart["ayanamsa"]
+        # author-format cells: lagna + outer planets + per-body lords
+        result["kp"]["cells"] = transit.chart_cells(
+            req.year, req.month, req.day, req.hour, req.minute,
+            req.tz_offset, req.lat, req.lon)
         pp = transit.planet_position(
             req.year, req.month, req.day, req.hour, req.minute,
             req.tz_offset, req.lat, req.lon)

@@ -118,6 +118,26 @@ export interface PlanetPositionSheet {
   day_lord: { en: string; ta: string }
 }
 
+/** One body as the author's chart prints it: abbreviation, DD.MM degree,
+ *  and the star/sub lords that appear in the ring outside the grid. */
+export interface ChartBody {
+  name: string
+  short: string
+  deg: string
+  retro: boolean
+  star_lord: string
+  sub_lord: string
+  star_short: string
+  sub_short: string
+}
+
+export interface ChartCell {
+  sign: number
+  rasi: string
+  rasi_ta: string
+  items: ChartBody[]
+}
+
 export interface KpDayChart {
   vaara: string
   day_lord: { en: string; ta: string }
@@ -127,6 +147,7 @@ export interface KpDayChart {
   grahas?: Graha[]
   lagna?: Lagna
   ayanamsa?: number
+  cells?: ChartCell[]
   panchang_ends: {
     thithi: PanchangEnd
     natchathiram: PanchangEnd

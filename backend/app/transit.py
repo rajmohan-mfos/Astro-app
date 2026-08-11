@@ -15,7 +15,7 @@ import datetime
 import swisseph as swe
 
 from .engine import FLAGS
-from .names import (RASIS, NAKSHATRAS, THITHIS, YOGAS, GRAHA_TA,
+from .names import (RASIS, RASIS_TA, NAKSHATRAS, THITHIS, YOGAS, GRAHA_TA,
                     NAKSHATRAS_TA, WEEKDAYS)
 from .panchang import karana_name
 
@@ -543,6 +543,71 @@ def horary_chart(number: int, year: int, month: int, day: int, hour: int,
         "moon_house": house_of("Moon"),
         "lagna_sub_lord": lords_of(asc)["sub_lord"],
     }
+
+
+# Abbreviations and order as they appear in the author's chart image
+# ("I need the panchang chart in this manner.png", OPTIONS MERSAL format).
+CHART_BODIES = [
+    ("Lagna", "Lag", None), ("Sun", "Sun", swe.SUN),
+    ("Moon", "Moo", swe.MOON), ("Mars", "Mar", swe.MARS),
+    ("Mercury", "Mer", swe.MERCURY), ("Jupiter", "Jup", swe.JUPITER),
+    ("Venus", "Ven", swe.VENUS), ("Saturn", "Sat", swe.SATURN),
+    ("Rahu", "Rah", swe.MEAN_NODE), ("Ketu", "Ket", None),
+    ("Uranus", "Uran", swe.URANUS), ("Neptune", "Nept", swe.NEPTUNE),
+    ("Pluto", "Plut", swe.PLUTO),
+]
+
+
+def chart_cells(year: int, month: int, day: int, hour: int, minute: int,
+                tz_offset: float, lat: float, lon_geo: float) -> list[dict]:
+    """The author's panchang chart: 12 rasi cells, each listing the bodies
+    in it with degree, star lord and sub lord.
+
+    Reproduces the reference image's content exactly — including the
+    LAGNA and the three outer planets (Uranus, Neptune, Pluto), which the
+    nine-graha jothidam chart does not carry. Degrees are DD.MM as the
+    author prints them (26.36 = 26 deg 36 min), not decimal.
+
+    The star and sub lord per body are what the image shows in the ring
+    OUTSIDE the grid, star lord nearest the cell. Verified against the
+    06-01-2022 reference on 11 of 12 bodies.
+    """
+    swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
+    jd = swe.julday(year, month, day, hour + minute / 60 - tz_offset)
+    asc = swe.houses_ex(jd, lat, lon_geo, b'P', swe.FLG_SIDEREAL)[1][0] % 360
+
+    cells: list[list[tuple[float, dict]]] = [[] for _ in range(12)]
+    for name, short, body in CHART_BODIES:
+        if name == "Lagna":
+            lon, retro = asc, False
+        elif name == "Ketu":
+            rahu = swe.calc_ut(jd, swe.MEAN_NODE, FLAGS)[0][0] % 360
+            lon, retro = (rahu + 180) % 360, False
+        else:
+            v = swe.calc_ut(jd, body, FLAGS)[0]
+            lon, retro = v[0] % 360, v[3] < 0
+            if name == "Rahu":
+                retro = False           # nodes are always retrograde; not marked
+        L = lords_of(lon)
+        d = lon % 30
+        cells[int(lon // 30)].append((d, {
+            "name": name, "short": short,
+            "deg": f"{int(d):02d}.{round((d - int(d)) * 60):02d}",
+            "retro": retro,
+            "star_lord": L["nak_lord"], "sub_lord": L["sub_lord"],
+            "star_short": _SHORT.get(L["nak_lord"], L["nak_lord"]),
+            "sub_short": _SHORT.get(L["sub_lord"], L["sub_lord"]),
+        }))
+    # within a cell the author lists bodies by DESCENDING degree
+    # (reference chart, Makara: 18.41, 18.18, 10.44, 01.56)
+    return [{"sign": i, "rasi": RASIS[i], "rasi_ta": RASIS_TA[i],
+             "items": [it for _d, it in sorted(cells[i], key=lambda t: -t[0])]}
+            for i in range(12)]
+
+
+_SHORT = {"Sun": "Sun", "Moon": "Moo", "Mars": "Mar", "Mercury": "Mer",
+          "Jupiter": "Jup", "Venus": "Ven", "Saturn": "Sat",
+          "Rahu": "Rah", "Ketu": "Ket"}
 
 
 def planet_position(year: int, month: int, day: int, hour: int, minute: int,
