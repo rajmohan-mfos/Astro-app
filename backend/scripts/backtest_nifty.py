@@ -8,7 +8,7 @@ claims to predict. Educational evaluation only.
 
 Usage: python scripts/backtest_nifty.py [years] [place] [index]
   place = chennai (default) | mumbai
-  index = nifty (default) | banknifty
+  index = nifty (default) | banknifty | metal | pharma | defence
 
 Chennai is the default so the published RESULTS.md tables stay
 reproducible; Mumbai matches the app's own default cast location (the NSE
@@ -27,7 +27,17 @@ from app import engine                                  # noqa: E402
 from app.rules import graph, panchang_rules             # noqa: E402
 
 PLACES = {"chennai": (13.0827, 80.2707), "mumbai": (19.076, 72.8777)}
-INDICES = {"nifty": "%5ENSEI", "banknifty": "%5ENSEBANK"}
+INDICES = {
+    "nifty": "%5ENSEI",
+    "banknifty": "%5ENSEBANK",
+    "metal": "%5ECNXMETAL",
+    "pharma": "%5ECNXPHARMA",
+    # The Nifty India Defence index was launched in 2024 and Yahoo serves
+    # no usable history for it (one bar). MODEFENCE.NS is the Motilal
+    # Oswal ETF tracking that index — a PROXY, and only from 2024-08-26,
+    # so its sample is ~40% of the others'.
+    "defence": "MODEFENCE.NS",
+}
 LAT, LON, TZ = 13.0827, 80.2707, 5.5      # set from argv in main()
 WEIGHTS = {"bullish": 1.0, "sideways-bullish": 0.5, "sideways": 0.0,
            "angle": 0.0, "sideways-bearish": -0.5, "bearish": -1.0}

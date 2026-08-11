@@ -472,3 +472,53 @@ document.
 So BankNifty behaves exactly like Nifty once the baseline is set
 correctly. The apparent improvement is the base rate moving, not the
 method working. Both indices: no forecasting ability.
+
+## Sector indices: Metal, Pharma, Defence
+
+Run 2026-08-11 at Mumbai. Per-day data in `metal_backtest_mumbai.csv`,
+`pharma_backtest_mumbai.csv`, `defence_backtest_mumbai.csv`.
+
+**On Defence.** The Nifty India Defence index was launched in 2024 and
+Yahoo serves no usable history for it (a single bar). The run uses
+**MODEFENCE.NS**, the Motilal Oswal ETF tracking that index — a proxy, and
+only from 2024-08-26, so its sample is 489 days against the others' ~1,220.
+
+### Every index against the trivial constant rule
+
+| Index | days | up-rate | best constant | engine | n | engine − constant | z |
+|---|---|---|---|---|---|---|---|
+| Nifty | 1235 | 48.3% | 51.7% DOWN | 48.2% | 1086 | **−3.6** | −1.16 |
+| BankNifty | 1234 | 48.5% | 51.5% DOWN | 51.0% | 1085 | **−0.5** | +0.70 |
+| Metal | 1213 | 47.4% | 52.6% DOWN | 48.5% | 1070 | **−4.1** | −0.91 |
+| Pharma | 1233 | 46.3% | 53.7% DOWN | 49.0% | 1084 | **−4.7** | −0.55 |
+| Defence* | 489 | 35.0% | 65.0% DOWN | 49.9% | 415 | **−15.2** | −0.20 |
+
+*z* compares the engine against the null that its own calls are
+independent of outcomes; |z| < 1.96 is indistinguishable from chance.
+
+**Five indices, one answer.** The engine loses to "always predict down" on
+every single one, by 0.5 to 15.2 points, and every *z* sits inside ±1.96
+(range −1.16 to +0.70). Not one index produces a result distinguishable
+from a coin flip, and none beats a rule that ignores astrology entirely.
+
+Detail per index (Mumbai):
+
+| Test | Metal | Pharma | Defence* |
+|---|---|---|---|
+| Engine direction, all directional days | 48.5% | 49.0% | 49.9% |
+| Strong-signal days (\|score\| ≥ 0.5) | 49.3% | 47.8% | 50.0% |
+| Days with a real move (\|ret\| ≥ 0.25%) | 48.2% | 48.5% | 47.9% |
+
+**A caveat on the Defence figures**, which look the most dramatic and are
+the least trustworthy. A 35% open-to-close up-rate is not a market fact —
+defence stocks rose sharply over this period. It is ETF microstructure:
+MODEFENCE gains overnight and drifts down intraday, a known
+opening-auction premium effect. That inflates the "always down" bar to 65%
+and makes the −15.2 gap unrepresentative. The honest reading of Defence is
+not "the engine is terrible here" but *z* = −0.20 on 415 days: no signal,
+measured on an instrument whose intraday shape is dominated by a
+structural artifact.
+
+**Bottom line, now across five instruments.** Nothing changes with the
+underlying. The method does not forecast direction on the broad index, on
+banks, on either sector tested, or on a defence proxy.
