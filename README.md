@@ -101,3 +101,72 @@ engine loses to "always predict down" on every index (see
 `backend/knowledge/backtest/RESULTS.md`). A daily notification makes a
 study aid *feel* like a signal, which is exactly why the disclaimer ships
 inside every message rather than only in the UI.
+
+## Two-way Telegram bot (PythonAnywhere)
+
+The cron push is one-way. `bot/` adds a bot you can *ask*:
+
+| Command | Reply |
+|---|---|
+| `/today` `/tomorrow` | the day's reading |
+| `/date 2026-09-15` · `/d +3` | any specific day |
+| `/prasanam 88` | KP horary cast from a seed number 1–249 |
+| `/chart` | panchang chart — planets, degrees, star/sub lords |
+| `/help` | the list above |
+
+Layout: `bot/handler.py` is pure text-in/text-out (so the whole command
+surface is unit-tested in `backend/tests/test_bot_handler.py`, no server
+needed), and `bot/flask_app.py` does transport and auth only.
+
+### Deploy
+
+1. **Package the files.** `python bot/package_for_deploy.py` writes a
+   ~55 KB zip with `backend/app`, `backend/scripts/daily_push.py` and
+   `bot/`. Upload this rather than cloning the repo: the bot needs none of
+   the course material, and this keeps the transcripts and course tables
+   off the hosting provider entirely.
+2. **PythonAnywhere → Files** → upload the zip, then in a **Bash console**:
+   `unzip astro-bot-deploy.zip -d ~/astro`
+3. **Install the one dependency** (Flask is preinstalled):
+   `pip3.11 install --user pyswisseph`
+4. **Web tab → Add a new web app → Manual configuration → Python 3.11.**
+5. **Edit the WSGI configuration file** (link on the Web tab) — replace
+   its contents with:
+
+   ```python
+   import os, sys
+   sys.path.insert(0, '/home/YOURUSER/astro/bot')
+   os.environ['TELEGRAM_BOT_TOKEN'] = '...'
+   os.environ['TELEGRAM_CHAT_ID'] = '1184293568'
+   os.environ['TELEGRAM_WEBHOOK_SECRET'] = 'any-long-random-string'
+   from flask_app import app as application
+   ```
+
+   Secrets go here, not in the repo — this file lives only on your
+   PythonAnywhere account.
+6. **Reload** the web app, then check `https://YOURUSER.pythonanywhere.com/`
+   returns *astro-app bot is up*.
+7. **Register the webhook** (from your machine):
+
+   ```
+   TELEGRAM_BOT_TOKEN=... TELEGRAM_WEBHOOK_SECRET=... \
+     python bot/setwebhook.py https://YOURUSER.pythonanywhere.com/webhook
+   ```
+
+   `python bot/setwebhook.py --info` shows the registration and any
+   delivery errors Telegram is seeing; `--delete` removes it.
+
+### Why it is locked down
+
+A webhook URL is public — anyone who finds it can POST to it. Two gates,
+both enforced:
+
+- **Telegram's `secret_token`**, set at registration and returned on every
+  request as `X-Telegram-Bot-Api-Secret-Token`. Missing or wrong → 403.
+- **A chat-id allowlist.** Even a genuine Telegram update is refused
+  unless it is from `TELEGRAM_CHAT_ID`, so a stranger who discovers the
+  bot cannot use it or burn your CPU quota.
+
+The endpoint always answers 200, including on internal errors: a non-200
+makes Telegram retry the same update repeatedly, turning one bad message
+into a loop.
