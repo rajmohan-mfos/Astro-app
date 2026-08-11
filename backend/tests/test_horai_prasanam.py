@@ -98,9 +98,14 @@ def test_paksha_chidra_and_thakka_yoga():
     from app.rules import panchang_rules
     # 1990-01-01 is Shukla Panchami (#5) on a Monday: not chidra, and
     # Ekadasi/Monday is the Monday thakka pair, so no thakka finding here
+    # rules read the SUNRISE-cast panchang (KP), not the display chart:
+    # 1990-01-01 is thithi #5 at noon but #4 at sunrise, and 4 is chidra
     chart = engine.compute(1990, 1, 1, 12, 0, 5.5, 13.0827, 80.2707)
+    from app.rules import graph
+    n = graph.cast_chart(chart)["panchang"]["thithi"]["num"]
+    in_paksha = (n - 1) % 15 + 1
     titles = " ".join(f.title for f in panchang_rules.rules(chart))
-    assert "Paksha Chidra" not in titles
+    assert ("Paksha Chidra" in titles) == (in_paksha in panchang_rules.PAKSHA_CHIDRA)
     assert panchang_rules.PAKSHA_CHIDRA == {4, 6, 8, 12, 14}
     assert (11, 0) in panchang_rules.THAKKA_YOGA      # Ekadasi + Monday
     assert (9, 5) in panchang_rules.THAKKA_YOGA       # Navami + Saturday

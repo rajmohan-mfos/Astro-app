@@ -82,9 +82,11 @@ def rules(chart: dict) -> list[Finding]:
     year, month, day = (int(v) for v in inp["date"].split("-"))
     slots = transit.horai_timeline(year, month, day, inp["tz_offset"],
                                    inp["lat"], inp["lon"])
-    vaara = chart["panchang"]["vaara"]["en"]
-    nak = chart["panchang"]["natchathiram"]["name"]
-    yogam_name = chart["panchang"]["yogam"]["name"]
+    from . import graph as _g
+    _pan = _g.cast_chart(chart)["panchang"]
+    vaara = _pan["vaara"]["en"]
+    nak = _pan["natchathiram"]["name"]
+    yogam_name = _pan["yogam"]["name"]
     from .panchang_rules import yogam_bias
     yogam_bias_word = yogam_bias(yogam_name)[0]
     bad_yogam = yogam_bias_word in ("negative", "very negative")

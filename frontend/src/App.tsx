@@ -13,8 +13,11 @@ import PlanetPosition from './components/PlanetPosition'
 import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 
+// opens on today at 05:42 (≈ sunrise, the chain chart's cast moment)
+const NOW = new Date()
 const DEFAULT_REQUEST: ComputeRequest = {
-  year: 1990, month: 1, day: 1, hour: 12, minute: 0,
+  year: NOW.getFullYear(), month: NOW.getMonth() + 1, day: NOW.getDate(),
+  hour: 5, minute: 42,
   tz_offset: 5.5, lat: 13.0827, lon: 80.2707, // Chennai
 }
 

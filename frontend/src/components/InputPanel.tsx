@@ -17,11 +17,13 @@ interface Props {
 }
 
 export default function InputPanel({ onCompute, busy, error }: Props) {
-  const [day, setDay] = useState('1')
-  const [month, setMonth] = useState('1')
-  const [year, setYear] = useState('1990')
-  const [hour, setHour] = useState('12')
-  const [minute, setMinute] = useState('0')
+  const today = new Date()
+  const [day, setDay] = useState(String(today.getDate()))
+  const [month, setMonth] = useState(String(today.getMonth() + 1))
+  const [year, setYear] = useState(String(today.getFullYear()))
+  // 05:42 ≈ sunrise, the moment the day's chain chart is cast
+  const [hour, setHour] = useState('5')
+  const [minute, setMinute] = useState('42')
   const [place, setPlace] = useState('Chennai')
   const [lat, setLat] = useState('13.0827')
   const [lon, setLon] = useState('80.2707')
@@ -68,7 +70,6 @@ export default function InputPanel({ onCompute, busy, error }: Props) {
     })
   }
 
-  const goToday = () => goToDate(new Date())
   const goTomorrow = () => {
     const d = new Date()
     d.setDate(d.getDate() + 1)
@@ -143,16 +144,10 @@ export default function InputPanel({ onCompute, busy, error }: Props) {
         </div>
       </div>
 
-      <div className="day-nav-row">
-        <button className="today-btn" type="button" disabled={busy}
-          onClick={goToday}>
-          Today
-        </button>
-        <button className="today-btn" type="button" disabled={busy}
-          onClick={goTomorrow}>
-          Tomorrow
-        </button>
-      </div>
+      <button className="today-btn" type="button" disabled={busy}
+        onClick={goTomorrow}>
+        Tomorrow
+      </button>
       <button className="compute-btn" type="submit" disabled={busy}>
         {busy ? 'Computing…' : 'Compute'}
       </button>

@@ -6,6 +6,7 @@ C7-Buzz's tighter "beyond Jaya and Rikta the others are all neutral").
 Karanam [C7 @ 11:25]; yogam lists from guide §4B + [EX-Buzz].
 """
 from ..names import KARANA_MOVABLE
+from . import graph
 from .base import Finding
 
 SECTION = "graph"
@@ -84,7 +85,7 @@ def yogam_bias(name: str) -> tuple[str, str]:
 def rules(chart: dict) -> list[Finding]:
     import datetime
 
-    pan = chart["panchang"]
+    pan = graph.cast_chart(chart)["panchang"]
     thithi, karanam, yogam = pan["thithi"], pan["karanam"], pan["yogam"]
     t_bias, t_reason = thithi_bias(thithi["num"])
     k_bias, k_reason = karanam_bias(karanam["name"])

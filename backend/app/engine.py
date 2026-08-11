@@ -34,14 +34,19 @@ def _graha(name: str, lon: float, retro: bool) -> dict:
             "deg_in_sign": deg_in_sign(lon), "retro": retro}
 
 
+LAHIRI = swe.SIDM_LAHIRI      # jothidam display (SPEC §5, South-Indian)
+KP = swe.SIDM_KRISHNAMURTI    # the taught method — see RULES-SOURCES.md
+
+
 def compute(year: int, month: int, day: int, hour: int, minute: int,
-            tz_offset: float, lat: float, lon: float) -> dict:
+            tz_offset: float, lat: float, lon: float,
+            ayanamsa_mode: int = LAHIRI) -> dict:
     datetime.date(year, month, day)  # raises ValueError on an invalid date
 
     ut_hour = hour + minute / 60 - tz_offset
     jd = swe.julday(year, month, day, ut_hour)
 
-    swe.set_sid_mode(swe.SIDM_LAHIRI, 0, 0)
+    swe.set_sid_mode(ayanamsa_mode, 0, 0)
     ayanamsa = swe.get_ayanamsa_ut(jd)
 
     grahas = []

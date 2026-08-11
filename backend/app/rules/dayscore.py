@@ -42,7 +42,7 @@ def _sign_word(v: float) -> str:
 
 
 def panchang_tally(chart: dict) -> dict:
-    pan = chart["panchang"]
+    pan = graph.cast_chart(chart)["panchang"]
     parts = {}
 
     t_bias = panchang_rules.thithi_bias(pan["thithi"]["num"])[0]

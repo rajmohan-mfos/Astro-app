@@ -293,10 +293,15 @@ def cast_chart(chart: dict) -> dict:
     hh, mm = int(rise), round((rise % 1) * 60)
     if mm == 60:
         hh, mm = hh + 1, 0
-    if inp["time"] == f"{hh:02d}:{mm:02d}":
-        return chart
+    # Always recompute on the KP ayanamsa: the taught method is KP
+    # throughout (his panchangam, sub-lords and transit tables only
+    # reproduce under KP), while the Jothidam display stays Lahiri per
+    # SPEC §5. Mixing the two inside one prediction was the bug this
+    # fixes — weekly/long-term WINDOWS were already KP while their chains
+    # were Lahiri. See RULES-SOURCES.md.
     return engine.compute(y_, m_, d_, hh, mm, inp["tz_offset"],
-                          inp["lat"], inp["lon"])
+                          inp["lat"], inp["lon"],
+                          ayanamsa_mode=engine.KP)
 
 
 def rules(chart: dict) -> list[Finding]:
