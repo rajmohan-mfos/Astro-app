@@ -448,11 +448,31 @@ split there would be the same straddle bug inside a single response.
 The KP crossing for the 2021-05-05 fixture is 05:43 against Lahiri's
 05:55, a ~12 minute shift.
 
-Cast time for this check stays at **09:15**, deliberately: "can I trade
-today" is a market-open gochara read, unlike the panchang day that
-`graph.cast_chart` opens at sunrise. Moving it to sunrise would be the
-larger change by far — 5.19% of pairs and 4.05% of verdicts, against the
-ayanamsa's 0.36% — and is left as an open question rather than folded in.
+Cast time then moved to **sunrise** in a fourth pass, again at the user's
+direction, after being flagged as the larger change: 5.19% of pairs and
+4.05% of verdicts, against the ayanamsa's 0.36%. The whole prediction
+path — intraday, weekly, long-term and the profile check — is now KP at
+sunrise, with no cast-moment split left anywhere.
+
+`moon_rasi_exit` moved with it and gained `lat`/`lon`, since sunrise is
+location-dependent. Anchoring the two differently would have reproduced
+the straddle in the time dimension rather than the zodiac one: on days
+when the Moon changes rasi between sunrise and 09:15, a sunrise chart
+paired with a 09:15 exit search names one rasi and times a different
+one's end.
+
+Known consequence, accepted: on **5.7% of days** (21 of 366 in 2024) the
+sunrise rasi has already expired by market open, so `rasi_until` reads
+EARLIER than 09:15. This is faithful to a sunrise reading — the panchang
+day's Moon sign is what the method scores — but it means the profile
+verdict on those days describes a rasi the Moon has already left by the
+time the market opens. The UI now says "Moon at sunrise (HH:MM) in …"
+rather than "Moon now in …", which was misleading under this cast.
+
+Separately fixed while here: `moon_rasi_exit` formatted its hour and
+minute independently, so a crossing at 05:59:40 rendered as the invalid
+"05:60" — 3 days in 2024. It now rounds to the minute as one quantity
+and rolls over into the next day when needed.
 
 Still Lahiri, and staying that way: the `/api/compute` and
 `/api/panchang-chart` display endpoints (SPEC §5).

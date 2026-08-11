@@ -51,15 +51,20 @@ GOOD_COUNTS = {2, 6, 11}
 def can_trade(req: CanTradeRequest):
     try:
         b = req.birth
-        # KP, like the rest of the prediction path (see RULES-SOURCES.md).
-        # Only the /api/compute display endpoints stay Lahiri per SPEC §5.
-        # Cast time stays 09:15 — this is a "can I trade today" gochara
-        # read, so market open is the relevant moment; the sunrise cast
-        # used by graph.cast_chart belongs to the panchang day, not here.
+        # KP and cast at SUNRISE, matching graph.cast_chart and the rest
+        # of the prediction path (see RULES-SOURCES.md). Only the
+        # /api/compute display endpoints stay Lahiri per SPEC §5.
+        # Sunrise is taken at the BIRTH coordinates, which is also where
+        # the transit chart is cast — the profile carries one location.
+        rise = transit.sunrise_hour(req.year, req.month, req.day,
+                                    req.tz_offset, b.lat, b.lon)
+        hh, mm = int(rise), round((rise % 1) * 60)
+        if mm == 60:
+            hh, mm = hh + 1, 0
         birth_chart = engine.compute(b.year, b.month, b.day, b.hour,
                                      b.minute, b.tz_offset, b.lat, b.lon,
                                      ayanamsa_mode=engine.KP)
-        today_chart = engine.compute(req.year, req.month, req.day, 9, 15,
+        today_chart = engine.compute(req.year, req.month, req.day, hh, mm,
                                      req.tz_offset, b.lat, b.lon,
                                      ayanamsa_mode=engine.KP)
     except ValueError as e:
@@ -104,8 +109,9 @@ def can_trade(req: CanTradeRequest):
         "count": count,
         "verdict": verdict,
         "note": note,
+        "cast": f"{hh:02d}:{mm:02d}",          # sunrise, the chart's moment
         "rasi_until": transit.moon_rasi_exit(req.year, req.month, req.day,
-                                             req.tz_offset),
+                                             req.tz_offset, b.lat, b.lon),
         "source": "Astro Class 4 @ 19:03 + Class 11 @ 06:00 + HALF COURSE",
     }
 

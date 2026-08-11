@@ -210,24 +210,41 @@ def sun_nak_window(year: int, month: int, day: int, tz_offset: float) -> dict:
     }
 
 
-def moon_rasi_exit(year: int, month: int, day: int, tz_offset: float) -> str:
-    """Local datetime when the transit Moon leaves its current rasi.
+def moon_rasi_exit(year: int, month: int, day: int, tz_offset: float,
+                   lat: float, lon: float) -> str:
+    """Local datetime when the transit Moon leaves its rasi at SUNRISE.
 
-    KP, matching the /api/can-trade charts this feeds. The two MUST agree:
-    `rasi_until` answers "when does the Moon leave THIS rasi", where "this"
-    is the `transit_rasi` computed in `can_trade`. Under a different
-    ayanamsa the two name different rasis on boundary days and the exit
-    time is wrong by up to ~2.5 days. The Moon spends ~2.5 days per rasi,
-    so the search window is 3 days from 09:15 local."""
+    Both the ayanamsa (KP) and the anchor moment (sunrise) must match the
+    /api/can-trade charts this feeds. `rasi_until` answers "when does the
+    Moon leave THIS rasi", where "this" is the `transit_rasi` computed in
+    `can_trade` — so if either the zodiac or the cast moment differs, the
+    two name different rasis on boundary days and the exit time is wrong
+    by up to ~2.5 days.
+
+    Consequence of the sunrise anchor: on days when the Moon changes rasi
+    between sunrise and market open, the returned time is EARLIER than
+    09:15 — the sunrise rasi has already expired by the time you trade.
+    That is faithful to the sunrise reading rather than a bug.
+
+    The Moon spends ~2.5 days per rasi, so the search window is 3 days.
+    """
     swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
-    jd_ref = swe.julday(year, month, day, 9.25 - tz_offset)
+    rise = sunrise_hour(year, month, day, tz_offset, lat, lon)
+    jd_ref = swe.julday(year, month, day, rise - tz_offset)
     moon = _lon_fn(swe.MOON)
     target = (int(moon(jd_ref) // 30) + 1) * 30 % 360
     cross = _next_cross(moon, target, jd_ref, jd_ref + 3, step=2 / 24)
     if cross is None:
         return "—"
     y, m, d, h = swe.revjul(cross + tz_offset / 24)
-    return f"{y:04d}-{m:02d}-{d:02d} {int(h):02d}:{round((h % 1) * 60):02d}"
+    # Round to the minute as one quantity: formatting the hour and minute
+    # independently produced "05:60" (and would produce "23:60") whenever
+    # the seconds rounded up — 3 days in 2024 alone.
+    total = round(h * 60)
+    if total >= 24 * 60:
+        nxt = datetime.date(y, m, d) + datetime.timedelta(days=1)
+        y, m, d, total = nxt.year, nxt.month, nxt.day, total - 24 * 60
+    return f"{y:04d}-{m:02d}-{d:02d} {total // 60:02d}:{total % 60:02d}"
 
 
 HORAI_SEQ = ["Sun", "Venus", "Mercury", "Moon", "Saturn", "Jupiter", "Mars"]

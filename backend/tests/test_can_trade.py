@@ -48,6 +48,21 @@ def test_rasi_until_is_a_real_timestamp():
     assert 0 <= (parsed - datetime.datetime(2021, 5, 5, 9, 15)).days <= 3
 
 
+def test_rasi_until_is_always_parseable():
+    """Guards a rollover bug: the hour and minute used to be formatted
+    independently, so a crossing at 05:59:40 rendered as "05:60" — an
+    invalid timestamp on 3 days of 2024 alone."""
+    import datetime
+
+    day = datetime.date(2024, 9, 20)          # one of the three
+    while day <= datetime.date(2024, 9, 22):
+        s = transit.moon_rasi_exit(day.year, day.month, day.day,
+                                   5.5, 13.0827, 80.2707)
+        datetime.datetime.strptime(s, "%Y-%m-%d %H:%M")   # must not raise
+        assert s.endswith(":60") is False
+        day += datetime.timedelta(days=1)
+
+
 def test_rasi_until_agrees_with_transit_rasi():
     """`rasi_until` answers "when does the Moon leave THIS rasi" — so the
     Moon must still be in `transit_rasi` just before that moment and out
@@ -88,16 +103,44 @@ def test_moon_rasi_exit_is_kp():
     function, which returns the same answer either way and so could never
     fail.
     """
-    assert transit.moon_rasi_exit(2021, 5, 5, 5.5) == "2021-05-07 05:43"
+    assert transit.moon_rasi_exit(2021, 5, 5, 5.5,
+                                  13.0827, 80.2707) == "2021-05-07 05:43"
 
 
 def test_moon_rasi_exit_sets_its_own_sid_mode():
     """Must not inherit whatever ayanamsa the previous caller left set."""
     import swisseph as swe
 
-    expected = transit.moon_rasi_exit(2021, 5, 5, 5.5)
+    expected = transit.moon_rasi_exit(2021, 5, 5, 5.5, 13.0827, 80.2707)
     swe.set_sid_mode(swe.SIDM_LAHIRI, 0, 0)
-    assert transit.moon_rasi_exit(2021, 5, 5, 5.5) == expected
+    assert transit.moon_rasi_exit(2021, 5, 5, 5.5, 13.0827, 80.2707) == expected
+
+
+def test_can_trade_is_cast_at_sunrise():
+    """The chart moment is sunrise, not market open — and `rasi_until` is
+    anchored there too, so the two cannot drift apart.
+
+    Consequence worth knowing: on ~5.7% of days (21 of 366 in 2024) the
+    sunrise rasi has already expired by 09:15, so `rasi_until` reads
+    earlier than market open. That is faithful to the sunrise reading.
+    """
+    import datetime
+
+    r = can_trade(make_req(1990, 1, 1, 2021, 5, 5))
+    rise = transit.sunrise_hour(2021, 5, 5, 5.5, 13.0827, 80.2707)
+    hh, mm = int(rise), round((rise % 1) * 60)
+    assert r["cast"] == f"{hh:02d}:{mm:02d}"
+    assert 5 <= hh <= 6, r["cast"]
+
+    # the reported rasi must be the one in force AT SUNRISE
+    c = engine.compute(2021, 5, 5, hh, mm, 5.5, 13.0827, 80.2707,
+                       ayanamsa_mode=engine.KP)
+    at_rise = next(g for g in c["grahas"] if g["name"] == "Moon")["rasi"]
+    assert r["transit_rasi"]["en"] == at_rise
+
+    # and rasi_until must be that rasi's end, not the 09:15 rasi's
+    t = datetime.datetime.strptime(r["rasi_until"], "%Y-%m-%d %H:%M")
+    assert t > datetime.datetime(2021, 5, 5, hh, mm)
 
 
 def test_verdict_classes():

@@ -149,6 +149,7 @@ export interface CanTradeResult {
   count: number
   verdict: 'AVOID' | 'FAVOURABLE' | 'OK'
   note: string
+  cast: string          // sunrise HH:MM — the moment the chart is cast
   rasi_until: string
   source: string
 }

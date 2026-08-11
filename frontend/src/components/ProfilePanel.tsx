@@ -98,10 +98,11 @@ export default function ProfilePanel({ chartDate }: Props) {
             <div className={`trade-verdict verdict-${check.verdict.toLowerCase()}`}>
               <div className="verdict-label">{check.verdict}</div>
               <div className="verdict-detail">
-                Janma rasi {check.birth_rasi.ta} · Moon now in{' '}
+                Janma rasi {check.birth_rasi.ta} · Moon at sunrise
+                {check.cast ? ` (${check.cast})` : ''} in{' '}
                 {check.transit_rasi.ta} ({check.count} from your rasi)
-                {check.verdict === 'AVOID' && check.rasi_until !== '—' && (
-                  <> · Moon leaves this rasi {check.rasi_until}</>
+                {check.rasi_until !== '—' && (
+                  <> · leaves this rasi {check.rasi_until}</>
                 )}
               </div>
               <div className="verdict-note">{check.note}</div>
