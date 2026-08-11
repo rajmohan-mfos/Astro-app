@@ -16,7 +16,10 @@ const NOW = new Date()
 const DEFAULT_REQUEST: ComputeRequest = {
   year: NOW.getFullYear(), month: NOW.getMonth() + 1, day: NOW.getDate(),
   hour: 5, minute: 42,
-  tz_offset: 5.5, lat: 13.0827, lon: 80.2707, // Chennai
+  // Mumbai — the NSE's own location, so the market chart is cast where
+  // the market is. Sunrise there is ~30 min later than Chennai, which
+  // moves the sunrise-cast chain; see RULES-SOURCES.md.
+  tz_offset: 5.5, lat: 19.076, lon: 72.8777,
 }
 
 function chartAsText(r: ComputeResult): string {

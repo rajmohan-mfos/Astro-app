@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import type { ComputeRequest } from '../types'
 
+// Mumbai first, and the default: the NSE is there, so a market chart
+// belongs at the exchange's location.
 export const PLACES = [
+  { name: 'Mumbai', lat: 19.076, lon: 72.8777 },
   { name: 'Chennai', lat: 13.0827, lon: 80.2707 },
   { name: 'Bengaluru', lat: 12.9716, lon: 77.5946 },
   { name: 'Madurai', lat: 9.9252, lon: 78.1198 },
   { name: 'Coimbatore', lat: 11.0168, lon: 76.9558 },
-  { name: 'Mumbai', lat: 19.076, lon: 72.8777 },
   { name: 'Delhi', lat: 28.6139, lon: 77.209 },
 ] as const
 
@@ -24,9 +26,9 @@ export default function InputPanel({ onCompute, busy, error }: Props) {
   // 05:42 ≈ sunrise, the moment the day's chain chart is cast
   const [hour, setHour] = useState('5')
   const [minute, setMinute] = useState('42')
-  const [place, setPlace] = useState('Chennai')
-  const [lat, setLat] = useState('13.0827')
-  const [lon, setLon] = useState('80.2707')
+  const [place, setPlace] = useState('Mumbai')
+  const [lat, setLat] = useState('19.076')
+  const [lon, setLon] = useState('72.8777')
   const [tz, setTz] = useState('5.5')
 
   const custom = place === 'Custom'

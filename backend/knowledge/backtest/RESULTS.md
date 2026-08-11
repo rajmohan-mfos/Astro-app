@@ -363,3 +363,29 @@ family, horai — and 1,235 daily plus 4,334 hourly observations produce no
 separation between the two ayanamsas. The daily split is 6–6, the
 session-level intraday split 6–2 at *p* = 0.29. KP remains the right
 choice for the prediction path on source-fidelity grounds alone.
+
+## Location: the backtest is Chennai, the app now defaults to Mumbai
+
+Every figure in this document was computed at **Chennai** (13.0827,
+80.2707). The app's default cast location changed to **Mumbai** (19.076,
+72.8777) on 2026-08-11, on the reasoning that the NSE is in Mumbai, so a
+market chart belongs at the exchange.
+
+Measured divergence over the same 1,235 days:
+
+| | |
+|---|---|
+| Mumbai sunrise later than Chennai | **29.3 min** (range 18–41) |
+| Chain (X / Y / first / second) differs | **25 days (2.0%)** |
+| Day-score direction flips | **21 days (1.7%)** |
+
+So the app's predictions now differ from the backtested configuration on
+roughly one day in fifty. That is far smaller than the sunrise-vs-09:15
+cast shift measured earlier (7–9%), because this is a ~30 minute move
+rather than a ~3.5 hour one.
+
+The backtest scripts deliberately still use Chennai, so re-running them
+reproduces the numbers above rather than silently drifting. Nothing in the
+conclusions turns on it: at a 48.3% hit rate against a 48.3% base rate, a
+2% reshuffle cannot manufacture an edge. If the study is ever redone, it
+should move to Mumbai for consistency with the app.
