@@ -1,0 +1,452 @@
+# ASTRO CLASS-5 ( GRAPH PREDICTION 2) [4n2rbfCAE6s]
+# task=translate lang_prob=1.00
+
+[00:00:01 - 00:00:03] Greetings to all
+[00:00:03 - 00:00:07] In this section, you have seen the last part 1 video
+[00:00:07 - 00:00:09] How to put a market graph
+[00:00:09 - 00:00:12] We said that there are 2-3 more parts in the full video
+[00:00:12 - 00:00:14] This is part 2
+[00:00:14 - 00:00:18] So in this section, you have seen a small recap of yesterday
+[00:00:18 - 00:00:22] You have seen the moon's star and its star's star
+[00:00:22 - 00:00:26] In case of doubt, you can check it out
+[00:00:26 - 00:00:28] So we are going to see the same
+[00:00:28 - 00:00:32] We have said that the first half is 9.15 to 12 o'clock
+[00:00:32 - 00:00:35] The second half is 12 o'clock to 3.30
+[00:00:35 - 00:00:37] We are going to add the graph
+[00:00:37 - 00:00:39] So now
+[00:00:39 - 00:00:43] What to do if x1 and y1 are there
+[00:00:43 - 00:00:47] So such things will come
+[00:00:47 - 00:00:54] How we are going to see is
+[00:00:54 - 00:00:56] Now it is the same
+[00:00:56 - 00:00:58] Yesterday we saw the star in the moon
+[00:00:58 - 00:01:01] We saw the sun
+[00:01:01 - 00:01:03] So we will take 2 points
+[00:01:03 - 00:01:06] 1st May 5th and 1st May 25th
+[00:01:06 - 00:01:08] Already happened
+[00:01:08 - 00:01:10] Now we are going to see the chart
+[00:01:10 - 00:01:12] We will see both
+[00:01:12 - 00:01:16] Now the moon's star is
+[00:01:16 - 00:01:18] Mars
+[00:01:18 - 00:01:20] Now Mars is there
+[00:01:20 - 00:01:22] This is x
+[00:01:22 - 00:01:24] x is Mars
+[00:01:24 - 00:01:26] So where is the moon from?
+[00:01:26 - 00:01:28] 1, 2, 3, 4, 5
+[00:01:28 - 00:01:31] So we have written 5
+[00:01:31 - 00:01:33] So that is the question
+[00:01:33 - 00:01:37] Mars is the star of Mars
+[00:01:37 - 00:01:39] So we have calculated the star
+[00:01:39 - 00:01:41] So where is the star?
+[00:01:41 - 00:01:43] Where is the moon from?
+[00:01:43 - 00:01:44] Here
+[00:01:44 - 00:01:46] 1, 2, 3, 4
+[00:01:46 - 00:01:48] So the star is here
+[00:01:48 - 00:01:50] So 4 is there
+[00:01:50 - 00:01:52] So we have written 2
+[00:01:52 - 00:01:54] So you will add a graph to it
+[00:01:54 - 00:01:56] So this is the 1st step
+[00:01:56 - 00:01:58] 2nd step is
+[00:01:58 - 00:02:00] We have to see if x1 and y1 are there
+[00:02:00 - 00:02:02] How to see is
+[00:02:02 - 00:02:04] If the moon is Mars
+[00:02:04 - 00:02:08] We have to see where else Mars is
+[00:02:08 - 00:02:10] So where else is there
+[00:02:10 - 00:02:12] It is in Jupiter
+[00:02:12 - 00:02:14] When it is in Jupiter
+[00:02:14 - 00:02:16] Then Mars is
+[00:02:16 - 00:02:23] So what we have to take is
+[00:02:23 - 00:02:31] x1 Jupiter
+[00:02:31 - 00:02:33] So where else is there?
+[00:02:33 - 00:02:35] We have to see if x2 is there
+[00:02:35 - 00:02:37] If Mars is there
+[00:02:37 - 00:02:39] There is no other place
+[00:02:39 - 00:02:41] So this time
+[00:02:41 - 00:02:43] We have to take x1
+[00:02:43 - 00:02:45] So
+[00:02:45 - 00:02:47] We have seen x1
+[00:02:47 - 00:02:49] We have to see if y1 is there
+[00:02:49 - 00:02:51] So what is y? Is there a raga?
+[00:02:51 - 00:02:53] y is there
+[00:02:53 - 00:02:55] So raga is
+[00:02:55 - 00:02:57] Let us see if there is
+[00:02:57 - 00:02:59] Any other place
+[00:02:59 - 00:03:02] Raga is in the
+[00:03:02 - 00:03:04] There is no other place
+[00:03:04 - 00:03:06] So it is automatically
+[00:03:06 - 00:03:08] y will come
+[00:03:08 - 00:03:12] So x1 is in Jupiter
+[00:03:12 - 00:03:14] So if x comes
+[00:03:14 - 00:03:16] It will not work
+[00:03:16 - 00:03:18] So we have to see
+[00:03:18 - 00:03:57] The main rule is
+[00:03:57 - 00:03:59] You should never forget this
+[00:03:59 - 00:04:07] So you always
+[00:04:07 - 00:04:09] Highlight this
+[00:04:09 - 00:04:11] So when x1 comes
+[00:04:11 - 00:04:13] x will not work
+[00:04:13 - 00:04:15] So y will not work
+[00:04:15 - 00:04:17] So when x1 comes
+[00:04:17 - 00:04:19] You should only see x1
+[00:04:19 - 00:04:21] When y1 comes you should only see y1
+[00:04:21 - 00:04:23] You should forget xy
+[00:04:23 - 00:04:25] So in this place
+[00:04:25 - 00:04:29] The things we have to take
+[00:04:29 - 00:04:31] Finally the prediction is
+[00:04:31 - 00:04:33] x1 and y only
+[00:04:33 - 00:04:35] So how to calculate x1
+[00:04:35 - 00:04:37] From Moon to Jupiter is 1
+[00:04:37 - 00:04:39] So in that place
+[00:04:39 - 00:04:41] I will automatically put 1
+[00:04:41 - 00:04:45] Actually in this place
+[00:04:45 - 00:04:47] This is the prediction
+[00:04:47 - 00:04:49] If y1 comes
+[00:04:49 - 00:04:51] If x1 and y1 comes
+[00:04:51 - 00:04:53] Moon should come from that planet
+[00:04:53 - 00:04:55] It might be confusing
+[00:04:55 - 00:04:57] But I don't want to confuse
+[00:04:57 - 00:04:59] See this
+[00:04:59 - 00:05:01] This is the small thing
+[00:05:01 - 00:05:03] Moon should come from this
+[00:05:03 - 00:05:05] This is something that happens in the morning
+[00:05:05 - 00:05:07] So Moon will come from this side
+[00:05:07 - 00:05:09] And Jupiter will come from this side
+[00:05:09 - 00:05:11] I will teach you how to see it in the app
+[00:05:11 - 00:05:13] So when you see it
+[00:05:13 - 00:05:15] So from Moon to Jupiter is 1
+[00:05:15 - 00:05:17] So from Jupiter to Moon is 1
+[00:05:17 - 00:05:19] This is the prediction
+[00:05:19 - 00:05:21] So in this case
+[00:05:21 - 00:05:23] The prediction of the market
+[00:05:23 - 00:05:25] We are going to take from these two
+[00:05:25 - 00:05:27] So what is this
+[00:05:27 - 00:05:29] Jupiter is 1 and Rahu is 4
+[00:05:29 - 00:05:31] So what we have written
+[00:05:31 - 00:05:33] Bullish planet, Jupiter and Rahu
+[00:05:33 - 00:05:35] So both are bullish planets
+[00:05:35 - 00:05:37] So sideways market is 4,7
+[00:05:37 - 00:05:39] So in the second half
+[00:05:39 - 00:05:41] 4 is there
+[00:05:41 - 00:05:43] In the first half 1 is there
+[00:05:43 - 00:05:45] So what is 1 in this
+[00:05:45 - 00:05:47] 1 is the house of Jupiter
+[00:05:47 - 00:05:49] It is indicating the bullish scenario
+[00:05:49 - 00:05:51] So how will the market be on that day
+[00:05:51 - 00:06:20] The market will be
+[00:06:20 - 00:06:22] Total
+[00:06:22 - 00:06:48] First half bullish, second half 4
+[00:06:48 - 00:06:50] Sideways
+[00:06:50 - 00:06:52] So if you see the market
+[00:06:52 - 00:06:54] On the fifth day
+[00:06:54 - 00:06:56] This is the market
+[00:06:56 - 00:06:58] So inside this is x1, y1
+[00:06:58 - 00:07:00] So we will see when the bullish period is
+[00:07:00 - 00:07:02] We will see in the next part
+[00:07:02 - 00:07:04] Now you have to know how to predict x1, y1
+[00:07:04 - 00:07:06] So we will see
+[00:07:06 - 00:07:08] An example of another upcoming
+[00:07:08 - 00:07:12] Example
+[00:07:12 - 00:07:14] So in this
+[00:07:14 - 00:07:16] Same thing
+[00:07:16 - 00:07:18] What we are going to see
+[00:07:18 - 00:07:20] Moon and Jupiter
+[00:07:20 - 00:07:22] Second is Jupiter and Jupiter
+[00:07:22 - 00:07:24] Somewhere else there is a combination
+[00:07:24 - 00:07:26] So here
+[00:07:26 - 00:07:28] Moon is here
+[00:07:28 - 00:07:30] So Moon and Jupiter is Rahu
+[00:07:30 - 00:07:32] So where is Rahu
+[00:07:32 - 00:07:34] Here it is
+[00:07:34 - 00:07:36] So where is Rahu
+[00:07:36 - 00:07:38] So we have to see
+[00:07:38 - 00:07:40] Somewhere else is Rahu
+[00:07:40 - 00:07:42] So x1 is Rahu, y1 is Moon
+[00:07:42 - 00:07:44] So
+[00:07:44 - 00:07:46] Somewhere else is Rahu
+[00:07:46 - 00:07:48] So here it is
+[00:07:48 - 00:07:50] Jupiter
+[00:07:50 - 00:07:52] So x1 is Jupiter
+[00:07:52 - 00:07:54] So where is y1, Moon
+[00:07:54 - 00:07:56] Here it is
+[00:07:56 - 00:07:58] Saturn
+[00:07:58 - 00:08:00] So where is y1, Moon
+[00:08:00 - 00:08:03] So we will first predict x, y
+[00:08:03 - 00:08:27] So y is
+[00:08:27 - 00:08:32] So x1 is
+[00:08:32 - 00:08:37] Jupiter
+[00:08:37 - 00:08:42] y1 is
+[00:08:42 - 00:08:45] Saturn
+[00:08:45 - 00:08:47] So we have to see where is Rahu
+[00:08:47 - 00:08:49] So x is Rahu
+[00:08:49 - 00:08:51] We have found it here
+[00:08:51 - 00:08:53] Y is Rahu, Moon is Rahu
+[00:08:53 - 00:08:55] So somewhere else
+[00:08:55 - 00:08:57] Rahu is here
+[00:08:57 - 00:08:59] Jupiter is here
+[00:08:59 - 00:09:01] So if we see where is Rahu, Moon
+[00:09:01 - 00:09:03] Here Saturn is full
+[00:09:03 - 00:09:05] So from here
+[00:09:05 - 00:09:07] When you calculate
+[00:09:07 - 00:09:09] You will see how much
+[00:09:09 - 00:09:11] x1 is coming
+[00:09:11 - 00:09:13] 1,2,3,4,5,6,7,8,9
+[00:09:13 - 00:09:15] So here
+[00:09:15 - 00:09:17] x1 is coming
+[00:09:17 - 00:09:19] 9 is coming
+[00:09:19 - 00:09:21] 1 minute
+[00:09:21 - 00:09:23] 1,2,3,4,5,6,7,8,9
+[00:09:25 - 00:09:27] 9 is coming
+[00:09:27 - 00:09:29] If Saturn is coming here, 10 is coming
+[00:09:29 - 00:09:31] 1,2,3,4,5,6,7,8,9,10
+[00:09:35 - 00:09:37] So 9 and 10 will come
+[00:09:37 - 00:10:09] 10 for this
+[00:10:09 - 00:10:11] So finally what we are taking
+[00:10:11 - 00:10:13] We have to take only x1 and y1
+[00:10:13 - 00:10:15] So today prediction is
+[00:10:15 - 00:10:19] We have to take x1 and y1
+[00:10:19 - 00:10:21] So this is
+[00:10:21 - 00:10:23] Today's market is
+[00:10:23 - 00:10:25] I mean 25th market is going to be like this
+[00:10:25 - 00:10:27] So how we plot this graph
+[00:10:27 - 00:10:29] So let's see how to plot this graph
+[00:10:29 - 00:10:31] So what is coming
+[00:10:31 - 00:10:33] Jupiter is here
+[00:10:33 - 00:10:35] It is already planned
+[00:10:35 - 00:10:37] So 9
+[00:10:37 - 00:10:39] I wanted to show you this as an example
+[00:10:39 - 00:10:41] 2,9,angle
+[00:10:41 - 00:10:43] So
+[00:10:43 - 00:10:45] It is opposite
+[00:10:45 - 00:10:47] So
+[00:10:47 - 00:10:49] It is totally opposite
+[00:10:49 - 00:10:51] I will tell you the example
+[00:10:51 - 00:10:53] So first of all, put 9 as opposite
+[00:10:53 - 00:10:55] Second
+[00:10:55 - 00:10:57] Saturn is 10
+[00:10:57 - 00:10:59] So what is 10 for Saturn?
+[00:10:59 - 00:11:01] So it is a bearish planet
+[00:11:01 - 00:11:03] So 10 is a bulls
+[00:11:03 - 00:11:05] So the second half
+[00:11:05 - 00:11:07] We have to put it sideways
+[00:11:07 - 00:11:09] Because this is a bearish planet
+[00:11:09 - 00:11:11] And bulls are here
+[00:11:11 - 00:11:13] So what we have to do is
+[00:11:13 - 00:11:15] We have to put it sideways
+[00:11:15 - 00:11:17] That's what we have to understand
+[00:11:17 - 00:11:20] Market is
+[00:11:20 - 00:11:27] So how it is going to be
+[00:11:27 - 00:11:29] So what is market?
+[00:11:29 - 00:11:33] So we said that we can't draw it correctly
+[00:11:33 - 00:11:35] So we said that we can't draw it correctly
+[00:11:35 - 00:11:37] So we said that we can't draw it correctly
+[00:11:37 - 00:11:42] So we will do the second half
+[00:11:42 - 00:11:47] So it is going to be like this
+[00:11:47 - 00:11:49] So it is continuous of move
+[00:11:49 - 00:11:51] So how it is going to be opposite to this
+[00:11:51 - 00:11:53] It should be like this
+[00:11:53 - 00:11:55] That is the angle
+[00:11:55 - 00:11:57] So it will be like this
+[00:11:57 - 00:12:09] Automatically
+[00:12:09 - 00:12:11] So when this kind of days come
+[00:12:11 - 00:12:13] You have to be very careful
+[00:12:13 - 00:12:15] You can see how is the first half
+[00:12:15 - 00:12:17] And then do the second half
+[00:12:17 - 00:12:19] So when you are in that place
+[00:12:19 - 00:12:21] You can do the trading
+[00:12:21 - 00:12:23] Above 12 pm
+[00:12:23 - 00:12:25] Because
+[00:12:25 - 00:12:27] This is a bearish planet
+[00:12:27 - 00:12:29] 10 is here
+[00:12:29 - 00:12:31] So you can do the consultation
+[00:12:31 - 00:12:33] Even if it is full day
+[00:12:33 - 00:12:37] So in this kind of days
+[00:12:37 - 00:12:39] If you get this kind of angle
+[00:12:39 - 00:12:41] You have to be very careful
+[00:12:41 - 00:12:43] And do the trading
+[00:12:43 - 00:12:49] Ok guys
+[00:12:49 - 00:12:55] So in this place
+[00:12:55 - 00:12:57] So first half is like second half
+[00:12:57 - 00:12:59] Opposite
+[00:12:59 - 00:13:01] So this angle will be
+[00:13:01 - 00:13:03] The angle market for the next move
+[00:13:03 - 00:13:05] That is the opposite of the previous move
+[00:13:05 - 00:13:07] That is the opposite of the previous move
+[00:13:07 - 00:13:09] So to do the angle market
+[00:13:09 - 00:13:11] For the position
+[00:13:11 - 00:13:13] If the angle comes in the second half
+[00:13:13 - 00:13:15] It will be opposite to the first half
+[00:13:15 - 00:13:17] If it comes in the first half
+[00:13:17 - 00:13:19] It will be opposite to the second half
+[00:13:19 - 00:13:21] So you have to do the trading after seeing this
+[00:13:21 - 00:13:23] In this kind of days
+[00:13:23 - 00:13:42] You have to do the entry above 12 pm
+[00:13:42 - 00:13:44] So this is the first half
+[00:13:44 - 00:13:46] So in the second half
+[00:13:46 - 00:13:48] You have to do the trading
+[00:13:48 - 00:13:50] For the second half
+[00:13:50 - 00:13:52] Ok guys
+[00:13:52 - 00:13:54] So I think you have got many doubts
+[00:13:54 - 00:13:56] Because I haven't calculated from the first half
+[00:13:56 - 00:13:58] You might have got doubts
+[00:13:58 - 00:14:00] So that is why
+[00:14:00 - 00:14:02] Watch the video twice
+[00:14:02 - 00:14:04] You will understand
+[00:14:04 - 00:14:06] So one thing is
+[00:14:06 - 00:14:08] Whenever the present
+[00:14:08 - 00:14:10] Will give us permission
+[00:14:10 - 00:14:12] We have to go only then
+[00:14:12 - 00:14:14] For the position
+[00:14:14 - 00:14:16] When you are going above 5 or 8
+[00:14:16 - 00:14:18] Or above the night
+[00:14:18 - 00:14:20] You have to calculate
+[00:14:20 - 00:14:22] Even if you calculate 8
+[00:14:22 - 00:14:24] It will go wrong
+[00:14:24 - 00:14:26] Or if you calculate 9 and 11
+[00:14:26 - 00:14:28] It will be like first half bullies
+[00:14:28 - 00:14:30] It will be like second half bears
+[00:14:30 - 00:14:32] So you have to do it carefully
+[00:14:32 - 00:14:34] So do it in a good timing
+[00:14:34 - 00:14:36] Have lunch in the morning
+[00:14:36 - 00:14:38] So you can do the prediction in a week
+[00:14:38 - 00:14:40] Watch the timing
+[00:14:40 - 00:14:42] If you have permission
+[00:14:42 - 00:14:44] First half bears
+[00:14:44 - 00:14:46] Second half bullies
+[00:14:46 - 00:14:48] If you have the angle market above 12
+[00:14:48 - 00:14:50] If you are told that first half bullies
+[00:14:50 - 00:14:52] Second half bears
+[00:14:52 - 00:14:54] Ok guys
+[00:14:54 - 00:14:56] Why it will come is
+[00:14:56 - 00:14:58] Because it is a bearish planet
+[00:14:58 - 00:15:00] If it is 10, it will go up by half
+[00:15:00 - 00:15:02] So we cannot take much profit from consolidation
+[00:15:02 - 00:15:04] So in such a situation
+[00:15:04 - 00:15:06] We have to give a presentation
+[00:15:06 - 00:15:08] Give profit
+[00:15:08 - 00:15:10] If it is a brain, I will draw the market
+[00:15:10 - 00:15:12] So I can give a straight code
+[00:15:12 - 00:15:14] Instead of PPT
+[00:15:14 - 00:15:16] So you can practice
+[00:15:16 - 00:15:18] You can practice
+[00:15:18 - 00:15:20] What you did 10 days ago
+[00:15:20 - 00:15:22] You can do back test
+[00:15:22 - 00:15:24] You can do what you have done
+[00:15:24 - 00:15:26] There is another part
+[00:15:26 - 00:15:28] You have to finish it
+[00:15:28 - 00:15:30] You have to apply it
+[00:15:30 - 00:15:32] And then draw the graph
+[00:15:32 - 00:15:34] If you draw the graph
+[00:15:34 - 00:15:36] It will not be correct
+[00:15:36 - 00:15:38] After watching the video
+[00:15:38 - 00:15:40] You can draw the graph
+[00:15:40 - 00:15:42] And then you can do back test
+[00:15:42 - 00:15:44] To see how much you have
+[00:15:44 - 00:15:46] The knowledge
+[00:15:46 - 00:15:48] So I am saying again
+[00:15:48 - 00:15:50] The graph of the market is in your hand
+[00:15:50 - 00:15:52] You know when you will get profit
+[00:15:52 - 00:15:54] So you can trade
+[00:15:54 - 00:15:56] And take profit
+[00:15:56 - 00:15:58] You have to be patient
+[00:15:58 - 00:16:00] You don't have to do anything without patience
+[00:16:00 - 00:16:02] Mainly, how we have analyzed the horoscope
+[00:16:02 - 00:16:04] We will recall the same thing
+[00:16:04 - 00:16:06] Finally we will recall
+[00:16:06 - 00:16:08] After finishing it
+[00:16:08 - 00:16:10] You can go and take entry
+[00:16:10 - 00:16:12] If you buy a panjagam
+[00:16:12 - 00:16:14] You can buy it in any shop
+[00:16:14 - 00:16:16] If you buy panjagam
+[00:16:16 - 00:16:18] You can finish the graph
+[00:16:18 - 00:16:20] For a year
+[00:16:20 - 00:16:22] If you go to dow market
+[00:16:22 - 00:16:24] You have put 50
+[00:16:24 - 00:16:26] 70% will be there
+[00:16:26 - 00:16:28] Now dow market
+[00:16:28 - 00:16:30] You can do dow market
+[00:16:30 - 00:16:32] Or you can put
+[00:16:32 - 00:16:34] Prasanna
+[00:16:34 - 00:16:36] You can put it in prasanna
+[00:16:36 - 00:16:38] And find it
+[00:16:38 - 00:16:40] This is the market
+[00:16:40 - 00:16:42] Chandran is deciding
+[00:16:42 - 00:16:44] These are the things
+[00:16:44 - 00:16:46] That were created from the horoscope
+[00:16:46 - 00:16:48] I have not made you understand
+[00:16:48 - 00:16:50] Like rocket science
+[00:16:50 - 00:16:52] I have given you
+[00:16:52 - 00:16:54] Simple calculations
+[00:16:54 - 00:16:56] Things that you can understand
+[00:16:56 - 00:16:58] I have given you
+[00:16:58 - 00:17:00] That much
+[00:17:00 - 00:17:02] X, X1, day, day
+[00:17:02 - 00:17:04] If I give you all in one day
+[00:17:04 - 00:17:06] You will not understand
+[00:17:06 - 00:17:08] We have seen XY
+[00:17:08 - 00:17:10] And X1Y1
+[00:17:10 - 00:17:12] So if you watch two more parts
+[00:17:12 - 00:17:14] You will understand
+[00:17:14 - 00:17:16] Finally, how to put all together
+[00:17:16 - 00:17:18] And do it in one day
+[00:17:18 - 00:17:20] We will see with an example chart
+[00:17:20 - 00:17:22] So, these things
+[00:17:22 - 00:17:24] When we get them
+[00:17:24 - 00:17:26] We need patience
+[00:17:26 - 00:17:28] And patience
+[00:17:28 - 00:17:30] Discipline
+[00:17:30 - 00:17:32] Even if it is technical
+[00:17:32 - 00:17:34] We can't do anything without discipline
+[00:17:34 - 00:17:36] So
+[00:17:36 - 00:17:38] What does discipline say
+[00:17:38 - 00:17:40] In horoscope
+[00:17:40 - 00:17:42] If your horoscope
+[00:17:42 - 00:17:44] And prasanna
+[00:17:44 - 00:17:46] Are in profit
+[00:17:46 - 00:17:48] Please don't try
+[00:17:48 - 00:17:50] You can only do it in the middle
+[00:17:50 - 00:17:52] If you don't want to check
+[00:17:52 - 00:17:54] It is okay
+[00:17:54 - 00:17:56] But if you do it
+[00:17:56 - 00:17:58] You will lose your self-confidence
+[00:17:58 - 00:18:00] Especially in the trading field
+[00:18:00 - 00:18:02] People will say
+[00:18:02 - 00:18:04] Super trend is going up
+[00:18:04 - 00:18:06] But if you want to test
+[00:18:06 - 00:18:08] One or two lot
+[00:18:08 - 00:18:10] You can test
+[00:18:10 - 00:18:12] As you wish
+[00:18:12 - 00:18:14] But this
+[00:18:14 - 00:18:16] Planet is not lying
+[00:18:16 - 00:18:18] If you don't know the truth
+[00:18:18 - 00:18:20] You should accept
+[00:18:20 - 00:18:22] Okay
+[00:18:22 - 00:18:24] So, till now
+[00:18:24 - 00:18:26] You have no confidence in astrology
+[00:18:26 - 00:18:28] I have told it with my parents
+[00:18:28 - 00:18:30] So, when you do prediction
+[00:18:30 - 00:18:32] You will get respect
+[00:18:32 - 00:18:34] So, today
+[00:18:34 - 00:18:36] If you see in total
+[00:18:36 - 00:18:38] Yesterday we saw XY
+[00:18:38 - 00:18:40] Today we saw X1Y1
+[00:18:40 - 00:18:42] How to do prediction
+[00:18:42 - 00:18:44] Even if you have doubts
+[00:18:44 - 00:18:46] You don't have to be confused
+[00:18:46 - 00:18:48] With the prediction
+[00:18:48 - 00:18:50] We will do it
+[00:18:50 - 00:18:52] Okay
+[00:18:52 - 00:18:54] So, today
+[00:18:54 - 00:18:56] You will understand
+[00:18:56 - 00:18:58] If you see it 2-3 times
+[00:18:58 - 00:19:00] Early morning
+[00:19:00 - 00:19:02] When you get time
+[00:19:02 - 00:19:04] Put headset and see
+[00:19:04 - 00:19:06] I will send 2-3 charts
+[00:19:06 - 00:19:08] For workout
+[00:19:08 - 00:19:10] Date, previous
+[00:19:10 - 00:19:12] Workout and send
+[00:19:12 - 00:19:14] After the final
+[00:19:14 - 00:19:16] Okay
+[00:19:16 - 00:19:18] So, in next
+[00:19:18 - 00:19:20] We will see
+[00:19:20 - 00:19:22] The next part
+[00:19:22 - 00:19:24] Thank you

@@ -1,0 +1,151 @@
+// Response shape of POST /api/compute (SPEC Section 4).
+
+export interface Lagna {
+  lon: number
+  sign: number
+  rasi: string
+  rasi_ta: string
+  deg_in_sign: string
+}
+
+export interface Graha {
+  name: string
+  name_ta: string
+  lon: number
+  sign: number
+  rasi: string
+  rasi_ta: string
+  deg_in_sign: string
+  retro: boolean
+}
+
+export interface Panchang {
+  vaara: { en: string; ta: string }
+  thithi: { num: number; name: string; paksha: string }
+  natchathiram: { num: number; name: string; name_ta: string; pada: number }
+  yogam: { num: number; name: string }
+  karanam: { num: number; name: string }
+}
+
+export interface RuleFinding {
+  section: string
+  title: string
+  detail: string
+  source: string
+}
+
+export interface GraphSegment {
+  start: number
+  end: number
+  planet: string
+  count: number
+  bias: string
+}
+
+export interface ChainVar {
+  planet: string
+  count: number
+}
+
+export interface PredictionChain {
+  x: ChainVar | null
+  x1: ChainVar | null
+  y: ChainVar | null
+  y1: ChainVar | null
+  first: string
+  second: string
+  cast_time?: string
+}
+
+export interface Prediction {
+  status: string
+  summary: string[]
+  note: string
+  sections?: Record<string, RuleFinding[]>
+  graph_segments?: GraphSegment[]
+  chain?: PredictionChain
+}
+
+export interface TransitRow {
+  deg: string
+  rasi_lord: string
+  rasi_lord_ta: string
+  nak_lord: string
+  nak_lord_ta: string
+  sub_lord: string
+  sub_lord_ta: string
+  time: string
+  graha?: string
+  graha_ta?: string
+}
+
+export interface PanchangEnd {
+  num: number
+  name: string
+  name_ta?: string
+  ends: string | null
+}
+
+export interface PlanetPositionRow {
+  planet: string
+  deg: string
+  house: number
+  retro: boolean
+  rasi_lord: string
+  nak_lord: string
+  sub_lord: string
+}
+
+export interface PlanetPositionSheet {
+  rows: PlanetPositionRow[]
+  chain: { x: string; y: string }
+  chain_text: string[]
+  cast?: string
+  day_lord: { en: string; ta: string }
+}
+
+export interface KpDayChart {
+  vaara: string
+  day_lord: { en: string; ta: string }
+  planet_position?: PlanetPositionSheet
+  panchang_ends: {
+    thithi: PanchangEnd
+    natchathiram: PanchangEnd
+    yogam: PanchangEnd
+    karanam: PanchangEnd
+  }
+  moon_transits: TransitRow[]
+  planet_transits: TransitRow[]
+}
+
+export interface ComputeResult {
+  input: { date: string; time: string; tz_offset: number; lat: number; lon: number }
+  ayanamsa: number
+  lagna: Lagna
+  grahas: Graha[]
+  chart: string[][]
+  panchang: Panchang
+  prediction: Prediction
+  kp?: KpDayChart
+}
+
+export interface CanTradeResult {
+  birth_rasi: { en: string; ta: string }
+  transit_rasi: { en: string; ta: string }
+  count: number
+  verdict: 'AVOID' | 'FAVOURABLE' | 'OK'
+  note: string
+  rasi_until: string
+  source: string
+}
+
+export interface ComputeRequest {
+  year: number
+  month: number
+  day: number
+  hour: number
+  minute: number
+  tz_offset: number
+  lat: number
+  lon: number
+}

@@ -1,0 +1,610 @@
+:root {
+  --bg: #0f1216;
+  --panel: #171b21;
+  --line: #2a313b;
+  --ink: #e8ecf1;
+  --muted: #9aa6b2;
+  --accent: #d9a441;
+  --accent2: #5aa9e6;
+  --cell: #12161b;
+  --retro: #e77;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.45;
+}
+
+.app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.app > header h1 {
+  margin: 0 0 0.25rem;
+  color: var(--accent);
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.app > header p {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.output-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* ---------- InputPanel ---------- */
+
+.input-panel label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.input-panel .row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.input-panel .row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.input-panel input,
+.input-panel select {
+  width: 100%;
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  padding: 0.45rem 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.input-panel input:focus,
+.input-panel select:focus {
+  outline: 1px solid var(--accent2);
+  border-color: var(--accent2);
+}
+
+.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.day-nav-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.day-nav-row .today-btn {
+  margin: 0;
+  flex: 1;
+}
+
+.today-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  background: transparent;
+  color: var(--accent2);
+  border: 1px solid var(--accent2);
+  border-radius: 6px;
+  padding: 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.today-btn:hover {
+  background: rgba(90, 169, 230, 0.12);
+}
+
+.today-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.profile-summary {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent2);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: inherit;
+  margin-left: 0.5rem;
+  text-decoration: underline;
+}
+
+.trade-verdict {
+  border-radius: 8px;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--line);
+  background: var(--cell);
+}
+
+.trade-verdict .verdict-label {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+.verdict-avoid .verdict-label { color: var(--retro); }
+.verdict-avoid { border-color: #a4444a; }
+.verdict-favourable .verdict-label { color: #7dc87d; }
+.verdict-favourable { border-color: #4a7a4a; }
+.verdict-ok .verdict-label { color: var(--accent2); }
+
+.trade-verdict .verdict-detail {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.trade-verdict .verdict-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+.compute-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+  background: var(--accent);
+  color: #14100a;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.compute-btn:hover {
+  filter: brightness(1.08);
+}
+
+.compute-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.error-box {
+  margin-top: 0.75rem;
+  border: 1px solid #a4444a;
+  background: #2a1518;
+  color: var(--retro);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- PanchangTiles ---------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.6rem;
+}
+
+@media (max-width: 900px) {
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile {
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.65rem;
+}
+
+.tile .tile-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.tile .tile-main {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.tile .tile-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+/* ---------- SouthIndianChart ---------- */
+
+.chart-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 130px));
+  grid-template-rows: repeat(4, minmax(90px, 130px));
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--line);
+  gap: 1px;
+}
+
+.chart-cell {
+  background: var(--cell);
+  padding: 0.35rem 0.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-cell .rasi-name {
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+.chart-cell .tokens {
+  margin-top: 0.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.token-lagna {
+  color: var(--accent);
+}
+
+.token-retro {
+  color: var(--retro);
+}
+
+.chart-center {
+  grid-row: 2 / span 2;
+  grid-column: 2 / span 2;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.chart-center .center-rasi {
+  color: var(--accent);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.chart-center .center-deg {
+  font-size: 0.9rem;
+}
+
+.chart-center .center-when {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- GrahaTable ---------- */
+
+.graha-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.graha-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding: 0.35rem 0.5rem;
+}
+
+.graha-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.graha-table tr:last-child td {
+  border-bottom: none;
+}
+
+.graha-table .ta {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.graha-table .retro-yes {
+  color: var(--retro);
+  font-weight: 600;
+}
+
+.graha-table .retro-no {
+  color: var(--muted);
+}
+
+/* ---------- PredictionPanel ---------- */
+
+.status-chip {
+  display: inline-block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.prediction-panel ul {
+  margin: 0 0 0.75rem;
+  padding-left: 1.2rem;
+}
+
+.prediction-panel li {
+  margin-bottom: 0.25rem;
+}
+
+.prediction-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding-top: 0.6rem;
+}
+
+.loading {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+/* ---------- view tabs & KP panchang chart ---------- */
+
+.view-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-tabs .tab {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  border-radius: 8px 8px 0 0;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.view-tabs .tab.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.kp-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.kp-grid {
+  grid-template-columns: repeat(4, minmax(110px, 160px));
+  grid-template-rows: repeat(4, minmax(100px, 150px));
+}
+
+.kp-cell-grahas {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.transit-table .mono {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.muted-note {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin: 0.6rem 0 0;
+}
+
+.chain-box {
+  margin-top: 0.8rem;
+  border: 1px solid var(--accent2);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  text-align: center;
+}
+
+.chain-line {
+  color: var(--accent2);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.chain-daylord {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.chain-vars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.chain-vars-group {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.chain-var {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  background: var(--cell);
+}
+
+.chain-var-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.chain-var-value {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.chain-var-struck .chain-var-value {
+  text-decoration: line-through;
+  color: var(--retro);
+  font-weight: 400;
+}
+
+.chain-var-final {
+  border-color: var(--accent);
+}
+
+.chain-var-final .chain-var-value {
+  color: var(--accent);
+}
+
+.chain-var-empty .chain-var-value {
+  color: var(--muted);
+}
+
+.chain-vars-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  flex-basis: 100%;
+}
+
+.prediction-graph svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.graph-time {
+  font-size: 11px;
+  fill: var(--muted);
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.graph-label {
+  font-size: 11px;
+  fill: var(--muted);
+}
+
+.finding-section h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent2);
+}
+
+.finding {
+  border-left: 2px solid var(--line);
+  padding: 0.15rem 0 0.15rem 0.7rem;
+  margin-bottom: 0.65rem;
+}
+
+.finding-title {
+  font-weight: 600;
+}
+
+.finding-detail {
+  font-size: 0.85rem;
+  margin-top: 0.1rem;
+}
+
+.finding-source {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
