@@ -347,6 +347,41 @@ sources contradict each other, so the engine was left alone:
    C11 example. The two videos are inconsistent; C11 is the better-
    evidenced example, so it wins. Revisit if a third source settles it.
 
+## 5/8/12 counted from BOTH rasi and lagna — confirmed 2026-08-11
+
+[C4] is the only place the reference is stated explicitly, and it names
+both: "Where is the moon for your **Ras and Lakkana**? If it is in 5, 8,
+12, then definitely… you will do something wrong." Elsewhere he is looser
+("for your Ras…", "in your birth chart"); nothing says lagna-only. Guide
+§2.1 agrees. `/api/can-trade` therefore counts from both and flags AVOID
+if EITHER lands in 5/8/12, returning `count` and `lagna_count` separately.
+Materiality check over 60 days for a sample kundali: 4 days flagged by
+both, 12 rasi-only, **9 lagna-only** — i.e. a rasi-only implementation
+would silently miss a quarter of the blocked days.
+
+## Prasanam significator SETS (implemented 2026-08-11)
+
+[P1] reads houses as sets — "the star is the question, 4, 9, 10, 11 are
+there; Rahu is here, 4, 10, 12 are there" — not one house per planet.
+`prasanam_chain` now returns `question_houses`/`answer_houses`/
+`moon_houses` using the KP four-fold rule: houses the planet OCCUPIES and
+OWNS, plus those its STAR LORD occupies and owns; Rahu/Ketu own no rasi
+so they borrow their sign lord's. Whole-sign houses, so ownership maps
+1:1 onto houses.
+
+This makes three previously-undeliverable rules work, all sourced from
+[P2]: the poison rule can now see a 5/8/12 hiding among an otherwise
+profitable answer ("even one drop… it is poison"); 3+11 = profit but
+delayed ("you will buy it, you will cut it, in the end it will go up");
+and the 1/4/10 satisfaction axis. P1's own example — question 4/9/10/11,
+answer 4/10/12 — is a regression test and returns NO on the 12, matching
+his "it will be a joke" and the market falling.
+
+Known wrinkle: significators use whole-sign houses while the KP
+planet-position sheet displays Placidus cusps, so a planet can appear to
+own a house on one screen and not the other. Pre-existing, now more
+visible. `judge(int, int)` is retained and still passes its cases.
+
 ## Open questions / pending
 
 0. **RESOLVED — cast time & occupant counting.** The chain chart is cast

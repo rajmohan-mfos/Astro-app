@@ -34,6 +34,62 @@ HOUSE_GRADE = {2: "median profit", 6: "median profit", 11: "heavy profit",
                5: "median loss", 12: "median loss", 8: "heavy loss"}
 
 
+DELAY_HOUSE = 3            # [LT2] "if it goes in 2, 6, 11, or 3, 11"
+SATISFACTION = {1, 4, 10}  # [P2] "whoever is satisfied have 1, 4, 10"
+
+
+def _as_set(v) -> set:
+    return set(v) if isinstance(v, (set, list, tuple)) else {v}
+
+
+def judge_sets(question, answer) -> tuple[str, str]:
+    """Judge KP significator SETS [P1: 'the star is the question - 4, 9,
+    10, 11 are there; Rahu is here - 4, 10, 12'].
+
+    Poison rule first: any 5/8/12 among the answer's significators spoils
+    it, even alongside a 2/6/11 — "one drop of poison in a tumbler of
+    milk". His own example answers 4/10/12 and the 12 makes it a NO.
+    """
+    q, a = _as_set(question), _as_set(answer)
+    a_loss, a_profit = a & LOSS_HOUSES, a & PROFIT_HOUSES
+
+    def grade(hs):
+        return ", ".join(f"{h} ({HOUSE_GRADE[h]})" for h in sorted(hs))
+
+    extra = ""
+    if a & SATISFACTION:
+        extra = (f" Touches {sorted(a & SATISFACTION)} — the satisfaction "
+                 f"houses; the size of the gain should feel worthwhile.")
+    else:
+        extra = (" No 1/4/10 connection — any profit may feel unsatisfying "
+                 "in size.")
+
+    if a_loss:
+        return "NO", (f"the answer signifies {grade(a_loss)}"
+                      + (f" alongside {grade(a_profit)} — mixed, and one "
+                         f"drop of poison spoils it" if a_profit else
+                         " — unfavourable"))
+    if a_profit:
+        if q & LOSS_HOUSES:
+            return "NO", (f"the answer signifies {grade(a_profit)} but the "
+                          f"question carries {grade(q & LOSS_HOUSES)} — "
+                          f"mixed, treat as spoiled")
+        if DELAY_HOUSE in a and 11 in a:
+            return "YES", (f"the answer signifies {grade(a_profit)} with "
+                           f"house 3 — profit, but delayed: expect a dip "
+                           f"and a late recovery, so do not exit early."
+                           + extra)
+        return "YES", f"the answer signifies {grade(a_profit)}.{extra}"
+    if q & LOSS_HOUSES:
+        return "NO", (f"the answer is neutral but the question carries "
+                      f"{grade(q & LOSS_HOUSES)}")
+    if q & PROFIT_HOUSES:
+        return "YES", (f"the answer is neutral but the question carries "
+                       f"{grade(q & PROFIT_HOUSES)}.{extra}")
+    return "UNCLEAR", ("neither the question nor the answer touches "
+                       "2/6/11 or 5/8/12 — re-ask after 2–3 hours")
+
+
 def judge(question_house: int, answer_house: int) -> tuple[str, str]:
     """(verdict, reason) — the answer planet's house carries the verdict;
     the question planet's house supports it.
@@ -84,29 +140,35 @@ def rules(chart: dict) -> list[Finding]:
         verdict, reason = "CANCEL", (
             f"the lagna sub-lord is {c['lagna_sub_lord']} — Rahu/Ketu "
             f"horary charts can invert the answer completely; cancel")
-    elif c["question_house"] not in PROFIT_HOUSES | LOSS_HOUSES:
-        # [LT2-Buzz] the QUESTION planet must connect to 2/6/11 or 5/8/12
-        # else "the question doesn't connect to the universe"
+    elif not set(c["question_houses"]) & (PROFIT_HOUSES | LOSS_HOUSES):
+        # [LT2/P1] the QUESTION must connect to 2/6/11 or 5/8/12, else
+        # "you asked in the upper mind" — discard without predicting
         verdict, reason = "INVALID", (
-            f"the question planet sits in house {c['question_house']} — "
-            f"no connection to 2/6/11 or 5/8/12; the question is not "
-            f"validated, re-ask after 2–3 hours")
+            f"the question signifies {c['question_houses']} — no "
+            f"connection to 2/6/11 or 5/8/12; you asked from the upper "
+            f"mind, not the subconscious. Discard and re-ask after 2–3 "
+            f"hours")
     else:
-        verdict, reason = judge(c["question_house"], c["answer_house"])
+        verdict, reason = judge_sets(c["question_houses"],
+                                     c["answer_houses"])
 
     return [
         Finding(
             SECTION,
-            f"Question planet: {c['question']} (house {c['question_house']})",
+            f"Question planet: {c['question']} — signifies houses "
+            f"{c['question_houses']}",
             f"The Moon's nakshatra lord at this moment is {c['question']} — "
-            f"'the moon is the question'. (Lagna sub-lord: "
-            f"{c['lagna_sub_lord']}.)",
-            "LT part 2 — 'the moon is the question'"),
+            f"'the moon is the question'. Significators = houses it "
+            f"occupies and owns, plus its star lord's. (Occupied house "
+            f"{c['question_house']}; lagna sub-lord {c['lagna_sub_lord']}.)",
+            "LT part 2 + Prasanam video 1 significator sets"),
         Finding(
             SECTION,
-            f"Answer planet: {c['answer']} (house {c['answer_house']})",
+            f"Answer planet: {c['answer']} — signifies houses "
+            f"{c['answer_houses']}",
             f"The star lord of {c['question']}'s position — 'the star of "
-            f"the star' — it carries the answer.",
+            f"the star' — it carries the verdict. (Occupied house "
+            f"{c['answer_house']}.)",
             "LT part 2 + Prasanam video 1 @ 07:47–08:04"),
         Finding(
             SECTION,

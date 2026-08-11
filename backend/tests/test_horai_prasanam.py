@@ -309,3 +309,48 @@ def test_rahu_ketu_cancel_follows_the_lagna_sub_lord():
             found = True
             break
     assert found, 'no Rahu/Ketu lagna-sub-lord day found to test'
+
+
+def test_significator_sets_structure():
+    """[P1] planets signify SETS of houses - 'the star is the question,
+    4, 9, 10, 11 are there; Rahu is here, 4, 10, 12 are there'."""
+    from app import transit
+    c = transit.prasanam_chain(2021, 5, 5, 11, 58, 5.5, 13.0827, 80.2707)
+    for key in ('question_houses', 'answer_houses', 'moon_houses'):
+        hs = c[key]
+        assert isinstance(hs, list) and hs == sorted(hs)
+        assert all(1 <= h <= 12 for h in hs)
+        assert len(hs) >= 2, (key, hs)     # occupied + owned at minimum
+    # the occupied house is always inside the significator set
+    assert c['question_house'] in c['question_houses']
+    assert c['answer_house'] in c['answer_houses']
+
+
+def test_p1_worked_example_verdict():
+    """[P1] question signifies 4,9,10,11; answer (Rahu) signifies
+    4,10,12 - the 12 makes it a NO, and the market fell."""
+    from app.rules.prasanam import judge_sets
+    verdict, reason = judge_sets({4, 9, 10, 11}, {4, 10, 12})
+    assert verdict == 'NO'
+    assert '12' in reason
+
+
+def test_poison_rule_on_sets():
+    from app.rules.prasanam import judge_sets
+    # a loss house spoils an otherwise profitable answer
+    assert judge_sets({2}, {11, 8})[0] == 'NO'
+    assert judge_sets({2}, {2, 6, 11})[0] == 'YES'
+    # 3 + 11 = profit but delayed
+    v, r = judge_sets({2}, {3, 11})
+    assert v == 'YES' and 'delayed' in r
+    # 1/4/10 satisfaction axis is reported either way
+    assert 'satisfaction' in judge_sets({2}, {11, 4})[1]
+    assert 'unsatisfying' in judge_sets({2}, {11})[1]
+
+
+def test_int_judge_still_backward_compatible():
+    from app.rules.prasanam import judge
+    assert judge(4, 8)[0] == 'NO'
+    assert judge(4, 11)[0] == 'YES'
+    assert judge(5, 11)[0] == 'NO'
+    assert judge(1, 4)[0] == 'UNCLEAR'

@@ -324,7 +324,30 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
     # transcripts genuinely disagree; see RULES-SOURCES.md).
     question = lords_of(lons["Moon"])["nak_lord"]
     answer = lords_of(lons[question])["nak_lord"]
+
+    # KP significators: a planet signifies the houses it OCCUPIES and
+    # OWNS, plus those its STAR LORD occupies and owns [P1: "the star is
+    # the question - 4, 9, 10, 11 are there; Rahu is here - 4, 10, 12"].
+    # Rahu/Ketu own no rasi, so they act through their sign lord.
+    def owned_houses(pl: str) -> set:
+        return {(i - asc_sign) % 12 + 1
+                for i, lord in enumerate(RASI_LORDS) if lord == pl}
+
+    def significators(pl: str) -> set:
+        out = {house_of(pl)} | owned_houses(pl)
+        if pl in ("Rahu", "Ketu"):
+            out |= owned_houses(RASI_LORDS[int(lons[pl] // 30)])
+        star = lords_of(lons[pl])["nak_lord"]
+        if star != pl:
+            out |= {house_of(star)} | owned_houses(star)
+            if star in ("Rahu", "Ketu"):
+                out |= owned_houses(RASI_LORDS[int(lons[star] // 30)])
+        return out
+
     return {
+        "question_houses": sorted(significators(question)),
+        "answer_houses": sorted(significators(answer)),
+        "moon_houses": sorted(significators("Moon")),
         "asc": round(asc, 4),
         "question": question,
         "question_house": house_of(question),
