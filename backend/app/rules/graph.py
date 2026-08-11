@@ -296,9 +296,10 @@ def cast_chart(chart: dict) -> dict:
     # Always recompute on the KP ayanamsa: the taught method is KP
     # throughout (his panchangam, sub-lords and transit tables only
     # reproduce under KP), while the Jothidam display stays Lahiri per
-    # SPEC §5. Mixing the two inside one prediction was the bug this
-    # fixes — weekly/long-term WINDOWS were already KP while their chains
-    # were Lahiri. See RULES-SOURCES.md.
+    # SPEC §5. Every prediction module must route through here — the
+    # weekly/long-term WINDOWS come from transit.py (KP), so a chain read
+    # off the raw display chart straddles two zodiacs and two cast
+    # moments. See RULES-SOURCES.md.
     return engine.compute(y_, m_, d_, hh, mm, inp["tz_offset"],
                           inp["lat"], inp["lon"],
                           ayanamsa_mode=engine.KP)

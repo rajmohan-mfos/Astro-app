@@ -11,7 +11,7 @@ Moon example, 1.5 months each, [C11 @ 08:53–09:19]).
 """
 from .. import transit
 from .base import Finding, date_slice
-from .graph import bias, degree_house, pick_chain
+from .graph import bias, cast_chart, degree_house, pick_chain
 
 SECTION = "long_term"
 
@@ -23,7 +23,11 @@ def rules(chart: dict) -> list[Finding]:
     year, month, day = (int(v) for v in inp["date"].split("-"))
     window = transit.jupiter_nak_window(year, month, day, inp["tz_offset"])
 
-    p = pick_chain(chart, "Jupiter")
+    # Same chart as the window: jupiter_nak_window is KP, so the chain is
+    # read off cast_chart (KP at sunrise) rather than the raw display
+    # chart. test_class11_second_half_subsplit already validates the
+    # teacher's reading through cast_chart — the module now agrees.
+    p = pick_chain(cast_chart(chart), "Jupiter")
     grahas = p["grahas"]
     out = []
 

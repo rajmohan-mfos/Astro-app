@@ -393,6 +393,53 @@ before this commit are not comparable with those after it.
 
 `judge(int, int)` is retained and still passes its cases.
 
+## Ayanamsa: KP for the prediction path, Lahiri for the display
+
+Two sidereal zodiacs are in play and they differ by 0.097° (5.8 arcmin):
+
+- **Jothidam display → LAHIRI.** The SPEC §5 deliverable and the
+  South-Indian standard for a rasi chart. `engine.compute` defaults to it,
+  so the display path and the four validated SPEC fixtures are untouched
+  by construction.
+- **Prediction path → KP (Krishnamurti).** The taught method is KP
+  throughout ("KP Murai", sub-lords, the 1–249 seed), and it is what
+  reproduces empirically: the teacher's Moon transit table matches on KP
+  and is ~10 min off on Lahiri, and the Example Chart horai matches to
+  the minute only under KP.
+
+`graph.cast_chart` is the single gate: it recasts at **sunrise on KP**,
+and every prediction module must route through it. The failure mode is a
+prediction that straddles two zodiacs — reading a chain off the raw
+display chart while the window it is scored against came from
+`transit.py` (already KP).
+
+This was fixed in two passes, and the first pass overstated its scope:
+
+1. Commit `8530980` moved the intraday path (`predict.py` → `cast_chart`)
+   and the panchang consumers (`panchang_rules`, `horai`, `dayscore`) onto
+   the cast chart. Its message claimed the weekly/long-term straddle was
+   fixed; it was not — those two modules still called
+   `pick_chain(chart, …)` on the raw display chart.
+2. The follow-up wired `weekly.py` and `longterm.py` through
+   `cast_chart` as well. Measured over 730 days (2021–22), the weekly
+   chain changes on 7.9% of days and the long-term chain on 7.0%.
+   Decomposed, the **cast-time** shift (09:15 → sunrise) dominates at
+   9.0% / 7.5% and the ayanamsa shift contributes 3.0% each — the same
+   pattern as the intraday fix, where sunrise was also the larger effect.
+
+All teacher-anchored readings are unchanged by the move: the C11 example
+(2021-07-22) still gives X=Mars at degree-house 6 with the second half
+split between Venus and Moon; 2021-08-15 still gives X=Mars; and the
+weekly Mars count on 2022-02-10 stays **11**, so the documented
+degree-vs-whole-sign conflict below (our 11 against the video's 12) is
+neither resolved nor worsened by this change.
+
+Deliberately left on Lahiri: the kundali profile check (`main.py`
+birth/transit charts and `transit.moon_rasi_exit`). That reading is
+natal rasi counting in whole-sign buckets — both charts shift together,
+so 0.097° almost never changes the count — and the birth chart, transit
+chart and `rasi_until` are mutually consistent as they stand.
+
 ## Open questions / pending
 
 0. **RESOLVED — cast time & occupant counting.** The chain chart is cast

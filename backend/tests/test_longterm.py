@@ -21,9 +21,11 @@ def test_jupiter_window_teacher_example():
 
 
 def test_longterm_chain_teacher_example():
-    # Jupiter in Dhanishta → X = Mars, exactly as the teacher reads it
+    # Jupiter in Dhanishta → X = Mars, exactly as the teacher reads it.
+    # Read through cast_chart (KP @ sunrise) — the same chart the module
+    # uses and the same one the window comes from.
     chart = engine.compute(2021, 8, 15, 9, 15, 5.5, 13.0827, 80.2707)
-    p = longterm.pick_chain(chart, "Jupiter")
+    p = longterm.pick_chain(longterm.cast_chart(chart), "Jupiter")
     assert p["x"] == "Mars"
 
 
@@ -60,6 +62,27 @@ def test_class11_second_half_subsplit():
     parts = [t for t in titles if 'Second half part' in t]
     assert len(parts) == 2, titles
     assert 'part 1/2' in parts[0] and 'part 2/2' in parts[1]
+
+
+def test_longterm_chain_is_read_off_the_cast_chart():
+    """The Jupiter window is KP, so the chain must be read on KP too.
+
+    2021-01-12 is one of the ~7% of days where the two charts disagree:
+    the raw display chart finds no Y1 and no second-half split, while the
+    cast chart (KP @ sunrise) yields Y1=Mars and splits the second half
+    between Mars(10) and Venus(2).
+    """
+    from app.rules.graph import cast_chart, pick_chain
+
+    chart = engine.compute(2021, 1, 12, 9, 15, 5.5, 13.0827, 80.2707)
+    assert pick_chain(chart, "Jupiter")["y1"] is None                 # raw
+    assert pick_chain(cast_chart(chart), "Jupiter")["y1"] == "Mars"   # cast
+
+    findings = longterm.rules(chart)
+    text = " ".join(f"{f.title} {f.detail}" for f in findings)
+    assert "Y1=Mars" in text
+    assert len([f for f in findings if "Second half part" in f.title]) == 2
+    assert "Mars at degree-house 10 from Jupiter" in text
 
 
 def test_longterm_slices_are_equal_and_contiguous():

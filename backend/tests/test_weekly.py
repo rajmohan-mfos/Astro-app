@@ -49,6 +49,26 @@ def test_weekly_findings_shape():
     assert all(f.source for f in findings)
 
 
+def test_weekly_chain_is_read_off_the_cast_chart():
+    """The window is KP (transit.sun_nak_window), so the chain must be too.
+
+    2021-01-22 is one of the ~8% of days where the raw display chart
+    (Lahiri @ the requested time) and the cast chart (KP @ sunrise)
+    disagree: raw reads Saturn/Saturn at degree-house 12, cast reads a
+    bare Sun at 1. Pins the module to the cast chart.
+    """
+    from app.rules.graph import cast_chart, pick_chain
+
+    chart = engine.compute(2021, 1, 22, 9, 15, 5.5, 13.0827, 80.2707)
+    assert pick_chain(chart, "Sun")["first"] == "Saturn"          # raw
+    assert pick_chain(cast_chart(chart), "Sun")["first"] == "Sun"  # cast
+
+    halves = " ".join(f"{f.title} {f.detail}" for f in weekly.rules(chart)
+                      if "half" in f.title.lower())
+    assert "Sun at degree-house 1 from the Sun" in halves
+    assert "Saturn" not in halves
+
+
 def test_prediction_includes_weekly_sections():
     chart = engine.compute(2022, 2, 10, 9, 15, 5.5, 13.0827, 80.2707)
     pred = predict.run(chart)

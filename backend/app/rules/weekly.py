@@ -12,7 +12,7 @@ Same chain logic as the intraday method, but:
 """
 from .. import transit
 from .base import Finding, date_slice
-from .graph import bias, degree_house, pick_chain
+from .graph import bias, cast_chart, degree_house, pick_chain
 
 SECTION = "weekly"
 
@@ -22,7 +22,11 @@ def rules(chart: dict) -> list[Finding]:
     year, month, day = (int(v) for v in inp["date"].split("-"))
     window = transit.sun_nak_window(year, month, day, inp["tz_offset"])
 
-    p = pick_chain(chart, "Sun")
+    # The chain must be read off the SAME chart the window came from:
+    # sun_nak_window is KP, so the chain is too (cast_chart = KP at
+    # sunrise). Reading the chain off the raw display chart left one
+    # prediction straddling two zodiacs AND two cast moments.
+    p = pick_chain(cast_chart(chart), "Sun")
     grahas = p["grahas"]
     out = []
 
