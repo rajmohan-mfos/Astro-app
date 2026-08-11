@@ -136,7 +136,16 @@ function App() {
                   Prediction
                   <span className="status-chip">{result.prediction.status}</span>
                 </h2>
-                <PredictionPanel prediction={result.prediction} />
+                <PredictionPanel prediction={result.prediction}
+                  request={{
+                    year: Number(result.input.date.slice(0, 4)),
+                    month: Number(result.input.date.slice(5, 7)),
+                    day: Number(result.input.date.slice(8, 10)),
+                    hour: Number(result.input.time.slice(0, 2)),
+                    minute: Number(result.input.time.slice(3, 5)),
+                    tz_offset: result.input.tz_offset,
+                    lat: result.input.lat, lon: result.input.lon,
+                  }} />
               </section>
 
               <section className="panel">

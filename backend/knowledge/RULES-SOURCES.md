@@ -73,11 +73,50 @@ numbers from LT2: 2/6/11 profit (6 median, 11 heavy), 5/12 median loss,
 
 ## Prasanam ([P1]+[P2]+[LT2], codified in `rules/prasanam.py`)
 
-KP horary, cast at the question moment (teacher uses AstroSage "KP Murai",
-old KP method; 1–249 seed variant pending a UI input). Question planet =
-lagna's SUB lord; answer planet = its position's nakshatra lord. Houses
-(whole-sign from KP lagna): 2/6/11 profit (6 median, 11 heavy), 5/12
-median loss, 8 heavy loss. Answer planet's house carries the verdict.
+KP horary (teacher uses AstroSage "KP Murai", **old** KP method). Houses:
+2/6/11 profit (6 median, 11 heavy), 5/12 median loss, 8 heavy loss; the
+answer planet's significators carry the verdict, subject to the poison
+rule.
+
+**The 1–249 seed number is now implemented** (`transit.horary_chart`,
+`rules/prasanam.horary_rules`, `POST /api/prasanam`), closing the deferred
+item. [P1 @ 04:31–05:32]: AstroSage → KP Murai → settings → KP OLD method
+→ "KP Hora Ennai" → think of a number 1–249 and enter it. **The number,
+not the clock, chooses the ascendant.**
+
+*This resolves the P1-vs-LT2 conflict rather than picking a side.* P1 says
+the question planet is the lagna's SUB lord; LT2 says it is the Moon's
+star lord. Under the seed-number method these stop competing: the number
+selects the lagna, so the lagna's sub lord IS what the number chose —
+P1's phrasing describes the number-driven chart. The no-number path keeps
+the Moon reading (user adjudication 2026-08-11) and is now labelled in the
+UI as a **substitute**, not the method, which is what the user's "I don't
+understand Prasanam here" was pointing at.
+
+**Table construction.** The 249 divisions are the 243 Vimshottari subs
+(27 × 9) with the 6 that straddle a rasi cusp split in two. Verified
+independently of any worked example: per-sign counts come out
+22/19/21/21 repeating (the canonical KP distribution), #1 is Mesha
+0°00′00″–0°46′40″ with Ketu sub, and #249 closes at 360°. The ascendant
+is taken at each division's MIDPOINT — targeting the start put it on a
+knife-edge and the solver landed fractions of an arcsecond below it,
+flipping number 45's sub lord from Sun to Venus.
+
+**What is NOT validated.** The cusp derivation — solving for the ARMC
+whose Placidus ascendant equals the number's degree, then taking all 12
+cusps from it, with planets at the moment of judgment — could not be
+checked against the teacher. P1 quotes number 88 with significators
+{4,9,10,11} and answer Rahu {4,10,12}, but gives **no date**, so the
+planets cannot be reproduced; and its machine translation is too corrupted
+to trust the planet names ("Birthday horse race and lunchtime race",
+"The answer is Black Crescent"). P1's own number 88 does not reconcile
+with its quoted Saturn lagna sub lord under the canonical table, which
+maps 88 → Simha 4°46′40″, **Mars** sub. Verify against AstroSage before
+relying on the cusps; the number→ascendant mapping is solid regardless.
+
+**Not backtestable.** The verdict depends on a number a human chooses, so
+unlike the graph rules it can never be scored against history. It must not
+inherit any implied edge from sitting beside the backtested modules.
 
 ## Horai golden rules ([S5], codified in `rules/horai.py`)
 

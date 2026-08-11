@@ -392,6 +392,159 @@ def prasanam_chain(year: int, month: int, day: int, hour: int, minute: int,
     }
 
 
+# ---------------------------------------------------------------------------
+# KP horary: the 1-249 seed number
+#
+# The taught method (PRASANAM VIDEO 1 @ 04:31-05:32): in AstroSage, KP Murai
+# -> settings -> KP OLD method -> "KP Hora Ennai", think of a number 1..249
+# and enter it. The number, not the clock, chooses the ascendant.
+#
+# The table is the 243 Vimshottari sub-divisions (27 nakshatras x 9 subs)
+# with the 6 subs that straddle a rasi cusp split in two, giving 249. That
+# yields the canonical KP per-sign counts 22/19/21/21 repeating -
+# independently checkable, and the reason the number range is 249 not 243.
+# ---------------------------------------------------------------------------
+KP_HORARY: list[tuple[float, float, int, str]] = []
+for _s, _e, _nak, _lord in _SUBS:
+    _p = _s
+    while _p < _e - 1e-9:
+        _cusp = (int(_p // 30) + 1) * 30
+        _q = min(_e, _cusp)
+        KP_HORARY.append((_p, _q, _nak, _lord))
+        _p = _q
+assert len(KP_HORARY) == 249, len(KP_HORARY)
+
+
+def horary_ascendant(number: int) -> dict:
+    """Sidereal ascendant selected by KP horary number 1..249.
+
+    The number designates a SPAN, not a point — every longitude inside it
+    shares the same sign, star and sub lords. The ascendant is taken at
+    the span's MIDPOINT rather than its start: the start is a knife-edge
+    boundary, and solving for it lands fractions of an arcsecond either
+    side, which flips the lagna sub lord into the neighbouring division
+    (number 45 did exactly that). The midpoint is robust to solver error
+    and is at most half a sub (~1 deg) from the start.
+    """
+    if not 1 <= number <= 249:
+        raise ValueError("horary number must be between 1 and 249")
+    start, end, nak, sub = KP_HORARY[number - 1]
+    return {"number": number, "start": start % 360, "end": end % 360,
+            "asc": ((start + end) / 2) % 360,
+            "rasi": RASIS[int(start // 30) % 12],
+            "nakshatra": NAKSHATRAS[nak],
+            "star_lord": DASHA_LORDS[nak % 9], "sub_lord": sub}
+
+
+def _armc_for_ascendant(target_trop: float, lat: float, eps: float) -> float:
+    """ARMC whose Placidus ascendant equals `target_trop` (tropical).
+
+    The ascendant increases monotonically with ARMC, so bisect on the
+    wrapped difference.
+    """
+    def asc_at(armc: float) -> float:
+        return swe.houses_armc(armc % 360, lat, eps, b'P')[1][0] % 360
+
+    def diff(armc: float) -> float:
+        return ((asc_at(armc) - target_trop + 180) % 360) - 180
+
+    lo = 0.0
+    for step in range(360):
+        a, b = float(step), float(step + 1)
+        if diff(a) <= 0 < diff(b):
+            lo = a
+            break
+    hi = lo + 1
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if diff(mid) <= 0:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def horary_chart(number: int, year: int, month: int, day: int, hour: int,
+                 minute: int, tz_offset: float, lat: float,
+                 lon: float) -> dict:
+    """KP horary chart for a seed number — the taught prasanam method.
+
+    The number fixes the ASCENDANT (via the 249-fold sub division); the
+    remaining 11 cusps follow by Placidus for that ascendant at this
+    latitude; the planets are placed for the actual moment of judgment.
+    Question planet = the LAGNA's sub lord [P1: "Lakkana Upanachathram is
+    the question"] — which is exactly what the number selects, so the
+    number-based method and P1's phrasing agree. Answer = that planet's
+    own star lord.
+
+    UNVALIDATED against the teacher's worked example: PRASANAM VIDEO 1
+    quotes number 88 with significators {4,9,10,11}/{4,10,12} but gives no
+    DATE, so the planets cannot be reproduced, and its machine translation
+    is too corrupted to trust the planet names. The 249 table itself IS
+    validated (canonical per-sign counts; #1 = Ketu 0deg00'-0deg46'40").
+    Compare against AstroSage before relying on the cusp derivation.
+    """
+    swe.set_sid_mode(swe.SIDM_KRISHNAMURTI, 0, 0)
+    jd = swe.julday(year, month, day, hour + minute / 60 - tz_offset)
+    seed = horary_ascendant(number)
+
+    # the table is SIDEREAL; houses_armc works tropically, so add the
+    # ayanamsa going in and take it off coming out — never both ways
+    ayan = swe.get_ayanamsa_ut(jd)
+    eps = swe.calc_ut(jd, swe.ECL_NUT)[0][0]
+    armc = _armc_for_ascendant((seed["asc"] + ayan) % 360, lat, eps)
+    cusps_trop, ascmc_trop = swe.houses_armc(armc, lat, eps, b'P')
+    cusps = [(c - ayan) % 360 for c in cusps_trop]
+    asc = (ascmc_trop[0] - ayan) % 360
+
+    bodies = {"Sun": swe.SUN, "Moon": swe.MOON, "Mars": swe.MARS,
+              "Mercury": swe.MERCURY, "Jupiter": swe.JUPITER,
+              "Venus": swe.VENUS, "Saturn": swe.SATURN}
+    lons = {n: swe.calc_ut(jd, b, FLAGS)[0][0] % 360
+            for n, b in bodies.items()}
+    lons["Rahu"] = swe.calc_ut(jd, swe.MEAN_NODE, FLAGS)[0][0] % 360
+    lons["Ketu"] = (lons["Rahu"] + 180) % 360
+
+    def house_of(planet: str) -> int:
+        pl = lons[planet]
+        for i in range(12):
+            c1, c2 = cusps[i] % 360, cusps[(i + 1) % 12] % 360
+            if (c1 <= pl < c2) if c1 <= c2 else (pl >= c1 or pl < c2):
+                return i + 1
+        return 1
+
+    def owned_houses(pl: str) -> set:
+        return {i + 1 for i, c in enumerate(cusps)
+                if RASI_LORDS[int((c % 360) // 30)] == pl}
+
+    def significators(pl: str) -> set:
+        out = {house_of(pl)} | owned_houses(pl)
+        if pl in ("Rahu", "Ketu"):
+            out |= owned_houses(RASI_LORDS[int(lons[pl] // 30)])
+        star = lords_of(lons[pl])["nak_lord"]
+        if star != pl:
+            out |= {house_of(star)} | owned_houses(star)
+            if star in ("Rahu", "Ketu"):
+                out |= owned_houses(RASI_LORDS[int(lons[star] // 30)])
+        return out
+
+    question = seed["sub_lord"]
+    answer = lords_of(lons[question])["nak_lord"]
+    return {
+        "seed": seed,
+        "question_houses": sorted(significators(question)),
+        "answer_houses": sorted(significators(answer)),
+        "moon_houses": sorted(significators("Moon")),
+        "asc": round(asc, 4),
+        "question": question,
+        "question_house": house_of(question),
+        "answer": answer,
+        "answer_house": house_of(answer),
+        "moon_house": house_of("Moon"),
+        "lagna_sub_lord": lords_of(asc)["sub_lord"],
+    }
+
+
 def planet_position(year: int, month: int, day: int, hour: int, minute: int,
                     tz_offset: float, lat: float, lon_geo: float) -> dict:
     """KP planet-position sheet (author's OPTIONS MERSAL format): full

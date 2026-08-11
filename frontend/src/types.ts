@@ -164,3 +164,21 @@ export interface ComputeRequest {
   lat: number
   lon: number
 }
+
+export interface PrasanamSeed {
+  number: number
+  start: number
+  end: number
+  asc: number
+  rasi: string
+  nakshatra: string
+  star_lord: string
+  sub_lord: string
+}
+
+export interface PrasanamResult {
+  number: number
+  seed: PrasanamSeed
+  findings: RuleFinding[]
+  note: string
+}

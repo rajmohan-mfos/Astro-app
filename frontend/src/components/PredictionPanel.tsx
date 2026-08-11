@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import type { Prediction } from '../types'
+import type { ComputeRequest, Prediction } from '../types'
+import PrasanamPanel from './PrasanamPanel'
 
 const SECTION_TITLES: Record<string, string> = {
   graph: 'Intraday graph (09:15–15:30)',
@@ -18,12 +19,17 @@ const TABS: { key: string; label: string; sections: string[] }[] = [
   { key: 'prasanam', label: 'Prasanam', sections: ['prasanam'] },
 ]
 
-export default function PredictionPanel({ prediction }: { prediction: Prediction }) {
+export default function PredictionPanel({ prediction, request }: {
+  prediction: Prediction
+  request?: ComputeRequest | null
+}) {
   const sections = prediction.sections ?? {}
   const hasFindings = Object.keys(sections).length > 0
 
-  // only offer tabs that actually carry findings
+  // Prasanam is always offered — it takes a number the user supplies, so
+  // it is live even when the auto-cast substitute produced no findings.
   const live = TABS.filter((t) =>
+    t.key === 'prasanam' ||
     t.sections.some((s) => (sections[s] ?? []).length > 0))
   const [tab, setTab] = useState<string>(live[0]?.key ?? 'intraday')
   const active = live.find((t) => t.key === tab) ?? live[0]
@@ -53,7 +59,12 @@ export default function PredictionPanel({ prediction }: { prediction: Prediction
         ))}
       </div>
 
-      {active?.sections.map((key) => {
+      {active?.key === 'prasanam' && (
+        <PrasanamPanel request={request ?? null}
+          autoFindings={sections.prasanam ?? []} />
+      )}
+
+      {active?.key !== 'prasanam' && active?.sections.map((key) => {
         const findings = sections[key] ?? []
         if (findings.length === 0) return null
         return (

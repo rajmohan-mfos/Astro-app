@@ -120,6 +120,89 @@ def judge(question_house: int, answer_house: int) -> tuple[str, str]:
                        f"{q} and {a}) — re-ask after 1–2 hours")
 
 
+def verdict_for(c: dict) -> tuple[str, str]:
+    """Verdict gates, shared by the seed-number and no-number paths.
+
+    Order matters: the two CANCEL gates say "do not cast at all", the
+    INVALID gate says "you cast, but the question did not connect".
+    """
+    if c["moon_house"] in LOSS_HOUSES:
+        # [P2-Buzz] "In 5, 8, 12, when your chart has the Moon, you should
+        # not put the prasanam at all"
+        return "CANCEL", (
+            f"the Moon sits in house {c['moon_house']} (5/8/12) — do not "
+            f"cast a prasanam at this time; ask later")
+    if c["lagna_sub_lord"] in ("Rahu", "Ketu"):
+        # [C3] "if Raghukethu comes as Lakhanam's Upanachathram… avoid"
+        return "CANCEL", (
+            f"the lagna sub-lord is {c['lagna_sub_lord']} — Rahu/Ketu "
+            f"horary charts can invert the answer completely; cancel")
+    if not set(c["question_houses"]) & (PROFIT_HOUSES | LOSS_HOUSES):
+        return "INVALID", (
+            f"the question signifies {c['question_houses']} — no "
+            f"connection to 2/6/11 or 5/8/12; you asked from the upper "
+            f"mind, not the subconscious. Discard and re-ask after 2–3 "
+            f"hours")
+    return judge_sets(c["question_houses"], c["answer_houses"])
+
+
+def horary_rules(number: int, year: int, month: int, day: int, hour: int,
+                 minute: int, tz_offset: float, lat: float,
+                 lon: float) -> list[Finding]:
+    """The taught prasanam: a seed number 1–249 chooses the chart.
+
+    [P1 @ 04:31–05:32] AstroSage → KP Murai → KP OLD method → "KP Hora
+    Ennai" → think of a number 1–249. The number fixes the ascendant, so
+    the QUESTION planet is the lagna's sub lord — which is exactly what
+    the number selects. This is P1's "Lakkana Upanachathram is the
+    question", and under the seed-number method it stops conflicting with
+    LT2's Moon phrasing: LT2 describes reading the Moon off a chart the
+    number already chose.
+    """
+    c = transit.horary_chart(number, year, month, day, hour, minute,
+                             tz_offset, lat, lon)
+    seed = c["seed"]
+    verdict, reason = verdict_for(c)
+    return [
+        Finding(
+            SECTION,
+            f"Horary number {number} → lagna {seed['rasi']} "
+            f"({seed['sub_lord']} sub)",
+            f"Number {number} of 249 selects {seed['rasi']} "
+            f"{seed['start'] % 30:.2f}°–{seed['end'] % 30 or 30:.2f}°, "
+            f"{seed['nakshatra']} ({seed['star_lord']}'s star), "
+            f"{seed['sub_lord']} sub. The number chooses the ascendant; "
+            f"the other 11 cusps follow by Placidus and the planets are "
+            f"placed for the moment you asked.",
+            "Prasanam video 1 @ 04:31–05:32 (AstroSage KP old method)"),
+        Finding(
+            SECTION,
+            f"Question planet: {c['question']} — signifies houses "
+            f"{c['question_houses']}",
+            f"The lagna's sub lord, which the number selected. "
+            f"Significators = houses it occupies and owns, plus its star "
+            f"lord's. (Occupied house {c['question_house']}.)",
+            "Prasanam video 1 @ 09:56–10:08 'Lakkana Upanachathram'"),
+        Finding(
+            SECTION,
+            f"Answer planet: {c['answer']} — signifies houses "
+            f"{c['answer_houses']}",
+            f"The star lord of {c['question']}'s position — 'the star of "
+            f"the star' — it carries the verdict. (Occupied house "
+            f"{c['answer_house']}.)",
+            "Prasanam video 1 @ 07:47–08:04"),
+        Finding(
+            SECTION,
+            f"Verdict: {verdict}",
+            f"{reason}. Judgment scale: 2/6 median profit, 11 heavy "
+            f"profit; 5/12 median loss, 8 heavy loss. Ask one exact "
+            f"question — one instrument, one direction, an explicit "
+            f"target and horizon — and do not re-ask it for 2–3 hours. "
+            f"Study aid, not financial advice.",
+            "Prasanam video 1 @ 10:09 + LT part 2 @ 03:32–05:48"),
+    ]
+
+
 def rules(chart: dict) -> list[Finding]:
     inp = chart["input"]
     year, month, day = (int(v) for v in inp["date"].split("-"))
@@ -153,6 +236,16 @@ def rules(chart: dict) -> list[Finding]:
                                      c["answer_houses"])
 
     return [
+        Finding(
+            SECTION,
+            "No horary number given — this is the SUBSTITUTE reading",
+            "The taught prasanam is driven by a seed number 1–249 that you "
+            "think of while holding the question in mind; that number "
+            "chooses the ascendant. Nothing below used a number — it reads "
+            "the chart cast at this page's date and time instead, which is "
+            "a stand-in, not the method. Enter a number in the Prasanam "
+            "tab to cast the real thing.",
+            "Prasanam video 1 @ 04:51–05:32"),
         Finding(
             SECTION,
             f"Question planet: {c['question']} — signifies houses "

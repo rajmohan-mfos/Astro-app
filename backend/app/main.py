@@ -116,6 +116,34 @@ def can_trade(req: CanTradeRequest):
     }
 
 
+class PrasanamRequest(ComputeRequest):
+    """A prasanam is a ComputeRequest plus the seed number you thought of."""
+    number: int = Field(ge=1, le=249)
+
+
+@app.post("/api/prasanam")
+def prasanam(req: PrasanamRequest):
+    """Cast the taught KP horary chart from a 1–249 seed number."""
+    from .rules import prasanam as prasanam_rules
+    try:
+        findings = prasanam_rules.horary_rules(
+            req.number, req.year, req.month, req.day, req.hour, req.minute,
+            req.tz_offset, req.lat, req.lon)
+        seed = transit.horary_ascendant(req.number)
+    except ValueError as e:
+        return JSONResponse(status_code=400, content={"error": str(e)})
+    return {
+        "number": req.number,
+        "seed": seed,
+        "findings": [{"section": f.section, "title": f.title,
+                      "detail": f.detail, "source": f.source}
+                     for f in findings],
+        "note": "Study aid reproducing the taught method — not financial "
+                "advice, and not backtestable: the verdict depends on a "
+                "number you chose.",
+    }
+
+
 @app.get("/api/health")
 def health():
     return {"ok": True}

@@ -1,4 +1,22 @@
-import type { CanTradeResult, ComputeRequest, ComputeResult } from './types'
+import type {
+  CanTradeResult, ComputeRequest, ComputeResult, PrasanamResult,
+} from './types'
+
+/** Cast the taught KP horary chart from a seed number 1–249. */
+export async function prasanam(
+  req: ComputeRequest, number: number,
+): Promise<PrasanamResult> {
+  const res = await fetch('/api/prasanam', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...req, number }),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `HTTP ${res.status}`)
+  }
+  return res.json()
+}
 
 export async function canTrade(
   birth: ComputeRequest,
