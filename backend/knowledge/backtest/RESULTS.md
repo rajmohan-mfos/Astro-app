@@ -220,3 +220,76 @@ RULES-SOURCES.md) — and NOT on predictive performance, of which there is
 none to allocate. Both sit at 48.3% against a 48.3% base rate, and both
 are beaten by the trivial rule "always predict down", which scores 51.7%
 because that is simply how often Nifty closed below its open.
+
+### Sliced by weekday and nakshatra lord (`scripts/slice_ayanamsa.py`)
+
+**By weekday** — n≈247 per bucket:
+
+| Weekday | KP hit | Lahiri hit | days they disagree | actual up-rate |
+|---|---|---|---|---|
+| Monday | 45.8% (n=214) | 45.3% (n=214) | 3 | 53.4% |
+| Tuesday | 48.4% (n=225) | 47.1% (n=225) | 5 | 44.8% |
+| Wednesday | 43.7% (n=215) | 44.1% (n=213) | 0 | 50.2% |
+| Thursday | 51.1% (n=221) | 51.8% (n=220) | 2 | 43.7% |
+| Friday | 51.9% (n=214) | 52.8% (n=214) | 2 | 49.8% |
+
+**By nakshatra lord** (Moon's star lord at sunrise, bucketed by the KP
+lord) — n≈137 per bucket:
+
+| Lord | KP hit | Lahiri hit | disagree | up-rate |
+|---|---|---|---|---|
+| Sun | 53.7% (n=121) | 54.5% (n=121) | 3 | 58.1% |
+| Moon | 44.2% (n=120) | 43.3% (n=120) | 1 | 47.5% |
+| Mars | 57.0% (n=114) | 57.0% (n=114) | 2 | 43.8% |
+| Mercury | 46.8% (n=126) | 47.2% (n=123) | 0 | 51.4% |
+| Jupiter | 45.9% (n=122) | 46.7% (n=122) | 1 | 42.9% |
+| Venus | 48.7% (n=117) | 48.7% (n=117) | 2 | 45.5% |
+| Saturn | 47.7% (n=128) | 46.9% (n=128) | 1 | 45.1% |
+| Rahu | 42.4% (n=118) | 42.4% (n=118) | 2 | 58.2% |
+| Ketu | 48.4% (n=124) | 48.4% (n=124) | 0 | 42.9% |
+
+**These slices cannot answer the ayanamsa question, and the disagree
+column is why.** All 12 discordant days spread across 5 weekdays and 9
+lords leaves 0–5 per bucket — Wednesday, Mercury and Ketu contain *zero*
+days on which the two methods differ at all, so their rows compare a
+method against itself. The largest KP-vs-Lahiri gap anywhere is 1.3pp
+(Tuesday), resting on 5 days. What these tables actually measure is the
+rule stack, not the zodiac: they reproduce the weekday and star-lord
+slices earlier in this document, which is a useful check that the harness
+is sound (the Lahiri weekday column matches the published figures to
+within rounding) and nothing more.
+
+The 12 discordant days in full, with the winner on each:
+
+| Date | Weekday | KP lord | Lahiri lord | KP | Lahiri | ret% | Winner |
+|---|---|---|---|---|---|---|---|
+| 2021-09-27 | Monday | Moon | Moon | −0.01 | +0.17 | −0.43 | KP |
+| 2021-10-07 | Thursday | Mars | Mars | +0.08 | −0.25 | −0.11 | Lahiri |
+| 2023-02-21 | Tuesday | Rahu | Rahu | +0.28 | −0.56 | −0.44 | Lahiri |
+| 2023-03-14 | Tuesday | Saturn | Saturn | −0.34 | +0.78 | −0.68 | KP |
+| 2024-01-30 | Tuesday | Sun | Sun | −0.16 | +0.06 | −1.17 | KP |
+| 2024-12-27 | Friday | Jupiter | Jupiter | −0.16 | +0.28 | +0.05 | Lahiri |
+| 2025-02-06 | Thursday | Sun | Sun | +0.12 | −0.58 | −0.67 | Lahiri |
+| 2025-04-01 | Tuesday | Venus | Venus | −0.34 | +0.13 | −0.75 | KP |
+| 2025-07-11 | Friday | **Sun** | **Venus** | +0.28 | −0.16 | −0.42 | Lahiri |
+| 2025-07-22 | Tuesday | Mars | Mars | −0.06 | +0.50 | −0.42 | KP |
+| 2025-10-13 | Monday | Rahu | Rahu | +0.16 | −0.22 | +0.20 | KP |
+| 2025-11-24 | Monday | Venus | Venus | +0.00 | −0.14 | −0.62 | Lahiri |
+
+6–6, exact two-sided *p* = 1.000. Several are near-zero scores on both
+sides (−0.01 vs +0.17; +0.00 vs −0.14) — days where the "disagreement"
+is a sign flip on a number that rounds to nothing.
+
+**The slice variable is itself ayanamsa-dependent.** The Moon's star lord
+differs between the two zodiacs on 9 days (0.7%), so a day can fall in
+different buckets depending on which method is asked. 2025-07-11 is both:
+KP calls it a Sun-lord day, Lahiri a Venus-lord day, *and* they predict
+opposite directions. Bucketing follows the KP lord throughout, since that
+is the production method.
+
+**Multiple testing.** These 14 comparisons join the ~30 already in this
+document. At n≈120–225 the 95% CI is ±7–9pp per cell, and the spread seen
+here (42.4%–57.0%) is the expected range under pure noise for 14 draws.
+Mars 57.0% and Rahu 42.4% are identical under both ayanamsas, which
+confirms they are properties of the rule stack rather than the zodiac —
+and they were already inside the noise band in the star-lord slice above.
