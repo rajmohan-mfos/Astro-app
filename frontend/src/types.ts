@@ -57,6 +57,19 @@ export interface PredictionChain {
   cast_time?: string
 }
 
+export interface DayScore {
+  panchang_total: number
+  chain_score: number
+  panchang_sign: string
+  chain_sign: string
+  agreement: string
+  conviction: 'high' | 'medium' | 'low'
+  parts: Record<string, number>
+  star_lord: string
+  amplified: boolean
+  chidra: boolean
+}
+
 export interface Prediction {
   status: string
   summary: string[]
@@ -64,6 +77,7 @@ export interface Prediction {
   sections?: Record<string, RuleFinding[]>
   graph_segments?: GraphSegment[]
   chain?: PredictionChain
+  day_score?: DayScore
 }
 
 export interface TransitRow {

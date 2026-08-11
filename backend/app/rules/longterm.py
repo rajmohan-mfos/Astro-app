@@ -10,10 +10,12 @@ teacher splits the Y half further along the deeper star chain (his Venus →
 Moon example, 1.5 months each, [C11 @ 08:53–09:19]).
 """
 from .. import transit
-from .base import Finding
-from .graph import STAR_QUALITY, bias, nak_lord_of, pick_chain
+from .base import Finding, date_slice
+from .graph import bias, degree_house, pick_chain
 
 SECTION = "long_term"
+
+_slice = date_slice          # kept for the Class-11 regression tests
 
 
 def rules(chart: dict) -> list[Finding]:
@@ -43,20 +45,29 @@ def rules(chart: dict) -> list[Finding]:
         f"star chain when it continues (his Venus 8 → Moon 3 example).",
         "Astro Class 11 @ 03:14–04:46, 08:53–09:19"))
 
-    for label, span, planet, count in [
-            ("First half", f"{window['start']} → {window['mid']}",
-             p["first"], p["first_count"]),
-            ("Second half", f"{window['mid']} → {window['end']}",
-             p["second"], p["second_count"])]:
-        g = grahas[planet]
-        b, reason = bias(count, planet, g["retro"])
-        out.append(Finding(
-            SECTION,
-            f"{label} ({span}): {b.upper()}",
-            f"{planet} at degree-house {count} from Jupiter — {reason}. "
-            f"Stocks belonging to {planet} follow this bias in this "
-            f"stretch (see the stock findings for the planet's tickers).",
-            "Astro Class 11 @ 04:38–05:48 + கிரகங்கள் house table"))
+    # [C11] each half is shared EQUALLY among the occupants of its star:
+    # "we have to divide the two elements in the three months — one and a
+    # half month is Venus and one and a half month is Moon."
+    jup = grahas["Jupiter"]["lon"]
+    for label, a, b_, planets, occ in [
+            ("First half", window["start"], window["mid"],
+             p["x_occupants"] or [p["x"]], bool(p["x_occupants"])),
+            ("Second half", window["mid"], window["end"],
+             p["y_occupants"] or [p["y"]], bool(p["y_occupants"]))]:
+        for i, planet in enumerate(planets):
+            span_from, span_to = _slice(a, b_, i, len(planets))
+            count = (degree_house(grahas[planet]["lon"], jup) if occ
+                     else degree_house(jup, grahas[planet]["lon"]))
+            bias_word, reason = bias(count, planet, grahas[planet]["retro"])
+            part = (f"{label} part {i + 1}/{len(planets)}"
+                    if len(planets) > 1 else label)
+            out.append(Finding(
+                SECTION,
+                f"{part} ({span_from} → {span_to}): {bias_word.upper()}",
+                f"{planet} at degree-house {count} from Jupiter — {reason}. "
+                f"Stocks belonging to {planet} follow this bias in this "
+                f"stretch (see the stock findings for the planet's tickers).",
+                "Astro Class 11 @ 04:38–05:48, 08:53–09:19"))
 
     out.append(Finding(
         SECTION,

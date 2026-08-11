@@ -167,3 +167,103 @@ def test_stock_findings_in_prediction():
     assert "Stocks for the" in titles
 
 
+
+
+def test_class8_horai_corrections():
+    from app.rules import horai
+    # divergence rule is standalone and day-independent, not buried in a
+    # weekday string, and points the right way (trade Nifty on divergence)
+    chart = engine.compute(2026, 8, 11, 9, 15, 5.5, 13.0827, 80.2707)
+    titles = [f.title for f in horai.rules(chart)]
+    assert any("Index selection" in t for t in titles)
+    idx = next(f for f in horai.rules(chart) if "Index selection" in f.title)
+    assert "NIFTY only" in idx.detail and "diverge" in idx.detail
+    for day in horai.DAY_RULES.values():
+        for _, detail in day.values():
+            assert "diverge" not in detail
+
+    # every quoted figure is framed as a minimum, with the 45-min window
+    assert "45 minutes" in horai.WINDOW_NOTE and "minimums" in horai.WINDOW_NOTE
+    assert "before" in horai.WINDOW_NOTE.lower()
+
+    # Uthiradam mega-crash tier carries its own magnitudes
+    assert horai.UTHIRADAM_TIER[0] == "Uttara Ashadha"
+    assert "300" in horai.UTHIRADAM_TIER[1] and "100" in horai.UTHIRADAM_TIER[1]
+
+    # Venus horai is a reversal on ANY day, not Monday-only
+    assert "REVERSAL" in horai.HORAI_EFFECT["Venus"]
+    assert "Venus" not in horai.DAY_RULES.get("Monday", {})
+
+    # the day-independent timeline is emitted
+    assert any("Horai timeline" in t for t in titles)
+
+
+def test_class9_saturn_horai_is_a_reversal():
+    from app.rules import horai
+    # [C9] "Next is Saturn Horai... That is vice versa. Vice versa means
+    # it will be opposite to what happened before."
+    assert "REVERSAL" in horai.HORAI_EFFECT["Saturn"]
+    assert "vice versa" in horai.HORAI_EFFECT["Saturn"]
+    # [C9] "Venus is the sign of unexpected things" - stated with no day
+    assert "REVERSAL" in horai.HORAI_EFFECT["Venus"]
+    # [C9] "Mercury Horai... I have given it as little up"
+    assert horai.HORAI_EFFECT["Mercury"] == "up"
+    # [C9] "It will rise up to half" - the half/45-min window
+    assert "45 minutes" in horai.WINDOW_NOTE
+
+
+def test_class10_confluence_and_gap_rules():
+    from app.rules import horai, prasanam
+    # confluence minimums fire only when horai and chain agree
+    found = False
+    for d in range(1, 29):
+        c = engine.compute(2021, 6, d, 9, 15, 5.5, 13.0827, 80.2707)
+        for f in horai.rules(c):
+            if f.title.startswith("Confluence"):
+                assert "30 points Nifty" in f.detail
+                assert "60 points BankNifty" in f.detail
+                found = True
+    assert found, "confluence rule never fired in a month of sessions"
+
+    # gap up/down is routed to prasanam, with no invented direction mapping
+    c = engine.compute(2026, 8, 11, 9, 15, 5.5, 13.0827, 80.2707)
+    gap = next(f for f in prasanam.rules(c) if "Gap up" in f.title)
+    assert "prasanam" in gap.detail.lower()
+    assert "garbled" in gap.detail
+
+
+def test_example_chart_negative_yogam_overrides_horai():
+    """[EX] 07/01/2022 Friday: Vyatipata (disease) day - the Friday
+    Mercury UP rule is overridden and the market went down."""
+    import datetime
+    from app.rules import horai
+    from app.rules.panchang_rules import yogam_bias
+    c = engine.compute(2022, 1, 7, 9, 15, 5.5, 13.0827, 80.2707)
+    assert c['panchang']['yogam']['name'] == 'Vyatipata'
+    ups = [f for f in horai.rules(c) if '(Mercury)' in f.title]
+    for f in ups:
+        assert 'OVERRIDDEN' in f.title
+        assert 'Vyatipata' in f.detail
+
+    # on a clean-yogam Friday the rule stands unmodified
+    for d in range(1, 90):
+        day = datetime.date(2022, 1, 1) + datetime.timedelta(days=d)
+        if day.weekday() != 4:
+            continue
+        c2 = engine.compute(day.year, day.month, day.day, 9, 15, 5.5,
+                            13.0827, 80.2707)
+        if yogam_bias(c2['panchang']['yogam']['name'])[0] == 'positive':
+            for f in horai.rules(c2):
+                if '(Mercury)' in f.title:
+                    assert 'OVERRIDDEN' not in f.title
+            break
+
+
+def test_example_chart_saturn_horai_timing_exact():
+    """The teacher's Saturn horai on 07/01/2022 runs 09:24-10:21; the
+    proportional model must reproduce both endpoints."""
+    slots = transit.horai_timeline(2022, 1, 7, 5.5, 13.0827, 80.2707)
+    sat = next(s for s in slots
+               if s['lord'] == 'Saturn' and 9 < s['start'] < 11)
+    assert abs(sat['start'] - (9 + 24 / 60)) < 0.02
+    assert abs(sat['end'] - (10 + 21 / 60)) < 0.02

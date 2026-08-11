@@ -98,6 +98,15 @@ def rules(chart: dict) -> list[Finding]:
             "Prasanam video 1 @ 07:47–08:04"),
         Finding(
             SECTION,
+            "Gap up / gap down is a prasanam question, not a graph read",
+            "[C10] The overnight gap is not taken from the chart — cast a "
+            "prasanam on the specific trade ('will I profit buying puts at "
+            "the open?') the evening before. The transcript's yes/no→"
+            "direction mapping is garbled, so no automatic mapping is "
+            "applied here: ask the question in the form you will trade.",
+            "Astro Class 10"),
+        Finding(
+            SECTION,
             f"Verdict for a question asked at this moment: {verdict}",
             f"{reason}. Judgment scale: 2/6/11 profit (6 median, 11 heavy); "
             f"5/12 median loss, 8 heavy loss. Treat the chart time as the "

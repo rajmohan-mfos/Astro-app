@@ -5,7 +5,7 @@ panchang_rules, stocks, weekly, longterm and prasanam.
 """
 from dataclasses import asdict
 
-from .rules import (graph, horai, longterm, panchang_rules,
+from .rules import (dayscore, graph, horai, longterm, panchang_rules,
                     prasanam, stocks, weekly)
 
 DISCLAIMER = (
@@ -18,7 +18,7 @@ DISCLAIMER = (
 # basics.py retired from the pipeline: [C3-Buzz] shows the node rule is
 # about the Moon over NATAL Rahu/Ketu — implemented in /api/can-trade
 RULE_MODULES = [graph.rules, horai.rules, panchang_rules.rules,
-                stocks.rules, weekly.rules, longterm.rules,
+                dayscore.rules, stocks.rules, weekly.rules, longterm.rules,
                 prasanam.rules]
 
 
@@ -66,5 +66,6 @@ def run(chart: dict) -> dict:
         "sections": sections,
         "graph_segments": segments,
         "chain": chain,
+        "day_score": dayscore.day_score(chart),
         "note": DISCLAIMER,
     }

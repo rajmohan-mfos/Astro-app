@@ -11,6 +11,7 @@ import ProfilePanel from './components/ProfilePanel'
 import PredictionGraph from './components/PredictionGraph'
 import PlanetPosition from './components/PlanetPosition'
 import ChainVariables from './components/ChainVariables'
+import DayScoreBar from './components/DayScoreBar'
 
 const DEFAULT_REQUEST: ComputeRequest = {
   year: 1990, month: 1, day: 1, hour: 12, minute: 0,
@@ -112,6 +113,9 @@ function App() {
                 result.prediction.graph_segments.length > 0 && (
                 <section className="panel">
                   <h2>Advance prediction chart — {result.input.date}</h2>
+                  {result.prediction.day_score && (
+                    <DayScoreBar score={result.prediction.day_score} />
+                  )}
                   {result.prediction.chain && (
                     <ChainVariables chain={result.prediction.chain} />
                   )}

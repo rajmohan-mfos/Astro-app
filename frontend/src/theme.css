@@ -505,6 +505,49 @@ body {
   font-size: 0.8rem;
 }
 
+.day-score {
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.8rem;
+  background: var(--cell);
+}
+
+.conviction-high { border-left-color: var(--accent); }
+.conviction-medium { border-left-color: var(--accent2); }
+.conviction-low { border-left-color: var(--muted); }
+
+.day-score-conviction {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+}
+
+.conviction-high .day-score-conviction { color: var(--accent); }
+.conviction-medium .day-score-conviction { color: var(--accent2); }
+.conviction-low .day-score-conviction { color: var(--muted); }
+
+.day-score-sub {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-left: 0.6rem;
+}
+
+.day-score-parts {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.part-pos { color: #7dc87d; }
+.part-neg { color: var(--retro); }
+.part-zero { color: var(--muted); }
+.part-amp { color: var(--accent); }
+
 .chain-vars {
   display: flex;
   flex-wrap: wrap;

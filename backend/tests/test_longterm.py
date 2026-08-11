@@ -42,3 +42,33 @@ def test_prediction_has_all_sections():
     pred = predict.run(chart)
     for section in ("graph", "weekly", "monthly", "long_term"):
         assert pred["sections"][section], section
+
+
+def test_class11_second_half_subsplit():
+    """[C11] 'we have to divide the two elements in the three months -
+    one and a half month is Venus and one and a half month is Moon.'"""
+    from app import engine
+    from app.rules import longterm, graph
+    c = engine.compute(2021, 7, 22, 9, 15, 5.5, 13.0827, 80.2707)
+    p = graph.pick_chain(graph.cast_chart(c), 'Jupiter')
+    # the teacher's Y-side planets are Venus and Moon
+    assert set(p['y_occupants']) == {'Venus', 'Moon'}
+    # X = Mars at degree-house 6, exactly as he counts it
+    assert p['x'] == 'Mars' and p['first_count'] == 6
+
+    titles = [f.title for f in longterm.rules(c)]
+    parts = [t for t in titles if 'Second half part' in t]
+    assert len(parts) == 2, titles
+    assert 'part 1/2' in parts[0] and 'part 2/2' in parts[1]
+
+
+def test_longterm_slices_are_equal_and_contiguous():
+    from app.rules.longterm import _slice
+    a, b = '2021-10-12', '2022-01-01'
+    s1 = _slice(a, b, 0, 2)
+    s2 = _slice(a, b, 1, 2)
+    assert s1[0] == a and s2[1] == b
+    assert s1[1] == s2[0]          # contiguous, no gap
+    import datetime
+    d = lambda x: datetime.date.fromisoformat(x)
+    assert abs((d(s1[1]) - d(s1[0])).days - (d(s2[1]) - d(s2[0])).days) <= 1

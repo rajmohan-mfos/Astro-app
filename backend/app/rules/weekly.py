@@ -11,8 +11,8 @@ Same chain logic as the intraday method, but:
 - X rules the first half of the window, Y the second [W @ 05:44–06:04]
 """
 from .. import transit
-from .base import Finding
-from .graph import bias, pick_chain
+from .base import Finding, date_slice
+from .graph import bias, degree_house, pick_chain
 
 SECTION = "weekly"
 
@@ -41,20 +41,30 @@ def rules(chart: dict) -> list[Finding]:
         f"→ using {p['first']} (first half) and {p['second']} (second half).",
         "Weekly & Monthly class @ 01:41–03:54"))
 
+    # each half is shared EQUALLY among the occupants of its star — the
+    # same rule Class 11 states for the Jupiter window and Class 10 for
+    # the intraday x1/x2 split
+    sun = grahas["Sun"]["lon"]
     halves = []
-    for label, span, planet, count in [
-            ("First half", f"{window['start']} → {window['mid']}",
-             p["first"], p["first_count"]),
-            ("Second half", f"{window['mid']} → {window['end']}",
-             p["second"], p["second_count"])]:
-        g = grahas[planet]
-        b, reason = bias(count, planet, g["retro"])
-        halves.append(b)
-        out.append(Finding(
-            SECTION,
-            f"{label} ({span}): {b.upper()}",
-            f"{planet} at degree-house {count} from the Sun — {reason}.",
-            "Weekly & Monthly class @ 04:24–06:40 + கிரகங்கள் house table"))
+    for label, a, b_, planets, occ in [
+            ("First half", window["start"], window["mid"],
+             p["x_occupants"] or [p["x"]], bool(p["x_occupants"])),
+            ("Second half", window["mid"], window["end"],
+             p["y_occupants"] or [p["y"]], bool(p["y_occupants"]))]:
+        for i, planet in enumerate(planets):
+            span_from, span_to = date_slice(a, b_, i, len(planets))
+            count = (degree_house(grahas[planet]["lon"], sun) if occ
+                     else degree_house(sun, grahas[planet]["lon"]))
+            b, reason = bias(count, planet, grahas[planet]["retro"])
+            if i == 0:
+                halves.append(b)
+            part = (f"{label} part {i + 1}/{len(planets)}"
+                    if len(planets) > 1 else label)
+            out.append(Finding(
+                SECTION,
+                f"{part} ({span_from} → {span_to}): {b.upper()}",
+                f"{planet} at degree-house {count} from the Sun — {reason}.",
+                "Weekly & Monthly class @ 04:24–06:40 + கிரகங்கள் house table"))
 
     if "angle" in halves:
         which = "first" if halves[0] == "angle" else "second"
