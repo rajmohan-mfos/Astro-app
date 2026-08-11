@@ -4,7 +4,10 @@ Environment:
   TELEGRAM_BOT_TOKEN   from @BotFather
   TELEGRAM_CHAT_ID     your own chat id (see the workflow file for how)
   ASTRO_LAT/ASTRO_LON  optional, default Mumbai (the NSE's location)
-  ASTRO_DATE           optional YYYY-MM-DD, for testing a specific day
+  ASTRO_DATE           optional. YYYY-MM-DD, or the keywords `today`
+                       / `tomorrow` / `+N` (N days ahead). Blank = today.
+                       Keywords exist so the date can be typed on a phone
+                       when triggering the workflow by hand.
   ASTRO_DRY_RUN        set to 1 to print the message instead of sending
   ASTRO_DIAGNOSE       set to 1 to check the token and list the chat ids
                        the bot can see, instead of sending. Use this when
@@ -171,13 +174,35 @@ def diagnose() -> None:
               "of the ids above.")
 
 
+def resolve_date(raw: str | None) -> datetime.date:
+    """Blank / today / tomorrow / +N / YYYY-MM-DD, relative to IST.
+
+    'Today' has to be IST, not the runner's UTC: at 02:45 UTC it is
+    already 08:15 the same day in India, but a UTC-based `today` would
+    still be correct there — whereas an evening run would not be. Using
+    IST throughout removes the class of bug rather than one instance.
+    """
+    today = datetime.datetime.now(IST).date()
+    s = (raw or "").strip().lower()
+    if not s or s == "today":
+        return today
+    if s == "tomorrow":
+        return today + datetime.timedelta(days=1)
+    if s.startswith("+") and s[1:].isdigit():
+        return today + datetime.timedelta(days=int(s[1:]))
+    try:
+        return datetime.date.fromisoformat(s)
+    except ValueError:
+        raise SystemExit(
+            f"could not read date {raw!r} — use YYYY-MM-DD, or "
+            f"today / tomorrow / +N")
+
+
 def main() -> None:
     if os.environ.get("ASTRO_DIAGNOSE") == "1":
         diagnose()
         return
-    raw = os.environ.get("ASTRO_DATE")
-    d = (datetime.date.fromisoformat(raw) if raw
-         else datetime.datetime.now(IST).date())
+    d = resolve_date(os.environ.get("ASTRO_DATE"))
     text = build_message(d)
     if os.environ.get("ASTRO_DRY_RUN") == "1":
         print(text)

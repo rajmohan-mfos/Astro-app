@@ -20,8 +20,9 @@ on:
   workflow_dispatch:        # lets you run it by hand to test
     inputs:
       date:
-        description: 'Date to compute (YYYY-MM-DD), blank = today'
+        description: 'today | tomorrow | +N | YYYY-MM-DD (blank = today)'
         required: false
+        default: 'tomorrow'
       dry_run:
         description: 'Print the message instead of sending (1 = yes)'
         required: false
