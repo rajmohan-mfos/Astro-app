@@ -173,3 +173,50 @@ size.
 **Bottom line.** The app is a faithful, source-traced, regression-tested
 implementation of the GRAHA MARKETS method. The method itself does not
 forecast Nifty. Use it as a study tool; do not trade it.
+
+## KP vs Lahiri ayanamsa (`scripts/compare_ayanamsa.py`)
+
+Run 2026-08-11, after the prediction path moved to KP. Same 1,235 days,
+same rule stack, same sunrise cast — the ONLY difference is the 0.097°
+(5.8 arcmin) zodiac offset. Per-day data in `ayanamsa_compare.csv`.
+
+| Test | KP | Lahiri |
+|---|---|---|
+| Chain direction, all directional days | **48.3%** (526/1090) | **48.3%** (525/1087) |
+| Strong days (\|score\| ≥ 0.5) | 46.1% (n=464) | 46.3% (n=467) |
+| Panchang tally sign | 48.5% (n=1235) | 48.5% (n=1235) |
+
+Per-year (KP / Lahiri): 42.0/42.0 · 54.3/54.3 · 45.4/45.2 · 49.6/49.8 ·
+48.0/48.2 · 44.6/44.6.
+
+**The two are the same predictor 98.9% of the time.** Over five years the
+chain directions disagree on **12 days out of 1,086**. Overall hit rates
+therefore cannot separate them — they are ~99% the same numbers by
+construction, not by evidence. On the 12 discordant days the split is
+**6–6**, exact McNemar two-sided *p* = 1.000. The panchang tallies
+disagree on 2 days out of 1,235.
+
+**The comparison is underpowered by design, and no amount of care fixes
+that.** With 12 discordant days, one method would have had to win 10 of
+them (83%) to reach *p* < 0.05. To detect a genuine but realistic edge at
+80% power you would need:
+
+| If one ayanamsa truly wins… | discordant days needed | ≈ years of Nifty |
+|---|---|---|
+| 60% of disagreements | 194 | ~70 |
+| 65% | 85 | ~31 |
+| 70% | 47 | ~17 |
+| 75% | 29 | ~10 |
+
+At the observed ~1.1% discordance rate, five years of data can only ever
+detect an implausibly large effect. A tie here is the expected result
+whether or not one ayanamsa is genuinely better.
+
+**Bottom line.** Neither is better; this test cannot tell them apart, and
+a longer one almost certainly could not either. The choice of KP for the
+prediction path rests on source fidelity — the teacher's own Moon transit
+table and horai timings reproduce under KP and not under Lahiri (see
+RULES-SOURCES.md) — and NOT on predictive performance, of which there is
+none to allocate. Both sit at 48.3% against a 48.3% base rate, and both
+are beaten by the trivial rule "always predict down", which scores 51.7%
+because that is simply how often Nifty closed below its open.
