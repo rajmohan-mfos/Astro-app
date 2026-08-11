@@ -6,12 +6,14 @@ sideways-bearish -0.5, bearish -1). Predicted direction = sign(score).
 Actual direction = sign(close - open) — the session shape the graph
 claims to predict. Educational evaluation only.
 
-Usage: python scripts/backtest_nifty.py [years] [place]
+Usage: python scripts/backtest_nifty.py [years] [place] [index]
   place = chennai (default) | mumbai
+  index = nifty (default) | banknifty
 
 Chennai is the default so the published RESULTS.md tables stay
 reproducible; Mumbai matches the app's own default cast location (the NSE
-is there). Each place writes its own CSV, so neither overwrites the other.
+is there). Each (place, index) pair writes its own CSV, so no run
+overwrites another.
 """
 import csv
 import json
@@ -25,13 +27,14 @@ from app import engine                                  # noqa: E402
 from app.rules import graph, panchang_rules             # noqa: E402
 
 PLACES = {"chennai": (13.0827, 80.2707), "mumbai": (19.076, 72.8777)}
+INDICES = {"nifty": "%5ENSEI", "banknifty": "%5ENSEBANK"}
 LAT, LON, TZ = 13.0827, 80.2707, 5.5      # set from argv in main()
 WEIGHTS = {"bullish": 1.0, "sideways-bullish": 0.5, "sideways": 0.0,
            "angle": 0.0, "sideways-bearish": -0.5, "bearish": -1.0}
 
 
-def fetch_nifty(years: int):
-    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEI"
+def fetch_nifty(years: int, symbol: str = "%5ENSEI"):
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
            f"?range={years}y&interval=1d")
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=60) as r:
@@ -74,10 +77,13 @@ def main():
     place = (sys.argv[2] if len(sys.argv) > 2 else "chennai").lower()
     if place not in PLACES:
         raise SystemExit(f"place must be one of {sorted(PLACES)}")
+    index = (sys.argv[3] if len(sys.argv) > 3 else "nifty").lower()
+    if index not in INDICES:
+        raise SystemExit(f"index must be one of {sorted(INDICES)}")
     LAT, LON = PLACES[place]
-    days = fetch_nifty(years)
+    days = fetch_nifty(years, INDICES[index])
     print(f"{len(days)} trading days fetched "
-          f"({days[0][0]} → {days[-1][0]})  place={place} "
+          f"({days[0][0]} → {days[-1][0]})  index={index}  place={place} "
           f"({LAT}, {LON})")
 
     rows = []
@@ -96,8 +102,10 @@ def main():
     out_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge",
                            "backtest")
     os.makedirs(out_dir, exist_ok=True)
-    name = ("nifty_backtest.csv" if place == "chennai"
-            else f"nifty_backtest_{place}.csv")
+    # the original Chennai/Nifty run keeps its filename so RESULTS.md and
+    # the slice scripts that read it stay valid
+    name = ("nifty_backtest.csv" if (place == "chennai" and index == "nifty")
+            else f"{index}_backtest_{place}.csv")
     path = os.path.join(out_dir, name)
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=rows[0].keys())

@@ -426,3 +426,49 @@ That the result is location-invariant is mildly useful in itself: the
 finding is not an artifact of casting at Chennai, and moving the app to
 the exchange's own city does not rescue it. The method still does not
 forecast Nifty.
+
+## BankNifty (`scripts/backtest_nifty.py 5 mumbai banknifty`)
+
+Run 2026-08-11 at Mumbai. 1,234 trading days, 2021-08-11 → 2026-08-11.
+Per-day data in `banknifty_backtest_mumbai.csv`. Worth testing separately
+because several taught rules are BankNifty-specific (the Thursday
+Sun + Karthigai rule, the "~100 BN minimum" magnitudes, the Nifty/BankNifty
+divergence rule).
+
+| Test | Nifty (Mumbai) | BankNifty (Mumbai) |
+|---|---|---|
+| Baseline: share of up days | 48.3% | 48.5% |
+| **Engine direction, all directional days** | 48.2% (n=1086) | **51.0%** (n=1085) |
+| Strong-signal days (\|score\| ≥ 0.5) | 46.6% | 50.1% |
+| Days with a real move (\|ret\| ≥ 0.25%) | 49.0% | 49.4% |
+| Thithi positive → up | 48.6% | 48.2% |
+| Thithi negative → down | 52.1% | 51.0% |
+| Yogam positive → up | 46.8% | 46.1% |
+| Yogam negative → down | 49.6% | 46.3% |
+| Yogam **very** negative → down | 49.6% | 52.6% |
+| Panchang tally ≥ +0.5 → up | 47.8% | 48.1% |
+| Panchang tally ≤ −0.5 → down | 48.5% | 48.5% |
+| **Chain AND panchang agree (confluence)** | 45.3% | 48.5% |
+
+Per-year: 41.9 / 52.0 / 51.4 / 52.5 / 51.6 / 50.9 (2021→2026) — five of
+six years above 50%, and the first above-baseline headline in this whole
+document.
+
+**It is not a signal.** Three checks, all of which it fails:
+
+1. **It loses to a constant.** BankNifty closed below its open on 51.5% of
+   days, so "always predict down" scores **51.5%** — better than the
+   engine's 51.0%. Same failure mode as Nifty, just at a different level.
+2. **It is inside noise.** The engine calls UP on 52.3% of directional
+   days. If its calls were independent of outcomes it would score 49.9% by
+   arithmetic alone; it scores 51.0%, which is **z = +0.70**. Nothing at
+   |z| < 1.96 is distinguishable from chance, and this is one cell among
+   the ~60 now in this document.
+3. **The edge is one-sided.** When it says DOWN it is 53.1% correct; when
+   it says UP, 49.0%. A real directional signal helps in both directions.
+   This asymmetry is just a mildly bearish predictor meeting a mildly
+   falling market — the same coin landing tails slightly more often.
+
+So BankNifty behaves exactly like Nifty once the baseline is set
+correctly. The apparent improvement is the base rate moving, not the
+method working. Both indices: no forecasting ability.
