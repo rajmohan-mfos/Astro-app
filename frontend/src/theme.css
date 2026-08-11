@@ -402,8 +402,11 @@ body {
   z-index: 1;
 }
 
-/* same equal-share columns as .cell-vertical, so the labels line up
-   with the bodies they describe */
+/* Same equal-share columns as .cell-vertical, and the same horizontal
+   padding, so label N lands directly over body N. The rotation lives on
+   the inner span: a vertical-rl element cannot centre itself
+   horizontally, because in that writing mode the block axis is the
+   horizontal one — which is why these used to sit right of centre. */
 .ring-cell.ring-vertical {
   flex-direction: row;
   align-items: flex-start;
@@ -414,8 +417,12 @@ body {
 .ring-cell.ring-vertical .ring-lord {
   flex: 1 1 0;
   min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ring-cell.ring-vertical .ring-lord > span {
   writing-mode: vertical-rl;
-  text-align: center;
 }
 
 /* Nested frames, drawn behind the cells. Each sits in the 2px grid gap

@@ -60,7 +60,11 @@ function Ring({ cell, edge }: { cell: ChartCell; edge: Edge }) {
       style={place(key === 'sub_short' ? subTrack : starTrack)}>
       {!vertical && <div className="ring-spacer" aria-hidden="true" />}
       {cell.items.map((it, i) => (
-        <div key={i} className="ring-lord">{it[key]}</div>
+        // the inner span carries the rotation; the div does the
+        // horizontal centring, which a rotated element cannot do for
+        // itself (in vertical-rl the block axis IS the horizontal one,
+        // so text-align centres the wrong axis)
+        <div key={i} className="ring-lord"><span>{it[key]}</span></div>
       ))}
     </div>
   )
