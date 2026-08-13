@@ -48,6 +48,13 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
 - Backtest: `backend/scripts/backtest_nifty.py N` (results in
   `backend/knowledge/backtest/` — 5-year result: no predictive edge; the
   app is a study aid, not a trading system).
+- **Volatility model** (`backend/app/volmodel.py`): the one component with
+  measured out-of-sample skill — 60% on Nifty / 64% on BankNifty at calling
+  whether a session will be wider or narrower than usual. Six features, all
+  recent high-low ranges, **no astrology** (the panchang features were
+  measured to make it worse). Says nothing about direction; not a trading
+  signal. Retrain with `python scripts/opt/train_volmodel.py`. Shows up in
+  the daily push and as `/vol` in the bot.
 - **Ceiling study**: `backend/scripts/opt/` asks whether the engine can be
   *tuned* into a predictor — 15 years, walk-forward, 6,912 rule variants,
   two classifier families, a permutation null and a second index. Answer

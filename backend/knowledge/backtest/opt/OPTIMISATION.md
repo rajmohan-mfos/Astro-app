@@ -300,7 +300,79 @@ predictable, to about 60% on Nifty and 64% on BankNifty. Just not by
 astrology. The lunar and panchang features contribute nothing to it, and
 including them costs about five points.
 
-## 10. Conclusion
+## 10. The one thing that works: `app/volmodel.py`
+
+Section 9 established that volatility is predictable and astrology does not
+help predict it. The volatility part is worth keeping on its own, so it is
+now a shipped module — trained by `scripts/opt/train_volmodel.py`, served by
+`app/volmodel.py`.
+
+**Six features**: mean daily high-low range over the previous 1, 3, 5, 10, 21
+and 63 sessions. Nothing else. No astrology.
+
+Range rather than `|ret|` was chosen **before** any accuracy was computed, on
+the grounds that a range uses the whole session instead of two points of it:
+it correlates **+0.314** with tomorrow's `|ret|` against **+0.215** for `|ret|`
+itself. The accuracy comparison, run afterwards on identical folds, agreed:
+
+| Paired comparison (Nifty, walk-forward) | Delta | 95% CI | McNemar |
+|---|---|---|---|
+| range vs `\|ret\|`-only | **+1.38pp** | [+0.30, +2.55] | p = 0.030 |
+| adding `\|ret\|` back on top of range | +0.46pp | [−0.53, +1.41] | p = 0.356 |
+
+So range earns its place and `|ret|` does not — the shipped model is the
+parsimonious 6-feature one.
+
+**Out-of-sample, 2016–2026:**
+
+| | Nifty | BankNifty |
+|---|---|---|
+| accuracy (median split of `\|ret\|`) | 60.34% | 64.17% |
+| Brier score | 0.2355 | 0.2244 |
+| Brier skill vs base rate | **+4.2%** | **+7.5%** |
+
+Accuracy alone would be the wrong thing to report for a "how wide will today
+be" tool, so calibration matters more:
+
+| Stated probability | n | Mean stated | Actually wide |
+|---|---|---|---|
+| 0.00–0.35 | 180 | 33.9% | 26.7% |
+| 0.35–0.45 | 1226 | 40.0% | 36.7% |
+| 0.45–0.55 | 821 | 49.1% | 49.8% |
+| 0.55–0.65 | 287 | 58.8% | 55.7% |
+| 0.65–1.01 | 101 | 82.7% | **71.3%** |
+
+The middle bins track well. **The top bin is overconfident** — a stated 83%
+resolves at 71%. That is why the module reports a coarse band rather than a
+bare probability: at the `p ≥ 0.65` cut the realised rate is 71.3% wide, and
+at `p ≤ 0.35` it is 73.3% narrow, both of which the label honestly supports.
+Per-year accuracy ranges 54–76% with no downward trend.
+
+### What it is not
+
+60% on a two-way split of session width is **ordinary**. Volatility clustering
+is one of the oldest known properties of markets and every GARCH textbook
+exploits it; this model is a plain-vanilla instance of that, not an edge.
+It says **nothing about direction** — a wide day is equally likely to be wide
+up or wide down, and section 1 showed no method of calling that better than a
+coin. It is context for reading a session, and it is not wired to anything
+that places an order.
+
+### Architecture
+
+sklearn is study-only (`requirements-research.txt`). Training happens offline
+and exports `app/volmodel_weights.json`; the runtime is pure stdlib, so the
+API and the PythonAnywhere bot stay dependency-light — the deploy zip goes
+from 25 files / 55 KB to 28 / 61 KB and still carries no course material.
+`train_volmodel.py` asserts the stdlib scorer reproduces sklearn's
+`predict_proba` (observed max difference 2.2e-16); a silently mismatched
+scaler would otherwise produce plausible garbage with no error.
+
+Surfaced in the daily Telegram push as its own block, and as `/vol` in the
+bot. Both degrade to a plain message if prices cannot be fetched, since
+PythonAnywhere's free tier may not reach the quote provider.
+
+## 11. Conclusion
 
 - The measured ceiling on daily direction is **≈53%**, which is the base rate.
   Nothing in 6,912 rule variants, two classifier families, or 15 years of data

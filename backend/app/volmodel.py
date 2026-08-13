@@ -1,0 +1,141 @@
+"""Volatility context: is today likely to be a wide session or a narrow one?
+
+READ THIS BEFORE USING THE NUMBER.
+
+This model works, which makes it more dangerous to misread than the astro
+engine ever was. What it does:
+
+  * It predicts whether |close - open| will land ABOVE or BELOW the
+    historical median daily move. That is a two-way split of session
+    width, nothing finer.
+  * It is right about 60% of the time out-of-sample over 2016-2026.
+
+What it does NOT do, at all:
+
+  * It says NOTHING about direction. A "wide day" is equally likely to be
+    wide up or wide down; the direction study found no method of calling
+    that better than a coin (OPTIMISATION.md).
+  * It is not a trading signal and must never be wired to an order system.
+    60% on a binary split of volatility is ordinary — volatility
+    clustering is one of the oldest known properties of markets and every
+    GARCH textbook exploits it. It is context for reading the day, not an
+    edge.
+  * It carries no astrology. The panchang and chain features were
+    measured to make this model significantly WORSE (-5.05pp on Nifty,
+    -4.09pp on BankNifty, both p<0.001), so none of them are in it.
+
+Six features: mean daily high-low range over the previous 1, 3, 5, 10, 21
+and 63 sessions. Coefficients are trained offline by
+scripts/opt/train_volmodel.py and loaded from volmodel_weights.json, so
+this module stays stdlib-only and the deploy zip stays small.
+"""
+import json
+import math
+import os
+
+WINDOWS = (1, 3, 5, 10, 21, 63)
+MAX_LOOKBACK = max(WINDOWS)
+_WEIGHTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "volmodel_weights.json")
+_cache = None
+
+
+def weights() -> dict:
+    global _cache
+    if _cache is None:
+        with open(_WEIGHTS_FILE, encoding="utf-8") as f:
+            _cache = json.load(f)
+    return _cache
+
+
+def day_range_pct(bars: list, i: int) -> float:
+    """High-low range of bar i as a percent of its open."""
+    b = bars[i]
+    if not b.get("high") or not b.get("low") or not b.get("open"):
+        return 0.0
+    return (b["high"] - b["low"]) / b["open"] * 100
+
+
+def features(bars: list, i: int) -> list:
+    """Mean range over each window, using ONLY bars strictly before i.
+
+    The slice is bars[i-w : i] — bar i is excluded. If it were included,
+    today's own range would predict today's own width and the model would
+    score near-perfectly while being worthless.
+    """
+    out = []
+    for w in WINDOWS:
+        lo = max(0, i - w)
+        window = [day_range_pct(bars, j) for j in range(lo, i)]
+        out.append(sum(window) / len(window) if window else 0.0)
+    return out
+
+
+def _scale(x: list, w: dict) -> list:
+    return [(v - m) / s for v, m, s in zip(x, w["mu"], w["sd"])]
+
+
+def probability_wide(bars: list, i: int, w: dict | None = None) -> float:
+    """P(|close-open| of bar i exceeds the historical median)."""
+    w = w or weights()
+    z = _scale(features(bars, i), w)
+    s = w["intercept"] + sum(c * v for c, v in zip(w["coef"], z))
+    return 1.0 / (1.0 + math.exp(-s))
+
+
+def expected_range_pct(bars: list, i: int, w: dict | None = None) -> float:
+    """Expected high-low range for bar i, in percent of open."""
+    w = w or weights()
+    z = _scale(features(bars, i), w)
+    return w["range_intercept"] + sum(
+        c * v for c, v in zip(w["range_coef"], z))
+
+
+def band(p: float) -> str:
+    """A label, deliberately coarse — the model does not support finer."""
+    if p >= 0.65:
+        return "wide"
+    if p >= 0.55:
+        return "leaning wide"
+    if p <= 0.35:
+        return "narrow"
+    if p <= 0.45:
+        return "leaning narrow"
+    return "typical"
+
+
+def forecast(bars: list, i: int | None = None,
+             date: str | None = None) -> dict:
+    """Full reading for bar i (default: the last bar supplied).
+
+    `bars` must be at least MAX_LOOKBACK+1 daily OHLC dicts in ascending
+    date order, each with open/high/low/close.
+
+    Pass i == len(bars) to score the NEXT, not-yet-traded session — the
+    features only ever look backwards, so this is the same computation
+    with nothing withheld. That is the case the daily push needs, since it
+    runs before the market opens.
+    """
+    w = weights()
+    if i is None:
+        i = len(bars) - 1
+    if i < 1:
+        raise ValueError("need at least one prior bar")
+    if i > len(bars):
+        raise ValueError("i is more than one session past the last bar")
+    p = probability_wide(bars, i, w)
+    rng = expected_range_pct(bars, i, w)
+    last = bars[i - 1]["close"]
+    return {
+        "date": date or (bars[i].get("date") if i < len(bars) else None),
+        "p_wide": round(p, 4),
+        "band": band(p),
+        "expected_range_pct": round(rng, 3),
+        "expected_range_points": round(rng / 100 * last),
+        "median_abs_ret_pct": w["median_abs_ret_pct"],
+        "history_bars": min(i, MAX_LOOKBACK),
+        "trained_through": w["trained_through"],
+        "oos_accuracy": round(w["oos"]["nifty"]["accuracy"], 1),
+        "note": ("Session WIDTH only — this says nothing about direction, "
+                 "and is not a trading signal."),
+    }

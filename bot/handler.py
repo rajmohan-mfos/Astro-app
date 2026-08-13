@@ -21,7 +21,7 @@ for _p in (os.path.join(_HERE, "..", "backend"),
         sys.path.insert(0, _p)
 
 from daily_push import LAT, LON, TZ, build_message, resolve_date  # noqa: E402
-from app import engine, transit                                   # noqa: E402
+from app import engine, quotes, transit, volmodel                 # noqa: E402
 from app.rules import prasanam as prasanam_rules                  # noqa: E402
 
 HELP = """Astro-app bot — the GRAHA MARKETS method, as a study aid.
@@ -31,6 +31,8 @@ HELP = """Astro-app bot — the GRAHA MARKETS method, as a study aid.
 /date <when>  a specific day: /date 2026-09-15, /date +3
 /prasanam <n> KP horary from a seed number 1-249
 /chart        panchang chart (planets, degrees, star/sub lords)
+/vol          volatility outlook — the ONE part with measured skill,
+              and it contains no astrology
 /help         this message
 
 Not financial advice. A 5-year backtest over Nifty, BankNifty, Metal,
@@ -79,6 +81,32 @@ def _prasanam_text(arg: str, d) -> str:
     return "\n".join(out).strip()
 
 
+def _vol_text() -> str:
+    """The volatility model, on its own.
+
+    Kept separate from every other command because it is a different kind
+    of thing: no astrology in it, and unlike the rest of this bot it has
+    measurable out-of-sample skill. It still only calls session WIDTH.
+    """
+    bars = quotes.recent_bars("nifty")
+    if not bars or len(bars) < 10:
+        return ("No price data — this host may not be allowed to reach "
+                "the quote provider. The daily push still includes the "
+                "volatility line, since GitHub Actions can fetch it.")
+    f = volmodel.forecast(bars, len(bars))
+    return (f"Nifty volatility outlook — next session\n\n"
+            f"  {f['band'].upper()}\n"
+            f"  P(wider than usual) = {f['p_wide'] * 100:.0f}%\n"
+            f"  expected range ≈ {f['expected_range_points']} pts "
+            f"({f['expected_range_pct']:.2f}%)\n\n"
+            f"Based on the last {f['history_bars']} sessions' high-low "
+            f"ranges. {f['oos_accuracy']}% out-of-sample 2016–2026.\n"
+            f"No astrology in this number — the panchang features were "
+            f"measured to make it worse.\n\n"
+            f"WIDTH ONLY. It says nothing about up or down, and is not a "
+            f"trading signal.")
+
+
 def handle(text: str) -> str:
     """Map one message to one reply. Unknown input gets the help text."""
     raw = (text or "").strip()
@@ -102,6 +130,8 @@ def handle(text: str) -> str:
             return _prasanam_text(arg, resolve_date("today"))
         if cmd == "chart":
             return _chart_text(resolve_date(arg or "today"))
+        if cmd in ("vol", "volatility"):
+            return _vol_text()
     except SystemExit as e:                 # resolve_date's rejection
         return str(e)
     except Exception as e:                  # never leak a stack trace

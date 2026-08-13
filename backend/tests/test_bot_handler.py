@@ -74,6 +74,40 @@ def test_chart_lists_bodies_with_lords():
         assert body in r          # outer planets + lagna are included
 
 
+def test_vol_is_offered_and_labelled_as_the_non_astro_one():
+    assert "/vol" in handle("/help")
+
+
+def test_vol_degrades_gracefully_without_prices(monkeypatch):
+    """PythonAnywhere's free tier may not reach the quote provider. A
+    missing price feed must produce an explanation, never a stack trace
+    and never a fabricated number."""
+    import handler
+
+    monkeypatch.setattr(handler.quotes, "recent_bars", lambda *a, **k: None)
+    r = handle("/vol")
+    assert "No price data" in r
+    assert "%" not in r.split("volatility")[0]      # no invented figure
+
+
+def test_vol_never_implies_direction(monkeypatch):
+    """The number is easy to over-read; every reply must disown
+    direction explicitly."""
+    import datetime
+
+    import handler
+
+    bars = [{"date": (datetime.date(2026, 1, 1)
+                      + datetime.timedelta(days=i)).isoformat(),
+             "open": 100.0, "close": 100.0, "high": 101.0, "low": 99.0}
+            for i in range(90)]
+    monkeypatch.setattr(handler.quotes, "recent_bars", lambda *a, **k: bars)
+    r = handle("/vol")
+    assert "WIDTH ONLY" in r
+    assert "not a trading signal" in r.lower()
+    assert "no astrology" in r.lower()
+
+
 def test_unknown_command_falls_back_to_help():
     r = handle("/wibble")
     assert "Unknown command" in r and "/tomorrow" in r

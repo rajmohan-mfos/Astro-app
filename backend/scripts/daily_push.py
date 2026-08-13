@@ -27,7 +27,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from app import engine, predict                            # noqa: E402
+from app import engine, predict, quotes, volmodel          # noqa: E402
 
 LAT = float(os.environ.get("ASTRO_LAT", 19.076))
 LON = float(os.environ.get("ASTRO_LON", 72.8777))
@@ -88,6 +88,10 @@ def build_message(d: datetime.date) -> str:
         L += ["", "Horai notes:"]
         L += [f"  • {f['title']}" for f in horai[:4]]
 
+    vol = volatility_lines(d)
+    if vol:
+        L += vol
+
     L += ["",
           "⚠️ Study aid reproducing a taught method — NOT financial "
           "advice and not a signal. A 5-year backtest over Nifty, "
@@ -95,6 +99,36 @@ def build_message(d: datetime.date) -> str:
           "forecasting ability on any of them: the engine loses to "
           "\"always predict down\" on every index. Do not trade this."]
     return "\n".join(L)
+
+
+def volatility_lines(d: datetime.date) -> list:
+    """The one part of this message with measured predictive value.
+
+    Deliberately separated from everything above it: this block contains
+    no astrology at all. It is a 6-feature logistic regression on recent
+    high-low ranges, ~60% out-of-sample on session WIDTH, and it says
+    nothing whatever about direction.
+
+    Returns [] if prices cannot be fetched — PythonAnywhere's free tier
+    may not allow Yahoo, and a missing volatility line must never break
+    the push.
+    """
+    bars = quotes.recent_bars("nifty")
+    if not bars or len(bars) < 10:
+        return []
+    # score the next not-yet-traded session when d is past the last bar
+    i = len(bars) if d.isoformat() > bars[-1]["date"] else len(bars) - 1
+    try:
+        f = volmodel.forecast(bars, i, date=d.isoformat())
+    except (ValueError, KeyError, OSError):
+        return []
+    return ["", f"Volatility (no astrology, {f['oos_accuracy']}% "
+            f"out-of-sample):",
+            f"  {f['band'].upper()} session — P(wider than usual) = "
+            f"{f['p_wide'] * 100:.0f}%",
+            f"  expected range ≈ {f['expected_range_points']} pts "
+            f"({f['expected_range_pct']:.2f}%)",
+            "  Width only — says nothing about up or down."]
 
 
 def send(text: str) -> None:
