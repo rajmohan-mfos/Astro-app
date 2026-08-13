@@ -1,5 +1,11 @@
 # Nifty 50 backtest — 2021-08-10 → 2026-08-10 (1,235 trading days)
 
+> **See also `opt/OPTIMISATION.md`.** This file measures the engine as
+> written. That one asks the follow-up question — whether it can be *tuned*
+> into a predictor — over 15 years, walk-forward, with 6,912 rule variants, a
+> permutation null and a second index. Short answer: the ceiling is ≈53%,
+> which is the always-down base rate.
+
 Re-run 2026-08-11 after the full rules rebuild (sunrise casting, degree
 counting, upside-wise conflict rule, day-lord rule, guide thithi families,
 complete 27-yoga classification, Class-10 x1/x2 splitting).

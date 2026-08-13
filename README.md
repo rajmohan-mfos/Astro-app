@@ -48,6 +48,12 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
 - Backtest: `backend/scripts/backtest_nifty.py N` (results in
   `backend/knowledge/backtest/` — 5-year result: no predictive edge; the
   app is a study aid, not a trading system).
+- **Ceiling study**: `backend/scripts/opt/` asks whether the engine can be
+  *tuned* into a predictor — 15 years, walk-forward, 6,912 rule variants,
+  two classifier families, a permutation null and a second index. Answer
+  and full method in `backend/knowledge/backtest/opt/OPTIMISATION.md`. Run
+  it with `pip install -r backend/requirements-research.txt` then
+  `python scripts/opt/run_study.py`.
 
 ## Daily prediction to Telegram (GitHub Actions)
 

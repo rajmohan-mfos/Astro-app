@@ -1,0 +1,17 @@
+{
+  "n_variants": 6912,
+  "n_permutations": 200,
+  "block": 21,
+  "min_calls": 500,
+  "always_down": 53.040152963671126,
+  "real_best_rate": 59.13555992141454,
+  "null_rate_p95": 56.13322617246597,
+  "null_rate_max": 58.3941605839416,
+  "real_best_edge": 4.915730337078649,
+  "null_edge_mean": 2.255547014841507,
+  "null_edge_p50": 2.123918587976142,
+  "null_edge_p95": 4.632602786272514,
+  "null_edge_max": 6.434782608695655,
+  "p_value": 0.04477611940298507,
+  "survives": true
+}

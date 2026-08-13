@@ -1,0 +1,9 @@
+# Study-only dependencies for scripts/opt/ (the walk-forward ceiling study).
+#
+# Deliberately NOT in requirements.txt: the app, the API and the Telegram
+# bot must stay dependency-light, and bot/package_for_deploy.py ships only
+# backend/app + bot/, so nothing here reaches the hosting provider.
+#
+#   pip install -r requirements-research.txt
+numpy
+scikit-learn
