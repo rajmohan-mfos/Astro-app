@@ -48,6 +48,13 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
 - Backtest: `backend/scripts/backtest_nifty.py N` (results in
   `backend/knowledge/backtest/` — 5-year result: no predictive edge; the
   app is a study aid, not a trading system).
+- **Fitted tables** (`ASTRO_SCORE_MODE=fitted`): the engine's own five
+  tables re-fitted to 15 years of Nifty instead of taken from the course —
+  `python scripts/opt/fit_tables.py`. In-sample 65.5% on its selective
+  calls, out-of-sample **+1.99pp over always-down (z=+0.90, not
+  significant)**; both numbers are always shown together. Default stays
+  `taught`, so a fresh checkout reproduces the course method. Details and
+  the course-vs-data table: `knowledge/backtest/opt/OPTIMISATION.md` §11.
 - **Volatility model** (`backend/app/volmodel.py`): the one component with
   measured out-of-sample skill — 60% on Nifty / 64% on BankNifty at calling
   whether a session will be wider or narrower than usual. Six features, all

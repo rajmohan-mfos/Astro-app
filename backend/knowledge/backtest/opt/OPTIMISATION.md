@@ -372,7 +372,108 @@ Surfaced in the daily Telegram push as its own block, and as `/vol` in the
 bot. Both degrade to a plain message if prices cannot be fetched, since
 PythonAnywhere's free tier may not reach the quote provider.
 
-## 11. Conclusion
+## 11. Re-fitting the engine's own tables
+
+Requested directly: replace the course's hand-assigned numbers with numbers
+learned from the market, in the engine's own five tables, tuned as hard as
+the data allows. `scripts/opt/fit_tables.py` does exactly that and writes
+`app/rules/fitted_tables.json`; `ASTRO_SCORE_MODE=fitted` makes the engine
+use them.
+
+The taught tables are **not** edited — they are the app's provenance, still
+pinned by tests. Fitted mode adds a second reading beside the first.
+
+### The two numbers
+
+| | Rate |
+|---|---|
+| **In-sample**, all days | 55.98% |
+| **In-sample**, selective calls (\|score\| > 0.40, 11% of days) | **65.53%** |
+| **Out-of-sample**, identical procedure re-fitted per fold | 56.18% |
+| always-down on those same out-of-sample days | 54.18% |
+| **edge** | **+1.99pp, z = +0.90** |
+
+65.53% is the number that looks like success, and it is the one to distrust:
+it is fitted and scored on the same 15 years. Run the identical procedure
+honestly — re-fitting inside each expanding window and scoring the year it
+has never seen — and it gives +1.99pp over doing nothing, z = +0.90, not
+significant.
+
+### What the data says about the course's tables
+
+This is the genuinely interesting output. Fitted values are log-odds of an up
+day relative to the base rate.
+
+**Star lords** — 6 of 7 agree in *sign* with the course:
+
+| Lord | Course | Data | |
+|---|---|---|---|
+| Mercury | +1.0 | +0.046 | agrees |
+| Moon | +0.5 | +0.081 | agrees |
+| Mars | −0.5 | −0.031 | agrees |
+| Saturn | −1.0 | −0.119 | agrees |
+| Ketu | −1.0 | −0.097 | agrees |
+| **Venus** | **+0.5** | **−0.141** | **opposite** |
+| Sun | 0.0 (neutral) | **+0.321** | strongest positive of all |
+| Jupiter | amplifier | −0.221 | |
+| Rahu | amplifier | +0.166 | |
+
+**Chain weights** — the two labels the whole engine is built on come out
+near zero and *reversed*:
+
+| Label | Course | Data |
+|---|---|---|
+| **bullish** | **+1.0** | **−0.014** |
+| **bearish** | **−1.0** | **+0.045** |
+| sideways-bullish | +0.5 | +0.041 |
+| sideways-bearish | −0.5 | −0.171 |
+
+**Yogam** — the 16/8/3 classification is *inverted*:
+
+| Course class | n | Mean fitted |
+|---|---|---|
+| very negative (அதித அசுபம்) | 3 | **+0.118** |
+| negative | 11 | +0.072 |
+| positive | 16 | **−0.048** |
+
+**Thithi families** — 4 of 5 agree in sign (Jaya is the exception), but every
+magnitude is under 0.14.
+
+### How to read all that
+
+Two temptations, both wrong.
+
+The first is to see "6 of 7 star lords agree" as vindication. Under random
+signs, 6-or-better out of 7 happens 6% of the time, this was checked after
+the fact rather than predicted, and — decisively — **the magnitudes are
+tiny**. A fitted log-odds of +0.046 for Mercury is a rounding error on a
+coin flip, not the "maximum positive" the course describes. The signs agree
+about noise.
+
+The second is to see the yogam inversion as a discovery — that you should
+trade *against* the classification. The same objection applies with the same
+force: mean +0.118 versus −0.048 on 27 categories is well inside what
+resampling produces, and section 5 already showed what happens to findings
+of this size.
+
+The honest summary is the one the magnitudes give: **re-fitting drives nearly
+every weight to approximately zero**, because there is nearly nothing to fit.
+That is the same conclusion as sections 1–7, arrived at from the opposite
+direction — and it is why the fitted engine gains +1.99pp out-of-sample
+instead of the +12 that its in-sample number implies.
+
+### What shipped
+
+- `ASTRO_SCORE_MODE=fitted` switches the engine; **default stays `taught`**,
+  so a fresh checkout still reproduces the course method.
+- The fitted call appears in the API, the rule findings and the daily
+  Telegram push — always with both rates side by side. A test
+  (`test_in_sample_rate_never_appears_without_out_of_sample`) enforces that
+  the flattering number can never be displayed alone.
+- The taught reading is left completely intact in fitted mode, so the two can
+  be compared rather than one silently replacing the other.
+
+## 12. Conclusion
 
 - The measured ceiling on daily direction is **≈53%**, which is the base rate.
   Nothing in 6,912 rule variants, two classifier families, or 15 years of data

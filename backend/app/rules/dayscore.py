@@ -19,18 +19,69 @@ validated signal. The 5-year backtest found confluence days to be the
 *least* reliable cell in the whole study (45.5%). See
 knowledge/backtest/RESULTS.md.
 """
+import json
+import os
+
 from .base import Finding
 from . import graph, panchang_rules
 
 SECTION = "graph"
 
+# ---------------------------------------------------------------------
+# TWO SETS OF NUMBERS LIVE HERE.
+#
+# TAUGHT_*  are the course's own values, exactly as sourced in
+#           knowledge/RULES-SOURCES.md. They are the app's provenance and
+#           are never edited by a fitting run.
+#
+# FITTED_*  are learned from 15 years of Nifty by
+#           scripts/opt/fit_tables.py, stored in fitted_tables.json.
+#
+# MODE picks which the score uses. The displayed classifications (Rikta,
+# Vyatipata, ...) always stay taught, so the reading you see is still the
+# course's — only the arithmetic changes.
+#
+# HONESTY REQUIREMENT: in fitted mode the tally is tuned ON the same
+# history it is scored against. Its in-sample accuracy is flattering and
+# is NOT a forecast; out-of-sample the same procedure lands at the
+# always-down base rate. Every finding emitted in fitted mode says so, and
+# tests enforce that it does.
+# ---------------------------------------------------------------------
+MODE = os.environ.get("ASTRO_SCORE_MODE", "taught").lower()
+
 # star-lord temperament → tally value (guide §2 / [C3-Buzz])
-STAR_VALUE = {"Mercury": 1.0, "Venus": 0.5, "Moon": 0.5, "Sun": 0.0,
-              "Mars": -0.5, "Saturn": -1.0, "Ketu": -1.0}
+TAUGHT_STAR_VALUE = {"Mercury": 1.0, "Venus": 0.5, "Moon": 0.5, "Sun": 0.0,
+                     "Mars": -0.5, "Saturn": -1.0, "Ketu": -1.0}
 AMPLIFIERS = {"Jupiter", "Rahu"}      # amplify the prevailing tally
 
-CHAIN_WEIGHTS = {"bullish": 1.0, "sideways-bullish": 0.5, "sideways": 0.0,
-                 "angle": 0.0, "sideways-bearish": -0.5, "bearish": -1.0}
+TAUGHT_CHAIN_WEIGHTS = {"bullish": 1.0, "sideways-bullish": 0.5,
+                        "sideways": 0.0, "angle": 0.0,
+                        "sideways-bearish": -0.5, "bearish": -1.0}
+
+# Back-compat aliases — the taught tables remain the module's public
+# constants, so importers and the scenario tests are unaffected.
+STAR_VALUE = TAUGHT_STAR_VALUE
+CHAIN_WEIGHTS = TAUGHT_CHAIN_WEIGHTS
+
+_FITTED_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "fitted_tables.json")
+_fitted = None
+
+
+def fitted() -> dict | None:
+    """The fitted tables, or None if a fitting run has never happened."""
+    global _fitted
+    if _fitted is None:
+        if not os.path.exists(_FITTED_PATH):
+            return None
+        with open(_FITTED_PATH, encoding="utf-8") as f:
+            _fitted = json.load(f)
+    return _fitted
+
+
+def active_mode() -> str:
+    """'fitted' only if fitted mode is asked for AND tables exist."""
+    return "fitted" if (MODE == "fitted" and fitted()) else "taught"
 
 
 def _sign_word(v: float) -> str:
@@ -84,6 +135,44 @@ def chain_score(chart: dict) -> float:
     return round(total / span, 2) if span else 0.0
 
 
+def fitted_score(chart: dict) -> dict:
+    """The engine's own tally with data-fitted numbers substituted in.
+
+    Same five tables, same additive shape, same segments — only the values
+    differ. Reported separately from the taught score so the two can be
+    compared rather than conflated.
+    """
+    f = fitted()
+    if not f:
+        return {}
+    t, w = f["tables"], f["component_weights"]
+    cast = graph.cast_chart(chart)
+    pan = cast["panchang"]
+    moon = next(g for g in cast["grahas"] if g["name"] == "Moon")
+    lord = graph.nak_lord_of(moon["lon"])
+
+    segs = graph.build_segments(cast)
+    chain = 0.0
+    if segs:
+        span = sum(s["end"] - s["start"] for s in segs) or 1.0
+        for s in segs:
+            chain += ((s["end"] - s["start"]) / span) * \
+                t["chain_weights"].get(s["bias"], 0.0)
+
+    total = (w["star_value"] * t["star_value"].get(lord, 0.0)
+             + w["chain_weights"] * chain
+             + w["thithi"] * t["thithi"].get(str(pan["thithi"]["num"]), 0.0)
+             + w["yogam"] * t["yogam"].get(pan["yogam"]["name"], 0.0)
+             + w["karanam"] * t["karanam"].get(pan["karanam"]["name"], 0.0))
+    th = f["threshold"]
+    call = "up" if total > th else ("down" if total < -th else "no call")
+    return {"total": round(total, 4), "threshold": th, "call": call,
+            "in_sample_rate": round(f["in_sample"]["rate"], 2),
+            "out_of_sample_rate": round(f["out_of_sample"]["rate"], 2),
+            "out_of_sample_edge_pp": round(
+                f["out_of_sample"]["edge_pp"], 2)}
+
+
 def day_score(chart: dict) -> dict:
     pan = panchang_tally(chart)
     chain = chain_score(chart)
@@ -110,11 +199,48 @@ def day_score(chart: dict) -> dict:
     if pan["chidra"] and conviction in ("high", "medium"):
         conviction = "medium" if conviction == "high" else "low"
 
-    return {"panchang_total": pan["total"], "chain_score": chain,
-            "panchang_sign": p_sign, "chain_sign": c_sign,
-            "agreement": agreement, "conviction": conviction,
-            "parts": pan["parts"], "star_lord": pan["lord"],
-            "amplified": pan["amplified"], "chidra": pan["chidra"]}
+    out = {"panchang_total": pan["total"], "chain_score": chain,
+           "panchang_sign": p_sign, "chain_sign": c_sign,
+           "agreement": agreement, "conviction": conviction,
+           "parts": pan["parts"], "star_lord": pan["lord"],
+           "amplified": pan["amplified"], "chidra": pan["chidra"],
+           "mode": active_mode()}
+    fs = fitted_score(chart)
+    if fs:
+        out["fitted"] = fs
+        # In fitted mode the fitted tables drive the day's CALL. The
+        # taught fields above are deliberately left untouched, so the
+        # course reading stays intact and readable next to it rather than
+        # being silently overwritten by the fit.
+        if active_mode() == "fitted":
+            out["call"] = fs["call"]
+            out["call_source"] = "fitted tables (15y Nifty)"
+    return out
+
+
+def fitted_finding(s: dict) -> Finding | None:
+    """Surface the fitted call WITH the number that matters next to it.
+
+    The in-sample rate is the one a reader will latch onto, so it never
+    appears without the out-of-sample rate beside it.
+    """
+    f = s.get("fitted")
+    if not f:
+        return None
+    return Finding(
+        SECTION,
+        f"Fitted tables: {f['call'].upper()} "
+        f"(score {f['total']:+g}, threshold ±{f['threshold']:g})",
+        f"Tables re-fitted to 15 years of Nifty rather than taken from the "
+        f"course. In-sample {f['in_sample_rate']:g}% — but that is fitted "
+        f"and scored on the same history, so it is not a forecast. "
+        f"Out-of-sample the identical procedure gives "
+        f"{f['out_of_sample_rate']:g}%, an edge of "
+        f"{f['out_of_sample_edge_pp']:+g}pp over always-down. Treat the "
+        f"first number as a description of the past and the second as the "
+        f"honest expectation.",
+        "scripts/opt/fit_tables.py — see knowledge/backtest/opt/"
+        "OPTIMISATION.md")
 
 
 def rules(chart: dict) -> list[Finding]:
@@ -130,9 +256,13 @@ def rules(chart: dict) -> list[Finding]:
               f"panchang {s['panchang_sign']} — {s['agreement']}. "
               f"Backtested confluence was the least reliable cell in the "
               f"5-year study; treat as study material, not a signal.")
-    return [Finding(
+    out = [Finding(
         SECTION,
         f"Day score: {s['conviction'].upper()} conviction "
         f"({s['panchang_sign']} panchang / {s['chain_sign']} chain)",
         detail,
         "Astro Class 3 'combine with whole concept' + guide §4 tally")]
+    ff = fitted_finding(s)
+    if ff:
+        out.insert(0 if active_mode() == "fitted" else 1, ff)
+    return out

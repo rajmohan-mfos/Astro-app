@@ -88,6 +88,16 @@ def build_message(d: datetime.date) -> str:
         L += ["", "Horai notes:"]
         L += [f"  • {f['title']}" for f in horai[:4]]
 
+    fit = (score or {}).get("fitted")
+    if fit:
+        L += ["", f"Fitted tables ({fit['in_sample_rate']:g}% in-sample / "
+                  f"{fit['out_of_sample_rate']:g}% out-of-sample):",
+              f"  {fit['call'].upper()}  (score {fit['total']:+g}, "
+              f"threshold ±{fit['threshold']:g})",
+              "  Tuned on the same history it is scored against — the "
+              "first number describes the past, the second is what to "
+              "expect."]
+
     vol = volatility_lines(d)
     if vol:
         L += vol
