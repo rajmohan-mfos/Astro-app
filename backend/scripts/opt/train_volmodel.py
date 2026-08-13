@@ -32,6 +32,8 @@ import sys
 import numpy as np
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
+CONFIDENCES = (0.80, 0.90, 0.95)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", ".."))
@@ -122,6 +124,60 @@ def paired_vs(X_alt, X, absret, years, label):
           f"McNemar p={stats.binom_two_sided(bo, ao + bo):.3f}")
 
 
+def band_walk_forward(X, absret, years, conf):
+    """Out-of-sample coverage and width of the adaptive band.
+
+    The band is q * scale(today), where scale is a linear fit of |ret| on
+    the range features and q is the conf-quantile of |ret|/scale measured
+    on the TRAINING window only. Both parts are refitted per fold.
+    """
+    band, act, scale = [], [], []
+    for y in range(FIRST_TEST_YEAR, int(years.max()) + 1):
+        tr, te = years < y, years == y
+        if not te.any() or not tr.any():
+            continue
+        mu, sd = X[tr].mean(0), X[tr].std(0) + 1e-9
+        reg = LinearRegression().fit((X[tr] - mu) / sd, absret[tr])
+        s_tr = np.maximum(reg.predict((X[tr] - mu) / sd), 1e-3)
+        s_te = np.maximum(reg.predict((X[te] - mu) / sd), 1e-3)
+        q = float(np.quantile(absret[tr] / s_tr, conf))
+        band.extend(q * s_te)
+        act.extend(absret[te])
+        scale.extend(s_te)
+    return np.array(band), np.array(act), np.array(scale)
+
+
+def report_band(X, absret, years):
+    """Coverage, width, and the comparison that justifies the whole idea."""
+    out = {}
+    for conf in CONFIDENCES:
+        band, act, scale = band_walk_forward(X, absret, years, conf)
+        realised = float((act <= band).mean())
+        # a FIXED band tuned on the test set to the same realised
+        # coverage — deliberately generous to the alternative
+        fixed = float(np.quantile(act, realised))
+        print(f"\n  target {conf * 100:.0f}%  ->  realised "
+              f"{realised * 100:.2f}%   mean width ±{band.mean():.3f}%")
+        print(f"    fixed band at identical coverage: ±{fixed:.3f}%  "
+              f"— adaptive is {(1 - band.mean() / fixed) * 100:.1f}% "
+              f"narrower")
+        t1, t2 = np.quantile(scale, [1 / 3, 2 / 3])
+        print("    coverage by regime (this is the real argument):")
+        for name, m in (("calm    ", scale <= t1),
+                        ("normal  ", (scale > t1) & (scale <= t2)),
+                        ("volatile", scale > t2)):
+            print(f"      {name} adaptive {(act[m] <= band[m]).mean() * 100:5.1f}%"
+                  f" (±{band[m].mean():.2f}%)    "
+                  f"fixed {(act[m] <= fixed).mean() * 100:5.1f}% "
+                  f"(±{fixed:.2f}%)")
+        out[f"{conf:.2f}"] = {
+            "target": conf * 100, "realised": realised * 100,
+            "mean_width_pct": float(band.mean()),
+            "fixed_width_pct": fixed,
+        }
+    return out
+
+
 def main():
     print("=" * 68)
     print("VOLATILITY MODEL — walk-forward evaluation")
@@ -148,8 +204,13 @@ def main():
     paired_vs(X, X_both, absret, years,
               "range-only (i.e. what adding |ret| back buys)")
 
-    # ---- final fit on ALL data, exported for the runtime
+    print("\n" + "=" * 68)
+    print("BAND FORECAST — 'today stays within ±X%'")
+    print("=" * 68)
     bars, X, absret, years = series("nifty")
+    band_stats = report_band(X, absret, years)
+
+    # ---- final fit on ALL data, exported for the runtime
     med = float(np.median(absret))
     mu, sd = X.mean(0), X.std(0) + 1e-9
     clf = LogisticRegression(C=1.0, max_iter=4000)
@@ -158,6 +219,14 @@ def main():
     rngs = np.array([volmodel.day_range_pct(bars, i)
                      for i in range(len(bars))])
     reg = LinearRegression().fit((X - mu) / sd, rngs)
+
+    # scale model for the band: |ret| from the same features, plus the
+    # quantiles of |ret| / scale that turn a scale into an interval
+    scale_reg = LinearRegression().fit((X - mu) / sd, absret)
+    s_all = np.maximum(scale_reg.predict((X - mu) / sd), 1e-3)
+    ratios = absret / s_all
+    ratio_q = {f"{c:.2f}": float(np.quantile(ratios, c))
+               for c in CONFIDENCES}
 
     payload = {
         "version": 1,
@@ -170,6 +239,10 @@ def main():
         "intercept": float(clf.intercept_[0]),
         "range_coef": reg.coef_.tolist(),
         "range_intercept": float(reg.intercept_),
+        "scale_coef": scale_reg.coef_.tolist(),
+        "scale_intercept": float(scale_reg.intercept_),
+        "ratio_quantiles": ratio_q,
+        "band_oos": band_stats,
         "oos": results,
         "note": ("Predicts whether |close-open| exceeds the historical "
                  "median. Says nothing about DIRECTION. Not a trading "

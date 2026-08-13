@@ -62,6 +62,11 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
   measured to make it worse). Says nothing about direction; not a trading
   signal. Retrain with `python scripts/opt/train_volmodel.py`. Shows up in
   the daily push and as `/vol` in the bot.
+- **Band forecast** (`volmodel.interval`): "Nifty should close within ±X% of
+  Y" at 80/90/95%, where the width adapts to recent ranges. Realised
+  out-of-sample coverage 82.1 / 91.3 / 95.5% — and unlike a fixed band, it
+  holds in every volatility regime (a fixed band covers 97.7% of calm days
+  but only **82.9%** of volatile ones). Details: OPTIMISATION.md §13.
 - **Ceiling study**: `backend/scripts/opt/` asks whether the engine can be
   *tuned* into a predictor — 15 years, walk-forward, 6,912 rule variants,
   two classifier families, a permutation null and a second index. Answer

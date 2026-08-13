@@ -132,13 +132,16 @@ def volatility_lines(d: datetime.date) -> list:
         f = volmodel.forecast(bars, i, date=d.isoformat())
     except (ValueError, KeyError, OSError):
         return []
-    return ["", f"Volatility (no astrology, {f['oos_accuracy']}% "
-            f"out-of-sample):",
+    b = f["band90"]
+    return ["", "Volatility (no astrology):",
+            f"  Nifty should close within ±{b['half_width_points']} pts "
+            f"({b['half_width_pct']:.2f}%) of {b['reference_close']:.0f}",
+            f"    → {b['low']:.0f} – {b['high']:.0f}",
+            f"    this band holds {b['realised_coverage']:.0f}% of the "
+            f"time, measured out-of-sample",
             f"  {f['band'].upper()} session — P(wider than usual) = "
-            f"{f['p_wide'] * 100:.0f}%",
-            f"  expected range ≈ {f['expected_range_points']} pts "
-            f"({f['expected_range_pct']:.2f}%)",
-            "  Width only — says nothing about up or down."]
+            f"{f['p_wide'] * 100:.0f}%  ({f['oos_accuracy']}% OOS)",
+            "  Size only — says nothing about up or down."]
 
 
 def send(text: str) -> None:

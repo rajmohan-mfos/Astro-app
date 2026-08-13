@@ -94,16 +94,23 @@ def _vol_text() -> str:
                 "the quote provider. The daily push still includes the "
                 "volatility line, since GitHub Actions can fetch it.")
     f = volmodel.forecast(bars, len(bars))
-    return (f"Nifty volatility outlook — next session\n\n"
-            f"  {f['band'].upper()}\n"
-            f"  P(wider than usual) = {f['p_wide'] * 100:.0f}%\n"
-            f"  expected range ≈ {f['expected_range_points']} pts "
-            f"({f['expected_range_pct']:.2f}%)\n\n"
-            f"Based on the last {f['history_bars']} sessions' high-low "
-            f"ranges. {f['oos_accuracy']}% out-of-sample 2016–2026.\n"
-            f"No astrology in this number — the panchang features were "
-            f"measured to make it worse.\n\n"
-            f"WIDTH ONLY. It says nothing about up or down, and is not a "
+    lines = [f"Nifty — next session\n"]
+    for conf in (0.80, 0.90, 0.95):
+        iv = volmodel.interval(bars, len(bars), conf)
+        lines.append(
+            f"  {conf:.0%} band  ±{iv['half_width_points']:>4d} pts   "
+            f"{iv['low']:.0f} – {iv['high']:.0f}"
+            f"   (holds {iv['realised_coverage']:.0f}%)")
+    b = f["band90"]
+    return ("\n".join(lines) + "\n\n"
+            f"  {f['band'].upper()} session — P(wider than usual) = "
+            f"{f['p_wide'] * 100:.0f}%\n\n"
+            f"Bands adapt to the last {f['history_bars']} sessions' "
+            f"high-low ranges, so they tighten when the market is calm. "
+            f"'Holds' is measured out-of-sample 2016–2026, not assumed.\n"
+            f"No astrology in these numbers — the panchang features were "
+            f"measured to make them worse.\n\n"
+            f"SIZE ONLY. Says nothing about up or down, and is not a "
             f"trading signal.")
 
 

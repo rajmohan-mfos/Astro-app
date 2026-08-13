@@ -515,7 +515,60 @@ The number climbs from 55% to 100% and the forecasting ability stays flat at
 zero the entire way. Any procedure that tunes rules against a fixed history
 and stops when the score looks good is walking up this table.
 
-## 13. Conclusion
+## 13. The band forecast — a 90% number that is actually worth something
+
+Every accuracy figure in this document is on a near-even question, which is
+why they all sit near 50%. Ask a lopsided question instead and high accuracy
+is free and worthless: "Nifty will not move more than 2% today" is right 97%
+of the time with no model at all.
+
+The band forecast is the honest version of that. The **90% is chosen**, not
+achieved. What has to be earned is **how narrow the band can be while still
+holding 90%** — and that is where the volatility model does real work.
+
+    band = q(confidence) × scale(today)
+
+`scale` is a linear fit of `|ret|` on the six range features; `q` is the
+quantile of `|ret| / scale` over history. Both are refitted inside each
+walk-forward fold.
+
+| Target | Realised OOS | Mean width | Fixed band at identical coverage |
+|---|---|---|---|
+| 80% | 82.07% | ±0.940% | ±0.897% (adaptive 4.7% **wider**) |
+| 90% | 91.32% | ±1.236% | ±1.300% (adaptive 4.9% narrower) |
+| 95% | 95.45% | ±1.521% | ±1.619% (adaptive 6.1% narrower) |
+
+On average width alone the gain is small, and at the 80% level a fixed band
+is actually slightly tighter. That is not the argument. **The argument is
+conditional coverage** — and note the fixed band here is tuned on the test
+set, which favours it:
+
+| Regime (by predicted scale) | Adaptive | Fixed |
+|---|---|---|
+| calm | **92.0%** (±0.90%) | 97.7% (±1.30%) |
+| normal | **90.6%** (±1.14%) | 93.3% (±1.30%) |
+| **volatile** | **91.4%** (±1.67%) | **82.9%** (±1.30%) |
+
+A fixed ±1.30% band advertises 91% coverage and delivers it only on average.
+It is far too loose when nothing is happening — 97.7% coverage on calm days
+is wasted width — and **it breaks exactly when it matters, covering only
+82.9% of volatile days**. Roughly one volatile day in six escapes a band sold
+as 90%.
+
+The adaptive band holds 90–92% in *all three* regimes. That is the property
+worth having: not a better average, but a number that means the same thing
+every day.
+
+### What shipped
+
+`volmodel.interval(bars, i, confidence)` at 80/90/95%. Every band reports
+`realised_coverage` — what that level actually achieved out-of-sample —
+alongside the target, so the stated figure is measured rather than assumed.
+Surfaced in the daily push and as `/vol` in the bot.
+
+Still says nothing about direction. A band is about the size of the move.
+
+## 14. Conclusion
 
 - The measured ceiling on daily direction is **≈53%**, which is the base rate.
   Nothing in 6,912 rule variants, two classifier families, or 15 years of data

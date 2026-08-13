@@ -91,6 +91,55 @@ def expected_range_pct(bars: list, i: int, w: dict | None = None) -> float:
         c * v for c, v in zip(w["range_coef"], z))
 
 
+def expected_abs_move_pct(bars: list, i: int, w: dict | None = None) -> float:
+    """The scale: expected |close-open| for bar i, in percent."""
+    w = w or weights()
+    z = _scale(features(bars, i), w)
+    return max(w["scale_intercept"]
+               + sum(c * v for c, v in zip(w["scale_coef"], z)), 1e-3)
+
+
+def interval(bars: list, i: int, confidence: float = 0.90,
+             w: dict | None = None) -> dict:
+    """'Today should stay within ±X%' — an adaptive band.
+
+    Width is the scale for today multiplied by a fixed quantile of
+    |ret| / scale measured over history. Because the scale moves with
+    recent ranges, the band tightens on calm days and widens on volatile
+    ones.
+
+    That adaptivity is the whole point. A FIXED band tuned to the same
+    average coverage looks equivalent on paper and is not: measured
+    out-of-sample it covers 97.7% of calm days and only 82.9% of volatile
+    ones, so it is loosest when it costs nothing and wrong exactly when
+    it matters. The adaptive band holds ~91% in all three regimes.
+
+    The stated confidence is a target; `realised` reports what that level
+    actually achieved out-of-sample, which is the number to trust.
+    """
+    w = w or weights()
+    key = f"{confidence:.2f}"
+    if key not in w["ratio_quantiles"]:
+        raise ValueError(
+            f"confidence must be one of "
+            f"{sorted(w['ratio_quantiles'])}, got {confidence}")
+    scale = expected_abs_move_pct(bars, i, w)
+    half = w["ratio_quantiles"][key] * scale
+    last = bars[i - 1]["close"]
+    stats = (w.get("band_oos") or {}).get(key, {})
+    return {
+        "confidence": confidence,
+        "half_width_pct": round(half, 3),
+        "half_width_points": round(half / 100 * last),
+        "low": round(last * (1 - half / 100), 1),
+        "high": round(last * (1 + half / 100), 1),
+        "reference_close": last,
+        "realised_coverage": stats.get("realised"),
+        "note": ("Band on the SIZE of the move, not its direction. "
+                 "Not a trading signal."),
+    }
+
+
 def band(p: float) -> str:
     """A label, deliberately coarse — the model does not support finer."""
     if p >= 0.65:
@@ -136,6 +185,7 @@ def forecast(bars: list, i: int | None = None,
         "history_bars": min(i, MAX_LOOKBACK),
         "trained_through": w["trained_through"],
         "oos_accuracy": round(w["oos"]["nifty"]["accuracy"], 1),
+        "band90": interval(bars, i, 0.90, w),
         "note": ("Session WIDTH only — this says nothing about direction, "
                  "and is not a trading signal."),
     }

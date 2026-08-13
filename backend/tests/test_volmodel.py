@@ -135,6 +135,59 @@ def test_missing_high_low_does_not_crash():
     assert 0.0 <= volmodel.probability_wide(bars, 70) <= 1.0
 
 
+# ----------------------------------------------------------- band forecast
+def test_interval_widens_with_confidence():
+    bars = _bars(100, rng=1.2)
+    w = [volmodel.interval(bars, 90, c)["half_width_pct"]
+         for c in (0.80, 0.90, 0.95)]
+    assert w[0] < w[1] < w[2]
+
+
+def test_interval_adapts_to_recent_volatility():
+    """The whole justification for the band: it must tighten when recent
+    sessions were calm and widen when they were wild. A band that does
+    not do this is just a constant."""
+    calm = volmodel.interval(_bars(100, rng=0.3), 90)["half_width_pct"]
+    wild = volmodel.interval(_bars(100, rng=3.0), 90)["half_width_pct"]
+    assert wild > calm * 1.5, \
+        f"band barely adapts: calm ±{calm:.3f}% vs wild ±{wild:.3f}%"
+
+
+def test_interval_is_symmetric_around_the_reference_close():
+    bars = _bars(100, rng=1.0)
+    iv = volmodel.interval(bars, 90)
+    mid = (iv["low"] + iv["high"]) / 2
+    assert mid == pytest.approx(iv["reference_close"], rel=1e-6)
+    assert iv["low"] < iv["reference_close"] < iv["high"]
+
+
+def test_interval_reports_realised_not_just_target_coverage():
+    """The stated confidence is a target; what it actually achieved
+    out-of-sample is the number a reader should act on, so it travels
+    with every band."""
+    iv = volmodel.interval(_bars(100, rng=1.0), 90, 0.90)
+    assert iv["realised_coverage"] is not None
+    assert 80.0 < iv["realised_coverage"] < 99.0
+    assert iv["confidence"] == 0.90
+
+
+def test_interval_rejects_a_confidence_it_was_not_calibrated_for():
+    with pytest.raises(ValueError):
+        volmodel.interval(_bars(100), 90, 0.99)
+
+
+def test_interval_disowns_direction():
+    iv = volmodel.interval(_bars(100, rng=1.0), 90)
+    assert "direction" in iv["note"].lower()
+    assert "not a trading signal" in iv["note"].lower()
+
+
+def test_forecast_carries_the_band():
+    f = volmodel.forecast(_bars(100, rng=1.0))
+    assert f["band90"]["confidence"] == 0.90
+    assert f["band90"]["half_width_points"] > 0
+
+
 @pytest.mark.skipif(
     not os.path.exists(os.path.join(
         os.path.dirname(__file__), "..", "knowledge", "backtest", "opt",

@@ -102,10 +102,14 @@ def test_vol_never_implies_direction(monkeypatch):
              "open": 100.0, "close": 100.0, "high": 101.0, "low": 99.0}
             for i in range(90)]
     monkeypatch.setattr(handler.quotes, "recent_bars", lambda *a, **k: bars)
-    r = handle("/vol")
-    assert "WIDTH ONLY" in r
-    assert "not a trading signal" in r.lower()
-    assert "no astrology" in r.lower()
+    r = handle("/vol").lower()
+    # the claim is about the SIZE of the move, never its sign — worded
+    # either way, the reply must say so and must disown both direction
+    # and any trading use
+    assert "size only" in r or "width only" in r
+    assert "says nothing about up or down" in r
+    assert "not a trading signal" in r
+    assert "no astrology" in r
 
 
 def test_unknown_command_falls_back_to_help():
