@@ -473,7 +473,49 @@ instead of the +12 that its in-sample number implies.
 - The taught reading is left completely intact in fitted mode, so the two can
   be compared rather than one silently replacing the other.
 
-## 12. Conclusion
+## 12. 100% on the backtest — achieved, and what it cost
+
+Requested directly: change the astro rules until backtesting 15 years of
+Nifty gives 100%. `scripts/opt/memorise.py` does it. The recipe is to make
+each rule's key finer until every trading day gets its own rule.
+
+| Rule key | Rules | **Backtest** | **Unseen days** | No rule |
+|---|---|---|---|---|
+| thithi | 30 | 55.04% | 53.54% | 0.0% |
+| + yogam | 807 | 69.30% | 51.84% | 4.5% |
+| + karanam | 1,528 | 75.90% | 53.09% | 22.7% |
+| + nakshatra | 2,744 | 87.26% | 53.14% | 61.6% |
+| + weekday | 3,513 | 96.06% | 54.85% | 89.8% |
+| + chain X planet/count | 3,749 | 98.93% | 50.77% | 97.5% |
+| **+ Moon longitude (0.01°)** | **3,830** | **100.00%** | **n/a** | **100.0%** |
+| *always-down, no rules at all* | 0 | 53.21% | 53.04% | 0.0% |
+
+**The backtest column is a real number.** 3,830 rules for 3,830 days, every
+one correct. Read on its own it is a perfect forecasting engine.
+
+**The unseen column never moves.** It sits at ~53% — the always-down base
+rate — at every level of refinement, including the levels where the backtest
+reads 96% and 99%. Refining the rules did not improve prediction once.
+
+**The last column is why.** At the finest level, **2,615 of 2,615 future days
+matched no rule at all.** Not a low hit rate — no hit at all. Each rule fired
+exactly once in history and never again, because the Moon does not return to
+217.34° on a Wednesday in Vishakha with that yoga and that karanam a second
+time.
+
+That is what "100% on a backtest" means here. The rules stopped describing
+the market and started describing the list of days they were built from. A
+rule that fires once has nothing to predict with.
+
+Nothing from this section is wired into the app, because there is nothing to
+wire: the 100% rule set cannot produce a single prediction for a single
+future day.
+
+The number climbs from 55% to 100% and the forecasting ability stays flat at
+zero the entire way. Any procedure that tunes rules against a fixed history
+and stops when the score looks good is walking up this table.
+
+## 13. Conclusion
 
 - The measured ceiling on daily direction is **≈53%**, which is the base rate.
   Nothing in 6,912 rule variants, two classifier families, or 15 years of data
