@@ -1,0 +1,32 @@
+{
+  "band_label": "leaning narrow",
+  "generated_at": "2026-08-13T19:37:51+05:30",
+  "history_bars": 63,
+  "intervals": {
+    "0.80": {
+      "half_width_pct": 0.605,
+      "half_width_points": 148,
+      "high": 24543.5,
+      "low": 24248.2,
+      "realised_coverage": 82.06500956022944
+    },
+    "0.90": {
+      "half_width_pct": 0.798,
+      "half_width_points": 195,
+      "high": 24590.6,
+      "low": 24201.1,
+      "realised_coverage": 91.31931166347992
+    },
+    "0.95": {
+      "half_width_pct": 0.985,
+      "half_width_points": 240,
+      "high": 24636.3,
+      "low": 24155.4,
+      "realised_coverage": 95.44933078393882
+    }
+  },
+  "last_bar": "2026-08-13",
+  "oos_accuracy": 60.3,
+  "p_wide": 0.3723,
+  "reference_close": 24395.849609375
+}

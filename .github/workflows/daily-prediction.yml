@@ -36,6 +36,8 @@ jobs:
   send:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: write      # to commit the published volatility forecast
     steps:
       # v7 for both: v4/v5 target Node 20, which GitHub deprecated and
       # already force-runs on Node 24. Pinned to the major tag so patch
@@ -51,6 +53,28 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pyswisseph
+
+      # The bot runs on a free host whose outbound access is restricted to
+      # an allowlist that excludes every quote provider, so it cannot fetch
+      # prices itself. This runner can, so it publishes the finished
+      # forecast and the bot reads it back from GitHub (allowlisted).
+      # Never fails the job: a missed refresh just leaves yesterday's
+      # forecast in place, and the bot displays its age.
+      - name: Publish volatility forecast for the bot
+        continue-on-error: true
+        working-directory: backend
+        run: |
+          python scripts/publish_forecast.py
+          cd ..
+          if ! git diff --quiet -- backend/app/volforecast.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add backend/app/volforecast.json
+            git commit -m "Publish volatility forecast $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "forecast unchanged"
+          fi
 
       - name: Send prediction
         working-directory: backend

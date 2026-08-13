@@ -78,16 +78,29 @@ def test_vol_is_offered_and_labelled_as_the_non_astro_one():
     assert "/vol" in handle("/help")
 
 
-def test_vol_degrades_gracefully_without_prices(monkeypatch):
-    """PythonAnywhere's free tier may not reach the quote provider. A
-    missing price feed must produce an explanation, never a stack trace
-    and never a fabricated number."""
+def test_vol_falls_back_to_the_published_forecast(monkeypatch):
+    """PythonAnywhere's free tier cannot reach a quote provider (Yahoo is
+    not on its allowlist). The bot must then serve the forecast published
+    by the daily workflow, and must say how old it is."""
     import handler
 
     monkeypatch.setattr(handler.quotes, "recent_bars", lambda *a, **k: None)
     r = handle("/vol")
-    assert "No price data" in r
-    assert "%" not in r.split("volatility")[0]      # no invented figure
+    assert "band" in r and "holds" in r
+    assert "published" in r.lower() and "ago" in r.lower()
+
+
+def test_vol_reports_nothing_rather_than_guessing(monkeypatch):
+    """No live prices AND no published forecast must produce an
+    explanation, never a stack trace and never an invented band."""
+    import handler
+
+    monkeypatch.setattr(handler.quotes, "recent_bars", lambda *a, **k: None)
+    monkeypatch.setattr(handler.quotes, "published_forecast",
+                        lambda *a, **k: None)
+    r = handle("/vol")
+    assert "No forecast available" in r
+    assert "pts" not in r          # no fabricated band
 
 
 def test_vol_never_implies_direction(monkeypatch):

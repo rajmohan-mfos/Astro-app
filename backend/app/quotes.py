@@ -15,6 +15,7 @@ recent_bars() returning None.
 """
 import datetime
 import json
+import os
 import urllib.error
 import urllib.request
 
@@ -56,3 +57,66 @@ def recent_bars(index: str = "nifty", days: int = 130,
     except (urllib.error.URLError, urllib.error.HTTPError, KeyError,
             ValueError, TypeError, OSError):
         return None
+
+
+# ------------------------------------------------------ published feed
+# The fallback for hosts that cannot reach a quote provider. Measured
+# against PythonAnywhere's free-tier allowlist: api.telegram.org and
+# .githubusercontent.com are permitted, Yahoo is not, and .nseindia.com is
+# permitted but blocks scripted clients. So the forecast is computed by
+# GitHub Actions (unrestricted network) and read back from GitHub here.
+GITHUB_REPO = os.environ.get("ASTRO_GITHUB_REPO", "rajmohan-mfos/Astro-app")
+FORECAST_PATH = "backend/app/volforecast.json"
+_LOCAL = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                      "volforecast.json")
+
+
+def published_forecast(timeout: int = 20) -> dict | None:
+    """The last forecast published by the daily workflow.
+
+    Tries the local copy first — it ships in the deploy zip, so a fresh
+    deploy answers instantly and works even with no network at all. Then
+    GitHub, for a copy newer than the deploy.
+
+    Returns None rather than raising; callers show "no forecast" instead
+    of failing.
+    """
+    best = None
+    try:
+        with open(_LOCAL, encoding="utf-8") as f:
+            best = json.load(f)
+    except (OSError, ValueError):
+        pass
+
+    remote = _fetch_published(timeout)
+    if remote and (not best or remote.get("generated_at", "") >
+                   best.get("generated_at", "")):
+        best = remote
+    return best
+
+
+def _fetch_published(timeout: int) -> dict | None:
+    token = os.environ.get("ASTRO_GITHUB_TOKEN")
+    if not token:
+        return None            # private repo: without a token, skip quietly
+    url = (f"https://api.github.com/repos/{GITHUB_REPO}/contents/"
+           f"{FORECAST_PATH}")
+    req = urllib.request.Request(url, headers={
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github.raw+json",
+        "User-Agent": "astro-app-bot"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.load(r)
+    except (urllib.error.URLError, urllib.error.HTTPError, KeyError,
+            ValueError, TypeError, OSError):
+        return None
+
+
+def forecast_age_hours(data: dict) -> float | None:
+    """How old a published forecast is, so staleness is visible."""
+    try:
+        t = datetime.datetime.fromisoformat(data["generated_at"])
+    except (KeyError, ValueError, TypeError):
+        return None
+    return (datetime.datetime.now(IST) - t).total_seconds() / 3600
