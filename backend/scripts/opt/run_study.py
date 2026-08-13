@@ -21,6 +21,7 @@ import calibration                                           # noqa: E402
 import features as feat                                      # noqa: E402
 import stats                                                 # noqa: E402
 import tier2                                                 # noqa: E402
+import volatility                                            # noqa: E402
 import walkforward as wf                                     # noqa: E402
 
 OUT_DIR = os.path.join(HERE, "..", "..", "knowledge", "backtest", "opt")
@@ -99,6 +100,9 @@ def main():
 
     section("TIER 2 — CEILING MODELS (nifty)")
     tier2.run()
+
+    section("VOLATILITY INSTEAD OF DIRECTION")
+    volatility.main()
 
     path = os.path.join(OUT_DIR, "permutation_null.json")
     if os.path.exists(path):

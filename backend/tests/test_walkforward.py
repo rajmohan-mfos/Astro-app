@@ -146,6 +146,47 @@ def test_feature_table_reproduces_the_published_backtest():
     assert 47.0 < hits / len(directional) * 100 < 49.5
 
 
+# ---------------------------------------------------------- volatility
+@needs_features
+def test_vol_block_never_sees_the_current_bar():
+    """The lagged-volatility features must be built from bars STRICTLY
+    before each row. An off-by-one here lets today's move predict itself
+    and manufactures the entire volatility result."""
+    import volatility as vol
+
+    base = [{"date": f"2020-01-{d:02d}", "ret_pct": 0.1}
+            for d in range(1, 21)]
+    spiked = [dict(r) for r in base]
+    spiked[10]["ret_pct"] = 99.0          # one enormous move on row 10
+
+    V_base = vol.vol_block(base)
+    V_spike = vol.vol_block(spiked)
+
+    # rows before the spike must be untouched
+    assert (V_base[:11] == V_spike[:11]).all(), \
+        "a later bar changed an earlier row's features — lookahead leak"
+    # row 10 itself must NOT reflect its own 99% move
+    assert (V_base[10] == V_spike[10]).all(), \
+        "row 10 sees its own return — off-by-one in the rolling window"
+    # but row 11 onward must see it
+    assert not (V_base[11] == V_spike[11]).all()
+
+
+def test_last_thursday_is_the_monthly_expiry():
+    import volatility as vol
+
+    import datetime
+    # Jan 2020: Thursdays are 2, 9, 16, 23, 30
+    assert vol._last_thursday(datetime.date(2020, 1, 15)) == \
+        datetime.date(2020, 1, 30)
+    # December wraps to the next year without crashing
+    assert vol._last_thursday(datetime.date(2021, 12, 5)) == \
+        datetime.date(2021, 12, 30)
+    for m in range(1, 13):
+        lt = vol._last_thursday(datetime.date(2023, m, 10))
+        assert lt.weekday() == 3 and lt.month == m
+
+
 @needs_features
 def test_baselines_are_computed_on_directional_calls_only():
     import features as feat

@@ -229,7 +229,78 @@ misplaced, and that part is real and fixable. But fixing it does not make the
 engine predictive, because the underlying signal is empty. A miscalibrated
 pointer at nothing still points at nothing.
 
-## 9. Conclusion
+## 9. Volatility instead of direction
+
+Direction is close to a fair coin. Volatility is not — `|ret|` has
+autocorrelation **+0.215 at lag 1** and is still +0.146 at lag 10, the
+clustering every GARCH model exploits. So this target is genuinely
+predictable, and the benchmark changes completely: a model must beat *lagged
+volatility*, not the base rate.
+
+**A lagged-volatility model is already good.** Logistic regression on
+strictly-lagged rolling means of `|ret|` (windows 1/3/5/10/21), prior return,
+trailing dispersion, and NSE expiry flags (Thursday, last Thursday, expiry
+neighbourhood):
+
+| Model, walk-forward, median-split target | Nifty | BankNifty |
+|---|---|---|
+| **A — lagged volatility + expiry only** | **59.96%** | **63.56%** |
+| **B — A plus every astro feature** | 54.91% | 59.47% |
+| **delta (astro's contribution)** | **−5.05pp** | **−4.09pp** |
+| 95% CI on the delta (block bootstrap) | [−7.38, −2.87] | [−6.30, −1.83] |
+| exact McNemar | p < 0.001 | p < 0.001 |
+
+Both models are fitted on identical folds and identical rows, differing only
+in the astro columns, so the delta is the whole story. Expiry is deliberately
+in the *baseline*: it is a large calendar-driven volatility source, and
+leaving it out would let the astro block take credit for finding the
+calendar.
+
+The astro features do not merely fail to help — they **actively degrade a
+working model**, significantly, on both indices. Giving them their best shot
+across regularisation strengths does not rescue it:
+
+| Model B regularisation | C=0.003 | 0.01 | 0.03 | 0.1 | 0.3 | 1.0 |
+|---|---|---|---|---|---|---|
+| delta vs Model A | −3.13pp | −4.05pp | −4.85pp | −5.05pp | −5.24pp | −5.81pp |
+
+The delta worsens monotonically as the astro block gets more weight — the
+signature of noise being fitted. (At C=0.003 the penalty also shrinks the
+useful volatility features, so −3.13pp is a floor artifact, not astro
+approaching neutrality.)
+
+### Pre-registered hypotheses
+
+Because the course makes *specific* volatility claims, these were declared
+before running and tested exactly as declared — five tests, Bonferroni
+α = 0.010 — rather than searched. Each compares mean `|ret|` in the category
+against all other days, measured as **excess over the day's own trailing
+21-day level**, so "these days are volatile" cannot be satisfied merely by
+landing inside an already-volatile stretch. p-values from 2,000 block
+permutations.
+
+| Claim | n | Excess diff (Nifty) | p | BankNifty p |
+|---|---|---|---|---|
+| Amavasai (new moon) → volatile | 135 | −0.0315pp | 0.537 | 0.254 |
+| Pournami (full moon) → volatile | 112 | +0.0015pp | 0.975 | 0.636 |
+| New **or** full moon | 247 | −0.0170pp | 0.665 | 0.604 |
+| Extreme yogas (Vyaghata/Vyatipata/Vaidhriti) — the course's explicit "crash-risk day" | 422 | +0.0115pp | 0.689 | 0.696 |
+| Rikta thithis 4/9/14 — "sharp gap-downs, 1000–2000 point drops" | 751 | +0.0005pp | 0.983 | 0.456 |
+
+**None survives, on either index.** Not one is even close — the smallest
+p-value across ten tests is 0.25.
+
+The Rikta result deserves a line of its own. The course sheet describes those
+days as producing sharp gap-downs of 1,000–2,000 points. Across 751 of them
+over 15 years, the measured excess volatility is **+0.0005 percentage points,
+p = 0.983** — indistinguishable from exactly nothing.
+
+So volatility is the better question, and it has a better answer: it *is*
+predictable, to about 60% on Nifty and 64% on BankNifty. Just not by
+astrology. The lunar and panchang features contribute nothing to it, and
+including them costs about five points.
+
+## 10. Conclusion
 
 - The measured ceiling on daily direction is **≈53%**, which is the base rate.
   Nothing in 6,912 rule variants, two classifier families, or 15 years of data
@@ -248,6 +319,12 @@ pointer at nothing still points at nothing.
   question "is there anything here?", and the answer is no.
 - The one genuine defect found — the bullish calibration tilt — is worth
   knowing about but does not change the conclusion.
+- **Volatility is the better target and gives a cleaner answer.** It is
+  genuinely predictable (60% Nifty, 64% BankNifty from lagged volatility and
+  expiry alone), and adding the astro features makes it significantly
+  *worse* on both indices. Five pre-registered course claims — new moon, full
+  moon, the extreme yogas, the Rikta "1000–2000 point drop" thithis — all
+  fail, none close.
 
 **Nothing in `backend/app/` was modified.** The app's own disclaimers already
 describe it as a study aid rather than a signal, and this study is the
