@@ -54,6 +54,26 @@ def build_message(d: datetime.date) -> str:
          f"({pan['thithi']['paksha']}) · {pan['natchathiram']['name']} "
          f"· {pan['yogam']['name']} · {pan['karanam']['name']}"]
 
+    # [P2] "if you open the gate you can enter, then you can put a graph"
+    # — the gate qualifies everything below it, so it goes ABOVE the
+    # reading rather than after it. Without this the push could print
+    # "HIGH conviction" on a day the taught method says not to read at
+    # all, which is the exact misreading the gateway rule prevents.
+    gate = p.get("prasanam_gate") or {}
+    if gate and not gate.get("open"):
+        # first sentence only — the full reason carries a paragraph of
+        # provenance that a phone notification does not need, and a hard
+        # character cut truncated it mid-word
+        why = (gate.get("reason") or "").split(". ")[0].strip()
+        L += ["", f"🚧 Prasanam gate NOT open ({gate['verdict']}) — "
+                  f"everything below is study material, not an entry.",
+              f"   {why}.",
+              "   Open it with a seed-number prasanam on your own "
+              "question (/prasanam <1-249>)."]
+    elif gate:
+        L += ["", f"✅ Prasanam gate open ({gate['verdict']}) — substitute "
+                  f"reading only; confirm with your own seed number."]
+
     score = p.get("day_score")
     if score:
         L += ["", f"Day score: {score['conviction'].upper()} conviction — "
@@ -61,6 +81,12 @@ def build_message(d: datetime.date) -> str:
                   f"({score['panchang_total']:+g}), chain "
                   f"{score['chain_sign']} ({score['chain_score']:+g}), "
                   f"{score['agreement']}"]
+        if score.get("small_wave"):
+            # [C9] a cancelling chain is a RANGE statement; "low
+            # conviction" alone never carried it
+            L += [f"  ⟳ Small-wave day — stretches cancel (energy "
+                  f"{score['chain_energy']:g}): choppy, narrow range "
+                  f"expected. Size, not direction."]
 
     chain = p.get("chain")
     if chain:
@@ -87,6 +113,14 @@ def build_message(d: datetime.date) -> str:
     if horai:
         L += ["", "Horai notes:"]
         L += [f"  • {f['title']}" for f in horai[:4]]
+
+    # only fires with the gate open AND panchang/chain agreeing, so it is
+    # rare and worth the line when it appears [C4/C6]
+    expr = [f for f in (p["sections"].get("graph") or [])
+            if f["title"].startswith("How the course expresses")]
+    if expr:
+        L += ["", expr[0]["title"],
+              "  Reported as the taught method, NOT a recommendation."]
 
     fit = (score or {}).get("fitted")
     if fit:
