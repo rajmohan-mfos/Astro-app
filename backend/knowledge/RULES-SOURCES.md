@@ -266,10 +266,8 @@ DEFERRED TODO — status as of the 2026-08-14 re-audit. DONE since:
   minimum (`horai.py` Confluence finding).
 
 STILL DEFERRED:
-1. Rahu/Ketu-cancel as a conditional rule (P1 counter-evidence: Rahu is
-   P1's own ANSWER planet, read normally by houses; meanwhile the cancel
-   kills 57 of 249 seed numbers — Rahu 30 + Ketu 27 sub-lords — before
-   any judgment runs). Sub-vs-star ordering caveat.
+1. Sub-vs-star ordering caveat. (The Rahu/Ketu-cancel item was RESOLVED
+   2026-08-14 — downgraded to an UNRELIABLE flag, see below.)
 2. The 6-month cap / 3-vs-6-month panchangam probe on the Jupiter window
    ([C11]; `transit.jupiter_nak_window` scans ±450 days uncapped).
 3. stocks.py SECTORS dict [C2].
@@ -593,6 +591,7 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    gate, then the graph": prasanam is taught as a gate on the other
    methods, but `predict.run` emits all sections as peers and a
    NO/CANCEL/INVALID prasanam suppresses nothing.
+   **IMPLEMENTED 2026-08-14** — see the gateway section below.
 3. **[P2 90-97; 12-Bhavam 126-129] prasanam Moon do-not-cast frame** —
    the taught gate is the transit Moon counted from the NATAL rasi/lagna;
    `prasanam.py` tests the Moon's house in the horary chart instead
@@ -621,6 +620,42 @@ Fidelity divergences noted, deliberately NOT changed (adjudication-level):
 - **Weekly worked example**: with degree counting and self-occupancy
   excluded, the engine reproduces neither half of the teacher's Feb
   example (documented trade-off above — C11 wins).
+
+## Rahu/Ketu downgrade + the prasanam gateway (2026-08-14)
+
+**Rahu/Ketu lagna sub-lord: CANCEL → UNRELIABLE flag.** 57 of the 249
+seed numbers (Rahu 30 + Ketu 27) carry a Rahu/Ketu lagna sub-lord — 23%
+of the taught method's input space, and date-independent, since the KP
+249 table fixes the ascendant's sub-lord per number. The hard cancel
+refused every one of those that reached it (42 on a 2026-08-14 cast; the
+other 15 were already stopped by the Moon-in-5/8/12 gate above it, and
+that split moves with the date). The teacher never mentions excluding
+any part of his own number range. Re-reading [C3 @ 03:38–04:16], his own
+words frame it as a reliability warning, not a refusal: "if Raghukethu
+comes … there is a *chance* to make it 100% opposite … it can even lie";
+and [P1]'s worked example reads Rahu normally by houses as the ANSWER
+planet. `prasanam.verdict_for` now computes the houses judgment and
+returns `UNRELIABLE (<verdict>)` with the C3 warning appended — the
+reading is delivered, flagged do-not-act, re-ask with a fresh number.
+The Moon-in-5/8/12 gate remains a hard CANCEL (P2's "do not put the
+prasanam at all" is categorical). `rules()` was also deduplicated onto
+`verdict_for` (the inline copy was a drift risk).
+
+**The gateway rule [P2 @ 279–299] is now enforced.** "Present is the
+gateway… if you open the gate you can enter, then you can put a graph."
+`predict.run` now runs prasanam via `prasanam.report()`, exposes a
+top-level `prasanam_gate` ({verdict, open, reason, substitute}), and
+when the verdict is not a plain YES prepends a "Prasanam gate NOT open —
+study only" finding to the graph/weekly/monthly/long-term sections.
+Only a bare `YES` opens it, so `UNRELIABLE (YES)` does NOT — deliberate,
+not an artifact of the string test: a reading flagged do-not-act must
+not be the thing that authorises a graph. Do not "fix" this by matching
+a substring.
+Sections are marked, not suppressed — the app is a study aid, and the
+substitute prasanam (chart-moment cast, no seed number) is itself only a
+stand-in: the note directs the user to open the real gate with a
+seed-number prasanam on their actual question (/api/prasanam). Nothing
+about the seed path is gated by the substitute reading.
 
 ## Open questions / pending
 

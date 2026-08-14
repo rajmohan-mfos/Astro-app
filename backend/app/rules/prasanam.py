@@ -11,8 +11,9 @@ answer"]. NOTE: P1 instead phrases the question planet as the lagna's
 sub-lord ("Lakhna Upanachathram"). The two transcripts genuinely
 disagree; the Moon reading is used per user adjudication (2026-08-11)
 because LT2 states it repeatedly and works a full example with it. The
-lagna sub-lord is still returned as `lagna_sub_lord` and still triggers
-the Rahu/Ketu cancel.
+lagna sub-lord is still returned as `lagna_sub_lord`; when it is Rahu or
+Ketu the verdict is flagged UNRELIABLE [C3 "100% opposite… it can even
+lie"] rather than cancelled (see verdict_for).
 
 Judge by houses: 2/6/11 = profit, 5/8/12 = loss [P1 @ 10:09–10:27], with
 2/6 median and 11 heavy profit, 5/12 median and 8 heavy loss [LT2].
@@ -141,8 +142,9 @@ def judge(question_house: int, answer_house: int) -> tuple[str, str]:
 def verdict_for(c: dict) -> tuple[str, str]:
     """Verdict gates, shared by the seed-number and no-number paths.
 
-    Order matters: the two CANCEL gates say "do not cast at all", the
-    INVALID gate says "you cast, but the question did not connect".
+    The Moon gate says "do not cast at all"; INVALID says "you cast, but
+    the question did not connect"; a Rahu/Ketu lagna sub-lord no longer
+    cancels — the verdict is computed and flagged UNRELIABLE instead.
     """
     if c["moon_house"] in LOSS_HOUSES:
         # [P2-Buzz] "In 5, 8, 12, when your chart has the Moon, you should
@@ -150,18 +152,33 @@ def verdict_for(c: dict) -> tuple[str, str]:
         return "CANCEL", (
             f"the Moon sits in house {c['moon_house']} (5/8/12) — do not "
             f"cast a prasanam at this time; ask later")
-    if c["lagna_sub_lord"] in ("Rahu", "Ketu"):
-        # [C3] "if Raghukethu comes as Lakhanam's Upanachathram… avoid"
-        return "CANCEL", (
-            f"the lagna sub-lord is {c['lagna_sub_lord']} — Rahu/Ketu "
-            f"horary charts can invert the answer completely; cancel")
     if not set(c["question_houses"]) & (PROFIT_HOUSES | LOSS_HOUSES):
-        return "INVALID", (
+        verdict, reason = "INVALID", (
             f"the question signifies {c['question_houses']} — no "
             f"connection to 2/6/11 or 5/8/12; you asked from the upper "
             f"mind, not the subconscious. Discard and re-ask after 2–3 "
             f"hours")
-    return judge_sets(c["question_houses"], c["answer_houses"])
+    else:
+        verdict, reason = judge_sets(c["question_houses"],
+                                     c["answer_houses"])
+    if c["lagna_sub_lord"] in ("Rahu", "Ketu"):
+        # [C3 @ 03:38–04:16] "if Raghukethu comes … there is a chance to
+        # make it 100% opposite … it can even lie." Downgraded from a
+        # hard CANCEL (2026-08-14): 57 of the 249 seed numbers (Rahu 30 +
+        # Ketu 27) carry a Rahu/Ketu lagna sub-lord — 23% of the input
+        # space, fixed by the KP table — and the old gate refused every
+        # one that reached it (42 on a 2026-08-14 cast; the rest were
+        # already Moon-cancelled above, a split that varies by date).
+        # Meanwhile [P1]'s own worked example reads Rahu normally by
+        # houses as the ANSWER planet. C3's words are a reliability
+        # warning ("a chance"), so the judgment is computed and flagged,
+        # not refused.
+        return f"UNRELIABLE ({verdict})", (
+            f"{reason}. WARNING: the lagna sub-lord is "
+            f"{c['lagna_sub_lord']} — a Rahu/Ketu horary can come out "
+            f"100% opposite, 'it can even lie' [C3]; do not act on this "
+            f"reading — re-ask with a fresh number after 2–3 hours")
+    return verdict, reason
 
 
 def horary_rules(number: int, year: int, month: int, day: int, hour: int,
@@ -222,38 +239,45 @@ def horary_rules(number: int, year: int, month: int, day: int, hour: int,
     ]
 
 
-def rules(chart: dict) -> list[Finding]:
+def gate_state(verdict: str, reason: str) -> dict:
+    """[P2 @ 279–299] "Present is the gateway… if you open the gate you
+    can enter, then you can put a graph" — prasanam is taught as a GATE
+    on the graph methods, not a peer reading. predict.run uses this to
+    mark the graph/weekly/long-term sections when the gate is not open.
+
+    Only a bare "YES" opens the gate — so "UNRELIABLE (YES)" does not.
+    That is intended, not an accident of the equality test: a reading
+    flagged do-not-act must not be what authorises a graph.
+
+    This is read from the SUBSTITUTE
+    prasanam (cast at the chart moment, no seed number); the taught gate
+    is a seed-number prasanam on your actual question (/api/prasanam).
+    """
+    return {
+        "verdict": verdict,
+        "open": verdict == "YES",
+        "reason": reason,
+        "substitute": True,
+    }
+
+
+def report(chart: dict) -> tuple[list[Finding], dict]:
+    """Findings for the substitute prasanam plus the gate state."""
     inp = chart["input"]
     year, month, day = (int(v) for v in inp["date"].split("-"))
     hour, minute = (int(v) for v in inp["time"].split(":"))
 
     c = transit.prasanam_chain(year, month, day, hour, minute,
                                inp["tz_offset"], inp["lat"], inp["lon"])
-    if c["moon_house"] in LOSS_HOUSES:
-        # [P2-Buzz] "In 5, 8, 12, when your chart has the Moon, you should
-        # not put the prasanam at all" — do not cast, ask another time
-        verdict, reason = "CANCEL", (
-            f"the Moon sits in house {c['moon_house']} (5/8/12) — do not "
-            f"cast a prasanam at this time; ask later")
-    elif c["lagna_sub_lord"] in ("Rahu", "Ketu"):
-        # [C3] "if Raghukethu comes as Lakhanam's Upanachathram… avoid" —
-        # tied to the LAGNA's sub-lord specifically, not the question
-        # planet; "there is a chance you will be 100% opposite"
-        verdict, reason = "CANCEL", (
-            f"the lagna sub-lord is {c['lagna_sub_lord']} — Rahu/Ketu "
-            f"horary charts can invert the answer completely; cancel")
-    elif not set(c["question_houses"]) & (PROFIT_HOUSES | LOSS_HOUSES):
-        # [LT2/P1] the QUESTION must connect to 2/6/11 or 5/8/12, else
-        # "you asked in the upper mind" — discard without predicting
-        verdict, reason = "INVALID", (
-            f"the question signifies {c['question_houses']} — no "
-            f"connection to 2/6/11 or 5/8/12; you asked from the upper "
-            f"mind, not the subconscious. Discard and re-ask after 2–3 "
-            f"hours")
-    else:
-        verdict, reason = judge_sets(c["question_houses"],
-                                     c["answer_houses"])
+    verdict, reason = verdict_for(c)
+    return _findings(c, verdict, reason), gate_state(verdict, reason)
 
+
+def rules(chart: dict) -> list[Finding]:
+    return report(chart)[0]
+
+
+def _findings(c: dict, verdict: str, reason: str) -> list[Finding]:
     return [
         Finding(
             SECTION,

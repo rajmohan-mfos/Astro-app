@@ -7,6 +7,7 @@ from dataclasses import asdict
 
 from .rules import (dayscore, graph, horai, longterm, panchang_rules,
                     prasanam, stocks, weekly)
+from .rules.base import Finding
 
 DISCLAIMER = (
     "Educational study aid reproducing the GRAHA MARKETS teaching "
@@ -17,9 +18,14 @@ DISCLAIMER = (
 
 # basics.py retired from the pipeline: [C3-Buzz] shows the node rule is
 # about the Moon over NATAL Rahu/Ketu — implemented in /api/can-trade
+# prasanam runs separately (via report) so its verdict can gate the rest.
 RULE_MODULES = [graph.rules, horai.rules, panchang_rules.rules,
-                dayscore.rules, stocks.rules, weekly.rules, longterm.rules,
-                prasanam.rules]
+                dayscore.rules, stocks.rules, weekly.rules, longterm.rules]
+
+# [P2 @ 279–299] "Present is the gateway… if you open the gate you can
+# enter, then you can put a graph" — the sections a non-open prasanam gate
+# demotes to study-only output
+GATED_SECTIONS = ("graph", "weekly", "monthly", "long_term")
 
 
 def run(chart: dict) -> dict:
@@ -28,9 +34,28 @@ def run(chart: dict) -> dict:
     for mod in RULE_MODULES:
         findings.extend(mod(chart))
 
+    prasanam_findings, gate = prasanam.report(chart)
+    findings.extend(prasanam_findings)
+
     sections: dict[str, list[dict]] = {}
     for f in findings:
         sections.setdefault(f.section, []).append(asdict(f))
+
+    if not gate["open"]:
+        for sec in GATED_SECTIONS:
+            if sec in sections:
+                sections[sec].insert(0, asdict(Finding(
+                    sec,
+                    f"Prasanam gate NOT open ({gate['verdict']}) — "
+                    f"study only",
+                    "[P2] 'Present is the gateway… if you open the gate "
+                    "you can enter, then you can put a graph.' The "
+                    "substitute prasanam at this chart moment did not "
+                    "answer a plain YES, so treat this section as study "
+                    "output, not an entry signal, until a seed-number "
+                    "prasanam on your actual question opens the gate "
+                    "(Prasanam tab / POST /api/prasanam).",
+                    "prasanam 2 — the gateway rule")))
 
     cast = graph.cast_chart(chart)
     p = graph.pick_chain(cast, "Moon")
@@ -63,6 +88,7 @@ def run(chart: dict) -> dict:
     return {
         "status": "v1" if findings else "stub",
         "summary": summary,
+        "prasanam_gate": gate,
         "sections": sections,
         "graph_segments": segments,
         "chain": chain,

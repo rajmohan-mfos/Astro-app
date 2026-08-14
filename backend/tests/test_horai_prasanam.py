@@ -293,9 +293,14 @@ def test_moon_is_the_question_planet():
     assert c['answer'] in transit.DASHA_LORDS
 
 
-def test_rahu_ketu_cancel_follows_the_lagna_sub_lord():
-    """[C3] 'if Raghukethu comes as Lakhanam's Upanachathram... avoid' -
-    the cancel is tied to the lagna sub-lord, not the question planet."""
+def test_rahu_ketu_flags_unreliable_via_lagna_sub_lord():
+    """[C3] 'if Raghukethu comes... there is a chance to make it 100%
+    opposite... it can even lie' - tied to the lagna sub-lord, not the
+    question planet. Downgraded from a hard CANCEL per P1's
+    counter-evidence: 57 of the 249 seed numbers carry a Rahu/Ketu lagna
+    sub-lord (23% of the input space, fixed by the KP table) and the old
+    gate refused every one that reached it. The verdict is now computed
+    by houses and flagged UNRELIABLE instead."""
     import datetime
     from app import engine
     from app.rules import prasanam
@@ -310,10 +315,53 @@ def test_rahu_ketu_cancel_follows_the_lagna_sub_lord():
                 chain['moon_house'] not in prasanam.LOSS_HOUSES:
             verdict = next(f for f in prasanam.rules(c)
                            if f.title.startswith('Verdict'))
-            assert 'CANCEL' in verdict.title
+            assert 'UNRELIABLE' in verdict.title
+            # the underlying houses judgment is still present...
+            assert any(v in verdict.title for v in
+                       ('YES', 'NO', 'UNCLEAR', 'INVALID'))
+            # ...alongside the C3 warning
+            assert 'opposite' in verdict.detail
             found = True
             break
     assert found, 'no Rahu/Ketu lagna-sub-lord day found to test'
+
+
+def test_prasanam_gate_marks_sections():
+    """[P2] 'if you open the gate you can enter, then you can put a
+    graph' - a non-YES substitute prasanam prepends a study-only notice
+    to the graph/weekly/long-term sections; a YES leaves them clean."""
+    from app import engine, predict
+    chart = engine.compute(2021, 5, 5, 11, 58, 5.5, 13.0827, 80.2707)
+    pred = predict.run(chart)
+    gate = pred['prasanam_gate']
+    assert set(gate) >= {'verdict', 'open', 'reason', 'substitute'}
+    assert gate['open'] == (gate['verdict'] == 'YES')
+    for sec in ('graph', 'weekly', 'monthly', 'long_term'):
+        has_notice = pred['sections'][sec][0]['title'].startswith(
+            'Prasanam gate NOT open')
+        assert has_notice == (not gate['open']), (sec, gate)
+
+
+def test_rahu_ketu_share_of_the_seed_numbers_is_57():
+    """The count RULES-SOURCES.md cites to justify the downgrade. It is
+    a fixed property of the KP 249 table (number -> ascendant sub-lord),
+    so it must not move with the date — if this fails, the doc's '23% of
+    the input space' argument no longer holds."""
+    from app import transit
+
+    n = sum(transit.horary_chart(i, 2026, 8, 14, 10, 30, 5.5,
+                                 13.0827, 80.2707)['lagna_sub_lord']
+            in ('Rahu', 'Ketu') for i in range(1, 250))
+    assert n == 57
+
+
+def test_unreliable_yes_does_not_open_the_gate():
+    """A reading flagged do-not-act must not be what authorises a graph,
+    so the gate tests for a bare 'YES', not a substring."""
+    from app.rules import prasanam
+
+    assert prasanam.gate_state('YES', '')['open'] is True
+    assert prasanam.gate_state('UNRELIABLE (YES)', '')['open'] is False
 
 
 def test_significator_sets_structure():
