@@ -13,11 +13,26 @@ whenever a new transcript or document is codified.
 | [S4] | `docs/GRAPH ASTRO-4.pptx` (Class 4 slides) | partially codified |
 | [S5] | `docs/GRAPH PREDICTION -5.pptx` (weekly horai rules) | codified (`rules/horai.py`) |
 | [P1] | `transcripts/PRASANAM VIDEO 1.en.txt` | codified (`rules/prasanam.py`) |
-| [P2] | `transcripts/prasanam 2.en.txt` | reviewed — same 2/6/11 vs 5/8/12 judgment |
+| [P2] | `transcripts/prasanam 2.en.txt` | codified (`rules/prasanam.py` judgment + the gateway rule in `predict.run`) |
 | [HC] | `docs/HALF COURSE.docx` | mostly images; text headers only |
 | [C4] | `transcripts/ASTRO CLASS -4 … PART 1.en.txt` | codified into `rules/graph.py` |
 | [C11] | `transcripts/LONG TERM PREDICTION … CLASS - 11.en.txt` | codified (`rules/longterm.py`) |
-| [LT2] | `transcripts/HOW TO PREDICT LONG TERM INVESTMENT PART - 2.en.txt` | prasanam judgment table extracted; full prasanam module pending |
+| [LT2] | `transcripts/HOW TO PREDICT LONG TERM INVESTMENT PART - 2.en.txt` | codified (`rules/longterm.py`; prasanam judgment table in `rules/prasanam.py`) |
+| [C2] | `transcripts/ASTRO CLASS 2.en.txt` | reviewed; SECTORS + conjunction rule still open (gap 1) |
+| [C3] | `transcripts/ASTRO CLASS- 3 (RAGHU⧸KETHU⧸THITHI).en.txt` | codified (thithi bias; Rahu/Ketu reliability flag) |
+| [C6] | `transcripts/ASTRO CLASS -6 (GRAPH PREDICTION DOUBTS,RECAP).en.txt` | codified into `rules/graph.py` |
+| [C7] | `transcripts/ASTRO CLASS-7(…THITHI,YOGAM,KARNAM,NATCHATHIRAM).en.txt` | codified (`rules/panchang_rules.py`) |
+| [C8] | `transcripts/ASTRO CLASS -8( GRAPH PREDICTION).en.txt` | codified (`rules/dayscore.py`) |
+| [C9] | `transcripts/ASTRO CLASS -9 (GRAPH PREDICTION).en.txt` | codified; "small wave" day still open (gap 4) |
+| [C10] | `transcripts/ASTRO CLASS -10 (FINAL SESSION ).en.txt` | codified (`rules/stocks.py` half-split) |
+| [EX] | `transcripts/EXAMPLE CHART.en.txt` | cross-checked — fixes the sunrise cast convention |
+| [12-Bhavam] | `transcripts/12 BHAVAM EXPLANATION.en.txt` | codified (`rules/bhavam.py`); transcript heavily garbled |
+
+A `-Buzz` suffix ([C6-Buzz], [C3-Buzz], [P2-Buzz], [EX-Buzz]) means the same
+video read from `transcripts from buzz/` — an independent, higher-quality
+translation of the identical source. Where the two disagree, Buzz wins; see
+"Buzz transcripts validation" below. [S1]–[S4b] are test scenarios, not
+sources.
 
 ## Core tables ([NOTES], verbatim)
 
@@ -602,7 +617,10 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    are taught as an explicitly choppy small-range day; `dayscore.py`
    collapses this to low conviction without the range characterisation.
 5. **[C4/C6 @ 16:13] trade expression** — bearish ⇒ puts/short futures,
-   bullish ⇒ calls; never emitted.
+   bullish ⇒ calls. Partially present, not absent (corrected 2026-08-14):
+   `horai.py` already emits "Buy puts / sell futures" for the
+   Saturn+Uthiradam tier. What is missing is the GENERAL mapping — the
+   daily bias from `dayscore.py` never names an instrument.
 6. **[W] monthly as a computed sequence** — the "monthly" finding names
    the next Sun-star window but never computes its chain; and weekly has
    no angle-resolution counterpart to `graph.py`'s (only the FIRST
