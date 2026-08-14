@@ -454,3 +454,74 @@ def test_trade_expression_is_reported_not_recommended():
                 return
         d += datetime.timedelta(days=1)
     raise AssertionError("no expression finding found to check")
+
+
+def _birth():
+    from app import engine
+    return engine.compute(1985, 6, 15, 10, 30, 5.5, 13.0827, 80.2707,
+                          ayanamsa_mode=engine.KP)
+
+
+def test_natal_gate_counts_from_both_rasi_and_lagna():
+    """[P2 @ 03:06-03:26] 'in 5-8-12 ... when Chandran goes from Lakkanam
+    to Rasi, you should not give the present'; [12-Bhavam @ 10:32-10:40]
+    'you can see it from your Rasi, you can see it from your Lakanam'.
+    Either frame blocking is enough."""
+    from app import engine
+    from app.rules import prasanam
+
+    assert prasanam.NATAL_AVOID == {5, 8, 12}
+    blocked = clear = 0
+    for day in range(1, 32):
+        now = engine.compute(2026, 8, day, 10, 30, 5.5, 13.0827, 80.2707,
+                             ayanamsa_mode=engine.KP)
+        g = prasanam.natal_moon_gate(_birth(), now)
+        assert g["cast"] == (g["rasi_count"] not in prasanam.NATAL_AVOID
+                             and g["lagna_count"] not in prasanam.NATAL_AVOID)
+        blocked += not g["cast"]
+        clear += g["cast"]
+    # both outcomes must occur, or the gate is not really gating
+    assert blocked and clear
+
+
+def test_birth_data_switches_to_the_taught_gate():
+    """The recorded gap: the taught gate is natal, and the horary-chart
+    Moon was only ever a stand-in. Supplying birth data must actually
+    change the verdict, not just annotate it."""
+    from app.rules import prasanam
+
+    args = (88, 2026, 8, 14, 10, 30, 5.5, 13.0827, 80.2707)
+    with_birth = next(f for f in prasanam.horary_rules(*args, birth=_birth())
+                      if f.title.startswith("Verdict"))
+    without = next(f for f in prasanam.horary_rules(*args)
+                   if f.title.startswith("Verdict"))
+    assert "CANCEL" in with_birth.title
+    assert "janma rasi" in with_birth.detail
+    assert with_birth.title != without.title
+
+
+def test_standin_gate_admits_it_is_one():
+    """Without birth data the horary Moon house still gates, but the
+    reason must not imply it is the taught rule."""
+    from app import transit
+    from app.rules import prasanam
+
+    for n in range(1, 250):
+        c = transit.horary_chart(n, 2026, 8, 14, 10, 30, 5.5,
+                                 13.0827, 80.2707)
+        if c["moon_house"] in prasanam.LOSS_HOUSES:
+            _, reason = prasanam.verdict_for(c)
+            assert "horary chart" in reason
+            assert "stand-in" in reason.lower()
+            assert "birth rasi and lagna" in reason
+            return
+    raise AssertionError("no Moon-gated horary number found")
+
+
+def test_prasanam_endpoint_birth_field_is_optional():
+    """Backward compatibility: frontend/src/api.ts posts without it."""
+    from app.main import PrasanamRequest
+
+    r = PrasanamRequest(number=88, year=2026, month=8, day=14, hour=10,
+                        minute=30, lat=13.0827, lon=80.2707)
+    assert r.birth is None

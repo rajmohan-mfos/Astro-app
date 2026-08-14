@@ -620,11 +620,19 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    NO/CANCEL/INVALID prasanam suppresses nothing.
    **IMPLEMENTED 2026-08-14** — see the gateway section below.
 3. **[P2 90-97; 12-Bhavam 126-129] prasanam Moon do-not-cast frame** —
-   the taught gate is the transit Moon counted from the NATAL rasi/lagna;
-   `prasanam.py` tests the Moon's house in the horary chart instead
-   (`moon_house`), because `/api/prasanam` carries no birth data. The
-   natal-frame check exists in `/api/can-trade` but is not wired to
-   prasanam. The source comment on the horary gate overstates fidelity.
+   the taught gate is the transit Moon counted from the NATAL rasi/lagna.
+   **IMPLEMENTED 2026-08-14** — `prasanam.natal_moon_gate()`, wired
+   through `horary_rules(..., birth=)` and an optional `birth` field on
+   `/api/prasanam` (omitting it behaves exactly as before, so the
+   frontend is unaffected). Either frame blocking is enough, per
+   [12-Bhavam @ 10:32–10:40] "from your Rasi … from your Lakanam".
+   Verified to change the answer, not merely annotate it: number 88 on
+   2026-08-14 reads YES on the stand-in and CANCEL on the taught gate
+   (Moon 5 from that birth rasi).
+   Without birth data the horary-chart `moon_house` still stands in —
+   there is no natal frame to count from — but the reason string now
+   says it is a stand-in and names what the taught rule needs. The
+   comment that overstated fidelity is gone.
 4. **[C9 @ 03:29] the "small wave" day** — balanced positives/negatives
    are taught as an explicitly choppy small-range day; `dayscore.py`
    collapses this to low conviction without the range characterisation.

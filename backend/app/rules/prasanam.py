@@ -139,6 +139,35 @@ def judge(question_house: int, answer_house: int) -> tuple[str, str]:
                        f"{q} and {a}) — re-ask after 1–2 hours")
 
 
+NATAL_AVOID = {5, 8, 12}
+
+
+def natal_moon_gate(birth_chart: dict, now_chart: dict) -> dict:
+    """The TAUGHT do-not-cast gate: transit Moon from the natal frame.
+
+    [P2 @ 03:06–03:26] "For a day Chandran will go in a tie for 2.5
+    hours … when he is going in 8 you should not give him the present.
+    In 5-8-12 … in your [birth chart] … when Chandran goes from Lakkanam
+    to Rasi, you should not give the present." Counted from BOTH the
+    janma rasi and the lagna — [12-Bhavam @ 10:32–10:40] "you can see it
+    from your Rasi, you can see it from your Lakanam".
+
+    Same arithmetic as /api/can-trade, which has had this rule all along
+    while the prasanam path could not reach it.
+    """
+    def moon(ch):
+        return next(g for g in ch["grahas"] if g["name"] == "Moon")
+    t_moon = moon(now_chart)
+    rasi_count = (t_moon["sign"] - moon(birth_chart)["sign"]) % 12 + 1
+    lagna_count = (t_moon["sign"] - birth_chart["lagna"]["sign"]) % 12 + 1
+    blocked = [f"{n} from your {frame}"
+               for n, frame in ((rasi_count, "janma rasi"),
+                                (lagna_count, "lagna"))
+               if n in NATAL_AVOID]
+    return {"rasi_count": rasi_count, "lagna_count": lagna_count,
+            "cast": not blocked, "blocked_by": blocked}
+
+
 def verdict_for(c: dict) -> tuple[str, str]:
     """Verdict gates, shared by the seed-number and no-number paths.
 
@@ -147,11 +176,21 @@ def verdict_for(c: dict) -> tuple[str, str]:
     cancels — the verdict is computed and flagged UNRELIABLE instead.
     """
     if c["moon_house"] in LOSS_HOUSES:
-        # [P2-Buzz] "In 5, 8, 12, when your chart has the Moon, you should
-        # not put the prasanam at all"
+        # STAND-IN — and the comment here used to overstate it. The taught
+        # gate is NATAL: [P2 @ 03:06–03:26] "in 5-8-12 … in your [birth
+        # chart] … when Chandran goes from Lakkanam to Rasi, you should
+        # not give the present", i.e. the TRANSIT Moon counted from your
+        # own janma rasi AND lagna. That is what natal_moon_gate()
+        # computes when birth data is supplied. Without birth data there
+        # is no natal frame to count from, so the Moon's house in the
+        # HORARY chart stands in. It is a different measurement, and the
+        # reason string now says so rather than implying fidelity.
         return "CANCEL", (
-            f"the Moon sits in house {c['moon_house']} (5/8/12) — do not "
-            f"cast a prasanam at this time; ask later")
+            f"the Moon sits in house {c['moon_house']} (5/8/12) of the "
+            f"horary chart — do not cast a prasanam at this time; ask "
+            f"later. Stand-in gate: the taught rule counts the transit "
+            f"Moon from YOUR birth rasi and lagna, which needs birth "
+            f"data (send `birth` to /api/prasanam, or use /api/can-trade)")
     if not set(c["question_houses"]) & (PROFIT_HOUSES | LOSS_HOUSES):
         verdict, reason = "INVALID", (
             f"the question signifies {c['question_houses']} — no "
@@ -183,7 +222,7 @@ def verdict_for(c: dict) -> tuple[str, str]:
 
 def horary_rules(number: int, year: int, month: int, day: int, hour: int,
                  minute: int, tz_offset: float, lat: float,
-                 lon: float) -> list[Finding]:
+                 lon: float, birth: dict | None = None) -> list[Finding]:
     """The taught prasanam: a seed number 1–249 chooses the chart.
 
     [P1 @ 04:31–05:32] AstroSage → KP Murai → KP OLD method → "KP Hora
@@ -193,11 +232,33 @@ def horary_rules(number: int, year: int, month: int, day: int, hour: int,
     question", and under the seed-number method it stops conflicting with
     LT2's Moon phrasing: LT2 describes reading the Moon off a chart the
     number already chose.
+
+    `birth` is an optional Layer-A birth chart. When given, the TAUGHT
+    natal do-not-cast gate is applied ([P2] transit Moon in 5/8/12 from
+    your janma rasi or lagna) instead of the horary-chart stand-in.
     """
     c = transit.horary_chart(number, year, month, day, hour, minute,
                              tz_offset, lat, lon)
     seed = c["seed"]
-    verdict, reason = verdict_for(c)
+    natal = None
+    if birth:
+        from .. import engine
+        now_chart = engine.compute(year, month, day, hour, minute,
+                                   tz_offset, lat, lon,
+                                   ayanamsa_mode=engine.KP)
+        natal = natal_moon_gate(birth, now_chart)
+    if natal and not natal["cast"]:
+        verdict, reason = "CANCEL", (
+            f"the transit Moon is {' and '.join(natal['blocked_by'])} — "
+            f"[P2] 'in 5-8-12 … you should not give the present'. This is "
+            f"the taught natal gate, counted from your own birth chart; "
+            f"do not cast now, ask later")
+    else:
+        verdict, reason = verdict_for(c)
+        if natal:
+            reason += (f" (natal gate clear: Moon {natal['rasi_count']} "
+                       f"from your janma rasi, {natal['lagna_count']} from "
+                       f"your lagna)")
     return [
         Finding(
             SECTION,

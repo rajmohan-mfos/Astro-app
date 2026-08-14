@@ -117,8 +117,15 @@ def can_trade(req: CanTradeRequest):
 
 
 class PrasanamRequest(ComputeRequest):
-    """A prasanam is a ComputeRequest plus the seed number you thought of."""
+    """A prasanam is a ComputeRequest plus the seed number you thought of.
+
+    `birth` is optional and backward compatible — existing callers that
+    omit it behave exactly as before. Supplying it switches the
+    do-not-cast gate from the horary-chart stand-in to the TAUGHT natal
+    one ([P2] transit Moon in 5/8/12 from your janma rasi or lagna).
+    """
     number: int = Field(ge=1, le=249)
+    birth: ComputeRequest | None = None
 
 
 @app.post("/api/prasanam")
@@ -126,9 +133,15 @@ def prasanam(req: PrasanamRequest):
     """Cast the taught KP horary chart from a 1–249 seed number."""
     from .rules import prasanam as prasanam_rules
     try:
+        birth_chart = None
+        if req.birth:
+            b = req.birth
+            birth_chart = engine.compute(b.year, b.month, b.day, b.hour,
+                                         b.minute, b.tz_offset, b.lat, b.lon,
+                                         ayanamsa_mode=engine.KP)
         findings = prasanam_rules.horary_rules(
             req.number, req.year, req.month, req.day, req.hour, req.minute,
-            req.tz_offset, req.lat, req.lon)
+            req.tz_offset, req.lat, req.lon, birth=birth_chart)
         seed = transit.horary_ascendant(req.number)
     except ValueError as e:
         return JSONResponse(status_code=400, content={"error": str(e)})
