@@ -525,3 +525,50 @@ def test_prasanam_endpoint_birth_field_is_optional():
     r = PrasanamRequest(number=88, year=2026, month=8, day=14, hour=10,
                         minute=30, lat=13.0827, lon=80.2707)
     assert r.birth is None
+
+
+def test_bhavam_table_is_complete_and_sourced():
+    """The 12-Bhavam video is the worst-transcribed source in the set:
+    the raw caption file collapses 05:06-07:12 into fourteen identical
+    lines and drops ~2.5 minutes elsewhere. Every row must therefore
+    declare how many witnesses it has."""
+    from app.rules import bhavam
+
+    assert sorted(bhavam.BHAVAM) == list(range(1, 13))
+    assert sorted(bhavam.BHAVAM_SOURCE) == list(range(1, 13))
+    # the stretches the raw file lost are exactly houses 1, 2, 6, 7, 8
+    assert bhavam.SINGLE_WITNESS == {1, 2, 6, 7, 8}
+    for h, (witness, where) in bhavam.BHAVAM_SOURCE.items():
+        assert witness in ("both", "buzz")
+        assert where
+
+
+def test_bhavam_gloss_carries_no_citations():
+    """These strings are concatenated into a prasanam reply; timestamps
+    and provenance markers belong in BHAVAM_SOURCE, not in the message."""
+    from app.rules import bhavam
+
+    for h, text in bhavam.BHAVAM.items():
+        assert "@" not in text, h
+        assert "buzz" not in text.lower(), h
+        assert "[" not in text and "]" not in text, h
+
+
+def test_bhavam_market_houses_match_the_judgment_tables():
+    """2/6/11 profit and 5/8/12 loss are stated ~6 times in this video;
+    prasanam judges on the same sets, and they must not drift apart."""
+    from app.rules import bhavam, prasanam
+
+    assert bhavam.MARKET_PROFIT_HOUSES == prasanam.PROFIT_HOUSES
+    assert bhavam.MARKET_LOSS_HOUSES == prasanam.LOSS_HOUSES
+
+
+def test_bhavam_records_the_natal_counting_frame():
+    """[12-Bhavam @ 10:32-10:40] 'from your Rasi ... from your Lakanam'
+    is the third independent statement of the frame natal_moon_gate
+    implements, and it dates the Moon's stay at 2.5 DAYS - P2's '2.5
+    hours' is an ASR error."""
+    from app.rules import bhavam
+
+    assert bhavam.COUNT_FRAMES == ("janma rasi", "lagna")
+    assert bhavam.MOON_DAYS_PER_RASI == 2.5

@@ -249,7 +249,8 @@ on a bullish count → SIDEWAYS-BULLISH (upside-wise), overriding the S3
 memo's "bearish" and agreeing with guide §5 "slanted upside". C6-Buzz
 also re-confirms X=Saturn(10)/Y=Sun(10) degree-counting for 19/01/2021.
 Remaining Buzz files not yet deep-compared — future sweep may refine
-garbled segments further (12-Bhavam especially).
+garbled segments further (12-Bhavam especially). **12-Bhavam DONE
+2026-08-14 — see "12-Bhavam garbled-segment re-read" below.**
 
 ## Full Buzz sweep (three-agent audit, all 15 remaining files)
 
@@ -723,6 +724,67 @@ substitute prasanam (chart-moment cast, no seed number) is itself only a
 stand-in: the note directs the user to open the real gate with a
 seed-number prasanam on their actual question (/api/prasanam). Nothing
 about the seed path is gated by the substitute reading.
+
+## 12-Bhavam garbled-segment re-read (2026-08-14)
+
+The one coverage caveat the Buzz sweep left open. Both transcripts of
+`12 BHAVAM EXPLANATION [HRQQ8fYbKqY]` read side by side, line by line.
+
+**How bad the raw caption file is.** It COLLAPSES between 05:06 and
+07:12 into fourteen consecutive identical lines ("8th house is for
+business partners") — which is precisely where houses 6, 7 and 8 are
+explained. It also drops roughly 2.5 minutes outright (00:33–01:04,
+01:26–02:26, 02:51–03:21, 04:08–04:38), including the whole of house 2.
+So about a third of the video is absent or corrupt in the file the table
+was originally built from.
+
+**What the Buzz translation recovers.** Houses 1, 2, 6, 7 and 8 — all of
+the lost stretches. Those five rows now rest on ONE witness, and
+`bhavam.BHAVAM_SOURCE` / `SINGLE_WITNESS` record that per row so nobody
+has to redo this comparison to know which entries are weaker. Houses 3,
+4, 5, 9, 10, 11 and 12 are attested in both.
+
+**Table changes.** House 1 was "self, the querent"; both sources make it
+mind/psychology and one's own troubles. House 10 was "profession,
+action"; both give fame and social status as well ("you get social
+status because you do business"). House 8 was "obstacles, heavy loss
+house"; Buzz supplies the substance (loss, theft of one's wealth,
+trouble with the law, ruin). Houses 2, 4, 5, 6, 12 gained detail that
+was always in the sources. Nothing was invented and no market mapping
+changed — 2/6/11 profit and 5/8/12 loss are stated ~6 times in this
+video and a test now pins them equal to `prasanam`'s own sets.
+
+Citations and provenance markers were also moved OUT of the gloss
+strings into `BHAVAM_SOURCE`: these strings are concatenated into a
+prasanam reply, and two of them ("[video @ 00:23]", "[@ 03:21]") had
+been leaking timestamps into user-facing output.
+
+**Two source findings beyond the table.**
+
+1. **The Moon's stay is 2.5 DAYS, not 2.5 hours.** [12-Bhavam @
+   11:28–11:32] "the moon will be in a structure for 2.5 days", said
+   twice, and astronomically right (~2.25 days per rasi). [P2 @ 03:08]
+   renders the same statement as "2.5 hours" — an ASR error, now
+   identified as such rather than left as an apparent disagreement
+   between two sources. Recorded as `bhavam.MOON_DAYS_PER_RASI`.
+2. **Third independent statement of the natal counting frame.** [@
+   01:04] "when we see from Rasi this is 1, and when we look from Lakkad
+   this is 1" and [@ 10:32–10:40] "you can see it from your Rasi, you
+   can see it from your Lakanam", with [@ 11:22] "when the moon is
+   going, we get negativity". This corroborates the gate implemented for
+   gap 3 (`prasanam.natal_moon_gate`, counting from BOTH frames) from a
+   source that was not consulted when it was written.
+
+**One artifact recorded, deliberately NOT acted on.** At [@ 12:20–12:30]
+the worked milk-product example gives the prasanam answer as houses
+"2, 11" and then renders the outcome negatively — "you will lose profit"
+in the raw file, "your profit will be less" in Buzz. Both translations
+agree on the HOUSES and garble the polarity differently, while the same
+video states 2/6/11 = profit about six times. The coherent reading is
+that 2+11 is a profit answer and the negative clause is a translation
+artifact; `prasanam.judge_sets` already treats it that way. Flagged here
+because a future reader hitting that line alone could reasonably think
+the code has the sign backwards.
 
 ## Open questions / pending
 
