@@ -1,0 +1,10 @@
+# Vercel installs this for the serverless function in api/.
+# pyswisseph ships manylinux x86_64 wheels, so this needs no compiler on
+# the build image. The runtime uses the Moshier ephemeris (FLG_MOSEPH in
+# backend/app/engine.py), which is built into the package — there are no
+# ephemeris data files to ship.
+#
+# Nothing else is needed: handler.py, the rules and the volatility model
+# are stdlib only. numpy/scikit-learn are research-time dependencies
+# (backend/requirements-research.txt) and must NOT be added here.
+pyswisseph==2.10.3.2

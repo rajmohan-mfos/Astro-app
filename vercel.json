@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/telegram.py": {
+      "memory": 512,
+      "maxDuration": 20,
+      "includeFiles": "{backend/app/**,backend/scripts/**,bot/**}"
+    }
+  }
+}

@@ -3,13 +3,18 @@
 Run from anywhere with the bot token in the environment:
 
   TELEGRAM_BOT_TOKEN=... TELEGRAM_WEBHOOK_SECRET=... \
-      python bot/setwebhook.py https://USER.pythonanywhere.com/webhook
+      python bot/setwebhook.py https://PROJECT.vercel.app/api/telegram
 
   python bot/setwebhook.py --info      show the current registration
   python bot/setwebhook.py --delete    unregister (falls back to polling)
 
-The secret is what flask_app.py checks on every request, so the same
-value must be set in the PythonAnywhere Web tab.
+Note the path differs by host: Vercel serves the function at the file's
+own route, /api/telegram, while the Flask app (bot/flask_app.py) serves
+/webhook. Both implement the same two gates, so only the URL changes.
+
+The secret is what the webhook checks on every request, so the same
+value must be set as an environment variable on the host — Vercel:
+Settings → Environment Variables; PythonAnywhere: the Web tab.
 """
 import json
 import os

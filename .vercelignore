@@ -1,0 +1,18 @@
+# Keep the function bundle to what it actually runs.
+#
+# knowledge/ is the third party's paid course material — transcripts and
+# extracted deck text. It has no business on a hosting provider: the bot
+# never reads it, and the same exclusion is enforced for the deploy zip
+# by bot/package_for_deploy.py.
+backend/knowledge/
+docs/
+*.md
+
+frontend/
+backend/tests/
+backend/scripts/opt/
+backend/.venv/
+tools/
+.github/
+.claude/
+**/__pycache__/
