@@ -633,18 +633,35 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    there is no natal frame to count from — but the reason string now
    says it is a stand-in and names what the taught rule needs. The
    comment that overstated fidelity is gone.
-4. **[C9 @ 03:29] the "small wave" day** — balanced positives/negatives
-   are taught as an explicitly choppy small-range day; `dayscore.py`
-   collapses this to low conviction without the range characterisation.
-5. **[C4/C6 @ 16:13] trade expression** — bearish ⇒ puts/short futures,
-   bullish ⇒ calls. Partially present, not absent (corrected 2026-08-14):
-   `horai.py` already emits "Buy puts / sell futures" for the
-   Saturn+Uthiradam tier. What is missing is the GENERAL mapping — the
-   daily bias from `dayscore.py` never names an instrument.
-6. **[W] monthly as a computed sequence** — the "monthly" finding names
-   the next Sun-star window but never computes its chain; and weekly has
-   no angle-resolution counterpart to `graph.py`'s (only the FIRST
-   occupant of each half feeds the weekly angle notice).
+4. **[C9 @ 03:34–03:55] the "small wave" day** — balanced
+   positives/negatives are taught as an explicitly choppy small-range
+   day. **IMPLEMENTED 2026-08-14** — `dayscore.chain_profile()` also
+   returns *energy*, the span-weighted mean of |weight|, and
+   `is_small_wave()` separates a chain that CANCELS (mean ≈ 0, energy
+   high) from one with no push in it (both ≈ 0). The mean alone cannot
+   tell them apart, which is why this collapsed to low conviction
+   before. The finding states range and explicitly disowns direction.
+5. **[C4 @ 22:54–23:26] trade expression** — bearish ⇒ puts/short
+   futures, bullish ⇒ calls. **IMPLEMENTED 2026-08-14**, and the gap as
+   originally recorded was wrong twice. It said "never emitted", but
+   `horai.py` has emitted "Buy puts / sell futures" for the
+   Saturn+Uthiradam tier all along. And it located the missing piece in
+   `dayscore.py`, whereas on the tape the instrument follows a PRASANAM
+   confirmation ("you are putting the present … is it profitable to buy
+   put option?"). So it lives in `predict.run` behind the gateway gate,
+   and only on days whose panchang and chain agree. Phrased as reported
+   teaching, never as instruction, with the coin-flip backtest result in
+   the same paragraph — tests pin that wording.
+6. **[W] monthly as a computed sequence** — **IMPLEMENTED 2026-08-14**.
+   `weekly._next_window_chain()` casts the next Sun-star window on its
+   own start date and reads its chain, replacing "recompute this chart
+   dated X". One window ahead only, computed inline rather than by
+   re-entering `rules()`; a test pins that exactly one monthly finding is
+   emitted so a future refactor that recurses fails loudly. The weekly
+   angle now resolves against its neighbouring half the way `graph.py`
+   already did, and says so when the neighbour carries no direction to
+   invert. `_half_bias()` reads every occupant — previously occupant 1
+   alone represented a split half.
 
 Fidelity divergences noted, deliberately NOT changed (adjudication-level):
 - **Thithi families**: C7 ("the rest is neutral") and C8 agree only Jaya
