@@ -614,6 +614,11 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    of the 50 stocks. Above `SELECTIVITY_LIMIT` the finding reports that
    it distinguishes nothing instead of emitting a list that would read
    as 26 picks.
+   Measured over 273 days of 2021: 168 days emit a stock list (median 3
+   stocks), 90 hit the degeneracy guard, and only 15 emit nothing. So
+   the rule fires on 95% of days and is closer to near-permanent output
+   than to a selective signal — worth knowing before reading any single
+   day's list as a shortlist.
 2. **[P2 @ 279-299] the gateway/ordering rule** — "prasanam opens the
    gate, then the graph": prasanam is taught as a gate on the other
    methods, but `predict.run` emits all sections as peers and a
@@ -641,8 +646,15 @@ Newly RECORDED gaps (taught, in no code and previously in no doc):
    high) from one with no push in it (both ≈ 0). The mean alone cannot
    tell them apart, which is why this collapsed to low conviction
    before. The finding states range and explicitly disowns direction.
-5. **[C4 @ 22:54–23:26] trade expression** — bearish ⇒ puts/short
-   futures, bullish ⇒ calls. **IMPLEMENTED 2026-08-14**, and the gap as
+5. **[C4 @ 22:54–23:26; C6 @ 16:13–16:19] trade expression** — bearish ⇒
+   puts/short futures, bullish ⇒ calls. Both halves now verified on tape:
+   C4 gives the bearish side ("is it profitable to buy put option? …
+   yeah, you get profit"; "In Reliance, if I sell the future, I will get
+   profit") and C6 the bullish ("market bull[ish] … if you get call
+   op[tion]s, you can book and go"). The C6 reference was inherited from
+   the original gap note and had never been checked against the
+   transcript until 2026-08-14; it holds.
+   **IMPLEMENTED 2026-08-14**, and the gap as
    originally recorded was wrong twice. It said "never emitted", but
    `horai.py` has emitted "Buy puts / sell futures" for the
    Saturn+Uthiradam tier all along. And it located the missing piece in

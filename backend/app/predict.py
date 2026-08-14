@@ -27,7 +27,9 @@ RULE_MODULES = [graph.rules, horai.rules, panchang_rules.rules,
 # demotes to study-only output
 GATED_SECTIONS = ("graph", "weekly", "monthly", "long_term")
 
-# [C4 @ 22:54–23:26] the taught way to EXPRESS a finished reading. Note
+# [C4 @ 22:54–23:26] + [C6 @ 16:13–16:19] the taught way to EXPRESS a
+# finished reading — C4 gives the bearish side, C6 the bullish ("market
+# bull[ish] … if you get call op[tion]s, you can book and go"). Note
 # the order on the tape: "You are putting the present [prasanam] … now in
 # Bank Nifty, is it profitable to buy put option? … yeah, you get profit"
 # and, for a stock, "In Reliance, if I sell the future, I will get
