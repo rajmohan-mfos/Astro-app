@@ -12,6 +12,7 @@ Moon example, 1.5 months each, [C11 @ 08:53–09:19]).
 from .. import transit
 from .base import Finding, date_slice
 from .graph import bias, cast_chart, degree_house, pick_chain
+from .stocks import stock_finding
 
 SECTION = "long_term"
 
@@ -70,8 +71,18 @@ def rules(chart: dict) -> list[Finding]:
                 f"{part} ({span_from} → {span_to}): {bias_word.upper()}",
                 f"{planet} at degree-house {count} from Jupiter — {reason}. "
                 f"Stocks belonging to {planet} follow this bias in this "
-                f"stretch (see the stock findings for the planet's tickers).",
+                f"stretch.",
                 "Astro Class 11 @ 04:38–05:48, 08:53–09:19"))
+            # [C11 @ 05:14] "let us see what stock is there for Mars…
+            # Asian Paints"; [LT2] restrict long-term picks to stocks of
+            # the window stretch's planet
+            sf = stock_finding(
+                planet, f"{part.lower()} ({span_from} → {span_to})",
+                section=SECTION,
+                source="Astro Class 11 @ 05:14 + LT part 2 + "
+                       "GRAPH ASTRO-4.pptx slide 1")
+            if sf:
+                out.append(sf)
 
     out.append(Finding(
         SECTION,

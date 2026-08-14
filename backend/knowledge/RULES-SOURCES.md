@@ -187,7 +187,9 @@ degree". New extractions: Vyatipata yogam = very negative ("disease…
 very dangerous") → `NEGATIVE_YOGAS`; horai are PROPORTIONAL twelfths of
 daylight/night (his Saturn horai 09:24–10:29 ≈ proportional 09:29–10:26,
 not equal-hour 09:37–10:37) → `transit.horai_timeline` updated; "XOI"
-(OI confirmation) checks run 5–10 minutes past the horai boundary.
+(OI confirmation) checks run 5–10 minutes past the horai boundary —
+**extracted only, NOT implemented**: there is no open-interest code
+anywhere in `app/` (audit 2026-08-14; the app has no OI data source).
 
 ## Classes 2/3/10 + 12-Bhavam (final sweep)
 
@@ -244,26 +246,36 @@ gate moved to the QUESTION planet [LT2]; re-ask 2–3h; basics.py retired
 source-stated); MASTER-RULES S4b second half = sideways-up (angle-partner
 house-flip demoted to unsourced); Jupiter-bullish now source-stated [C2].
 
-DEFERRED TODO (each sourced in the agent reports):
-1. Prasanam significator SETS (occupied+owned+star-lord houses) with
-   any-5/8/12-contaminates rule; house 3 = delayed profit; 1/4/10 =
-   satisfaction axis; seed 1–249 as primary input; sub-vs-star ordering
-   caveat; Rahu/Ketu-cancel now conditional (P1 counter-evidence).
-2. Horai: 45-min/half-window action rule (C8/C9/C10); Saturn horai as
-   general reversal (C9); divergence rule as standalone (trade Nifty on
-   divergence); Uthiradam tier magnitudes 100/300–400; "minimum" framing;
-   Venus-unexpected not Monday-only (C9); negative-yogam suppresses the
-   Friday Mercury rule with precedence panchang→chain→horai [EX].
-3. longterm.py: split the second half across y-occupants equally (Class
-   10 co-occupant rule, [C11] 1.5+1.5 months); state the 3/6-month probe.
-4. weekly.py: emit stock findings for the window.
-5. stocks.py: add the SECTORS dict [C2]; bhavam.py: houses 3 & 9, house
-   7 "not used", stock-exchange/gambling in 5, dual 6th, sudden gains in
-   11 — Buzz 12-Bhavam is clean, "garbled" tags stale.
-6. Gap up/down via prasanam; 30/60 confluence minimum [C10]; forex/
-   crypto/stocks scope; Dow ~70% claim; second-half split symmetry and
-   day-lord-vs-house-8 ordering remain open questions.
-7. [EX-Buzz] horai figures correction: Saturn horai 09:24–10:21 (57 min —
+DEFERRED TODO — status as of the 2026-08-14 re-audit. DONE since:
+- Prasanam significator SETS, house 3 = delayed profit, 1/4/10
+  satisfaction axis, seed 1–249 as primary input (`prasanam.py`,
+  `transit.py:horary_chart` — see the "implemented 2026-08-11" sections).
+- All the horai items: 45-min action rule (`horai.py` WINDOW_NOTE),
+  Saturn general reversal + Venus-unexpected any-day (`HORAI_EFFECT`),
+  divergence rule (`horai.py` index-selection finding), Uthiradam tier,
+  "minimum" framing, negative-yogam suppressing the Friday Mercury rule
+  with panchang precedence.
+- longterm.py second-half co-occupant split (`longterm.py` +
+  `base.date_slice`, tested in test_longterm.py).
+- weekly.py AND longterm.py stock findings for the window
+  (`stocks.stock_finding`, wired 2026-08-14 — previously only the
+  intraday Moon chain ever produced stock findings).
+- bhavam.py enriched and now WIRED (glosses the prasanam significator
+  houses via `prasanam._bhavam_finding`, 2026-08-14 — it was dead code).
+- Gap up/down routed to prasanam (`prasanam.py`); 30/60 confluence
+  minimum (`horai.py` Confluence finding).
+
+STILL DEFERRED:
+1. Rahu/Ketu-cancel as a conditional rule (P1 counter-evidence: Rahu is
+   P1's own ANSWER planet, read normally by houses; meanwhile the cancel
+   kills 57 of 249 seed numbers — Rahu 30 + Ketu 27 sub-lords — before
+   any judgment runs). Sub-vs-star ordering caveat.
+2. The 6-month cap / 3-vs-6-month panchangam probe on the Jupiter window
+   ([C11]; `transit.jupiter_nak_window` scans ±450 days uncapped).
+3. stocks.py SECTORS dict [C2].
+4. Forex/crypto/commodity session scope [C6/C10]; Dow ~70% claim;
+   second-half split symmetry and day-lord-vs-house-8 ordering.
+5. [EX-Buzz] horai figures correction: Saturn horai 09:24–10:21 (57 min —
    strengthens proportional model); cast-time heading downgraded to
    "resolved by inference" (source only ever says 05:30).
 
@@ -283,12 +295,13 @@ DEFERRED TODO (each sourced in the agent reports):
 - stale docs corrected: MASTER-RULES S3 (engine returns sideways-bullish),
   predict.py module list, longterm.py "mapping pending" text.
 
-STILL OPEN from that audit: generic per-horai effect table (Sun/Saturn/
-Mars/Mercury/Venus/Jupiter, day-independent — biggest functional gap);
-Sun-horai-at-open recovery; Thursday Jupiter-day rule; aggregate day
-score with panchang→chain→horai precedence; weekly/longterm co-occupant
-splitting and weekly stock findings; prasanam whole-sign vs KP Placidus
-house frame mismatch; day-lord outranking house 8 / angle.
+STILL OPEN from that audit (updated 2026-08-14 — most items closed:
+`horai.py` HORAI_EFFECT is the day-independent table, the Saturn/Sun
+open-recovery rule and `dayscore.py`'s panchang→chain→horai aggregate
+exist, co-occupant splitting and weekly/long-term stock findings are in,
+and the house-frame question was RESOLVED to Placidus below): Thursday
+Jupiter-day rule (C8 audio unrecoverable in both transcript versions);
+day-lord outranking house 8 / angle.
 
 ## Course thithi/yogam sheets (user-supplied images, 2026-08-10) — CLOSES
 ## the long-standing "yogam PDF pending" item
@@ -552,6 +565,62 @@ and rolls over into the next day when needed.
 
 Still Lahiri, and staying that way: the `/api/compute` and
 `/api/panchang-chart` display endpoints (SPEC §5).
+
+## Full transcript re-audit (2026-08-14, four-agent sweep of all 16 files)
+
+Applied in the same pass:
+- **Weekly & long-term stock findings** — `stocks.stock_finding()` is now
+  called per window stretch from `weekly.py` and `longterm.py` ([W] "the
+  stocks that are available in Mars — 7 to 14 Feb"; [C11 @ 05:14]).
+  Previously `stocks.rules` hardcoded the Moon chain, and `longterm.py`
+  pointed readers at those Moon-derived findings as if they were the
+  Jupiter ones.
+- **Multi-occupant stock listing** — `stocks.rules` now lists every
+  occupant's stocks (x1, x2, …), matching the C10 half-split; before, only
+  the first occupant per half was listed.
+- **bhavam.py un-orphaned** — the 12-bhavam table now glosses the houses a
+  prasanam's significators land in (`prasanam._bhavam_finding`).
+- Stale text corrected: XOI over-claim (above), graph.py "Class 4
+  pending" header, horai.py "equal one-hour" header, prasanam.py "seed
+  number not implemented" remnants, test_scenarios S3/S4b docstrings.
+
+Newly RECORDED gaps (taught, in no code and previously in no doc):
+1. **[C2 @ 02:22–03:22] the conjunction rule** — a stock rallies when its
+   two owning planets unite/conjoin (Venus+Moon → ITC; Saturn+Mercury →
+   Adani Ports). `stocks.py` stores the pairs; nothing checks graha
+   co-location.
+2. **[P2 @ 279-299] the gateway/ordering rule** — "prasanam opens the
+   gate, then the graph": prasanam is taught as a gate on the other
+   methods, but `predict.run` emits all sections as peers and a
+   NO/CANCEL/INVALID prasanam suppresses nothing.
+3. **[P2 90-97; 12-Bhavam 126-129] prasanam Moon do-not-cast frame** —
+   the taught gate is the transit Moon counted from the NATAL rasi/lagna;
+   `prasanam.py` tests the Moon's house in the horary chart instead
+   (`moon_house`), because `/api/prasanam` carries no birth data. The
+   natal-frame check exists in `/api/can-trade` but is not wired to
+   prasanam. The source comment on the horary gate overstates fidelity.
+4. **[C9 @ 03:29] the "small wave" day** — balanced positives/negatives
+   are taught as an explicitly choppy small-range day; `dayscore.py`
+   collapses this to low conviction without the range characterisation.
+5. **[C4/C6 @ 16:13] trade expression** — bearish ⇒ puts/short futures,
+   bullish ⇒ calls; never emitted.
+6. **[W] monthly as a computed sequence** — the "monthly" finding names
+   the next Sun-star window but never computes its chain; and weekly has
+   no angle-resolution counterpart to `graph.py`'s (only the FIRST
+   occupant of each half feeds the weekly angle notice).
+
+Fidelity divergences noted, deliberately NOT changed (adjudication-level):
+- **Thithi families**: C7 ("the rest is neutral") and C8 agree only Jaya
+  is positive and Rikta negative; the code follows the course sheet
+  (Nanda + Bhadra positive) per the user's 2026-08-10 adjudication.
+- **Rikta severity**: the taught "1000–2000 point" tier has no scoring
+  tier — `thithi_bias` returns plain "negative", scored like any other.
+- **Monday Mercury "~100 points Nifty"** (`horai.py`): in neither
+  transcript version — the 100/300–400 figures belong to the
+  Saturn+Uthiradam tier. Label kept pending user call.
+- **Weekly worked example**: with degree counting and self-occupancy
+  excluded, the engine reproduces neither half of the teacher's Feb
+  example (documented trade-off above — C11 wins).
 
 ## Open questions / pending
 

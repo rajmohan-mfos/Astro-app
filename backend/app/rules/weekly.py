@@ -13,6 +13,7 @@ Same chain logic as the intraday method, but:
 from .. import transit
 from .base import Finding, date_slice
 from .graph import bias, cast_chart, degree_house, pick_chain
+from .stocks import stock_finding
 
 SECTION = "weekly"
 
@@ -69,6 +70,16 @@ def rules(chart: dict) -> list[Finding]:
                 f"{part} ({span_from} → {span_to}): {b.upper()}",
                 f"{planet} at degree-house {count} from the Sun — {reason}.",
                 "Weekly & Monthly class @ 04:24–06:40 + கிரகங்கள் house table"))
+            # [W] "the stocks that are available in Mars — 7 to 14 Feb;
+            # the stocks in Venus — 14 to 19 Feb": the window stretch's
+            # planet names the stocks to trade in that stretch
+            sf = stock_finding(
+                planet, f"{part.lower()} ({span_from} → {span_to})",
+                section=SECTION,
+                source="Weekly & Monthly class (stocks of the half's "
+                       "planet) + GRAPH ASTRO-4.pptx slide 1")
+            if sf:
+                out.append(sf)
 
     if "angle" in halves:
         which = "first" if halves[0] == "angle" else "second"

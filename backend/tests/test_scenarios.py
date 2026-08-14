@@ -70,9 +70,10 @@ def test_s2_example_chart():
     ]
 
 
-def test_s3_class6_planet_dominates():
-    # x=Saturn(10) â†’ BEARISH (bearish planet dominates a bullish house);
-    # y=Sun(10) â†’ SIDEWAYS-BULLISH (sideways planet)
+def test_s3_class6_upside_wise():
+    # x=Saturn(10) -> SIDEWAYS-BULLISH ("upside-wise: up move only, like a
+    # slight slope, capped" [C6-Buzz], overriding the S3 memo's "bearish");
+    # y=Sun(10) -> SIDEWAYS-BULLISH (sideways planet)
     chart = make_chart({
         "Sun": 35.0, "Moon": 100.0, "Mars": 60.0, "Mercury": 130.0,
         "Jupiter": 250.0, "Venus": 145.0, "Saturn": 30.0,
@@ -105,8 +106,9 @@ def test_s4a_class5_x1_override():
 
 def test_s4b_class5_angle_pairing():
     # x1=Jupiter(9) angle; second half Saturn(10). Angle resolves opposite
-    # of the partner's HOUSE direction, and the partner flips to the house
-    # direction: first BEARISH, second BULLISH.
+    # of the partner's HOUSE direction: first BEARISH. The partner keeps
+    # its own bias -- sideways-bullish per C6-Buzz "upside-wise" (the
+    # house-flip rule was removed as unsourced).
     # Reverse counts: Jupiter (312-68)=244Â° â†’ 9; Saturn (312-41)=271Â° â†’ 10.
     chart = make_chart({
         "Sun": 10.0, "Moon": 312.0, "Mars": 150.0, "Mercury": 130.0,

@@ -16,8 +16,10 @@ Method (X/Y taught in Class 4, X1/Y1 in Class 5):
   X-side count drives the FIRST half (09:15–12:00), Y-side the SECOND half
   (12:00–15:30)                                              [C5 @ 00:28, 05:39]
 
-The Class 4 transcript (X/Y day-lord rule) is still pending; anything relying
-on it is tagged UNVERIFIED below and must be revisited once it lands.
+The Class 4 transcript landed and is codified (X/Y derivation, degree
+counting, X=Y full-day bias, sideways-on-bearish drift — see
+RULES-SOURCES.md "Class 4 confirmations"); the day-lord rule comes from
+Class 7 [C7 @ 06:16–08:47].
 """
 from .base import Finding
 

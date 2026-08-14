@@ -1,10 +1,10 @@
 """Horai (planetary hour) golden rules — GRAPH PREDICTION -5.pptx [S5].
 
-Horai timeline: equal one-hour slots from sunrise, Chaldean sequence
-starting with the weekday lord (standard Tamil convention — the slide deck
-assumes the reader knows it; confirm the convention against Class 7 when
-its transcript is reviewed). Findings list each rule-matching horai window
-that overlaps the market session 09:15–15:30.
+Horai timeline: PROPORTIONAL twelfths of daylight/night from sunrise
+(transit.horai_timeline — the Example Chart video's Saturn horai
+09:24–10:29 matches proportional, not equal-hour division), Chaldean
+sequence starting with the weekday lord. Findings list each rule-matching
+horai window that overlaps the market session 09:15–15:30.
 """
 from .. import transit
 from .base import Finding

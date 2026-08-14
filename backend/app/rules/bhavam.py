@@ -1,10 +1,10 @@
 """12 bhavam significations — reference table (12 BHAVAM EXPLANATION).
 
-The transcript is heavily garbled (Whisper loops), so only clearly-stated
-significations are kept; the market mapping the course actually uses is
-the house-count table (உபஜெய/அபஜெய) and the prasanam judgment houses
-(2/6/11 profit, 5/8/12 loss), both codified elsewhere. This table serves
-prasanam context display and future refinement.
+Built from the raw caption file, cross-checked against the clean Buzz
+transcript of the same video. The market mapping the course actually uses
+is the house-count table (உபஜெய/அபஜெய) and the prasanam judgment houses
+(2/6/11 profit, 5/8/12 loss), both codified elsewhere; this table glosses
+the houses a prasanam's significators land in (see rules/prasanam.py).
 """
 
 BHAVAM = {

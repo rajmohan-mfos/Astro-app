@@ -57,29 +57,46 @@ def stocks_of(planet: str, pure: bool = False) -> list[str]:
                   if planet in ps and (not pure or graha_count(ps) == 1))
 
 
+def stock_finding(planet: str, label: str, section: str = SECTION,
+                  source: str = "GRAPH ASTRO-4.pptx slide 1 + Astro Class 4 "
+                                "@ 15:26") -> Finding | None:
+    """One finding naming the stocks of `planet`, or None if it owns none.
+
+    Shared by every horizon — the rule is the same everywhere: stocks of
+    the stretch's chain planet follow that stretch's bias [C4 @ 15:04
+    intraday, W weekly "the stocks that are available in Mars", C11 @
+    05:14 long-term "let us see what stock is there for Mars"].
+    """
+    pure = stocks_of(planet, pure=True)
+    shared = [s for s in stocks_of(planet) if s not in pure]
+    if not pure and not shared:
+        return None
+    detail = f"Pure {planet} stocks: {', '.join(pure) or '—'}."
+    if planet in ("Rahu", "Ketu"):
+        detail += (" Rahu/Ketu-combination stocks are corrupted — the "
+                   "direction is roughly right but un-positionable "
+                   "(whipsaws, false breakouts); the teacher skips "
+                   "them.")
+    if shared:
+        detail += (f" Shared ({', '.join(shared[:6])}"
+                   f"{'…' if len(shared) > 6 else ''}) — the teacher "
+                   f"avoids mixed-planet stocks for a clean signal.")
+    return Finding(section, f"Stocks for the {label}: {planet}", detail,
+                   source)
+
+
 def rules(chart: dict) -> list[Finding]:
     from . import graph
     p = graph.pick_chain(graph.cast_chart(chart), "Moon")
     out = []
-    for label, planet in (("first half", p["first"]),
-                          ("second half", p["second"])):
-        pure = stocks_of(planet, pure=True)
-        shared = [s for s in stocks_of(planet) if s not in pure]
-        if not pure and not shared:
-            continue
-        detail = f"Pure {planet} stocks: {', '.join(pure) or '—'}."
-        if planet in ("Rahu", "Ketu"):
-            detail += (" Rahu/Ketu-combination stocks are corrupted — the "
-                       "direction is roughly right but un-positionable "
-                       "(whipsaws, false breakouts); the teacher skips "
-                       "them.")
-        if shared:
-            detail += (f" Shared ({', '.join(shared[:6])}"
-                       f"{'…' if len(shared) > 6 else ''}) — the teacher "
-                       f"avoids mixed-planet stocks for a clean signal.")
-        out.append(Finding(
-            SECTION,
-            f"Stocks for the {label} planet {planet}",
-            detail,
-            "GRAPH ASTRO-4.pptx slide 1 + Astro Class 4 @ 15:26"))
+    # every occupant gets its slice of the half [C10 x1/x2 split], so
+    # every occupant's stocks are listed — not just the first
+    for half, planets in (("first half", p["x_occupants"] or [p["x"]]),
+                          ("second half", p["y_occupants"] or [p["y"]])):
+        for i, planet in enumerate(planets):
+            label = (f"{half} part {i + 1}/{len(planets)}"
+                     if len(planets) > 1 else f"{half} planet")
+            f = stock_finding(planet, label)
+            if f:
+                out.append(f)
     return out

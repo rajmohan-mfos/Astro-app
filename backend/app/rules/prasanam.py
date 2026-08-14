@@ -17,11 +17,13 @@ the Rahu/Ketu cancel.
 Judge by houses: 2/6/11 = profit, 5/8/12 = loss [P1 @ 10:09–10:27], with
 2/6 median and 11 heavy profit, 5/12 median and 8 heavy loss [LT2].
 
-This module casts at the chart moment. The 1–249 seed-number variant needs
-a UI input and is not implemented yet.
+Two paths: `horary_rules` is the taught method (a 1–249 seed number picks
+the ascendant — POST /api/prasanam); `rules` is the no-number SUBSTITUTE
+that casts at the chart moment instead.
 """
 from .. import transit
 from .base import Finding
+from .bhavam import BHAVAM
 
 SECTION = "prasanam"
 
@@ -40,6 +42,22 @@ SATISFACTION = {1, 4, 10}  # [P2] "whoever is satisfied have 1, 4, 10"
 
 def _as_set(v) -> set:
     return set(v) if isinstance(v, (set, list, tuple)) else {v}
+
+
+def _bhavam_finding(c: dict) -> Finding | None:
+    """Gloss the houses the question/answer significators land in, from
+    the 12 BHAVAM EXPLANATION table — context for reading the verdict
+    (e.g. 5 = speculation/stock exchange, 11 = gains without investment).
+    """
+    houses = sorted(set(c["question_houses"]) | set(c["answer_houses"]))
+    lines = [f"{h}: {BHAVAM[h]}" for h in houses if h in BHAVAM]
+    if not lines:
+        return None
+    return Finding(
+        SECTION,
+        "What those houses signify (12 bhavam)",
+        "; ".join(lines) + ".",
+        "12 Bhavam Explanation video")
 
 
 def judge_sets(question, answer) -> tuple[str, str]:
@@ -191,6 +209,7 @@ def horary_rules(number: int, year: int, month: int, day: int, hour: int,
             f"the star' — it carries the verdict. (Occupied house "
             f"{c['answer_house']}.)",
             "Prasanam video 1 @ 07:47–08:04"),
+        *([f] if (f := _bhavam_finding(c)) else []),
         Finding(
             SECTION,
             f"Verdict: {verdict}",
@@ -263,6 +282,7 @@ def rules(chart: dict) -> list[Finding]:
             f"the star' — it carries the verdict. (Occupied house "
             f"{c['answer_house']}.)",
             "LT part 2 + Prasanam video 1 @ 07:47–08:04"),
+        *([f] if (f := _bhavam_finding(c)) else []),
         Finding(
             SECTION,
             "Gap up / gap down is a prasanam question, not a graph read",
@@ -277,8 +297,8 @@ def rules(chart: dict) -> list[Finding]:
             f"Verdict for a question asked at this moment: {verdict}",
             f"{reason}. Judgment scale: 2/6 median profit, 11 heavy "
             f"profit; 5/12 median loss, 8 heavy loss. Treat the chart time "
-            f"as the question time; the 1–249 seed-number variant is a "
-            f"future input.",
+            f"as the question time; enter a 1–249 number in the Prasanam "
+            f"tab for the taught method.",
             "Prasanam video 1 @ 10:09 + LT part 2 @ 03:32–05:48"),
         Finding(
             SECTION,
