@@ -407,3 +407,50 @@ def test_int_judge_still_backward_compatible():
     assert judge(4, 11)[0] == 'YES'
     assert judge(5, 11)[0] == 'NO'
     assert judge(1, 4)[0] == 'UNCLEAR'
+
+
+def test_trade_expression_requires_an_open_gate():
+    """[C4 @ 22:54-23:26] the instrument call comes AFTER the prasanam
+    confirms - 'you are putting the present ... is it profitable to buy
+    put option?'. It must never appear on a day the gate refused."""
+    import datetime
+
+    from app import engine, predict
+
+    d = datetime.date(2021, 1, 1)
+    seen_open = seen_shut = False
+    while d < datetime.date(2021, 4, 1) and not (seen_open and seen_shut):
+        p = predict.run(engine.compute(d.year, d.month, d.day, 9, 15, 5.5,
+                                       13.0827, 80.2707))
+        expr = [f for f in p["sections"].get("graph", [])
+                if f["title"].startswith("How the course expresses")]
+        if p["prasanam_gate"]["open"]:
+            seen_open = seen_open or bool(expr)
+        else:
+            assert not expr, (d, "expression emitted with the gate shut")
+            seen_shut = True
+        d += datetime.timedelta(days=1)
+    assert seen_open, "never saw the expression on a gate-open day"
+    assert seen_shut, "never saw a gate-shut day"
+
+
+def test_trade_expression_is_reported_not_recommended():
+    """The app is a study aid. This is the one finding that names an
+    instrument, so it must disown recommendation explicitly."""
+    import datetime
+
+    from app import engine, predict
+
+    d = datetime.date(2021, 1, 1)
+    while d < datetime.date(2021, 4, 1):
+        p = predict.run(engine.compute(d.year, d.month, d.day, 9, 15, 5.5,
+                                       13.0827, 80.2707))
+        for f in p["sections"].get("graph", []):
+            if f["title"].startswith("How the course expresses"):
+                low = f["detail"].lower()
+                assert "not a recommendation" in low
+                assert "not financial advice" in low
+                assert "coin flip" in low
+                return
+        d += datetime.timedelta(days=1)
+    raise AssertionError("no expression finding found to check")

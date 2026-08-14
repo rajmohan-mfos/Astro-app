@@ -27,6 +27,52 @@ RULE_MODULES = [graph.rules, horai.rules, panchang_rules.rules,
 # demotes to study-only output
 GATED_SECTIONS = ("graph", "weekly", "monthly", "long_term")
 
+# [C4 @ 22:54–23:26] the taught way to EXPRESS a finished reading. Note
+# the order on the tape: "You are putting the present [prasanam] … now in
+# Bank Nifty, is it profitable to buy put option? … yeah, you get profit"
+# and, for a stock, "In Reliance, if I sell the future, I will get
+# profit". The instrument follows a prasanam confirmation — it is not a
+# property of the day score — which is why this lives here, behind the
+# same gate, rather than in dayscore.rules().
+_EXPRESSION = {
+    "positive": ("call options on the index, or buying the future in a "
+                 "stock of the stretch's planet"),
+    "negative": ("put options on the index, or selling the future in a "
+                 "stock of the stretch's planet"),
+}
+
+
+def _expression_finding(chart: dict, gate: dict) -> Finding | None:
+    """How the course expresses a CONFIRMED reading as an instrument.
+
+    Emitted only when the prasanam gate is open AND the day's panchang
+    and chain agree. Reported as what the course teaches, never as an
+    instruction — the app is a study aid, and this is the point in the
+    method where a reader is most likely to forget that.
+    """
+    if not gate["open"]:
+        return None
+    s = dayscore.day_score(chart)
+    if s["agreement"] != "agree":
+        return None
+    how = _EXPRESSION.get(s["panchang_sign"])
+    if not how:
+        return None
+    return Finding(
+        "graph",
+        f"How the course expresses this: {s['panchang_sign']} day → {how}",
+        f"[C4] After the prasanam confirms, the teacher names the "
+        f"instrument directly — 'is it profitable to buy put option? … "
+        f"you get profit', and for a stock 'if I sell the future, I will "
+        f"get profit'. Reproduced here because it is part of the taught "
+        f"method, and shown only on a day whose panchang and chain agree "
+        f"({s['conviction']} conviction) with the gate open, which is the "
+        f"only state he applies it in. It is a description of his "
+        f"teaching, NOT a recommendation: the 5-year backtest found this "
+        f"engine no better than a coin flip, and options lose money "
+        f"quickly when the reading is wrong. Not financial advice.",
+        "Astro Class 4 @ 22:54–23:26")
+
 
 def run(chart: dict) -> dict:
     """chart = Layer A engine output. Returns the `prediction` response section."""
@@ -36,6 +82,10 @@ def run(chart: dict) -> dict:
 
     prasanam_findings, gate = prasanam.report(chart)
     findings.extend(prasanam_findings)
+
+    expr = _expression_finding(chart, gate)
+    if expr:
+        findings.append(expr)
 
     sections: dict[str, list[dict]] = {}
     for f in findings:
