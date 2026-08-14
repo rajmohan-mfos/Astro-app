@@ -600,8 +600,20 @@ Applied in the same pass:
 Newly RECORDED gaps (taught, in no code and previously in no doc):
 1. **[C2 @ 02:22–03:22] the conjunction rule** — a stock rallies when its
    two owning planets unite/conjoin (Venus+Moon → ITC; Saturn+Mercury →
-   Adani Ports). `stocks.py` stores the pairs; nothing checks graha
-   co-location.
+   Adani Ports). **IMPLEMENTED 2026-08-14** — `stocks.conjunctions` /
+   `united_stocks` / `conjunction_rules`. Union is read as SAME RASI: the
+   teacher states no orb, and same-rasi is the engine's idiom everywhere
+   else. STILL OPEN, the mechanism he defers on tape ("I am telling you
+   how to see it" → a later class): he also says "if Saturn plus Mercury
+   **come on that day**", which could instead mean both planets appearing
+   in the day's CHAIN rather than sharing a rasi. Only the union reading
+   is implemented, because only it is stated outright; the chain-presence
+   reading is an inference and would need a source call.
+   Selectivity caveat found on implementing it: a stellium degenerates
+   the rule — six grahas in Makara on 2021-02-10 unite the owners of 26
+   of the 50 stocks. Above `SELECTIVITY_LIMIT` the finding reports that
+   it distinguishes nothing instead of emitting a list that would read
+   as 26 picks.
 2. **[P2 @ 279-299] the gateway/ordering rule** — "prasanam opens the
    gate, then the graph": prasanam is taught as a gate on the other
    methods, but `predict.run` emits all sections as peers and a
