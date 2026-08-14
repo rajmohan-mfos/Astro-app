@@ -125,14 +125,42 @@ def panchang_tally(chart: dict) -> dict:
                        "yogam": y_bias}}
 
 
-def chain_score(chart: dict) -> float:
+# [C9 @ 03:34–03:55] "so, 9, Saturn 1, so it is like half and half …
+# it is like a small wave, wave, wave, wave, wave … all the stars are
+# positive plus negative". A chain whose stretches CANCEL is taught as a
+# distinct outcome — a choppy, small-range day — not the same thing as a
+# chain with no push in it at all. Both land at a mean near zero, so the
+# mean alone cannot tell them apart; the discriminator is how much force
+# each stretch carries. Energy is the span-weighted mean of |weight|:
+# bullish-then-bearish gives mean 0 with energy 1.0, while all-sideways
+# gives mean 0 with energy 0.0.
+SMALL_WAVE_MEAN_MAX = 0.25     # the flat band, same as _sign_word
+SMALL_WAVE_ENERGY_MIN = 0.5    # one sideways-bullish/bearish pair
+
+
+def chain_profile(chart: dict) -> dict:
+    """Span-weighted mean of the chain's segment weights, and its energy."""
     segs = graph.build_segments(graph.cast_chart(chart))
-    if not segs:
-        return 0.0
-    span = sum(s["end"] - s["start"] for s in segs)
-    total = sum((s["end"] - s["start"]) * CHAIN_WEIGHTS.get(s["bias"], 0.0)
-                for s in segs)
-    return round(total / span, 2) if span else 0.0
+    span = sum(s["end"] - s["start"] for s in segs) if segs else 0.0
+    if not segs or not span:
+        return {"score": 0.0, "energy": 0.0, "segments": len(segs or [])}
+    weights = [(s["end"] - s["start"], CHAIN_WEIGHTS.get(s["bias"], 0.0))
+               for s in segs]
+    return {
+        "score": round(sum(d * w for d, w in weights) / span, 2),
+        "energy": round(sum(d * abs(w) for d, w in weights) / span, 2),
+        "segments": len(segs),
+    }
+
+
+def chain_score(chart: dict) -> float:
+    return chain_profile(chart)["score"]
+
+
+def is_small_wave(score: float, energy: float) -> bool:
+    """The taught 'half and half' day: stretches that cancel each other."""
+    return (abs(score) <= SMALL_WAVE_MEAN_MAX
+            and energy >= SMALL_WAVE_ENERGY_MIN)
 
 
 def fitted_score(chart: dict) -> dict:
@@ -175,11 +203,14 @@ def fitted_score(chart: dict) -> dict:
 
 def day_score(chart: dict) -> dict:
     pan = panchang_tally(chart)
-    chain = chain_score(chart)
+    prof = chain_profile(chart)
+    chain = prof["score"]
+    small_wave = is_small_wave(chain, prof["energy"])
     p_sign, c_sign = _sign_word(pan["total"]), _sign_word(chain)
 
     if c_sign == "flat":
-        agreement = "chain is directionless"
+        agreement = ("chain cancels out (small wave)" if small_wave
+                     else "chain is directionless")
     elif p_sign == "flat":
         agreement = "panchang neutral"
     elif p_sign == c_sign:
@@ -200,6 +231,8 @@ def day_score(chart: dict) -> dict:
         conviction = "medium" if conviction == "high" else "low"
 
     out = {"panchang_total": pan["total"], "chain_score": chain,
+           "chain_energy": prof["energy"], "small_wave": small_wave,
+           "segments": prof["segments"],
            "panchang_sign": p_sign, "chain_sign": c_sign,
            "agreement": agreement, "conviction": conviction,
            "parts": pan["parts"], "star_lord": pan["lord"],
@@ -262,6 +295,22 @@ def rules(chart: dict) -> list[Finding]:
         f"({s['panchang_sign']} panchang / {s['chain_sign']} chain)",
         detail,
         "Astro Class 3 'combine with whole concept' + guide §4 tally")]
+    if s["small_wave"]:
+        # the taught reading of a cancelling chain is about RANGE, which
+        # "low conviction" alone does not say [C9 @ 03:34–03:55]
+        out.append(Finding(
+            SECTION,
+            "Small-wave day — choppy, small range expected",
+            f"The chain's stretches push hard in both directions and "
+            f"cancel: mean {s['chain_score']:+g} but energy "
+            f"{s['chain_energy']:g} across {s['segments']} stretches. The "
+            f"teacher reads this as 'half and half … like a small wave, "
+            f"wave, wave' — not a flat day, but a day that keeps "
+            f"reversing inside a narrow range. That is a statement about "
+            f"the SIZE of the swings, not their direction, and it is why "
+            f"this differs from a merely directionless chain. Study aid, "
+            f"not a signal.",
+            "Astro Class 9 @ 03:34–03:55"))
     ff = fitted_finding(s)
     if ff:
         out.insert(0 if active_mode() == "fitted" else 1, ff)
