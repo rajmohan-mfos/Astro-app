@@ -76,3 +76,62 @@ def test_prediction_includes_weekly_sections():
     assert pred["sections"]["graph"]
     assert pred["sections"]["weekly"]
     assert pred["sections"]["monthly"]
+
+
+def _findings(y, m, d):
+    from app import engine
+    from app.rules import weekly
+    return weekly.rules(engine.compute(y, m, d, 9, 15, 5.5, 13.0827, 80.2707))
+
+
+def test_monthly_computes_the_next_window_rather_than_deferring_it():
+    """[W @ 06:10-06:22] the monthly picture is successive Sun-star
+    windows chained. Naming the next lord and telling the reader to
+    recompute left the app one step short of the taught method."""
+    from app import transit
+    fs = [f for f in _findings(2021, 2, 10) if f.section == "monthly"]
+    assert len(fs) == 1
+    f = fs[0]
+    assert "recompute" not in f.detail
+    # the next window's own chain is present
+    for key in ("X=", "Y=", "rules to"):
+        assert key in f.detail
+    # and it starts exactly where this window ends
+    this = transit.sun_nak_window(2021, 2, 10, 5.5)
+    assert this["end"] in f.title
+
+
+def test_next_window_is_only_one_step_ahead():
+    """Chaining must not recurse - one window ahead, computed inline."""
+    fs = [f for f in _findings(2021, 2, 10) if f.section == "monthly"]
+    assert len(fs) == 1, "a second monthly finding means it recursed"
+
+
+def test_angle_half_resolves_against_its_neighbour():
+    """[W @ 06:36-06:40] an angle half 'should run opposite' the other.
+    Stating that without resolving it left the reader to do the step the
+    engine already had the information for."""
+    titles = [f.title for f in _findings(2021, 1, 10)]
+    angle = [t for t in titles if "Angle" in t]
+    assert angle and "resolves" in angle[0]
+    assert "UP" in angle[0] or "DOWN" in angle[0]
+
+
+def test_angle_says_so_when_it_cannot_resolve():
+    """Honest failure: if the neighbouring half carries no direction
+    there is nothing to invert, and the finding must say that rather
+    than inventing one."""
+    titles = [f.title for f in _findings(2021, 6, 21)]
+    angle = [t for t in titles if "Angle" in t]
+    assert angle and "unresolved" in angle[0]
+
+
+def test_half_bias_uses_every_occupant_not_just_the_first():
+    """A half split between occupants was represented by occupant 1
+    alone, so half its evidence never reached the angle rule."""
+    from app.rules import weekly
+    # a directional occupant gives the half its direction even when an
+    # angle occupant comes first
+    assert weekly._half_bias(["angle", "bearish"]) == "bearish"
+    assert weekly._half_bias(["angle", "angle"]) == "angle"
+    assert weekly._half_bias(["bullish", "angle"]) == "bullish"
