@@ -232,6 +232,29 @@ def diagnose() -> None:
                          f"with @BotFather")
     print(f"token OK — bot is @{me['result'].get('username')}")
 
+    # Whether an INTERACTIVE command (/today, /vol) gets a reply depends
+    # entirely on this: a bot cannot answer anything unless Telegram has
+    # somewhere to deliver it. The scheduled push does not need it — it
+    # only sends — so the two can differ, and "the morning message
+    # arrives but /today is ignored" is exactly what an unset webhook
+    # looks like.
+    try:
+        hook = _api(token, "getWebhookInfo").get("result", {})
+        url = hook.get("url") or ""
+        if url:
+            host = url.split("/")[2] if "://" in url else url
+            pending = hook.get("pending_update_count", 0)
+            print(f"webhook SET → {host}  (pending {pending})")
+            if hook.get("last_error_message"):
+                print(f"  last error: {hook['last_error_message']}")
+        else:
+            print("webhook NOT SET — the bot can SEND (the daily push "
+                  "works) but cannot REPLY.\n  /today, /vol and the rest "
+                  "will be ignored until a host is deployed and "
+                  "bot/setwebhook.py is run.")
+    except urllib.error.HTTPError as e:
+        print(f"  could not read webhook info: HTTP {e.code}")
+
     ups = _api(token, "getUpdates")
     chats = {}
     for u in ups.get("result", []):
