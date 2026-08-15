@@ -1,6 +1,20 @@
 import type {
-  CanTradeResult, ComputeRequest, ComputeResult, PrasanamResult,
+  CanTradeResult, ComputeRequest, ComputeResult, GannCalendarResult,
+  PrasanamResult,
 } from './types'
+
+/** Cosmogram aspect calendar around a date (tropical Gann layer). */
+export async function gannCalendar(
+  date?: string,
+): Promise<GannCalendarResult> {
+  const qs = date ? `?date=${date}` : ''
+  const res = await fetch(`/api/gann-calendar${qs}`)
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `HTTP ${res.status}`)
+  }
+  return res.json()
+}
 
 /** Cast the taught KP horary chart from a seed number 1–249. */
 export async function prasanam(

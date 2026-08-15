@@ -921,3 +921,125 @@ body {
   color: var(--muted);
   margin-top: 0.15rem;
 }
+
+/* ---------- Gann cosmogram calendar ---------- */
+
+.gann-h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent2);
+  margin: 1rem 0 0.4rem;
+}
+
+.gann-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gann-event {
+  border-left: 2px solid var(--line);
+  padding: 0.3rem 0 0.3rem 0.7rem;
+  margin-bottom: 0.55rem;
+}
+
+.gann-event.today {
+  border-left-color: var(--accent);
+}
+
+.gann-event.excluded {
+  opacity: 0.55;
+}
+
+.gann-past .gann-event {
+  opacity: 0.75;
+}
+
+.gann-event-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.gann-date {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.gann-today-chip {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0 0.4rem;
+  margin-left: 0.4rem;
+}
+
+.gann-title {
+  font-weight: 600;
+}
+
+.verdict-badge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* the one pair worth watching gets the accent; everything measured at
+   the noise floor stays deliberately muted */
+.verdict-badge.v-paper {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.verdict-badge.v-lean {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+.verdict-badge.v-trap {
+  border-color: #b3564d;
+  color: #b3564d;
+}
+
+.gann-detail {
+  font-size: 0.82rem;
+  margin-top: 0.1rem;
+}
+
+.gann-retro {
+  color: var(--muted);
+}
+
+.gann-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+.gann-expand {
+  font-size: 0.82rem;
+  border-top: 1px dashed var(--line);
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+}
+
+.gann-expand p {
+  margin: 0 0 0.3rem;
+}
+
+.gann-source {
+  font-size: 0.72rem;
+  color: var(--muted);
+}

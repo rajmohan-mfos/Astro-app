@@ -17,6 +17,12 @@ BODIES = [("Sun", swe.SUN), ("Moon", swe.MOON), ("Mars", swe.MARS),
           ("Mercury", swe.MERCURY), ("Jupiter", swe.JUPITER),
           ("Venus", swe.VENUS), ("Saturn", swe.SATURN)]
 
+# The Gann cosmogram layer (app/gann/) needs the moderns, but they must
+# stay out of the chart token grid and the panchang paths — hence a
+# separate list instead of widening BODIES (gann-engine-CLAUDE.md §1).
+GANN_BODIES = [(n, b) for n, b in BODIES if n != "Moon"] + \
+    [("Uranus", swe.URANUS), ("Neptune", swe.NEPTUNE)]
+
 TOKENS = {"Sun": "Su", "Moon": "Mo", "Mars": "Ma", "Mercury": "Me",
           "Jupiter": "Ju", "Venus": "Ve", "Saturn": "Sa",
           "Rahu": "Ra", "Ketu": "Ke"}

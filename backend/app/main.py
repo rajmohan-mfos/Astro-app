@@ -162,6 +162,24 @@ def health():
     return {"ok": True}
 
 
+@app.get("/api/gann-calendar")
+def gann_calendar(date: str | None = None, back: int = 21, ahead: int = 60):
+    """Cosmogram aspect calendar (tropical Gann layer, app/gann/)."""
+    import datetime
+
+    from .gann import calendar as gann_cal
+    try:
+        center = (datetime.date.fromisoformat(date) if date
+                  # IST "today" — the market's calendar, not the server's
+                  else (datetime.datetime.now(datetime.timezone.utc)
+                        + datetime.timedelta(hours=5.5)).date())
+    except ValueError as e:
+        return JSONResponse(status_code=400, content={"error": str(e)})
+    back = max(0, min(back, 120))
+    ahead = max(0, min(ahead, 270))
+    return gann_cal.scan(center, back, ahead)
+
+
 @app.post("/api/compute")
 def compute(req: ComputeRequest):
     try:

@@ -210,3 +210,32 @@ export interface PrasanamResult {
   findings: RuleFinding[]
   note: string
 }
+
+// GET /api/gann-calendar — the tropical Gann cosmogram layer
+
+export interface GannEvent {
+  date: string
+  end_date: string | null
+  rule_id: string
+  title: string
+  kind: 'transit' | 'natal' | 'natal-cross' | 'station' | 'pattern'
+  angle: number | null
+  detail: string
+  direction: string
+  verdict: 'paper-trade' | 'lean' | 'null' | 'rare' | 'calendar-trap'
+  evidence: string
+  source: string
+  retro: string[]
+  excluded: boolean
+  market_note: string | null
+}
+
+export interface GannCalendarResult {
+  center: string
+  start: string
+  end: string
+  radix: { date: string; positions: Record<string, number> }
+  base_rates: Record<string, string>
+  events: GannEvent[]
+  note: string
+}

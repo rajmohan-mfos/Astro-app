@@ -41,6 +41,15 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
   and the rule findings for intraday/weekly/monthly/long-term/prasanam.
 - **Panchang chart (KP) tab**: the author-style day sheet — Moon sub-lord
   transit table, other-graha transits, panchang end times.
+- **Gann cosmogram tab**: the aspect calendar from the @Bjybnf audit —
+  every catalogued rule's exact aspect dates (transit and radix–transit
+  against the 22 Apr 1996 Nifty chart, tropical zodiac, retrograde
+  flags) with each rule's measured hit rate vs base rate shown beside
+  its claim. Build brief: `gann-engine-CLAUDE.md`; rule specs:
+  `Gann_Trading_Course.md`; engine: `backend/app/gann/`. Verdict scale
+  runs from "paper-trade" (Venus–Jupiter quadrature, Mercury–Saturn
+  conjunction — the two that beat their base rates, still unproven) to
+  "no edge" / "calendar trap". No rule cleared a fair statistical bar.
 - **Today / Tomorrow** buttons; **My profile** saves your kundali in the
   browser and answers "can I trade today" (Moon 5/8/12 gochara rule).
 - Rule provenance: `backend/knowledge/RULES-SOURCES.md` and
