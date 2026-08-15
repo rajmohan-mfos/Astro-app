@@ -34,20 +34,27 @@ function EventRow({ e, today }: { e: GannEvent; today: string }) {
           {isToday && <span className="gann-today-chip">today</span>}
         </span>
         <span className="gann-title">{e.title}</span>
-        <span className={`bias-chip bias-${e.bias}`}>
-          {BIAS_LABEL[e.bias]}
-        </span>
+        {/* tolerate an older backend that predates bias/timing — a
+            missing field must degrade to a plain row, never unmount
+            the app into a black screen */}
+        {e.bias && (
+          <span className={`bias-chip bias-${e.bias}`}>
+            {BIAS_LABEL[e.bias]}
+          </span>
+        )}
         <span className={`verdict-badge v-${e.verdict.replace('paper-trade', 'paper')}`}>
           {VERDICT_LABEL[e.verdict]}
         </span>
       </div>
-      <div className="gann-market">
-        For the market: {e.bias === 'reversal'
-          ? 'flips whatever the trend was in the days before — bullish '
-            + 'into the date turns bearish, bearish turns bullish'
-          : `${e.bias} (his fixed call for this pair)`}.{' '}
-        When: {e.timing.toLowerCase()}.
-      </div>
+      {e.bias && (
+        <div className="gann-market">
+          For the market: {e.bias === 'reversal'
+            ? 'flips whatever the trend was in the days before — bullish '
+              + 'into the date turns bearish, bearish turns bullish'
+            : `${e.bias} (his fixed call for this pair)`}.
+          {e.timing ? ` When: ${e.timing.toLowerCase()}.` : ''}
+        </div>
+      )}
       <div className="gann-detail">{e.detail}
         {e.retro.length > 0 && (
           <span className="gann-retro"> · {e.retro.join(', ')} retrograde
