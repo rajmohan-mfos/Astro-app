@@ -108,3 +108,5 @@ def test_events_carry_their_evidence():
     r = _scan("2026-02-23")
     for e in r["events"]:
         assert e["evidence"] and e["verdict"] and e["source"]
+        assert e["bias"] in ("bullish", "bearish", "reversal")
+        assert e["timing"]

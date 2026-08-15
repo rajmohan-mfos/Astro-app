@@ -41,6 +41,9 @@ RULES = [
         "direction": "Reversal of the prevailing trend (judged on the "
                      "last 2–3 days); entry at the aspect-date close, "
                      "target 250–300 pts, stop 210–220, trail after target",
+        "bias": "reversal",
+        "timing": "Entry at the close of the aspect date (previous "
+                  "session if closed); move expected within ~10 sessions",
         "evidence": "54% win rate vs 43% base on 26 decided trades "
                     "(14W/12L/10 undecided), +35 pts expectancy — the "
                     "best rule in the catalogue, still not statistically "
@@ -52,6 +55,8 @@ RULES = [
         "title": "Mercury–Saturn conjunction", "bodies": ["Mercury", "Saturn"],
         "angle": 0, "retro_excluded": False, "verdict": "paper-trade",
         "direction": "Reversal of the prior 3–5 day trend, 400+ pts claimed",
+        "bias": "reversal",
+        "timing": "From the aspect date, against the prior 3–5-day trend",
         "evidence": "Trend flipped 16/23 (70%) vs 49% base, p=0.038 — the "
                     "strongest number in the project, but ~25 rules were "
                     "tested so one such false positive is expected, and "
@@ -63,6 +68,8 @@ RULES = [
         "title": "Mars–Jupiter semisquare", "bodies": ["Mars", "Jupiter"],
         "angle": 45, "retro_excluded": False, "verdict": "lean",
         "direction": "Bullish (his standing call)",
+        "bias": "bullish",
+        "timing": "From the aspect date, ~5 trading days",
         "evidence": "+1.4% Nifty / +1.9% BankNifty 5-day forward, p≈0.1 — "
                     "directionally consistent on both indices, unproven.",
         "source": "Bjybnf_Gann_Concepts_Summary.md §7 backtest",
@@ -72,6 +79,8 @@ RULES = [
         "title": "Mars–Neptune conjunction", "bodies": ["Mars", "Neptune"],
         "angle": 0, "retro_excluded": False, "verdict": "lean",
         "direction": "Bearish (his standing call)",
+        "bias": "bearish",
+        "timing": "From the aspect date, ~5 trading days",
         "evidence": "−2.45% avg 5-day on Nifty at p=0.023 — but n=9, and "
                     "one of 36 tests where two false positives are "
                     "expected by chance.",
@@ -82,6 +91,8 @@ RULES = [
         "title": "Venus–Saturn quadrature", "bodies": ["Venus", "Saturn"],
         "angle": 90, "retro_excluded": False, "verdict": "null",
         "direction": "Reversal, 150–300 pts within 1–2 days claimed",
+        "bias": "reversal",
+        "timing": "1–2 trading days from the aspect date",
         "evidence": "57% vs a 55% base across all 40 events since 2007, "
                     "identical median excursions — and a ≥150-pt "
                     "counter-move within 2 days happens on 39% of ALL "
@@ -94,6 +105,9 @@ RULES = [
         "bodies": ["Jupiter", "Uranus"], "angle": 0, "angles": [0, 180],
         "retro_excluded": False, "verdict": "rare",
         "direction": "Major reversal claimed at each rare pass",
+        "bias": "reversal",
+        "timing": "Weeks-to-months horizon; each event is a triple pass "
+                  "over ~9 months",
         "evidence": "7 exact passes since 2007, 1 produced the claimed "
                     "reversal. Retrogradation makes each 'rare event' a "
                     "triple pass over ~9 months — only the pass followed "
@@ -106,6 +120,9 @@ RULES = [
         "angles": [60, 90, 120], "angle": None,
         "retro_excluded": True, "verdict": "null",
         "direction": "Reversal 1–2 days after the aspect date",
+        "bias": "reversal",
+        "timing": "Flip expected 1–2 days AFTER the aspect date "
+                  "(weekend → the following Monday)",
         "evidence": "The flagship birth-chart rule: sextile scored 10/15 "
                     "(67%) vs a 64% base — not the claimed 85%; "
                     "quadrature and trine averaged −0.1% to +0.9%, all "
@@ -118,6 +135,8 @@ RULES = [
         "bodies": ["Mercury", "Mars"], "angle": 0,
         "retro_excluded": False, "verdict": "null",
         "direction": "Reversal with a '1–2 day deflection' claimed",
+        "bias": "reversal",
+        "timing": "At the aspect date ±2 days (his 'deflection' window)",
         "evidence": "Reversal at the exact date 5/13 (38%) — below the "
                     "49% random-day rate. With his ±2-day deflection it "
                     "reads 85%… which is exactly the base rate of any "
@@ -130,6 +149,8 @@ RULES = [
         "angles": [180], "angle": 180,
         "retro_excluded": False, "verdict": "rare",
         "direction": "Bullish 'always' — his only unidirectional claim",
+        "bias": "bullish",
+        "timing": "1–6 month horizon from each pass",
         "evidence": "Once per ~11.9-year orbit, as a triple pass. The "
                     "Aug 2025 pass ran +4.4% at three months (his first "
                     "graded forward hit); the Feb 2026 pass of the same "
@@ -142,6 +163,8 @@ RULES = [
         "retro_excluded": False, "verdict": "null",
         "direction": "Reversal at the station (either direction) claimed "
                      "~90% for Nifty",
+        "bias": "reversal",
+        "timing": "At the station date (both Rx start and Rx end count)",
         "evidence": "All 22 stations 2007–2026: flip at the date 55% vs "
                     "49% base; within ±2 days 95% vs an 85% base. "
                     "Mercury's 118 stations flip at the same 55% — the "
@@ -155,6 +178,8 @@ RULES = [
         "retro_excluded": False, "verdict": "calendar-trap",
         "direction": "Reversal claimed when Sun quincunxes both while "
                      "Uranus sextiles Neptune",
+        "bias": "reversal",
+        "timing": "During the window (in practice: mid-to-late October)",
         "evidence": "Uranus–Neptune sit within 5° of sextile on 11% of "
                     "all days — the Sun supplies all the timing, so the "
                     "'rare pattern' recurs every mid-to-late October. "
@@ -190,6 +215,11 @@ def _event(rule: dict, d: datetime.date, *, angle: float | None,
         "angle": angle,
         "detail": detail,
         "direction": rule["direction"],
+        # bullish/bearish are his fixed-direction calls; "reversal"
+        # rules flip whatever the prior trend was, so they carry no
+        # fixed color — the UI renders them amber, not green/red
+        "bias": rule["bias"],
+        "timing": rule["timing"],
         "verdict": rule["verdict"],
         "evidence": rule["evidence"],
         "source": rule["source"],

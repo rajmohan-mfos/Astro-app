@@ -222,6 +222,11 @@ export interface GannEvent {
   angle: number | null
   detail: string
   direction: string
+  // bullish/bearish = his fixed-direction calls; reversal = flips the
+  // prior trend, so it has no fixed direction (rendered amber, not
+  // green/red)
+  bias: 'bullish' | 'bearish' | 'reversal'
+  timing: string
   verdict: 'paper-trade' | 'lean' | 'null' | 'rare' | 'calendar-trap'
   evidence: string
   source: string

@@ -15,6 +15,12 @@ const VERDICT_LABEL: Record<GannEvent['verdict'], string> = {
   'calendar-trap': 'calendar trap',
 }
 
+const BIAS_LABEL: Record<GannEvent['bias'], string> = {
+  bullish: '▲ Bullish',
+  bearish: '▼ Bearish',
+  reversal: '⇅ Reversal',
+}
+
 function EventRow({ e, today }: { e: GannEvent; today: string }) {
   const [open, setOpen] = useState(false)
   const when = e.end_date && e.end_date !== e.date
@@ -28,9 +34,19 @@ function EventRow({ e, today }: { e: GannEvent; today: string }) {
           {isToday && <span className="gann-today-chip">today</span>}
         </span>
         <span className="gann-title">{e.title}</span>
+        <span className={`bias-chip bias-${e.bias}`}>
+          {BIAS_LABEL[e.bias]}
+        </span>
         <span className={`verdict-badge v-${e.verdict.replace('paper-trade', 'paper')}`}>
           {VERDICT_LABEL[e.verdict]}
         </span>
+      </div>
+      <div className="gann-market">
+        For the market: {e.bias === 'reversal'
+          ? 'flips whatever the trend was in the days before — bullish '
+            + 'into the date turns bearish, bearish turns bullish'
+          : `${e.bias} (his fixed call for this pair)`}.{' '}
+        When: {e.timing.toLowerCase()}.
       </div>
       <div className="gann-detail">{e.detail}
         {e.retro.length > 0 && (
@@ -84,6 +100,14 @@ export default function GannCosmogram({ date }: { date?: string }) {
           of all days, and within ±2 days of{' '}
           {data.base_rates['trend_flip_within_2_days']} of them.
         </p>
+        <div className="gann-legend">
+          <span className="bias-chip bias-bullish">▲ Bullish</span> and{' '}
+          <span className="bias-chip bias-bearish">▼ Bearish</span> are his
+          fixed-direction calls.{' '}
+          <span className="bias-chip bias-reversal">⇅ Reversal</span> rules
+          flip the prior trend, so their direction depends on how the
+          market goes INTO the date — no fixed color exists for them.
+        </div>
         <h3 className="gann-h3">Upcoming — {data.center} to {data.end}</h3>
         {upcoming.length === 0 && <p className="muted-note">
           No catalogued aspects in this window.</p>}

@@ -1013,6 +1013,50 @@ body {
   color: #b3564d;
 }
 
+/* market-direction chips: green = his fixed bullish call, red = fixed
+   bearish, amber = reversal (flips the prior trend — no fixed color
+   can be honest for those) */
+.bias-chip {
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.08rem 0.55rem;
+  white-space: nowrap;
+}
+
+.bias-chip.bias-bullish {
+  color: #4cc38a;
+  background: rgba(76, 195, 138, 0.14);
+  border: 1px solid rgba(76, 195, 138, 0.55);
+}
+
+.bias-chip.bias-bearish {
+  color: #e5726a;
+  background: rgba(229, 114, 106, 0.14);
+  border: 1px solid rgba(229, 114, 106, 0.55);
+}
+
+.bias-chip.bias-reversal {
+  color: #d9a44a;
+  background: rgba(217, 164, 74, 0.14);
+  border: 1px solid rgba(217, 164, 74, 0.55);
+}
+
+.gann-legend {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  margin: 0.6rem 0 0.2rem;
+  line-height: 1.9;
+}
+
+.gann-market {
+  font-size: 0.82rem;
+  margin-top: 0.15rem;
+}
+
 .gann-detail {
   font-size: 0.82rem;
   margin-top: 0.1rem;
