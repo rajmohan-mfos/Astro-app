@@ -1,32 +1,32 @@
 {
-  "band_label": "leaning narrow",
-  "generated_at": "2026-08-18T08:57:42+05:30",
+  "band_label": "narrow",
+  "generated_at": "2026-08-19T08:59:35+05:30",
   "history_bars": 63,
   "intervals": {
     "0.80": {
-      "half_width_pct": 0.59,
-      "half_width_points": 144,
-      "high": 24509.7,
-      "low": 24222.3,
+      "half_width_pct": 0.518,
+      "half_width_points": 125,
+      "high": 24280.1,
+      "low": 24029.7,
       "realised_coverage": 82.06500956022944
     },
     "0.90": {
-      "half_width_pct": 0.778,
-      "half_width_points": 190,
-      "high": 24555.7,
-      "low": 24176.3,
+      "half_width_pct": 0.684,
+      "half_width_points": 165,
+      "high": 24320.1,
+      "low": 23989.7,
       "realised_coverage": 91.31931166347992
     },
     "0.95": {
-      "half_width_pct": 0.961,
-      "half_width_points": 234,
-      "high": 24600.1,
-      "low": 24131.9,
+      "half_width_pct": 0.844,
+      "half_width_points": 204,
+      "high": 24358.9,
+      "low": 23950.9,
       "realised_coverage": 95.44933078393882
     }
   },
-  "last_bar": "2026-08-14",
+  "last_bar": "2026-08-18",
   "oos_accuracy": 60.3,
-  "p_wide": 0.3694,
-  "reference_close": 24366.0
+  "p_wide": 0.3497,
+  "reference_close": 24154.900390625
 }
