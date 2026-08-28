@@ -322,6 +322,7 @@ export interface SaptarshRegime {
   sun_ketu_same_sign: boolean
   nakshatra_stellia: { nakshatra: string; planets: string[] }[]
   early_degree_bodies: string[]
+  grand_trines: string[][]
   conjunctions: {
     sign: string; sign_en: string; planets: string[]; until: string
     members: { planet: string; entry: string; exit: string }[]

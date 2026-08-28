@@ -176,7 +176,7 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
-    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bull", "observed")   # 8 Jun
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("vol", "observed")   # 8 Jun bull, 11 Aug 2025 bear
     # every Virgo star is observed by now, so exercise the sign fallback
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
@@ -347,3 +347,60 @@ def test_nov_ingress_readings_and_amavasya():
     assert saptarsh.nak_tone("Swati", "Tula", "gold") == ("bear", "observed")
     assert saptarsh.nak_tone("Krittika", "Vrishabha", "gold") == ("bull", "observed")
     assert saptarsh.aspect_tone("Sun", "Pluto", 0) == ("bear", "observed")
+
+
+# ---- sixth learning pass: X posts of Jul - Oct 2025 (August 2025.mp4) ----
+
+def test_grand_trine_27_oct_2025():
+    """26 Oct 2025: 'Mars, Jupiter and Saturn forming grand trine from
+    Monday' — separations 119.3 / 122.0 / 118.7 on the 27th."""
+    r = saptarsh.regime(datetime.date(2025, 10, 27))
+    assert ["Mars", "Jupiter", "Saturn"] in r["grand_trines"]
+    assert any("Grand trine" in n for n in r["notes"])
+    assert saptarsh.regime(datetime.date(2026, 8, 28))["grand_trines"] == []
+
+
+def test_mars_jupiter_trine_is_bearish_28_oct():
+    d = saptarsh.day(datetime.date(2025, 10, 28))
+    got = _aspect(d, "Mars", 120, "Jupiter")
+    assert got["tone"] == "bear" and got["source"] == "observed"
+    assert d["moon"]["nakshatra"] == "Purva Ashadha"
+    assert d["panchang"]["vaar_tithi"]["tone"] == "bull"          # Tue + 7, observed
+    assert d["panchang"]["vaar_tithi"]["source"] == "observed"
+
+
+def test_ingress_readings_sep_oct_2025():
+    """23 Sep: 'Mars enters in Swati nakshatra at 20:57 IST. This is
+    bearish'. 27 Oct: Mars enters Scorpio (he printed 13:28 — the Moon's
+    nakshatra-change time — the ingress is 15:43). 15 Sep: Sun ingress
+    Virgo conjunct Mercury 'powerful combination for stock market'."""
+    d = saptarsh.day(datetime.date(2025, 9, 23))
+    m = [i for i in d["ingresses"] if i["planet"] == "Mars" and i["to"] == "Swati"]
+    assert m and abs(_mins(m[0]["time"]) - _mins("20:57")) <= 3 and m[0]["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 10, 27))
+    m = [i for i in d["ingresses"] if i["planet"] == "Mars" and i["to"] == "Vrischika"]
+    assert m and m[0]["tone"] == "bear" and "TRANSITION POINT" in m[0]["note"]
+    assert abs(_mins(d["moon"]["nakshatra_change"]["time"]) - _mins("13:28")) <= 3
+    d = saptarsh.day(datetime.date(2025, 9, 17))
+    s = [i for i in d["ingresses"] if i["planet"] == "Sun" and i["to"] == "Kanya"]
+    assert s and s[0]["tone"] == "bull"
+
+
+def test_mercury_direct_station_11_aug_2025():
+    d = saptarsh.day(datetime.date(2025, 8, 11))
+    st = [i for i in d["ingresses"] if i["kind"] == "station"]
+    assert st and st[0]["planet"] == "Mercury" and st[0]["to"] == "direct"
+    assert "reversal" in st[0]["note"]
+    assert abs(_mins(d["moon"]["nakshatra_change"]["time"]) - _mins("13:01")) <= 3
+    got = _aspect(d, "Moon", 0, "Rahu")
+    assert got["tone"] == "bear"
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("vol", "observed")
+
+
+def test_classical_vaar_tithi_scorecard():
+    """Six of seven dated calls agree with the classical tables."""
+    agree = [(2, 18, "bear"), (1, 8, "bull"), (1, 3, "bull"), (3, 15, "bull"),
+             (4, 12, "bear")]
+    for wd, t, tone in agree:
+        vt = saptarsh.vaar_tithi_yoga(wd, t)
+        assert vt and vt["tone"] == tone and vt["source"] == "classical", (wd, t)

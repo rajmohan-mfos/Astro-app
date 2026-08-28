@@ -110,12 +110,17 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     # X posts, Nov 2025 - Jan 2026
     ("Sun", "Pluto", 0): "bear",            # 20 Jan "Sun and Pluto at 0° this week … many times tops"
     ("Moon", "Rahu", 180): "bull",          # 14 Nov "Moon-Ketu at 0° … is bullish" (Ketu = Rahu+180)
+    # X posts, Jul-Oct 2025
+    ("Mars", "Jupiter", 120): "bear",       # 27-28 Oct "Mars 120° Jupiter is bearish" (a soft angle!)
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
 # -> (tone, their words). Anything else is listed as "watch".
 INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
-    ("Jupiter", "sign", "Kataka"): ("bear", "2 Jun: \"very important event, can affect the market heavily for long term … bearish last Oct, careful for few days\""),
+    ("Jupiter", "sign", "Kataka"): ("bear", "16 Oct 2025: \"Sidereal Jupiter enters Cancer, its exalted sign. Major change in markets\"; 2 Jun: \"can affect the market heavily for long term … bearish last Oct, careful for few days\""),
+    ("Mars", "nakshatra", "Swati"): ("bear", "23 Sep 2025: \"Mars enters in Swati nakshatra … This is bearish\""),
+    ("Mars", "sign", "Vrischika"): ("bear", "27 Oct 2025: \"strong bearish for precious metals for 1-2 days … MARS AT TRANSITION POINT … MAY DOMINATE all bullish yog\""),
+    ("Sun", "sign", "Kanya"): ("bull", "15 Sep 2025: \"Sun ingress Virgo, conjunct with Mercury. This is powerful combination for stock market. BANKNIFTY may outperform\""),
     ("Jupiter", "nakshatra", "Ashlesha"): ("bull", "19 Aug: \"considered bullish for stock markets\""),
     ("Venus", "nakshatra", "Ardra"): ("bear", "20 May: \"bearish for Silver\""),
     ("Venus", "nakshatra", "Bharani"): ("bear", "6 Apr: \"this is bearish\""),
@@ -184,13 +189,13 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Vishakha": ("bull", "vol"),            # metals "not supportive" 19 Nov, both sides 19 Aug
     "Anuradha": ("neutral", "bull"),        # bullish 6 Apr, 4 May; both sides 21 Aug (2 of 3)
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
-    "Mula": (None, "bull"),                 # bullish 8 Apr, 2 Jun; bearish 27 Jul (2 of 3)
+    "Mula": (None, "bull"),                 # bullish 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (3 of 4)
     "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
     "Uttara Ashadha": (None, "bull"),       # 9 Jun, 2 Jul, 28-29 Jul, 25 Aug
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
-    "Purva Bhadrapada": (None, "bull"),     # 8 Jun
+    "Purva Bhadrapada": (None, "vol"),      # bullish 8 Jun, bearish 11 Aug 2025 — both ways
     "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
     "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
@@ -275,7 +280,11 @@ HUTASANA = {6: 12, 0: 6, 1: 7, 2: 8, 3: 9, 4: 10, 5: 11}
 OBSERVED_VAAR_TITHI = {(4, 29): "bear",     # Fri 15 May "Vaar-Tithi yog is bearish"
                        (0, 13): "bear",     # Mon 27 Jul
                        (1, 14): "bull",     # Tue 28 Jul
-                       (1, 29): "bear"}     # Tue 18 Nov 2025
+                       (1, 29): "bear",     # Tue 18 Nov 2025
+                       (1, 7): "bull"}      # Tue 28 Oct 2025 (classical says Visha/Hutasana)
+# Scorecard of the classical tables against his dated calls: 19 May, 3
+# Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025 does
+# not. The remaining overrides are days the classical tables are silent.
 
 
 def vaar_tithi_yoga(weekday: int, tithi_num: int) -> dict | None:
@@ -504,9 +513,14 @@ def day_ingresses(d: datetime.date) -> list[dict]:
                         "planet": name, "kind": "station", "to": label,
                         "tone": "vol",
                         "source": "observed" if name == "Mercury" else "extrapolated",
-                        "note": ("6 Nov 2025: \"Mercury … going to retrograde … "
-                                 "sudden drop is possible. BankNifty may get "
-                                 "affected more\"" if name == "Mercury"
+                        "note": (("6 Nov 2025: \"Mercury … going to retrograde … "
+                                  "sudden drop is possible. BankNifty may get "
+                                  "affected more\"" if label == "retrograde" else
+                                  "9 Aug 2025: \"Mercury turning direct … the "
+                                  "stars point to a possible reversal in the "
+                                  "Indian stock market\"; 11 Aug: \"may change "
+                                  "the trend but you have to watch first\"")
+                                 if name == "Mercury"
                                  else "a station — treated like Mercury's, unseen")})
     out.sort(key=lambda x: x["_jd"])
     return out
@@ -622,6 +636,25 @@ def regime(d: datetime.date) -> dict:
                      f"({', '.join(early)}) — they flagged this as unusual "
                      "and linked it to extremes across markets (21 Jan 2026).")
 
+    # "The Grand Trine — Mars, Jupiter and Saturn forming grand trine from
+    # Monday. One way …" (26 Oct 2025). Any three of Sun..Saturn mutually
+    # ~120° apart, 6° orb.
+    trine_bodies = ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
+    grand_trines = []
+    for i, a in enumerate(trine_bodies):
+        for j, b in enumerate(trine_bodies[i + 1:], i + 1):
+            for c in trine_bodies[j + 1:]:
+                def sep(x, y):
+                    dd = abs(pos[x] - pos[y]) % 360
+                    return min(dd, 360 - dd)
+                if all(abs(sep(x, y) - 120) <= 6 for x, y in
+                       ((a, b), (b, c), (a, c))):
+                    grand_trines.append([a, b, c])
+    for t in grand_trines:
+        notes.append(f"Grand trine {' – '.join(t)} — \"one way\" move in "
+                     "their 26 Oct 2025 reading (Mars–Jupiter–Saturn then; "
+                     "gold and silver fell hard the next two days).")
+
     # Rahu-Ketu on the Leo-Aquarius axis: their gold history (6 Jan 2026)
     if {signs["Rahu"], signs["Ketu"]} == {4, 10}:
         which = "Rahu in Leo / Ketu in Aquarius" if signs["Rahu"] == 4 \
@@ -648,6 +681,7 @@ def regime(d: datetime.date) -> dict:
         "sun_ketu_same_sign": signs["Sun"] == signs["Ketu"],
         "nakshatra_stellia": stellia,
         "early_degree_bodies": early,
+        "grand_trines": grand_trines,
         "conjunctions": conj,
         "notes": notes,
         "jupiter_cancer_history": [

@@ -163,6 +163,9 @@ export default function SaptarshWeek({ date }: { date?: string }) {
           {data.regime.jupiter.nakshatra} nakshatra —{' '}
           {data.regime.jupiter.entry} → {data.regime.jupiter.exit}</p>
         {data.regime.notes.map((n, i) => <p key={i}>{n}</p>)}
+        {data.regime.grand_trines.length === 0 && data.regime.nakshatra_stellia.length === 0 && (
+          <p className="muted-note">No grand trine or nakshatra stellium this week.</p>
+        )}
         {data.regime.conjunctions.length > 0 && (
           <p><span className="learn-key">Conjunction calendar</span>{' '}
             {data.regime.conjunctions.map((c) =>
