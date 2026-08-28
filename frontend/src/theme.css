@@ -1216,3 +1216,32 @@ body {
 .sap-closed .gann-title {
   color: var(--muted);
 }
+
+.sap-regime {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.86rem;
+}
+
+.sap-regime p {
+  margin: 0.2rem 0;
+}
+
+.sap-regime .learn-key {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sap-metal {
+  margin-top: 0.35rem;
+}
+
+.sap-metal .sap-name {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-right: 0.4rem;
+}

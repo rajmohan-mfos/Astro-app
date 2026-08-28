@@ -104,12 +104,68 @@ const DIARY: [string, string][] = [
 const APP_MAP: [string, string, boolean][] = [
   ['Panchang table (tithi, nakshatra, yoga, karana + end times)', 'Prediction tab → Panchang tiles; Panchang chart (KP) tab', true],
   ['Planet positions (sign, degree, star/pada, navamsa, speed)', 'Rasi chart (Lahiri) tab → Grahas table', true],
-  ['Rahu Kaal / Yamaganda / Gulika / Abhijit windows', 'Horai timeline covers the hour-lords; the three kaal windows are not shown yet', false],
-  ['Timed planet-to-planet aspect table', 'Not in the app — the taught method uses the chain (X/X1/Y/Y1) instead of aspects', false],
+  ['Rahu Kaal / Yamaganda / Gulika / Abhijit windows', 'Week outlook above (per day, click to expand); Horai timeline covers the hour-lords', true],
+  ['Timed planet-to-planet aspect table', 'Week outlook above — every exact aspect with IST and ET; the taught method uses the chain (X/X1/Y/Y1) instead', true],
+  ['Metals trading windows IST / ET', 'Week outlook above, 03:30 → 27:30 IST split at each aspect', true],
+  ['Vaar-Tithi yoga', 'Week outlook above — classical tables standing in for their unpublished one', true],
+  ['Conjunction calendar / Jupiter transit history', 'Week outlook "Regime" block; Gann cosmogram tab for audited dated events', true],
   ['Jaimini chara karakas', 'Not in the app', false],
   ['Moon nakshatra → base bias', 'Prediction tab → day score (panchang tally) is the taught-method analogue', true],
-  ['Conjunction calendar / astronomical diary', 'Gann cosmogram tab lists dated events with their audited hit-rate', true],
   ['Volatility band (no astrology)', '/vol in the Telegram bot', true],
+]
+
+// ---- second learning pass: the X account @sonisunil59 (28 Aug 2026)
+
+const REPORT_ANATOMY: [string, string][] = [
+  ['Vedic Day (Tithi)', '"Ashadha Vad-12 continue till 16:38 IST then Vad-10 till 28:55" — lunar month + Sud (Shukla) / Vad (Krishna) + tithi number, with the switch time. Amavasya and Purnima are called out by name.'],
+  ['Moon', 'Sign with its continuation time and, in the later format, a bias chip next to it ("Cancer — Bias-Bearish").'],
+  ['Nakshatra', 'Current and next star with switch times in IST and ET, each with a bias chip.'],
+  ['Astro. Events', 'The day\'s exact aspects with times ("Mercury 150 Rahu 05:07, Venus 120 Pluto") plus named yogas: Vaar-Tithi yog, Vaidhriti yog, "Today is Amavasya".'],
+  ['Astro. Interpretations', 'One paragraph: nakshatra favourable or not, which planets are bullish, which aspect can "create bearish price action".'],
+  ['Metal-wise outlook', 'Gold and Silver separately, each headed Bullish / Bearish / Bullish-Bearish / Cautiously bullish / Bearish with caution, with a paragraph of instruction.'],
+  ['Trading Windows IST / (ET)', 'Three or four windows from 03:30 IST to ~27:30 IST (next 03:30), each with Bias-Bullish / Bearish / Neutral and a sentence on what to do in it. The clock runs past 24:00 the Vedic way.'],
+]
+
+const X_RULES: [string, string, string][] = [
+  ['Amavasya', 'bullish for gold & silver', '14 Jul: "Today is Amavshya, this is considered bullish for gold and silver."'],
+  ['Purnima', 'turning point / bottom trigger', '29 Jul: "Full Moon can be trigger and form bottom. Stay cautious."'],
+  ['Vaidhriti yog', 'volatility with a bullish bias', '27 Jul and 2 Jul, both times for metals.'],
+  ['Vaar-Tithi yog', 'bullish or bearish for the day', '28 Jul "is bullish", 27 Jul "is bearish" — the weekday × tithi table they use is not published; the app substitutes the classical Siddha / Mrityu / Dagdha / Visha / Hutasana tables and labels them "classical".'],
+  ['Sun–Jupiter contacts', 'read both ways on metals', '27 Jul "Sun–Jupiter become bullish for precious metals"; 10 Aug "Jup–Sun aspect can create bearish price action"; 15 Jul "powerful bearish combination of Jupiter-Sun and Venus".'],
+  ['Venus–Rahu aspect', 'moves silver', '29 Jul: "Venus–Rahu aspect will affect the silver significantly."'],
+  ['Mars–Rahu aspect', 'neutral, confusing', '18 Aug (Nifty): "As Mars-Rahu is neutral, it would be confusing price action."'],
+  ['Mercury retro conjunct Sun', 'stock markets turn bullish', 'Jul 12, quoting a classic: "If Mercury is retro and conjunct with the Sun, stock markets turns bullish."'],
+  ['Jupiter changing nakshatra', 'bullish for stocks', '19 Aug: "Jupiter … enters in Ashlesha nakshatra. This is considered bullish for stock markets."'],
+  ['Jupiter in sidereal Cancer', 'weak phase for silver', 'Jul 2 table of every Cancer transit since 1978 with gold % / silver % — silver negative in 3 of 5.'],
+  ['Sun + Ketu in Leo', 'analog of the Aug 2025 metals rally', 'Aug 15: "17 Aug 2025 & 17 Aug 2026, Sun+Ketu in Leo. Almost same chart … could we see similar bullish phase?"'],
+  ['Special weekly yog', 'up to 3% fall', 'Jun 28: "Strong bearish yog is starting from Monday midnight. Many times in past, this yog created up to 3% fall."'],
+]
+
+const METAL_NAK: [string, string, string][] = [
+  ['Ashwini', 'bullish', '8–9 Jul'], ['Bharani', 'bearish', '9 Jul'],
+  ['Rohini / Ardra', 'not favourable for higher prices', '10 Aug'],
+  ['Punarvasu', 'bearish', '14 Jul'], ['Pushya', 'bearish', '15 Jul'],
+  ['Ashlesha', 'neutral', '15 Jul'], ['Hasta', 'bearish', '20 Jul'],
+  ['Chitra', 'bullish', '20 Jul'], ['Swati / Vishakha', 'both sides — "sharp moves both sides"', '18–19 Aug'],
+  ['Mula', 'bearish', '27 Jul'], ['Purvashadha', 'bearish', '28 Jul'],
+  ['Uttarashadha', 'bullish', '2 Jul, 28–29 Jul, 25 Aug'],
+  ['Shravana', 'bearish', '2 Jul, 29 Jul'], ['Dhanishta', 'bullish', '27 Aug'],
+  ['Shatabhisha', 'bearish', '28 Aug'], ['Uttarabhadra', 'bullish', '7 Jul'],
+  ['Revati', 'bearish', '7–8 Jul'],
+]
+
+const POSITION_RULES: string[] = [
+  '"You must have stoploss order for position that goes in opposite side." — every window carries it.',
+  '"Must book profit in that spike" — bullish windows are for taking, not holding: "sharp spike to higher side … do not create any new position."',
+  '"Do not carry any long position" into a bearish next day (13 Jul); "avoid unnecessary risk of overnight positions."',
+  'Investing: "buy in parts rather than all at once"; "at least 25% must be allocated" when both metals are down (7–8 Jul).',
+  'Event days override the sky: "At 23:30 IST FED will give its rate decision … we are bullish but in past we failed during these events, so please do not take risk."',
+  '"Timing matters" — a temporary move against the call is not a failed call if the window had not opened yet (10 Aug).',
+]
+
+const SOURCES: [string, string][] = [
+  ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
+  ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -295,6 +351,93 @@ function SaptarshPanel({ date }: { date?: string }) {
           are written <code>25:00, 26:00, 28:59</code> (= 01:00, 02:00,
           04:59 IST) so an event belongs to the panchang day it falls in.
           After sunrise, ordinary clock time.
+        </p>
+      </section>
+
+      <section className="panel">
+        <h2>From the X account — the Gold &amp; Silver Premium Report</h2>
+        <p className="learn-lead">
+          @sonisunil59 ("MARKET ASTROLOGY", Sunil J. Soni, Gujarat) is the
+          person behind Saptarsh. Since July 2026 the account has posted the
+          paid <em>Gold &amp; Silver Premium Report</em> a day late as proof of
+          record. It is the metals counterpart of the Nifty bulletin and
+          adds the pieces below. Three channel tiers: <em>Glimpse</em> (free:
+          panchang, placements, events, market mood), <em>Insight</em> (paid:
+          aspects, Moon–nakshatra, yogas, probable trend for Nifty / Dow /
+          Gold / Silver), <em>Trend Triggers</em> (premium: "high-resolution
+          astro timing every 4–6 hours", metals only).
+        </p>
+
+        <h3 className="gann-h3">9 · Anatomy of the premium report</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Block</th><th>Contents</th></tr></thead>
+          <tbody>
+            {REPORT_ANATOMY.map(([k, v]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          The week outlook above reproduces this shape: metals windows run
+          03:30 → 27:30 IST with ET alongside, split at every exact aspect.
+          Their windows are hand-drawn from "bullish yog / bearish yog"
+          activity, which is unpublished — the app's are aspect-driven.
+        </p>
+
+        <h3 className="gann-h3">10 · Rules stated on X</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Trigger</th><th>Their reading</th><th>Where</th></tr></thead>
+          <tbody>
+            {X_RULES.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">11 · Moon nakshatra → gold &amp; silver (observed)</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Nakshatra</th><th>Metals call</th><th>Report date</th></tr></thead>
+          <tbody>
+            {METAL_NAK.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Sign-level calls also appeared next to the Moon row: Capricorn
+          bullish, Aquarius / Pisces / Cancer bearish, Gemini neutral. Note
+          Purvashadha is bullish for Nifty but bearish for metals, and
+          Shravana neutral for Nifty but bearish for metals — the two
+          instruments do not share one table. All of these feed the
+          "observed" badges in the week outlook.
+        </p>
+
+        <h3 className="gann-h3">12 · Position rules they repeat</h3>
+        <ul className="learn-ul">
+          {POSITION_RULES.map((s, i) => <li key={i}>{s}</li>)}
+        </ul>
+
+        <h3 className="gann-h3">13 · Medium-term context they publish monthly</h3>
+        <ul className="learn-ul">
+          <li><strong>Conjunction calendar</strong> — sign, planets sharing it, from/to, duration, planet leaving, planet entering (July: Pisces Saturn+Neptune; Taurus Mars+Uranus 43 d; Cancer Mercury+Venus+Jupiter 12 d; Leo Venus+Ketu 28 d; Gemini Sun+Mercury 10 d; Cancer Sun+Jupiter 20 d). The week outlook computes the live version in its "Regime" block.</li>
+          <li><strong>Moon sign-change calendar</strong> — date, weekday, from-sign → to-sign for the month ("only three planets are changing signs except Moon").</li>
+          <li><strong>Jupiter transit history</strong> — for the sign Jupiter occupies, every past transit with gold % and silver % over the transit.</li>
+          <li><strong>Same-sky analogs</strong> — a chart from a year with the same slow-planet placement (Sun+Ketu in Leo, Aug 2025 vs Aug 2026) with the move that followed.</li>
+        </ul>
+
+        <h3 className="gann-h3">Sources ingested so far</h3>
+        <table className="graha-table learn-table">
+          <tbody>
+            {SOURCES.map(([k, v]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Each new recording adds rows here and, where a rule is
+          computable, to the week outlook. Everything is the channel's
+          practice as posted — none of it has been graded against prices
+          yet; the daily checklist's last step is where that starts.
         </p>
       </section>
 

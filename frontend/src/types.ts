@@ -251,6 +251,7 @@ export type SaptarshSource = 'observed' | 'extrapolated'
 
 export interface SaptarshAspect {
   time: string
+  et: string
   a: string
   angle: number
   b: string
@@ -274,6 +275,7 @@ export interface SaptarshDay {
   closed: string | null
   moon: {
     sign: string
+    sign_en: string
     nakshatra: string
     pada: number
     sign_change: { time: string; to: string } | null
@@ -281,11 +283,13 @@ export interface SaptarshDay {
   }
   panchang: {
     tithi: string
+    tithi_num: number
     tithi_ends: string | null
     nakshatra_ends: string | null
     yoga: string
     yoga_ends: string | null
     karanas: { name: string; ends: string | null }[]
+    vaar_tithi: { names: string[]; tone: SaptarshTone; source: 'classical' } | null
   }
   kaal: {
     sunrise: string
@@ -300,11 +304,30 @@ export interface SaptarshDay {
   flags: string[]
   calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>
   windows: { start: string; end: string; tone: SaptarshTone; driver: string }[]
+  metal_windows: {
+    start: string; end: string; start_et: string; end_et: string
+    tone: SaptarshTone; driver: string
+  }[]
+}
+
+export interface SaptarshRegime {
+  as_of: string
+  jupiter: { sign: string; sign_en: string; entry: string; exit: string; nakshatra: string }
+  sun_ketu_same_sign: boolean
+  conjunctions: {
+    sign: string; sign_en: string; planets: string[]; until: string
+    members: { planet: string; entry: string; exit: string }[]
+  }[]
+  notes: string[]
+  jupiter_cancer_history: {
+    entry: string; exit: string; days: number; gold_pct: number; silver_pct: number
+  }[]
 }
 
 export interface SaptarshWeekResult {
   start: string
   end: string
   days: SaptarshDay[]
+  regime: SaptarshRegime
   note: string
 }

@@ -113,3 +113,68 @@ def test_week_endpoint():
     assert set(body["days"][0]["calls"]) == {"nifty", "gold", "silver"}
     assert len(main.saptarsh_week(days=99)["days"]) == 14      # capped
     assert main.saptarsh_week(date="nope").status_code == 400
+
+
+# ---- second learning pass: the X account (@sonisunil59) ----
+
+def test_vaar_tithi_classical_tables():
+    assert saptarsh.vaar_tithi_yoga(4, 1)["names"] == ["Siddha"]      # Fri + Nanda
+    assert saptarsh.vaar_tithi_yoga(4, 1)["tone"] == "bull"
+    assert saptarsh.vaar_tithi_yoga(6, 4)["names"] == ["Visha"]       # Sun + 4
+    assert saptarsh.vaar_tithi_yoga(3, 6)["names"] == ["Dagdha"]      # Thu + 6
+    assert saptarsh.vaar_tithi_yoga(6, 16)["names"] == ["Mrityu"]     # Sun + Krishna 1
+    assert saptarsh.vaar_tithi_yoga(0, 3) is None                     # Mon + 3
+
+
+def test_metal_windows_cover_the_globex_day_with_et():
+    """The premium report's windows run 03:30 -> 27:30 IST with ET
+    alongside; Aug is US daylight time so ET = IST - 9.5 h."""
+    d = saptarsh.day(datetime.date(2026, 8, 28))
+    w = d["metal_windows"]
+    assert w[0]["start"] == "03:30" and w[-1]["end"] == "27:30"
+    assert w[0]["start_et"] == "18:00" and w[-1]["end_et"] == "18:00"
+    for a, b in zip(w, w[1:]):
+        assert a["end"] == b["start"]
+        assert a["tone"] != b["tone"]          # neighbours merged
+
+
+def test_et_conversion_handles_us_dst():
+    aug = saptarsh._jd_local(datetime.date(2026, 8, 27), 22 + 35 / 60)
+    assert saptarsh._et(aug) == "13:05"                    # EDT, -9.5 h
+    jan = saptarsh._jd_local(datetime.date(2026, 1, 15), 22 + 30 / 60)
+    assert saptarsh._et(jan) == "12:00"                    # EST, -10.5 h
+
+
+def test_regime_matches_the_posted_conjunction_calendar():
+    """X, 26 Aug: Leo holds Sun, Mercury, Ketu from 22-Aug to 07-Sep;
+    Jupiter sits in Cancer (their table: JUP CAN 106.29 on 17 Aug)."""
+    r = saptarsh.regime(datetime.date(2026, 8, 28))
+    assert r["jupiter"]["sign_en"] == "Cancer"
+    assert any("Cancer" in n for n in r["notes"])
+    leo = [c for c in r["conjunctions"] if c["sign_en"] == "Leo"]
+    assert leo and {"Sun", "Mercury", "Ketu"} <= set(leo[0]["planets"])
+    assert leo[0]["until"] in ("2026-09-06", "2026-09-07", "2026-09-08")
+    assert r["sun_ketu_same_sign"]
+    assert len(r["jupiter_cancer_history"]) == 5
+
+
+def test_amavasya_is_read_bullish_for_metals():
+    d = datetime.date(2026, 8, 28)
+    for _ in range(40):
+        x = saptarsh.day(d)
+        if 30 in x["panchang"]["tithis_in_session"]:
+            assert any("Amavasya" in w for w in x["calls"]["gold"]["why"])
+            assert x["calls"]["gold"]["tone"] in ("bull", "vol")
+            assert not any("Amavasya" in w for w in x["calls"]["nifty"]["why"])
+            return
+        d += datetime.timedelta(days=1)
+    raise AssertionError("no Amavasya in 40 days?")
+
+
+def test_metals_nakshatra_calls_from_the_x_reports():
+    assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
+    assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
+    # sign-level fallback only for metals, only where the report printed it
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "nifty")[1] == "extrapolated"

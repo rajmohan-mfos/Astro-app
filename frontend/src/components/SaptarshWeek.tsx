@@ -71,6 +71,18 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
           : 'No exact aspect inside the session'}
         {' · '}Rahu Kaal {d.kaal.rahu_kaal[0]}–{d.kaal.rahu_kaal[1]}
         {d.eclipse ? ` · ${d.eclipse}` : ''}
+        {d.panchang.vaar_tithi
+          ? ` · Vaar-Tithi ${d.panchang.vaar_tithi.names.join('/')} (${d.panchang.vaar_tithi.tone}, classical)` : ''}
+      </div>
+      {/* the X account's premium-report shape: metals trade through the
+          night on Globex, so the windows run 03:30 -> 27:30 IST with ET */}
+      <div className="sap-windows sap-metal">
+        <span className="sap-name">Metals windows IST (ET)</span>
+        {d.metal_windows.map((w, i) => (
+          <span key={i} className={`sap-win t-${w.tone}`} title={w.driver}>
+            {w.start}–{w.end} ({w.start_et}–{w.end_et} ET) {w.tone}
+          </span>
+        ))}
       </div>
       {open && (
         <div className="gann-expand">
@@ -133,6 +145,27 @@ export default function SaptarshWeek({ date }: { date?: string }) {
         <span className="src-badge src-extrapolated">extrapolated</span> =
         filled in by nakshatra-lord / aspect-family rule, never seen in
         their output.
+      </div>
+      <h3 className="gann-h3">Regime — the slow sky behind the week</h3>
+      <div className="sap-regime">
+        <p><span className="learn-key">Jupiter</span> in sidereal{' '}
+          {data.regime.jupiter.sign_en} ({data.regime.jupiter.sign}),{' '}
+          {data.regime.jupiter.nakshatra} nakshatra —{' '}
+          {data.regime.jupiter.entry} → {data.regime.jupiter.exit}</p>
+        {data.regime.notes.map((n, i) => <p key={i}>{n}</p>)}
+        {data.regime.conjunctions.length > 0 && (
+          <p><span className="learn-key">Conjunction calendar</span>{' '}
+            {data.regime.conjunctions.map((c) =>
+              `${c.sign_en}: ${c.planets.join(' + ')} (until ${c.until})`).join(' · ')}
+            {' '}— "major change is possible around these dates" is their
+            rule for the entry/exit days.</p>
+        )}
+        {data.regime.jupiter.sign_en === 'Cancer' && (
+          <p className="muted-note">Their Jupiter-in-Cancer table:{' '}
+            {data.regime.jupiter_cancer_history.map((h) =>
+              `${h.entry.slice(-4)}–${h.exit.slice(-4)} gold ${h.gold_pct > 0 ? '+' : ''}${h.gold_pct}% / silver ${h.silver_pct > 0 ? '+' : ''}${h.silver_pct}%`
+            ).join(' · ')} (their figures, unverified).</p>
+        )}
       </div>
       <h3 className="gann-h3">Upcoming — {data.start} to {data.end}</h3>
       <ul className="gann-list">
