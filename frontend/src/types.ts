@@ -307,6 +307,7 @@ export interface SaptarshDay {
     to: string; tone: SaptarshTone; source: SaptarshSource; note: string
   }[]
   active_planets: string[]
+  mercury_retro_midpoint?: boolean
   eclipse: string | null
   flags: string[]
   calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>

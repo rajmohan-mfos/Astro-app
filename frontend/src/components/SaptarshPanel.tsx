@@ -303,18 +303,21 @@ const EARLY_LOG: [string, string, string][] = [
 // ---- eighth learning pass: X posts of Jan - Mar 2025 (Jan 2025.mp4)
 
 const NIFTY_NAK: [string, string, string][] = [
+  ['Magha', '"unpredictable for stocks, but if we get uptrend, it will be quite strong" (Dow)', '20 Dec 2024'],
   ['Krittika', 'neutral to slightly positive', '10 Jan 2025'],
   ['Rohini', 'supportive for stocks (bearish for metals the same day)', '10 Jan, 7 Feb 2025'],
-  ['Chitra', 'favourable for stocks', '17 Feb 2025'],
+  ['Hasta', 'favourable / supportive for stocks', '23–24 Dec 2024'],
+  ['Chitra', 'supportive (24 Dec 2024, 17 Feb 2025); neutral once (27 Nov 2024)', '27 Nov 2024, 24 Dec 2024, 17 Feb 2025'],
   ['Swati', 'not much favourable for higher prices', '18 Feb 2025, 18 Aug 2026'],
   ['Vishakha', 'not supportive (20 Feb 2025) vs slightly positive (19 Aug 2026) — mixed', '20 Feb 2025, 19 Aug 2026'],
   ['Anuradha', 'not supportive (20 Feb 2025, 20 Aug 2026) vs supportive (21 Feb 2025, 21 Aug 2026) — 2–2', 'Feb 2025, Aug 2026'],
-  ['Mula', 'high volatility, "your stop could be triggered"', '9 Jul 2025'],
-  ['Purvashadha', 'bullish', '24 Aug 2026'],
+  ['Mula', '"bearish for stock markets" (5 Nov 2024), "not supportive" (30 Dec 2024), "high volatility" (9 Jul 2025)', '5 Nov 2024, 30 Dec 2024, 9 Jul 2025'],
+  ['Purvashadha', 'supportive for higher prices / bullish', '6 Nov 2024, 24 Aug 2026'],
   ['Uttarashadha', 'supportive for stocks', '1 Jan 2025'],
   ['Shravana', 'neutral', '26 Aug 2026'],
   ['Dhanishta', 'bullish', '27 Aug 2026'],
   ['Shatabhisha', 'bearish', '28 Aug 2026'],
+  ['Purvabhadra', '"later is bullish for stocks" (bearish for metals the same day)', '11 Nov 2024'],
   ['Revati', 'neutral for stocks', '3 Feb 2025'],
 ]
 
@@ -349,6 +352,42 @@ const JAN_LOG: [string, string, string][] = [
   ['13–14 Mar', 'Global', '"A very important prediction regarding global stock markets will be shared here soon"; event list (Mercury retro, Uranus→Taurus, Saturn→Pisces, eclipse): "These all have ability to turn the table."'],
 ]
 
+// ---- ninth learning pass: X posts of Nov - Dec 2024 (Nov 2024.mp4) — the launch
+
+const LAUNCH_CONCEPTS: [string, string, string][] = [
+  ['How it started', 'Nov 2024: "Join my Gold & Silver channel for premium insights, available as a free trial throughout November"; a second Telegram for Dow Jones / S&P; Nifty analysis "shared in telegram channel" from 4 Nov. From Jan 2025: "Monthly fees will be Rs 2000/-." Profile: "A Vedic astrological approach to decoding market movements. Tweets are for education. Trollers will be blocked." (32.5K followers by Aug 2026).', 'Nov 2024 – Jan 2025'],
+  ['The first Nifty reports', 'Same skeleton from day one: Moon sign + star read for stocks, then 3–4 session windows. "The Moon is in Scorpio, Jayestha nakshatra till 09:46 IST then enters in Sagittarius and Mool Nakshatra, this is bearish for stock markets … 09:15–09:35 Range bound to negative, 09:35–11:55 More bearishness, 13:00–15:30 If we drop, we may drop hard."', '5 Nov 2024'],
+  ['"No planetary support"', '"When there is no planetary support, Market fall like today" (28 Nov, Swati, strong bearish yog at opening). The absence of bullish yogs is itself the bearish call.', '28 Nov 2024'],
+  ['Mercury retrograde midpoint', '"Retrograde Mercury is at halfway mark of its entire journey. This is considered as a peak of its energy. Some changes are possible in all financial markets." Computed per day (stations 26 Nov and 16 Dec → midpoint 6 Dec, his date).', '6 Dec 2024'],
+  ['Uranus ingress timing', '"Friday move did not expected but this may be effect if Uranus entering in Aries in retro motion. Nifty made day\'s low at 10:45 IST while Uranus enters in Aries at 11:24 IST. We should believe that today\'s volatility was only due to the Uranus." Uranus sign changes are now listed as astro events.', '16 Dec 2024'],
+  ['Saturn direct', '"From today Saturn is turning to direct motion. Retrograde Saturn — this is one of many factors of bullish phase in all commodities market and stock markets. Watch for trend now. Stay cautious if you are too bullish." Saturn stations carry this note.', '15 Nov 2024'],
+  ['One-way-turn aspects', 'Week note: "Venus–Neptune and Sun–Neptune aspects are very important and can turn the market in one way direction. It seems that Wednesday will be deciding day for bulls or bears. Friday aspects are bearish" (Venus 120 Jupiter, Sun 144 Mars). All four are in the aspect table.', '16 Dec 2024'],
+  ['Medium-term yogs', '"Bullish yog is starting. Traders should avoid shorts. Please note — This is not intraday yog" (20 Nov, metals); "bearish yog is running in stock markets since 20th Oct … will neutralize the bullish yogs in coming days" (5 Nov). Two layers: the running medium-term yog and the intraday ones inside it.', 'Nov 2024'],
+  ['Moon in Rahu\'s star', 'Muhurat trading: "The Moon is in Rahu\'s nakshatra, this is little supportive with volatility. Rahu–Venus combination may not allow dip in index." The star\'s lord is read directly — the same rule the outlook uses for unobserved stars.', '1 Nov 2024'],
+  ['Natal warning', '"You may facing loss in speculation (Future/Options) if you have Sagittarius ascendant. Avoid it otherwise you will blow your account. (This is sidereal)." — Mars-related, per the hashtag.', '20 Nov 2024'],
+  ['"New technique" — Failed', '"Bank Nifty may shows good strength after 11:15 IST to 14:15. This is new technique. Pls watch price action only" → "BANKNIFTY recovered all loss after 11:15 but soon unable to maintain gains. Down 600+ at present. Failed 😅". The fourth acknowledged miss in the sample.', '12 Nov 2024'],
+  ['Mars–Venus for silver', '"Mars and Venus relation is occurring from 09:10 IST, this will impact Silver heavily. Must watch the price action before taking any position." No exact aspect at the eight standard angles that day — his "relation" here is looser than an exact aspect.', '4 Nov 2024'],
+]
+
+const LAUNCH_LOG: [string, string, string][] = [
+  ['1 Nov 2024', 'Both', 'Muhurat: "little supportive with volatility"; metals "in red after reaching daily high on Payroll data" — "Astrologically, I\'m bearish."'],
+  ['3–4 Nov', 'Metals', 'Week note: "bullish phase in gold and silver is ended … week from 4 Nov not supportive for bulls"; 4 Nov Jyeshtha bullish, yog till 14:33 then slide.'],
+  ['4–5 Nov', 'Nifty', 'Range-negative → negative → high volatility (4 Nov); "Jayestha→Mool bearish for stocks … if we drop, we may drop hard" (5 Nov).'],
+  ['5 Nov', 'Metals', 'Report: Jyeshtha→Mula supportive, Vaar-Tithi bullish, "the Sun is highly negative"; buy before 09:45, sell before 16:00.'],
+  ['6 Nov', 'Both', 'Metals: Mula→Purvashadha slightly bearish, Moon 0 Venus bearish → "Gold and Silver are down heavily as per my analysis. Made good profit"; Nifty: Purvashadha supportive, "AVOID SHORT TODAY".'],
+  ['11 Nov', 'Both', 'Nifty: Shatabhisha→Purvabhadra bullish for stocks, sharp fall 09:15–09:30 then recovery, weak after 12:30 → "Closed shorts. Small quantity long"; metals: Purvabhadra bearish, range-bound, spike then cool-down after 21:00.'],
+  ['12 Nov', 'BankNifty', '"Good strength 11:15–14:15, new technique" → "Down 600+. Failed."'],
+  ['13 Nov', 'Metals', 'Report: Revati not supportive, bullish till 11:00, bearish yog 11:00–22:00.'],
+  ['15–20 Nov', 'Both', 'Saturn direct "watch for trend"; 20 Nov metals "Bullish yog is starting (not intraday). Avoid shorts."'],
+  ['27–28 Nov', 'Nifty', '"Nifty may rise after 10:00. Avoid short" (Chitra neutral, bearish yog till 10:00) → hit; 28 Nov Swati "bearish for stocks", strong bearish at opening → "market fall like today".'],
+  ['3–6 Dec', 'Nifty', '"Mercury is retrograde and big move is expected"; "Bullish time after 12:00, avoid short" (4 Dec); "Fall expected after 12:00" (5 Dec); "Retrograde Mercury at halfway mark" (6 Dec).'],
+  ['11–13 Dec', 'Metals', 'Reports: Revati→Ashwini slightly bullish, Vaar-Tithi bearish, strong bearish 11:45–17:30 then bullish 17:30–23:00; Ashwini→Bharani bearish, Vaar-Nakshatra bearish, drift down till 15:30, strong bearish 15:30–20:45; Krittika bullish, Moon–Uranus volatility → "Again accurately predicted the trend."'],
+  ['13 Dec', 'Nifty', '"Do you believe Monday will be bullish day? … my astro analysis indicate bearish price action" → "Warned my subscribers not to follow bullish trend after 13th Dec. Strong price reversal."'],
+  ['16–20 Dec', 'Both', 'Week note: Uranus→Aries volatility; Wednesday Venus/Sun–Neptune "deciding day"; Friday aspects bearish; Dow 20 Dec Magha "unpredictable, avoid short sell".'],
+  ['23–24 Dec', 'Nifty', 'Hasta favourable, bearish yog from 12:45 → "able to predict today\'s upmove as well as down move"; Hasta→Chitra bullish till 13:45 then bearish → "NIFTY +100. Trollers hiding."'],
+  ['30 Dec', 'Nifty', 'Mula "not supportive for stocks", bearish yog from 09:30, strong bearish 13:15–15:30 → "again on spot today".'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -358,6 +397,7 @@ const SOURCES: [string, string][] = [
   ['August 2025.mp4 (recorded 2026-08-28)', 'X account, posts 16 Jul – 30 Oct 2025 — premium reports of 11 Aug, 9–11 Sep, 23 Sep, 30 Sep, 1 Oct, 20 Oct, 27–28 Oct; the 26 Oct grand-trine post; the 9 Aug Mercury-direct reversal call; the 15 Sep Sun–Mercury Virgo ingress; the 22 Sep T&C; ten Nifty timing posts incl. two "Failed".'],
   ['April 2025.mp4 (recorded 2026-08-28)', 'X account, posts 28 Mar – 25 Jul 2025 — the earliest reports (16, 19–23, 29 May; 7–8 Jul), the 20 Apr and 2 May and 16 May week notes with IMP-marked aspects, the Apr 2025 gold-crash call, the 19 May "Nifty 3–5%" call, the Kaal Sarp post, the Pluto admission, the Jagannatha Hora horary example, natal Mercury/Saturn rules.'],
   ['Jan 2025.mp4 (recorded 2026-08-28)', 'X account, posts 1 Jan – 14 Mar 2025 — daily NIFTY reports (1 Jan; 3, 7, 17–21 Feb), Dow Jones reports with ET windows, metals reports of 7–8, 10, 28 Jan and 27 Feb, the 14 Feb five-body Pisces "make or break" note, the 14 Mar event list, his 28 Jan trade summary, the 20 Feb troll dispute.'],
+  ['Nov 2024.mp4 (recorded 2026-08-28)', 'X account, posts 1 Nov – 30 Dec 2024 — the launch: free-trial Telegram channels, the first Nifty reports (4–6, 11, 27–28 Nov; 5, 23–24, 30 Dec), metals reports (4–7, 11, 13 Nov; 11–13 Dec), Dow 20 Dec, the 16 Dec week note, Mercury-retro-midpoint and Saturn-direct posts, the 12 Nov BankNifty miss, the Rs 2000/month notice.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -763,6 +803,34 @@ function SaptarshPanel({ date }: { date?: string }) {
           <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
           <tbody>
             {JAN_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">19 · Nov – Dec 2024 — the launch</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {LAUNCH_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Vaar-Tithi: three more dated calls (Tue + 4 bullish, Wed + 11 and
+          Fri + 13 bearish), all on days the classical tables are silent —
+          stored as overrides. Vaar-Nakshatra: his "bearish" on Thursday +
+          Ashwini/Bharani (12 Dec) contradicts the classical Sarvartha
+          Siddhi for Thu + Ashwini, so that pair is now an observed
+          override too.
+        </p>
+
+        <h3 className="gann-h3">Calls log, Nov – Dec 2024</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {LAUNCH_LOG.map(([d, m, c]) => (
               <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
             ))}
           </tbody>

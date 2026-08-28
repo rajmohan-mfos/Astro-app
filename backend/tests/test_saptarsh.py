@@ -181,7 +181,7 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
     assert saptarsh.nak_tone("Magha", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
-    assert saptarsh.nak_tone("Magha", "Kanya", "nifty")[1] == "extrapolated"
+    assert saptarsh.nak_tone("Ashlesha", "Kanya", "nifty")[1] == "extrapolated"   # no Nifty sign fallback
 
 
 # ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
@@ -463,7 +463,7 @@ def test_vaar_tithi_8_jul_2025_override_and_nakshatra_updates():
     assert d["panchang"]["vaar_tithi"] == {"names": ["Vaar-Tithi"], "tone": "bear",
                                            "source": "observed"}
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
-    assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("vol", "observed")
+    assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("bear", "observed")   # 2 of 3 since Nov 2024
     assert saptarsh.nak_tone("Mula", "Dhanu", "silver") == ("bull", "observed")
 
 
@@ -536,3 +536,62 @@ def test_vaar_tithi_jan_feb_2025_overrides():
     assert saptarsh.vaar_tithi_yoga(2, 22)["tone"] == "bear"
     d = saptarsh.day(datetime.date(2025, 1, 10))
     assert d["panchang"]["vaar_tithi"]["tone"] == "bear"
+
+
+# ---- ninth learning pass: X posts of Nov - Dec 2024 (Nov 2024.mp4) ----
+
+def test_mercury_retro_midpoint_6_dec_2024():
+    """6 Dec 2024: 'Retrograde Mercury is at halfway mark of its entire
+    journey' — stations 26 Nov 08:12 and 16 Dec 02:27, midpoint 6 Dec."""
+    assert saptarsh.mercury_retro_midpoint(datetime.date(2024, 12, 6))
+    assert not saptarsh.mercury_retro_midpoint(datetime.date(2024, 12, 5))
+    assert not saptarsh.mercury_retro_midpoint(datetime.date(2024, 12, 7))
+    assert not saptarsh.mercury_retro_midpoint(datetime.date(2026, 8, 28))
+    d = saptarsh.day(datetime.date(2024, 12, 6))
+    assert d["mercury_retro_midpoint"] and any("halfway" in f for f in d["flags"])
+
+
+def test_launch_period_nifty_reports():
+    """5 Nov 2024 Jyeshtha->Mula 09:46 'bearish for stock markets';
+    6 Nov Mula->Purvashadha 11:01 'supportive'; 11 Nov Shatabhisha->
+    Purvabhadra 09:41 'later is bullish for stocks'; 24 Dec Hasta->Chitra
+    12:17 'both supportive'."""
+    for ds, to, t in [("2024-11-05", "Mula", "09:46"), ("2024-11-06", "Purva Ashadha", "11:01"),
+                      ("2024-11-11", "Purva Bhadrapada", "09:41"), ("2024-12-24", "Chitra", "12:17")]:
+        d = saptarsh.day(datetime.date.fromisoformat(ds))
+        assert d["moon"]["nakshatra_change"]["to"] == to, ds
+        assert abs(_mins(d["moon"]["nakshatra_change"]["time"]) - _mins(t)) <= 2, ds
+    assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("bear", "observed")
+    assert saptarsh.nak_tone("Hasta", "Kanya", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Magha", "Simha", "nifty") == ("vol", "observed")
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
+
+
+def test_dec_2024_week_note_aspects_and_stations():
+    d = saptarsh.day(datetime.date(2024, 12, 18))
+    assert _aspect(d, "Venus", 45, "Neptune")["tone"] == "vol"
+    assert _aspect(d, "Sun", 90, "Neptune")["tone"] == "vol"
+    d = saptarsh.day(datetime.date(2024, 12, 20))
+    assert _aspect(d, "Venus", 120, "Jupiter")["tone"] == "bear"
+    assert _aspect(d, "Sun", 144, "Mars")["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2024, 12, 13))
+    got = _aspect(d, "Moon", 0, "Uranus")
+    assert got["tone"] == "vol" and abs(_mins(got["time"]) - _mins("13:20")) <= 3
+    st = [i for i in saptarsh.day(datetime.date(2024, 11, 15))["ingresses"] if i["kind"] == "station"]
+    assert st and st[0]["planet"] == "Saturn" and st[0]["to"] == "direct"
+    assert st[0]["source"] == "observed"
+    # Uranus's retrograde re-entry into Aries is now listed (mid-Dec 2024)
+    found = [saptarsh.day(datetime.date(2024, 12, dd)) for dd in range(10, 18)]
+    ur = [i for x in found for i in x["ingresses"] if i["planet"] == "Uranus" and i["to"] == "Mesha"]
+    assert ur and ur[0]["source"] == "observed"
+
+
+def test_vaar_nakshatra_and_tithi_overrides_from_the_launch():
+    assert saptarsh.vaar_nakshatra_yoga(3, "Bharani") == {"names": ["Vaar-Nakshatra"], "tone": "bear",
+                                                          "source": "observed"}
+    assert saptarsh.vaar_nakshatra_yoga(3, "Ashwini")["tone"] == "bear"   # his call beats classical
+    assert saptarsh.vaar_tithi_yoga(1, 4) == {"names": ["Vaar-Tithi"], "tone": "bull",
+                                              "source": "observed"}
+    d = saptarsh.day(datetime.date(2024, 12, 12))
+    assert d["panchang"]["vaar_nakshatra"]["source"] == "observed"

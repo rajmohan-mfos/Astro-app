@@ -50,7 +50,8 @@ ASPECT_NAMES = {0: "conjunction", 45: "semi-square", 60: "sextile",
                 180: "opposition"}
 INGRESS_BODIES = [("Sun", swe.SUN), ("Mercury", swe.MERCURY),
                   ("Venus", swe.VENUS), ("Mars", swe.MARS),
-                  ("Jupiter", swe.JUPITER), ("Saturn", swe.SATURN)]
+                  ("Jupiter", swe.JUPITER), ("Saturn", swe.SATURN),
+                  ("Uranus", swe.URANUS)]     # 16 Dec 2024: "Uranus enters Aries at 11:24"
 SIGN_EN = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra",
            "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
 
@@ -124,6 +125,12 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     # X Nifty / metals reports, Jan-Mar 2025
     ("Sun", "Rahu", 45): "bear",            # 3 Feb 2025 "negative and high volatility is expected"
     ("Sun", "Saturn", 0): "bear",           # 27 Feb 2025 "bearish for whole metal sector including copper"
+    # X posts, Nov-Dec 2024 (the launch)
+    ("Moon", "Uranus", 0): "vol",           # 13 Dec 2024 "Moon-Uranus conjunction will create volatility"
+    ("Venus", "Neptune", 45): "vol",        # 16 Dec 2024 week note "very important, can turn the market one way"
+    ("Sun", "Neptune", 90): "vol",          # same note
+    ("Venus", "Jupiter", 120): "bear",      # same note: "Friday aspects are bearish"
+    ("Sun", "Mars", 144): "bear",           # same note
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
@@ -150,6 +157,7 @@ INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
     ("Mercury", "sign", "Mithuna"): ("vol", "5 Jun 2025: \"Mercury enters in Gemini, its own sign … conjunct with Jupiter. In past it created high volatility. Max 8% up from low and down from high\""),
     ("Saturn", "sign", "Meena"): ("bear", "28 Mar 2025: \"Sun eclipse on 29 March and Saturn also change sign. This may be last phase of bullish trend\""),
     ("Venus", "sign", "Meena"): ("bear", "28 Jan 2025: \"Venus is enters in Pisces, this is slightly bearish\" (metals)"),
+    ("Uranus", "sign", "Mesha"): ("vol", "16 Dec 2024: \"Nifty made day's low at 10:45 IST while Uranus enters in Aries at 11:24 IST. We should believe that today's volatility was only due to the Uranus\""),
     ("Mercury", "sign", "Meena"): ("bear", "27 Feb 2025: \"Mercury enters in Pisces, this is not favorable\" (metals)"),
     ("Sun", "sign", "Vrishabha"): ("neutral", "16 May 2025: \"favourable for stock markets and slightly bearish for precious metals\"; 15 May 2026: \"trend changer but not for metals\""),
     ("Mercury", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
@@ -200,22 +208,23 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
     "Pushya": (None, "bull"),               # bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
     "Ashlesha": (None, "neutral"),          # 15 Jul
+    "Magha": ("vol", None),                 # Dow 20 Dec 2024 "unpredictable for stocks, but if uptrend, quite strong"
     "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
-    "Hasta": (None, "bear"),                # 26 May, 20 Jul
-    "Chitra": ("bull", "bull"),             # Nifty "favourable for stocks" 17 Feb 2025; metals 20 Jul
+    "Hasta": ("bull", "bear"),              # Nifty "favourable / supportive" 23-24 Dec 2024; metals 26 May, 20 Jul
+    "Chitra": ("bull", "bull"),             # Nifty supportive 24 Dec 2024, 17 Feb 2025; neutral 27 Nov 2024 (2 of 3); metals 20 Jul
     "Swati": ("bear", "bear"),              # Nifty 18 Feb 2025, 18 Aug; metals bearish 18-19 Nov 2025, both sides 18 Aug
     "Vishakha": ("vol", "vol"),             # Nifty "not supportive" 20 Feb 2025 vs "slightly positive" 19 Aug; metals mixed
     "Anuradha": ("neutral", "bull"),        # Nifty: not supportive 20 Feb 2025 & 20 Aug, supportive 21 Feb 2025 & 21 Aug (2-2);
                                             # metals bullish 6 Apr, 4 May; both sides 21 Aug
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
-    "Mula": ("vol", "bull"),                # Nifty: 9 Jul 2025 "Mool Nakshatra give high volatility";
-                                            # metals bullish 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (3 of 4)
-    "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
+    "Mula": ("bear", "bull"),               # Nifty: "bearish" 5 Nov 2024, "not supportive" 30 Dec 2024, "high volatility" 9 Jul 2025;
+                                            # metals bullish 5 Nov 2024, 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (4 of 5)
+    "Purva Ashadha": ("bull", "bear"),      # Nifty supportive 6 Nov 2024, 24 Aug 2026; metals 6 Nov 2024, 2-3 Jun, 28 Jul
     "Uttara Ashadha": ("bull", "bull"),     # Nifty "supportive for stocks" 1 Jan 2025; metals 9 Jun, 2 Jul, 28-29 Jul, 25 Aug (once "not much supportive", 28 Jan 2025)
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
-    "Purva Bhadrapada": (None, "bear"),     # "not supportive" 21 May 2025, bearish 11 Aug 2025; bullish 8 Jun 2026 (2 of 3)
+    "Purva Bhadrapada": ("bull", "bear"),   # Nifty "bullish for stocks" 11 Nov 2024; metals bearish 11 Nov 2024, 21 May 2025, 11 Aug 2025; bullish 8 Jun 2026 (3 of 4)
     "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
     "Revati": ("neutral", "bear"),          # Nifty "neutral for stocks" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
@@ -246,7 +255,16 @@ MRITYU_NAK = {6: "Anuradha", 0: "Uttara Ashadha", 1: "Shatabhisha",
               2: "Ashwini", 3: "Mrigashira", 4: "Ashlesha", 5: "Hasta"}
 
 
+# (weekday, nakshatra) he called explicitly where the classical tables
+# are silent or disagree: 12 Dec 2024 (Thu, Ashwini->Bharani at 09:53)
+# "Vaar-Nakshatra yog is bearish" — classical has Thu+Ashwini auspicious.
+OBSERVED_VAAR_NAK = {(3, "Bharani"): "bear", (3, "Ashwini"): "bear"}
+
+
 def vaar_nakshatra_yoga(weekday: int, nak: str) -> dict | None:
+    if (weekday, nak) in OBSERVED_VAAR_NAK:
+        return {"names": ["Vaar-Nakshatra"], "tone": OBSERVED_VAAR_NAK[(weekday, nak)],
+                "source": "observed"}
     hits = []
     if nak in SARVARTHA.get(weekday, ()):
         hits.append(("Sarvartha Siddhi", "bull"))
@@ -305,7 +323,10 @@ OBSERVED_VAAR_TITHI = {(4, 29): "bear",     # Fri 15 May "Vaar-Tithi yog is bear
                        (1, 13): "bear",     # Tue 8 Jul 2025 (classical says Siddha)
                        (2, 9): "bear",      # Wed 8 Jan 2025
                        (4, 11): "bear",     # Fri 10 Jan 2025 (classical says Siddha)
-                       (2, 22): "bear"}     # Wed 19 Feb 2025 (classical says Siddha)
+                       (2, 22): "bear",     # Wed 19 Feb 2025 (classical says Siddha)
+                       (1, 4): "bull",      # Tue 5 Nov 2024 "Tithi and Vaar combination is bullish"
+                       (2, 11): "bear",     # Wed 11 Dec 2024
+                       (4, 13): "bear"}     # Fri 13 Dec 2024
 # Scorecard of the classical tables against his dated calls: 19 May, 3
 # Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025, 8 Jul
 # 2025, 10 Jan 2025 and 19 Feb 2025 do not (6 of 10). His table is his
@@ -537,7 +558,7 @@ def day_ingresses(d: datetime.date) -> list[dict]:
             out.append({"_jd": c, "time": _hhmm(c, jd0), "et": _et(c),
                         "planet": name, "kind": "station", "to": label,
                         "tone": "vol",
-                        "source": "observed" if name in ("Mercury", "Mars") else "extrapolated",
+                        "source": "observed" if name in ("Mercury", "Mars", "Saturn") else "extrapolated",
                         "note": (("6 Nov 2025: \"Mercury … going to retrograde … "
                                   "sudden drop is possible. BankNifty may get "
                                   "affected more\"" if label == "retrograde" else
@@ -550,9 +571,49 @@ def day_ingresses(d: datetime.date) -> list[dict]:
                                        "impact the current trend in metal sector. Gold, "
                                        "Silver and copper may affected. Chemical sector "
                                        "will also affected\"" if name == "Mars"
-                                       else "a station — treated like Mercury's, unseen"))})
+                                       else ("15 Nov 2024: \"Saturn is turning to direct "
+                                             "motion. Retrograde Saturn was one of many "
+                                             "factors of bullish phase in all commodities "
+                                             "and stock markets. Watch for trend now\""
+                                             if name == "Saturn"
+                                             else "a station — treated like Mercury's, unseen")))})
     out.sort(key=lambda x: x["_jd"])
     return out
+
+
+def mercury_retro_midpoint(d: datetime.date) -> bool:
+    """6 Dec 2024: 'Retrograde Mercury is at halfway mark of its entire
+    journey. This is considered as a peak of its energy. Some changes are
+    possible in all financial markets.' True on the day nearest the
+    midpoint of the current retrograde span."""
+    jd = _jd_local(d, OPEN_H)
+
+    def speed(j):
+        return swe.calc_ut(j, swe.MERCURY, FLAGS)[0][3]
+
+    if speed(jd) >= 0:
+        return False
+
+    def station(step):
+        """Exact instant the speed crosses zero, scanning day by day
+        in `step` direction from jd, then bisecting that day."""
+        a = jd
+        for _ in range(40):
+            if speed(a + step) >= 0:
+                break
+            a += step
+        lo, hi = (a, a + step) if step > 0 else (a + step, a)
+        for _ in range(30):
+            mid = (lo + hi) / 2
+            if (speed(mid) < 0) == (step > 0):
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+
+    mid = (station(-1) + station(+1)) / 2
+    y, m, dd, _ = swe.revjul(mid + TZ / 24)
+    return datetime.date(y, m, dd) == d
 
 
 def eclipse_on(d: datetime.date) -> str | None:
@@ -928,6 +989,11 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
     kshaya = THITHIS[(t0 + 1) % 15] if (t1 - t0) % 30 >= 2 else None
 
     flags: list[str] = []
+    retro_mid = mercury_retro_midpoint(d)
+    if retro_mid:
+        flags.append("Retrograde Mercury at the halfway mark of its journey — "
+                     "\"considered as a peak of its energy. Some changes are "
+                     "possible in all financial markets\" (6 Dec 2024).")
     if kshaya:
         flags.append(f"Kshaya tithi ({kshaya} is skipped between today's and "
                      "tomorrow's sunrise) — \"considered as bearish for "
@@ -1032,6 +1098,7 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
         "aspects": all_aspects,
         "ingresses": ingresses,
         "active_planets": active,
+        "mercury_retro_midpoint": retro_mid,
         "eclipse": ecl,
         "flags": flags,
         "calls": calls,
