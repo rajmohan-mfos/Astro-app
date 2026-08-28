@@ -172,7 +172,7 @@ def test_amavasya_is_read_bullish_for_metals():
 
 
 def test_metals_nakshatra_calls_from_the_x_reports():
-    assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("vol", "observed")   # both ways
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
