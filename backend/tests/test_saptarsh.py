@@ -172,7 +172,7 @@ def test_amavasya_is_read_bullish_for_metals():
 
 
 def test_metals_nakshatra_calls_from_the_x_reports():
-    assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("vol", "observed")   # both ways
+    assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("bull", "observed")  # 2 of 3 reports
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
@@ -240,3 +240,46 @@ def test_vyatipata_is_bullish_for_metals_but_not_nifty():
     nifty = saptarsh._call("nifty", moon, [], [], "Vyatipata", None, 6)
     assert gold["tone"] == "bull" and any("Mahapat" in w for w in gold["why"])
     assert nifty["tone"] == "vol"
+
+
+# ---- fourth learning pass: X posts of Apr 2026 (April.mp4) ----
+
+def test_6_apr_report_ingresses_and_anuradha():
+    """6 Apr: 'Venus enters in Bharani nakshatra from 01:00 IST, this is
+    bearish and Mars enters in Uttarbhadra, this is bullish'; Moon in
+    Anuradha 'considered bullish for precious metals'."""
+    d = saptarsh.day(datetime.date(2026, 4, 6))
+    assert d["moon"]["nakshatra"] == "Anuradha"
+    assert d["calls"]["gold"]["tone"] in ("bull", "vol")
+    assert d["calls"]["gold"]["source"] == "observed"
+    ven = [i for i in d["ingresses"] if i["planet"] == "Venus" and i["to"] == "Bharani"]
+    assert ven and abs(_mins(ven[0]["time"]) - _mins("01:00")) <= 10
+    assert ven[0]["tone"] == "bear" and ven[0]["source"] == "observed"
+    mars = [i for i in d["ingresses"] if i["planet"] == "Mars" and i["to"] == "Uttara Bhadrapada"]
+    assert mars and mars[0]["tone"] == "bull"
+
+
+def test_16_apr_moon_mars_and_moon_saturn_conjunctions():
+    """16 Apr: 'Moon-Mars at 0° at 03:40 IST and Moon-Saturn at 08:09 IST
+    are strong bullish'."""
+    d = saptarsh.day(datetime.date(2026, 4, 16))
+    for b, t in (("Mars", "03:40"), ("Saturn", "08:09")):
+        got = _aspect(d, "Moon", 0, b)
+        assert abs(_mins(got["time"]) - _mins(t)) <= 5, (b, got["time"])
+        assert got["tone"] == "bull"
+
+
+def test_17_apr_amavasya_new_moon_time():
+    """17 Apr: 'TODAY IS AMAVSHYA … MOON-SUN AT 0° AT 17:32 IST' and Moon
+    Pisces/Revati till 12:30 then Aries/Ashwini."""
+    d = saptarsh.day(datetime.date(2026, 4, 17))
+    assert 30 in d["panchang"]["tithis_in_session"]
+    got = _aspect(d, "Sun", 0, "Moon")
+    # the astronomical new moon is 11:52 UTC = 17:22 IST; their 17:32 is
+    # the one published time in these reports that is 10 min off
+    assert abs(_mins(got["time"]) - _mins("17:32")) <= 12
+    assert d["moon"]["sign_change"]["to"] == "Mesha"
+    # April reports were cast with a coarser ephemeris than the August
+    # ones (which match to 1-2 min): Moon->Aries 12:02 vs their 12:30
+    assert abs(_mins(d["moon"]["sign_change"]["time"]) - _mins("12:30")) <= 30
+    assert any("Amavasya" in w for w in d["calls"]["silver"]["why"])

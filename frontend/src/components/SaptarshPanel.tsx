@@ -145,16 +145,16 @@ const METAL_NAK: [string, string, string][] = [
   ['Ashwini', 'slightly bullish', '15 May, 8–9 Jul'], ['Bharani', 'bearish', '15 May, 9 Jul'],
   ['Mrigashira', 'bullish', '19 May'],
   ['Rohini / Ardra', 'not favourable for higher prices', '19–20 May, 10 Aug'],
-  ['Punarvasu', 'bearish', '20 May, 14 Jul'], ['Pushya', 'bullish 21 May, bearish 15 Jul — both ways', '21 May, 15 Jul'],
+  ['Punarvasu', 'bearish', '23 Apr, 20 May, 14 Jul'], ['Pushya', 'bullish (23 Apr, 21 May); bearish once (15 Jul) — majority bullish', '23 Apr, 21 May, 15 Jul'],
   ['Ashlesha', 'neutral', '15 Jul'], ['Hasta', 'bearish', '20 Jul'],
   ['Chitra', 'bullish', '20 Jul'], ['Swati / Vishakha', 'both sides — "sharp moves both sides"', '18–19 Aug'],
-  ['Anuradha → Jyeshtha', 'former bullish, latter bearish (4 May); both sides (21 Aug)', '4 May, 21 Aug'],
-  ['Mula', 'bullish 2 Jun, bearish 27 Jul — both ways', '2 Jun, 27 Jul'], ['Purvashadha', 'bearish / slightly negative', '2–3 Jun, 28 Jul'],
+  ['Anuradha → Jyeshtha', 'Anuradha bullish (6 Apr, 4 May), Jyeshtha bearish (4 May); both sides 21 Aug — majority: Anuradha bullish', '6 Apr, 4 May, 21 Aug'],
+  ['Mula', 'bullish (8 Apr, 2 Jun); bearish once (27 Jul) — majority bullish', '8 Apr, 2 Jun, 27 Jul'], ['Purvashadha', 'bearish / slightly negative', '2–3 Jun, 28 Jul'],
   ['Uttarashadha', 'bullish', '2 Jul, 28–29 Jul, 25 Aug'],
   ['Shravana', 'bearish', '2 Jul, 29 Jul'], ['Dhanishta', 'bullish', '27 Aug'],
   ['Shatabhisha', 'bearish', '8 Jun, 28 Aug'], ['Purvabhadra', 'bullish', '8 Jun'],
-  ['Uttarabhadra', 'slightly bullish', '10 Jun, 7 Jul'],
-  ['Revati', 'bearish', '10 Jun, 7–8 Jul'],
+  ['Uttarabhadra', 'bullish / slightly bullish', '16 Apr, 10 Jun, 7 Jul'],
+  ['Revati', 'bearish (10 Jun, 7–8 Jul); "neutral" once (16 Apr)', '16 Apr, 10 Jun, 7–8 Jul'],
 ]
 
 const POSITION_RULES: string[] = [
@@ -178,6 +178,9 @@ const MAY_CONCEPTS: [string, string, string][] = [
   ['Conditional yog', '"Bias — IF bearish it may continue / bullish it may continue. If prices go any direction and hold for 15–20 min, it may continue till the window ends"; "If prices continue to drop after 09:30 IST, it may continue for a day."', '10 Jun'],
   ['No-yog windows', '"No bullish or bearish yog present … better to use technical levels"; "Much depends on medium-term yogas and Nakshatra\'s strength" — the nakshatra is the fallback when nothing else is exact.', '3 Jun, 10 Jun'],
   ['Weekly / medium-term yogs', 'Dated multi-day calls: "Note the date 07 May 2026 — strong bearish yog for stock markets worldwide, sharp correction" (ended Sun 10 May, "Monday afternoon its all effect will end"); "A significant planetary shift starts today (1 May) — one-way move, trade with the trend"; "Mars, Mercury and Saturn will not allow markets to rise" (23 Apr).', 'Apr–May'],
+  ['Pivotal time (Nifty)', '"12:00 IST — Important pivotal time. Watch for + or − 10 min. Bias is positive." An exact aspect time is quoted as a ±10-minute pivot for Nifty — the same idea as the session timers in the outlook.', '1 Apr'],
+  ['Majority reading', 'The same nakshatra gets different calls on different days (Pushya bullish 23 Apr and 21 May, bearish 15 Jul). The outlook uses the majority call and shows the dates; the day\'s aspects and "yogs" clearly outrank the star in his verdicts.', 'Apr–Jul'],
+  ['Ingress readings (April)', 'Venus → Bharani "bearish"; Mars → Uttarabhadra "bullish for gold and silver"; "many important changes in planetary placement today may bring volatility" (17 Apr, Sun and Mercury moving).', '6 Apr, 17 Apr'],
   ['Timing convention (origin)', '25 May notice: "we will continue to count beyond 24:00 till the Sun rise time … 25:00 IST (24:00+01:00). Eastern Time will be written as it is." CME Globex hours quoted: Sunday 04:30 IST → Saturday 03:30 IST.', '25 May'],
 ]
 
@@ -196,6 +199,7 @@ const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
   ['may.mp4 (recorded 2026-08-28)', 'X account, posts 23 Apr–18 Jun 2026 — the earlier prose-format premium reports (4, 15, 19–21, 26 May; 2–3, 8–10 Jun), the 25 May timing notice, the 7 May bearish-yog alert and its follow-ups, medium-term calls.'],
+  ['April.mp4 (recorded 2026-08-28)', 'X account, posts 1–23 Apr 2026 — premium reports of 6, 8, 16, 17, 23 Apr (second confirmations of Amavasya-bullish and Vyatipata-positive; Anuradha / Mula / Pushya bullish; Venus→Bharani, Mars→Uttarabhadra), the 1 Apr Nifty "pivotal time" post.'],
 ]
 
 const CHECKLIST: string[] = [

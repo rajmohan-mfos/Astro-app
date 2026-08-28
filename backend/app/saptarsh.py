@@ -115,6 +115,8 @@ INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
     ("Jupiter", "sign", "Kataka"): ("bear", "2 Jun: \"very important event, can affect the market heavily for long term … bearish last Oct, careful for few days\""),
     ("Jupiter", "nakshatra", "Ashlesha"): ("bull", "19 Aug: \"considered bullish for stock markets\""),
     ("Venus", "nakshatra", "Ardra"): ("bear", "20 May: \"bearish for Silver\""),
+    ("Venus", "nakshatra", "Bharani"): ("bear", "6 Apr: \"this is bearish\""),
+    ("Mars", "nakshatra", "Uttara Bhadrapada"): ("bull", "6 Apr: \"bullish for gold and silver\""),
     ("Venus", "sign", "Kataka"): ("bull", "8 Jun: \"bullish for Silver but not immediately\""),
     ("Mercury", "nakshatra", "Ardra"): ("bear", "2 Jun: \"slightly bearish\""),
     ("Mercury", "nakshatra", "Rohini"): ("neutral", "19 May: \"not much significant for precious metal market\""),
@@ -165,15 +167,15 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Mrigashira": (None, "bull"),           # 19 May
     "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
     "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
-    "Pushya": (None, "vol"),                # bullish 21 May, bearish 15 Jul
+    "Pushya": (None, "bull"),               # bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
     "Ashlesha": (None, "neutral"),          # 15 Jul
     "Hasta": (None, "bear"),                # 26 May, 20 Jul
     "Chitra": (None, "bull"),               # 20 Jul
     "Swati": ("bear", "vol"),               # 18 Aug
     "Vishakha": ("bull", "vol"),            # 19 Aug
-    "Anuradha": ("neutral", "vol"),         # bullish 4 May; both sides 21 Aug
+    "Anuradha": ("neutral", "bull"),        # bullish 6 Apr, 4 May; both sides 21 Aug (2 of 3)
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
-    "Mula": (None, "vol"),                  # bullish 2 Jun, bearish 27 Jul
+    "Mula": (None, "bull"),                 # bullish 8 Apr, 2 Jun; bearish 27 Jul (2 of 3)
     "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
     "Uttara Ashadha": (None, "bull"),       # 9 Jun, 2 Jul, 28-29 Jul, 25 Aug
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
@@ -181,7 +183,7 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
     "Purva Bhadrapada": (None, "bull"),     # 8 Jun
     "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
-    "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul
+    "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
 # the sign itself (used when the nakshatra is unobserved). Kumbha was
@@ -610,7 +612,10 @@ def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
     nak = moon["nakshatra"]
     tone, src = nak_tone(nak, moon["sign"], instrument)
     why = [f"Moon in {moon['sign']} / {nak} — {TONE_WORD[tone]} ({src})"]
-    if moon["sign"] == "Vrischika":
+    if moon["sign"] == "Vrischika" and instrument == "nifty":
+        # Nifty only: the 20 Aug Telegram post read the debilitated Moon
+        # as bearish for Nifty, but the metals reports of 6 Apr and 4 May
+        # call Anuradha (entirely inside Scorpio) bullish for gold/silver.
         tone = "bear"
         why.append("Moon debilitated in Scorpio — bearish (their 20 Aug reading)")
     elif moon["sign"] == "Vrishabha" and tone != "bear":
