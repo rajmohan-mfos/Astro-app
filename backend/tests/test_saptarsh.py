@@ -177,8 +177,11 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bull", "observed")   # 8 Jun
-    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
-    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "nifty")[1] == "extrapolated"
+    # every Virgo star is observed by now, so exercise the sign fallback
+    # with a star the metals table has never seen (nak_tone does not
+    # check that the star lies in the sign)
+    assert saptarsh.nak_tone("Magha", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
+    assert saptarsh.nak_tone("Magha", "Kanya", "nifty")[1] == "extrapolated"
 
 
 # ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
@@ -283,3 +286,64 @@ def test_17_apr_amavasya_new_moon_time():
     # ones (which match to 1-2 min): Moon->Aries 12:02 vs their 12:30
     assert abs(_mins(d["moon"]["sign_change"]["time"]) - _mins("12:30")) <= 30
     assert any("Amavasya" in w for w in d["calls"]["silver"]["why"])
+
+
+# ---- fifth learning pass: X posts of Nov 2025 - Jan 2026 (Nov 2025.mp4) ----
+
+def test_vaar_tithi_distinguishes_paksha():
+    """Tue + Shukla 14 'bullish' (28 Jul); Tue + Krishna 14 'bearish'
+    (18 Nov 2025). Thu + 15 and Fri + Krishna 12 fall to the classical
+    table, which agrees with his calls of 4 Dec and 30 Jan."""
+    assert saptarsh.vaar_tithi_yoga(1, 14)["tone"] == "bull"
+    assert saptarsh.vaar_tithi_yoga(1, 29)["tone"] == "bear"
+    assert saptarsh.vaar_tithi_yoga(3, 15) == {"names": ["Siddha"], "tone": "bull",
+                                               "source": "classical"}
+    assert saptarsh.vaar_tithi_yoga(4, 12)["names"] == ["Mrityu"]
+    d = saptarsh.day(datetime.date(2025, 11, 18))
+    assert d["panchang"]["vaar_tithi"] == {"names": ["Vaar-Tithi"], "tone": "bear",
+                                           "source": "observed"}
+
+
+def test_regime_stellium_cluster_and_nodal_axis():
+    """26 Jan 2026 note: four planets in Shravana from 29 Jan. 21 Jan:
+    'many planets today are below 10 degrees'. 6 Jan: Rahu in Aquarius,
+    Ketu in Leo."""
+    r = saptarsh.regime(datetime.date(2026, 1, 29))
+    st = [s for s in r["nakshatra_stellia"] if s["nakshatra"] == "Shravana"]
+    assert st and {"Sun", "Mercury", "Venus", "Mars"} <= set(st[0]["planets"])
+    assert any("stellium" in n for n in r["notes"])
+    r21 = saptarsh.regime(datetime.date(2026, 1, 21))
+    assert len(r21["early_degree_bodies"]) >= 7
+    assert any("first 10°" in n for n in r21["notes"])
+    assert any("Rahu in Aquarius / Ketu in Leo" in n for n in r21["notes"])
+    # and none of those fire on an ordinary day
+    r_aug = saptarsh.regime(datetime.date(2026, 8, 28))
+    assert not any("stellium" in n or "first 10°" in n for n in r_aug["notes"])
+
+
+def test_14_nov_moon_ketu_and_mercury_station():
+    """14 Nov 2025: 'Moon-Ketu at 0° at 09:22 IST is bullish' — Ketu is
+    Rahu + 180, so this is Moon 180 Rahu. 6 Nov: Mercury 'going to
+    retrograde on Sunday night' — the station is early on Mon 10 Nov."""
+    d = saptarsh.day(datetime.date(2025, 11, 14))
+    got = _aspect(d, "Moon", 180, "Rahu")
+    assert abs(_mins(got["time"]) - _mins("09:22")) <= 4
+    assert got["tone"] == "bull" and got["source"] == "observed"
+    st = [i for i in saptarsh.day(datetime.date(2025, 11, 10))["ingresses"]
+          if i["kind"] == "station"]
+    assert st and st[0]["planet"] == "Mercury" and st[0]["to"] == "retrograde"
+    assert st[0]["source"] == "observed"
+
+
+def test_nov_ingress_readings_and_amavasya():
+    d = saptarsh.day(datetime.date(2025, 11, 18))
+    ven = [i for i in d["ingresses"] if i["planet"] == "Venus" and i["to"] == "Vishakha"]
+    assert ven and abs(_mins(ven[0]["time"]) - _mins("12:20")) <= 4
+    assert ven[0]["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 11, 19))
+    assert 30 in d["panchang"]["tithis_in_session"]
+    sun = [i for i in d["ingresses"] if i["planet"] == "Sun" and i["to"] == "Anuradha"]
+    assert sun and sun[0]["tone"] == "bull"
+    assert saptarsh.nak_tone("Swati", "Tula", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Krittika", "Vrishabha", "gold") == ("bull", "observed")
+    assert saptarsh.aspect_tone("Sun", "Pluto", 0) == ("bear", "observed")

@@ -144,10 +144,13 @@ const X_RULES: [string, string, string][] = [
 const METAL_NAK: [string, string, string][] = [
   ['Ashwini', 'slightly bullish', '15 May, 8–9 Jul'], ['Bharani', 'bearish', '15 May, 9 Jul'],
   ['Mrigashira', 'bullish', '19 May'],
-  ['Rohini / Ardra', 'not favourable for higher prices', '19–20 May, 10 Aug'],
+  ['Krittika', 'bullish', '4 Dec 2025'],
+  ['Rohini / Ardra', 'not favourable for higher prices; Rohini bearish, Ardra bearish', '4 Dec 2025, 30 Jan, 19–20 May, 10 Aug'],
   ['Punarvasu', 'bearish', '23 Apr, 20 May, 14 Jul'], ['Pushya', 'bullish (23 Apr, 21 May); bearish once (15 Jul) — majority bullish', '23 Apr, 21 May, 15 Jul'],
   ['Ashlesha', 'neutral', '15 Jul'], ['Hasta', 'bearish', '20 Jul'],
-  ['Chitra', 'bullish', '20 Jul'], ['Swati / Vishakha', 'both sides — "sharp moves both sides"', '18–19 Aug'],
+  ['Uttara Phalguni', 'bullish', '14 Nov 2025'],
+  ['Chitra', 'bullish', '20 Jul'], ['Swati', 'bearish (18–19 Nov 2025); both sides (18 Aug) — majority bearish', '18–19 Nov, 18 Aug'],
+  ['Vishakha', '"not much supportive" (19 Nov 2025); both sides (19 Aug)', '19 Nov, 19 Aug'],
   ['Anuradha → Jyeshtha', 'Anuradha bullish (6 Apr, 4 May), Jyeshtha bearish (4 May); both sides 21 Aug — majority: Anuradha bullish', '6 Apr, 4 May, 21 Aug'],
   ['Mula', 'bullish (8 Apr, 2 Jun); bearish once (27 Jul) — majority bullish', '8 Apr, 2 Jun, 27 Jul'], ['Purvashadha', 'bearish / slightly negative', '2–3 Jun, 28 Jul'],
   ['Uttarashadha', 'bullish', '2 Jul, 28–29 Jul, 25 Aug'],
@@ -195,11 +198,45 @@ const MEDIUM_TERM_LOG: [string, string, string][] = [
   ['17 Jun', 'Metals', '"Gold and Silver dropped hard after FED interest rate decision to unchanged."'],
 ]
 
+// ---- fifth learning pass: X posts of Nov 2025 - Jan 2026 (Nov 2025.mp4)
+
+const NOV_CONCEPTS: [string, string, string][] = [
+  ['Planet "states"', 'Each report names which planets are bullish or bearish that day: "Jupiter and Mars are bullish while Moon and Rahu are bearish" (30 Jan); "Sun, Saturn and Jupiter is bullish" (18 Nov); "Jupiter–Saturn is neutral" (19 Nov); "after 12:30 IST the Sun become bullish" (8 Apr). The rule behind a planet\'s state is not stated — it reads like the planet\'s current aspects and nakshatra.', 'Nov–Jan'],
+  ['Nakshatra stellium', '"Sun+Mercury+Venus are in Shravan nakshatra from 26-1-26 to 28-1-26. From 29 Jan there are four planets in Shravan … bullish with high volatility. Very large gap up or gap down is possible." Computed in the Regime block (≥3 planets in one star).', '26 Jan'],
+  ['Same-stellium analog', 'Sun+Mars+Venus(+Mercury) in Sagittarius, Dec 2025 = Dec 1993 (the only such event since 1970). Gold topped 5 Jan 1994, five days before Mercury separated; "Venus will leave the stellium on 13 Jan 2026 — will the bullish trend continue till 13 Jan?" The method: find the last identical stellium and read what prices did as it broke up.', '~5 Jan'],
+  ['Early-degree cluster', '"Many planets today are below 10 degrees. This is unusual" (8 of 12 on 21 Jan) — "all financial markets are showing extreme, may be this is the reason". Computed in the Regime block (≥6 bodies under 10°).', '21 Jan'],
+  ['Rahu–Ketu axis history', 'Rahu in Leo / Ketu in Aquarius (1979–80, 2016–17): explosive top then heavy correction. Ketu in Leo / Rahu in Aquarius (1997–99, 2006–08): sharp sell-off / weakness then breakout. Now Rahu Aquarius / Ketu Leo: "vulnerable to sharp corrections after reaching key resistance zones." Regime block flags the axis.', '6 Jan'],
+  ['Sun–Pluto conjunction', '"Sun and Pluto at 0° this week. Stay cautious. Many times tops and …" — read as a top-risk signal for metals (20 Jan). In the outlook as an observed bearish aspect.', '20 Jan'],
+  ['Jupiter transit by pada', 'A table of Jupiter\'s move through Aries by nakshatra and pada with the % gold/silver change in each cell, retrograde stretches highlighted — the pada-level version of the Jupiter-in-Cancer table.', '6 Jan'],
+  ['Mercury station → banking', '"Mercury is reducing its speed and going to retrograde on Sunday night. BankNifty may get affected more." Stations of Mercury..Saturn are now listed as astro events.', '6 Nov'],
+  ['Jupiter sign change → banking', '"Jupiter changing sign today, enters in Mercury\'s sign, difficult to predict. Something big in Banking sector."', '5 Dec'],
+  ['Make-or-break time (Nifty)', '"Important time for Nifty – 11:30 IST. Make or break time. Any direction after this time may last till closing" (19 Nov); "12:30 IST, very important time. Weakness is possible after" (12 Dec); "sell off after 10:45" ; "weakness after 13:30 … sudden drop" (6 Nov); "stay cautious after 11:00" (22 Jan).', 'Nov–Jan'],
+  ['Moon–Ketu = Moon 180 Rahu', '"Moon-Ketu at 0° at 09:22 IST is bullish. Do not short till this time" (14 Nov) — while Moon 0 Rahu is bearish (27 Aug). The nodal axis flips the reading.', '14 Nov'],
+  ['Sun–Moon window, again', '"Moon-Sun aspect is strong from 12:10 IST till closing. This can create strong move any side, but we are biased to lower side" (14 Nov); "Sun-Moon aspect can create one side move today. In past this aspect created sudden fall" (4 Dec).', 'Nov–Dec'],
+  ['He trades it', 'Option fills posted 4 Dec: NIFTY 26000 CE bought 09:25 @211.50, sold 10:42 @281.15; 26000 PE sold 13:53 — "I also trade as per my astrological analysis."', '4 Dec'],
+]
+
+const NOV_LOG: [string, string, string][] = [
+  ['4 Nov 2025', 'Metals', '"Bullish time is starting now. Be careful in short."'],
+  ['14 Nov', 'Metals', 'Report: Moon–Sun strong from 12:10, "biased to lower side" → seller circuit in gold & silver that day (hit, reposted).'],
+  ['17 Nov', 'Metals', '"Stay cautious in short now. This is for intraday."'],
+  ['19 Nov', 'Nifty', '"11:30 IST make or break; any direction after may last till closing."'],
+  ['26 Nov', 'Nifty / Gold', '"Be careful in following bullish trend … spikes 10:00–14:00"; "Gold at imp level in triangle."'],
+  ['4 Dec', 'Metals', 'Report: no bullish yog, strong bearish 09:30–15:00 → "seller circuit"; "everyone is bullish on precious metals. We are not."'],
+  ['11–12 Dec', 'Nifty', '"Both directions … little weak"; "12:30 very important time, weakness after".'],
+  ['22–29 Dec', 'Both', '"Nifty up 200, made a bottom? Expecting good rally"; "Both metals in free fall. Stay away if bullish"; "Big move going to start in new year."'],
+  ['2 Jan 2026', 'Nifty', '"Anticipate a positive movement, expecting an upward shift of over 3%. Avoid short."'],
+  ['20–22 Jan', 'Both', '"Gold and silver may be in final phase of bullish trend? Sun and Pluto at 0°"; "Nifty weakness after 11:00."'],
+  ['26 Jan', 'Metals', 'Week note: Sun–Jupiter 160°, Mars→Shravana, four planets in Shravana — "bullish with high volatility".'],
+  ['30 Jan', 'Metals', 'Report: weak bearish 09:00–16:30, strong bearish 16:30–22:00, STRONG BULLISH 22:00–24:00 → silver fell ~50% retrace ("unexpected free fall"); replies: "your prediction time frame was off, it was over 22pm ist, price keeps falling" — a MISS on the last window, reposted anyway.'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
   ['may.mp4 (recorded 2026-08-28)', 'X account, posts 23 Apr–18 Jun 2026 — the earlier prose-format premium reports (4, 15, 19–21, 26 May; 2–3, 8–10 Jun), the 25 May timing notice, the 7 May bearish-yog alert and its follow-ups, medium-term calls.'],
   ['April.mp4 (recorded 2026-08-28)', 'X account, posts 1–23 Apr 2026 — premium reports of 6, 8, 16, 17, 23 Apr (second confirmations of Amavasya-bullish and Vyatipata-positive; Anuradha / Mula / Pushya bullish; Venus→Bharani, Mars→Uttarabhadra), the 1 Apr Nifty "pivotal time" post.'],
+  ['Nov 2025.mp4 (recorded 2026-08-28)', 'X account, posts 4 Nov 2025 – 30 Jan 2026 — premium reports of 14, 18, 19 Nov, 4 Dec, 30 Jan; the 26 Jan week note; the 6 Jan Rahu–Ketu and Jupiter-by-pada tables; the Dec-1993 stellium analog; the 21 Jan early-degree post; Nifty timing posts; his 4 Dec option fills; the 30 Jan miss.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -503,6 +540,33 @@ function SaptarshPanel({ date }: { date?: string }) {
           calls so they can be scored against Nifty / gold / silver closes
           both ways.
         </p>
+
+        <h3 className="gann-h3">15 · Nov 2025 – Jan 2026 — the medium-term toolkit</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {NOV_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Two more Vaar-Tithi data points (Thu + 15 "bullish" 4 Dec, Fri +
+          Krishna 12 "bearish" 30 Jan) agree with the classical table; a
+          third showed his table distinguishes paksha — Tuesday + Shukla 14
+          was bullish on 28 Jul and Tuesday + Krishna 14 bearish on 18 Nov.
+          The outlook now keys the observed calls by full tithi.
+        </p>
+
+        <h3 className="gann-h3">Calls log, Nov 2025 – Jan 2026</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {NOV_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
 
         <h3 className="gann-h3">Sources ingested so far</h3>
         <table className="graha-table learn-table">

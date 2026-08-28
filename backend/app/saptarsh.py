@@ -107,6 +107,9 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Venus", "Jupiter", 0): "bear",        # 10 Jun "strong bearish for the day"
     ("Venus", "Uranus", 45): "vol",         # 2 Jun
     ("Mars", "Pluto", 90): "vol",           # 26 May
+    # X posts, Nov 2025 - Jan 2026
+    ("Sun", "Pluto", 0): "bear",            # 20 Jan "Sun and Pluto at 0° this week … many times tops"
+    ("Moon", "Rahu", 180): "bull",          # 14 Nov "Moon-Ketu at 0° … is bullish" (Ketu = Rahu+180)
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
@@ -121,6 +124,10 @@ INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
     ("Mercury", "nakshatra", "Ardra"): ("bear", "2 Jun: \"slightly bearish\""),
     ("Mercury", "nakshatra", "Rohini"): ("neutral", "19 May: \"not much significant for precious metal market\""),
     ("Sun", "nakshatra", "Pushya"): ("bull", "20 Jul: \"slightly bullish\""),
+    ("Sun", "nakshatra", "Anuradha"): ("bull", "19 Nov 2025: \"this is bullish\""),
+    ("Venus", "nakshatra", "Vishakha"): ("bear", "18 Nov 2025: \"slightly bearish for silver\""),
+    ("Mars", "nakshatra", "Shravana"): ("bull", "26 Jan 2026: \"also bullish for silver\""),
+    ("Jupiter", "sign", "Mithuna"): ("vol", "5 Dec 2025: \"enters Mercury's sign, difficult to predict. Something big in Banking sector\""),
     ("Sun", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
     ("Mercury", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
 }
@@ -163,16 +170,18 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
 OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Ashwini": (None, "bull"),              # 15 May, 8-9 Jul
     "Bharani": (None, "bear"),              # 15 May, 9 Jul
-    "Rohini": (None, "bear"),               # 10 Aug "not much favourable"
+    "Krittika": (None, "bull"),             # 4 Dec 2025
+    "Rohini": (None, "bear"),               # 4 Dec 2025, 10 Aug "not much favourable"
     "Mrigashira": (None, "bull"),           # 19 May
     "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
     "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
     "Pushya": (None, "bull"),               # bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
     "Ashlesha": (None, "neutral"),          # 15 Jul
+    "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
     "Hasta": (None, "bear"),                # 26 May, 20 Jul
     "Chitra": (None, "bull"),               # 20 Jul
-    "Swati": ("bear", "vol"),               # 18 Aug
-    "Vishakha": ("bull", "vol"),            # 19 Aug
+    "Swati": ("bear", "bear"),              # metals bearish 18-19 Nov 2025; both sides 18 Aug (2 of 3)
+    "Vishakha": ("bull", "vol"),            # metals "not supportive" 19 Nov, both sides 19 Aug
     "Anuradha": ("neutral", "bull"),        # bullish 6 Apr, 4 May; both sides 21 Aug (2 of 3)
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
     "Mula": (None, "bull"),                 # bullish 8 Apr, 2 Jun; bearish 27 Jul (2 of 3)
@@ -257,18 +266,23 @@ VISHA = {6: 4, 0: 6, 1: 7, 2: 2, 3: 8, 4: 9, 5: 7}
 HUTASANA = {6: 12, 0: 6, 1: 7, 2: 8, 3: 9, 4: 10, 5: 11}
 
 
-# (weekday, tithi-in-paksha) the reports called explicitly. The classical
+# (weekday, tithi 1-30) the reports called explicitly. The classical
 # tables agree where they speak (Tue+3 Siddha = "bullish" 19 May; Wed+3
-# Mrityu/Dagdha = "bearish" 3 Jun) and are silent on these three.
-OBSERVED_VAAR_TITHI = {(4, 14): "bear",     # Fri 15 May "Vaar-Tithi yog is bearish"
+# Mrityu/Dagdha = "bearish" 3 Jun; Thu+15 Siddha = "bullish" 4 Dec;
+# Fri+12 Mrityu = "bearish" 30 Jan) and are silent on these. Keyed by the
+# FULL tithi because his table distinguishes paksha: Tuesday + Shukla 14
+# was "bullish" (28 Jul) and Tuesday + Krishna 14 "bearish" (18 Nov).
+OBSERVED_VAAR_TITHI = {(4, 29): "bear",     # Fri 15 May "Vaar-Tithi yog is bearish"
                        (0, 13): "bear",     # Mon 27 Jul
-                       (1, 14): "bull"}     # Tue 28 Jul
+                       (1, 14): "bull",     # Tue 28 Jul
+                       (1, 29): "bear"}     # Tue 18 Nov 2025
 
 
 def vaar_tithi_yoga(weekday: int, tithi_num: int) -> dict | None:
     t = (tithi_num - 1) % 15 + 1
-    if (weekday, t) in OBSERVED_VAAR_TITHI:
-        return {"names": ["Vaar-Tithi"], "tone": OBSERVED_VAAR_TITHI[(weekday, t)],
+    if (weekday, tithi_num) in OBSERVED_VAAR_TITHI:
+        return {"names": ["Vaar-Tithi"],
+                "tone": OBSERVED_VAAR_TITHI[(weekday, tithi_num)],
                 "source": "observed"}
     hits = []
     if t in SIDDHA.get(weekday, ()):
@@ -469,6 +483,31 @@ def day_ingresses(d: datetime.date) -> list[dict]:
                                          if kind == "sign" and name in
                                          ("Jupiter", "Saturn", "Mars")
                                          else "listed, no reading given")})
+    # stations: "Mercury is reducing its speed and going to retrograde on
+    # Sunday night. BankNifty may get affected more" (6 Nov 2025)
+    for name, body in INGRESS_BODIES:
+        if name == "Sun":
+            continue
+        s0 = swe.calc_ut(jd0, body, FLAGS)[0][3]
+        s1 = swe.calc_ut(jd1, body, FLAGS)[0][3]
+        if s0 * s1 < 0:
+            lo, hi = jd0, jd1
+            for _ in range(30):
+                mid = (lo + hi) / 2
+                if swe.calc_ut(mid, body, FLAGS)[0][3] * s0 > 0:
+                    lo = mid
+                else:
+                    hi = mid
+            c = (lo + hi) / 2
+            label = "retrograde" if s1 < 0 else "direct"
+            out.append({"_jd": c, "time": _hhmm(c, jd0), "et": _et(c),
+                        "planet": name, "kind": "station", "to": label,
+                        "tone": "vol",
+                        "source": "observed" if name == "Mercury" else "extrapolated",
+                        "note": ("6 Nov 2025: \"Mercury … going to retrograde … "
+                                 "sudden drop is possible. BankNifty may get "
+                                 "affected more\"" if name == "Mercury"
+                                 else "a station — treated like Mercury's, unseen")})
     out.sort(key=lambda x: x["_jd"])
     return out
 
@@ -559,6 +598,39 @@ def regime(d: datetime.date) -> dict:
     jup_sign = signs["Jupiter"]
     jup_entry, jup_exit = _sign_span(swe.JUPITER, jd)
     notes = []
+
+    # "Four planets in Shravana nakshatra … bullish with high volatility.
+    # Very large gap up or gap down is possible" (26 Jan 2026 note)
+    naks: dict[int, list[str]] = {}
+    for n, l in pos.items():
+        if n in ("Rahu", "Ketu"):          # points, not planets — his count
+            continue                        # was Sun, Mercury, Venus, Mars
+        naks.setdefault(int(l // SEG), []).append(n)
+    stellia = [{"nakshatra": NAKSHATRAS[k], "planets": v}
+               for k, v in naks.items() if len(v) >= 3]
+    for s in stellia:
+        notes.append(f"{len(s['planets'])} planets in {s['nakshatra']} "
+                     f"({', '.join(s['planets'])}) — a nakshatra stellium: "
+                     "\"bullish with high volatility … very large gap up or "
+                     "gap down is possible\" (their 26 Jan 2026 note).")
+
+    # "Many planets today are below 10 degrees. This is unusual … all
+    # financial markets are showing extreme" (21 Jan 2026: 8 of 12)
+    early = [n for n, l in pos.items() if l % 30 < 10]
+    if len(early) >= 6:
+        notes.append(f"{len(early)} bodies in the first 10° of their signs "
+                     f"({', '.join(early)}) — they flagged this as unusual "
+                     "and linked it to extremes across markets (21 Jan 2026).")
+
+    # Rahu-Ketu on the Leo-Aquarius axis: their gold history (6 Jan 2026)
+    if {signs["Rahu"], signs["Ketu"]} == {4, 10}:
+        which = "Rahu in Leo / Ketu in Aquarius" if signs["Rahu"] == 4 \
+            else "Rahu in Aquarius / Ketu in Leo"
+        notes.append(f"{which} — their table: 1979-80 and 2016-17 (Rahu Leo) "
+                     "= explosive top then heavy correction; 1997-99 and "
+                     "2006-08 (Rahu Aquarius) = sharp sell-off / weakness "
+                     "then breakout. \"Vulnerable to sharp corrections after "
+                     "reaching key resistance zones.\"")
     if SIGN_EN[jup_sign] == "Cancer":
         notes.append("Jupiter in sidereal Cancer — the X account's table of "
                      "every Cancer transit since 1978 shows silver weak in 3 "
@@ -574,6 +646,8 @@ def regime(d: datetime.date) -> dict:
                     "entry": jup_entry, "exit": jup_exit,
                     "nakshatra": NAKSHATRAS[int(pos["Jupiter"] // SEG)]},
         "sun_ketu_same_sign": signs["Sun"] == signs["Ketu"],
+        "nakshatra_stellia": stellia,
+        "early_degree_bodies": early,
         "conjunctions": conj,
         "notes": notes,
         "jupiter_cancer_history": [

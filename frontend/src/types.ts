@@ -302,7 +302,7 @@ export interface SaptarshDay {
   }
   aspects: SaptarshAspect[]
   ingresses: {
-    time: string; et: string; planet: string; kind: 'sign' | 'nakshatra'
+    time: string; et: string; planet: string; kind: 'sign' | 'nakshatra' | 'station'
     to: string; tone: SaptarshTone; source: SaptarshSource; note: string
   }[]
   active_planets: string[]
@@ -320,6 +320,8 @@ export interface SaptarshRegime {
   as_of: string
   jupiter: { sign: string; sign_en: string; entry: string; exit: string; nakshatra: string }
   sun_ketu_same_sign: boolean
+  nakshatra_stellia: { nakshatra: string; planets: string[] }[]
+  early_degree_bodies: string[]
   conjunctions: {
     sign: string; sign_en: string; planets: string[]; until: string
     members: { planet: string; entry: string; exit: string }[]
