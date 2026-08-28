@@ -595,3 +595,54 @@ def test_vaar_nakshatra_and_tithi_overrides_from_the_launch():
                                               "source": "observed"}
     d = saptarsh.day(datetime.date(2024, 12, 12))
     assert d["panchang"]["vaar_nakshatra"]["source"] == "observed"
+
+
+# ---- tenth learning pass: X posts of May - Oct 2024 (May 2024.mp4) ----
+
+def test_mercury_retrograde_moratorium_and_combustion():
+    """28 Aug 2024: retrograde Mercury (13.9° from the Sun, combust);
+    29 Jun 2024 dispute: on 1 May 2024 the Sun-Mercury distance was 23°
+    (he is right — 24.0°), so the site's 'combustion ended' was wrong."""
+    d = saptarsh.day(datetime.date(2024, 8, 28))
+    assert d["mercury"]["retrograde"] and d["mercury"]["combust"]
+    assert any("moratorium" in f for f in d["flags"])
+    m = saptarsh.mercury_state(datetime.date(2024, 5, 1))
+    assert not m["retrograde"] and not m["combust"] and 23 <= m["sun_distance"] <= 25
+    m = saptarsh.mercury_state(datetime.date(2024, 4, 4))
+    assert m["retrograde"] and m["combust"]
+    assert not saptarsh.day(datetime.date(2026, 8, 28))["mercury"]["retrograde"]
+
+
+def test_budget_day_2024_sun_opposite_pluto():
+    d = saptarsh.day(datetime.date(2024, 7, 23))
+    got = _aspect(d, "Sun", 180, "Pluto")
+    assert abs(_mins(got["time"]) - _mins("11:09")) <= 3
+    assert got["tone"] == "bear" and got["source"] == "observed"
+
+
+def test_colour_coded_aspects_of_the_election_report():
+    """30 May 2024 list: Sun 72 Neptune (1 Jun) green, Sun 60 Node and
+    Jupiter 120 Pluto (3 Jun) green, Sun 135 Pluto (7 Jun) orange, Sun 90
+    Saturn (9 Jun) red."""
+    for ds, a, ang, b, tone in [("2024-06-01", "Sun", 72, "Neptune", "bull"),
+                                ("2024-06-03", "Sun", 60, "Rahu", "bull"),
+                                ("2024-06-03", "Jupiter", 120, "Pluto", "bull"),
+                                ("2024-06-07", "Sun", 135, "Pluto", "bear"),
+                                ("2024-06-09", "Sun", 90, "Saturn", "bear")]:
+        got = _aspect(saptarsh.day(datetime.date.fromisoformat(ds)), a, ang, b)
+        assert got["tone"] == tone and got["source"] == "observed", (ds, a, ang, b)
+
+
+def test_june_2024_nifty_reports_and_vaidhriti_for_nifty():
+    d = saptarsh.day(datetime.date(2024, 6, 27))
+    assert d["moon"]["nakshatra_change"] == {"time": "11:37", "to": "Purva Bhadrapada"}
+    d = saptarsh.day(datetime.date(2024, 6, 28))
+    assert d["moon"]["nakshatra_change"] == {"time": "10:11", "to": "Uttara Bhadrapada"}
+    assert saptarsh.nak_tone("Mrigashira", "Mithuna", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Uttara Bhadrapada", "Meena", "nifty") == ("neutral", "observed")
+    moon = {"sign": "Meena", "nakshatra": "Revati", "sign_change": None, "nakshatra_change": None}
+    assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "bear"
+    assert saptarsh._call("gold", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
+    d = saptarsh.day(datetime.date(2024, 6, 24))
+    assert abs(_mins(_aspect(d, "Moon", 0, "Pluto")["time"]) - _mins("11:22")) <= 3
+    assert abs(_mins(_aspect(d, "Moon", 45, "Saturn")["time"]) - _mins("16:17")) <= 3

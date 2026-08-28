@@ -131,6 +131,18 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Sun", "Neptune", 90): "vol",          # same note
     ("Venus", "Jupiter", 120): "bear",      # same note: "Friday aspects are bearish"
     ("Sun", "Mars", 144): "bear",           # same note
+    # X posts, May-Oct 2024 (before the launch)
+    ("Sun", "Pluto", 180): "bear",          # 23 Jul 2024 "responsible for huge drop in gold and silver"
+    ("Sun", "Saturn", 120): "bull",         # 17 Jul 2024 "bullish yog involving the Sun and Saturn is ending"
+    ("Sun", "Saturn", 90): "bear",          # 30 May 2024 colour-coded list: red
+    ("Sun", "Pluto", 135): "bear",          # same list: orange
+    ("Sun", "Neptune", 72): "bull",         # same list: green
+    ("Sun", "Rahu", 60): "bull",            # same list: green (Sun 60 Mn Node)
+    ("Jupiter", "Pluto", 120): "bull",      # same list: green
+    # (the same note lists "Venus 90 Uranus" on 26 Jun — the sky had
+    # Venus 45 Uranus at 00:31; that pair is already observed above)
+    ("Mercury", "Saturn", 120): "vol",      # 23 Jun 2024 week note "sudden change … high volatility"
+    ("Mercury", "Jupiter", 45): "vol",      # same note
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
@@ -203,7 +215,7 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Bharani": (None, "bear"),              # 15 May, 9 Jul
     "Krittika": ("neutral", "bull"),        # Nifty "neutral to slightly positive" 10 Jan 2025; metals 4 Dec 2025
     "Rohini": ("bull", "bear"),             # Nifty "supportive" 10 Jan, 7 Feb 2025; metals bearish 10 Jan, 4 Dec 2025, 10 Aug
-    "Mrigashira": (None, "bull"),           # 19 May
+    "Mrigashira": ("bull", "bull"),         # Nifty "supportive for higher prices" 7 Jun 2024; metals 19 May
     "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
     "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
     "Pushya": (None, "bull"),               # bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
@@ -225,7 +237,7 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
     "Purva Bhadrapada": ("bull", "bear"),   # Nifty "bullish for stocks" 11 Nov 2024; metals bearish 11 Nov 2024, 21 May 2025, 11 Aug 2025; bullish 8 Jun 2026 (3 of 4)
-    "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
+    "Uttara Bhadrapada": ("neutral", "bull"),  # Nifty "neutral for stocks" 28 Jun 2024; metals 16 Apr, 10 Jun, 7 Jul
     "Revati": ("neutral", "bear"),          # Nifty "neutral for stocks" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
@@ -616,6 +628,34 @@ def mercury_retro_midpoint(d: datetime.date) -> bool:
     return datetime.date(y, m, dd) == d
 
 
+def mercury_state(d: datetime.date) -> dict:
+    """Retrograde and combustion of Mercury (and Venus's combustion).
+
+    28 Aug 2024: "Mercury is unpredictable planet during retrograde. This
+    is second time I am experiencing almost all predictions went wrong.
+    Now decided to avoid making prediction during retro Mercury."
+    29 Jun 2024: he disputes a site's combustion dates, showing the
+    Sun-Mercury distance was 23° on the day it claimed combustion ended.
+    Classical orbs: Mercury 12° (14° when retrograde), Venus 10° (8°).
+    """
+    jd = _jd_local(d, OPEN_H)
+    sun = _lon(swe.SUN, jd)
+    merc = swe.calc_ut(jd, swe.MERCURY, FLAGS)[0]
+    ven = swe.calc_ut(jd, swe.VENUS, FLAGS)[0]
+
+    def dist(lon):
+        x = abs(lon % 360 - sun) % 360
+        return min(x, 360 - x)
+
+    m_retro = merc[3] < 0
+    return {
+        "retrograde": m_retro,
+        "sun_distance": round(dist(merc[0]), 1),
+        "combust": dist(merc[0]) < (14 if m_retro else 12),
+        "venus_combust": dist(ven[0]) < (8 if ven[3] < 0 else 10),
+    }
+
+
 def eclipse_on(d: datetime.date) -> str | None:
     jd0, jd1 = _jd_local(d, 0), _jd_local(d, 24)
     try:
@@ -865,8 +905,14 @@ def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
         why.append("Vishti karana in session — \"be very careful following "
                    "a bullish trend\"")
     if yoga == "Vaidhriti":
-        tone = "vol"
-        why.append("Vaidhriti yog — \"volatility with bullish bias\" (27 Jul, 2 Jul)")
+        if instrument == "nifty":
+            # 23 Jun 2024 week note: "Vaidhruti yog is running from
+            # 11:52 IST, this is considered as a bearish" (Nifty)
+            tone = "bear" if tone != "bull" else "vol"
+            why.append("Vaidhriti yog — \"considered as a bearish\" for Nifty (23 Jun 2024)")
+        else:
+            tone = "vol"
+            why.append("Vaidhriti yog — \"volatility with bullish bias\" (27 Jul, 2 Jul)")
     elif yoga == "Vyatipata":
         if instrument == "nifty":
             tone = "vol" if tone != "bear" else "bear"
@@ -989,6 +1035,15 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
     kshaya = THITHIS[(t0 + 1) % 15] if (t1 - t0) % 30 >= 2 else None
 
     flags: list[str] = []
+    merc = mercury_state(d)
+    if merc["retrograde"]:
+        flags.append("Mercury retrograde — his own moratorium (28 Aug 2024): "
+                     "\"almost all predictions went wrong … decided to avoid "
+                     "making prediction during retro Mercury.\" Treat every "
+                     "call below as lower confidence.")
+    if merc["combust"]:
+        flags.append(f"Mercury combust ({merc['sun_distance']}° from the Sun) "
+                     "— marked [C] in his tables.")
     retro_mid = mercury_retro_midpoint(d)
     if retro_mid:
         flags.append("Retrograde Mercury at the halfway mark of its journey — "
@@ -1099,6 +1154,7 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
         "ingresses": ingresses,
         "active_planets": active,
         "mercury_retro_midpoint": retro_mid,
+        "mercury": merc,
         "eclipse": ecl,
         "flags": flags,
         "calls": calls,

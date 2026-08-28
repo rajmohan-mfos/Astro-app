@@ -36,6 +36,9 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
           {d.date === today && <span className="gann-today-chip">today</span>}
         </span>
         <span className="gann-title">{moonLine}</span>
+        {d.mercury?.retrograde && (
+          <span className="verdict-badge v-trap" title="his 28 Aug 2024 moratorium: predictions unreliable during retrograde Mercury">Mercury ℞</span>
+        )}
       </div>
       <div className="sap-line">
         {INSTRUMENTS.map((k) => (

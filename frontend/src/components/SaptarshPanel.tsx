@@ -305,6 +305,7 @@ const EARLY_LOG: [string, string, string][] = [
 const NIFTY_NAK: [string, string, string][] = [
   ['Magha', '"unpredictable for stocks, but if we get uptrend, it will be quite strong" (Dow)', '20 Dec 2024'],
   ['Krittika', 'neutral to slightly positive', '10 Jan 2025'],
+  ['Mrigashira', 'supportive for higher prices', '7 Jun 2024'],
   ['Rohini', 'supportive for stocks (bearish for metals the same day)', '10 Jan, 7 Feb 2025'],
   ['Hasta', 'favourable / supportive for stocks', '23–24 Dec 2024'],
   ['Chitra', 'supportive (24 Dec 2024, 17 Feb 2025); neutral once (27 Nov 2024)', '27 Nov 2024, 24 Dec 2024, 17 Feb 2025'],
@@ -317,7 +318,8 @@ const NIFTY_NAK: [string, string, string][] = [
   ['Shravana', 'neutral', '26 Aug 2026'],
   ['Dhanishta', 'bullish', '27 Aug 2026'],
   ['Shatabhisha', 'bearish', '28 Aug 2026'],
-  ['Purvabhadra', '"later is bullish for stocks" (bearish for metals the same day)', '11 Nov 2024'],
+  ['Purvabhadra', '"later is bullish for stocks" (11 Nov 2024); recovery after 11:30 (27 Jun 2024); "neutral" (28 Jun 2024)', '27–28 Jun 2024, 11 Nov 2024'],
+  ['Uttarabhadra', 'neutral for stocks', '28 Jun 2024'],
   ['Revati', 'neutral for stocks', '3 Feb 2025'],
 ]
 
@@ -388,6 +390,41 @@ const LAUNCH_LOG: [string, string, string][] = [
   ['30 Dec', 'Nifty', 'Mula "not supportive for stocks", bearish yog from 09:30, strong bearish 13:15–15:30 → "again on spot today".'],
 ]
 
+// ---- tenth learning pass: X posts of May - Oct 2024 (May 2024.mp4) — before the launch
+
+const PRE_CONCEPTS: [string, string, string][] = [
+  ['Mercury-retrograde moratorium', '"Mercury is unpredictable planet during retrograde. This is second time I am experiencing almost all predictions went wrong. Now decided to avoid making prediction during retro Mercury." Each day in the outlook now carries a Mercury ℞ badge and a low-confidence flag while it is retrograde.', '28 Aug 2024'],
+  ['Combustion (Tara Asta)', 'He disputes a panchang site\'s Mercury-combustion dates with an Astro-Seek ephemeris set to "Sidereal – Lahiri": "According to the website, Mercury combustion started on 4 April 2024, distance 13° and ended on 1 May. However, on 1 May the distance was 23°. Not the 12° and 14° they used." Confirms Lahiri a third way; the outlook flags Mercury (and Venus) combustion with the classical orbs.', '29 Jun 2024'],
+  ['Colour-coded aspect list', 'The 30 May election report rates each aspect green / yellow / orange / red: Mars 30 Uranus, Sun 72 Neptune, Sun 60 Node, Jupiter 120 Pluto green; Mars 36 Saturn and Mars 36 Jupiter yellow; Sun 135 Pluto orange; Sun 90 Saturn red. He uses 30° and 36° (decile) too. The rated 60/72/90/120/135 ones are now in the aspect table.', '30 May 2024'],
+  ['Sun 180 Pluto', '"Sun 180° Pluto at 11:09 IST. Seems this aspect is responsible for huge drop in gold and silver prices today due to reduction of custom duty. This is not coincident." (23 Jul 2024, budget day). Observed bearish.', '23 Jul 2024'],
+  ['Yog end-time explains the reversal', '"Why market reversed? Yog not failed. See the end time in image" — a Panchang-app screenshot with Tithi Ekadashi ends 09:39:09 and Karana Vishti ends 09:39:09 circled. The end-times are the pivots — the same idea the outlook\'s panchang block shows.', '16 Aug 2024'],
+  ['Medium-term yog with an end date', '"Strong bearish yog will end on 29 August 2024. Till you have to be very careful in long. We may get little effects of this bearish yog after 25 August as Mercury going to direct in few days." (12 Aug); "From 8th Aug, approx 3% pullback is possible due to the Strong Bearish yog … Do your own research, I may go wrong" (7 Aug).', 'Aug 2024'],
+  ['Conditional multi-day rule', '"Monday seems bullish but one special yog is occurring, clash between bullish and bearish yog. If we close in red, then we may witness weakness in the market for 2–3 trading days. This is purely conditional."', '19 Jul 2024'],
+  ['Small-interval "new technique"', '"I am posting prediction of Monday\'s market movement at very small intervals. THIS IS TESTING OF NEW TECHNIQUE. I MAY GO WRONG, BUT MUST FOCUS ON STARTING TIME, MOVEMENT CAN START FROM THE GIVEN TIME." (15 Jul report in 5–6 windows.)', '14 Jul 2024'],
+  ['Bhadra was NOT in his method in 2024', '"Received many queries, why market not dropped though Bhadra started during market hours? I do not follow this in my prediction, btw, my analysis also went wrong." (24 Jun). By 2026 Vishti is a headline rule in his reports — the method evolved.', '24 Jun 2024'],
+  ['Aspects that failed', '"Many strong bearish aspects failed today. Moon 0 Pluto 11:22, Moon 45 Saturn 16:17. These are considered bearish but unable to create bearishness. Is there error in analysis and judgement?" (24 Jun). Moon 0 Pluto is read bullish in his 2026 reports — the sign flipped.', '24 Jun 2024'],
+  ['Vaidhriti = bearish (Nifty)', 'Week note: "Vaidhruti yog is running from 11:52 IST, this is considered as a bearish." For metals in 2026 he reads it "volatility with bullish bias" — the outlook now applies bearish to Nifty, volatile-bullish to metals.', '23 Jun 2024'],
+  ['Sun in Leo is not "always bullish"', 'Three years of Sun-in-Leo gold charts posted against the belief that "Sun in Leo is always bullish for gold and silver … pls post your analysis."', 'Aug 2024'],
+  ['His background', '"I began studying astrology in 1995 and financial astrology in 2007. Despite my experience, I sometimes struggle to predict market movements and occasionally fail." "How can anyone learn this in a two-day workshop … Many fraudsters claim to teach."', '5 Aug 2024'],
+  ['Free week → paid channels', '"A Chance to Access My Premium Channels – FREE for a Week … NIFTY, DOW JONES & GOLD-SILVER" (Jun 2024). Telegram screenshots reposted as proof ("These were my original post shared on my telegram channel").', 'Jun–Jul 2024'],
+]
+
+const PRE_LOG: [string, string, string][] = [
+  ['30 May 2024', 'Nifty', 'Post-election report: "sharp rise from June 1 … few days after the results on June 4. Another turning point on 9th June. Avoid short positions from May 31."'],
+  ['4 Jun', 'Nifty', '"Today\'s fall in Nifty was not expected. I failed in today\'s prediction … Still I believe bullish yog is running, avoid short." (election-day crash — miss)'],
+  ['7 Jun', 'Both', 'Nifty: Mrigashira supportive, bullish 09:15–11:00, bearish 11:00–12:30, strong bullish 12:30–15:30 → "Successfully predicted"; metals: Ardra from 10:14 bearish, "bearish price action for entire day", NFP caution → hit.'],
+  ['21–23 Jun', 'Both', '"Avoid long, Dow may give up uptrend"; week note: Vaidhriti bearish Monday, Venus 90 Uranus / Mercury 120 Saturn Wed, Mercury 45 Jupiter Fri — "sudden change in direction and high volatility".'],
+  ['24 Jun', 'Nifty', '"Many strong bearish aspects failed today" (Moon 0 Pluto, Moon 45 Saturn) — miss, acknowledged.'],
+  ['26–28 Jun', 'Both', 'Metals "again on spot"; Nifty 27 Jun Shatabhisha→Purvabhadra 11:37, strong bearish till 11:30 then recovery; 28 Jun Purvabhadra→Uttarabhadra 10:11 "neutral", bearish/volatile 10:00–13:30 → "Nifty gave up all gains … Trollers are hiding"; Dow 28 Jun Uttarabhadra supportive, bullish 09:30–12:30 ET.'],
+  ['5–12 Jul', 'Nifty', '"No major planetary change next week … stay bullish with cautions"; "Monday seems bearish worldwide, one day only"; "bullish till 13:05, sharp reaction 13:05–13:40, again rise, avoid short".'],
+  ['17 Jul', 'Metals', '"One of the bullish yog involving the Sun and Saturn is ending today. Very careful in long" (Sun 120 Saturn separating).'],
+  ['19–24 Jul', 'Both', 'Conditional close-in-red rule (22 Jul); Sun 180 Pluto 11:09 on budget day → metals drop; "Nifty dropped as per my analysis 12:18 IST, missed by one minute"; "Avoid short, we may touch 25k till 5 Aug" (Nifty reached 25,000 on 1 Aug).'],
+  ['30–31 Jul', 'Nifty', '"12:30 IST important time, weakness expected"; "Pls do not expect huge fall. We are in bullish planetary phase"; "new lifetime high, do not short … still time left".'],
+  ['7–12 Aug', 'Global', '"From 8th Aug approx 3% pullback … Strong Bearish yog … I may go wrong" (markets rose from 8 Aug — miss); "Strong bearish yog will end on 29 August, careful in long".'],
+  ['19–20 Aug', 'Both', '"Many important planetary aspects today + full Moon … capable of changing trend" → next day "No impact on markets of these aspects" (miss).'],
+  ['27–30 Aug', 'Both', 'Metals "bearish price action possible, stay cautious"; Nifty "avoid shorts till 11:45" (29 Aug), "may give up gains after 13:55" (30 Aug); 28 Aug the retrograde-Mercury moratorium.'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -398,6 +435,7 @@ const SOURCES: [string, string][] = [
   ['April 2025.mp4 (recorded 2026-08-28)', 'X account, posts 28 Mar – 25 Jul 2025 — the earliest reports (16, 19–23, 29 May; 7–8 Jul), the 20 Apr and 2 May and 16 May week notes with IMP-marked aspects, the Apr 2025 gold-crash call, the 19 May "Nifty 3–5%" call, the Kaal Sarp post, the Pluto admission, the Jagannatha Hora horary example, natal Mercury/Saturn rules.'],
   ['Jan 2025.mp4 (recorded 2026-08-28)', 'X account, posts 1 Jan – 14 Mar 2025 — daily NIFTY reports (1 Jan; 3, 7, 17–21 Feb), Dow Jones reports with ET windows, metals reports of 7–8, 10, 28 Jan and 27 Feb, the 14 Feb five-body Pisces "make or break" note, the 14 Mar event list, his 28 Jan trade summary, the 20 Feb troll dispute.'],
   ['Nov 2024.mp4 (recorded 2026-08-28)', 'X account, posts 1 Nov – 30 Dec 2024 — the launch: free-trial Telegram channels, the first Nifty reports (4–6, 11, 27–28 Nov; 5, 23–24, 30 Dec), metals reports (4–7, 11, 13 Nov; 11–13 Dec), Dow 20 Dec, the 16 Dec week note, Mercury-retro-midpoint and Saturn-direct posts, the 12 Nov BankNifty miss, the Rs 2000/month notice.'],
+  ['May 2024.mp4 (recorded 2026-08-28)', 'X account, posts 30 May – 30 Aug 2024 — before the launch: the 30 May post-election report with a colour-coded aspect list, the 4 Jun and 24 Jun admitted misses, the 23 Jun week note, Nifty/Dow reports of 7, 27–28 Jun and 15 Jul, the free-week promo, the 29 Jun combustion dispute (Lahiri), Sun 180 Pluto on budget day, the Aug bearish-yog calls, the 28 Aug retrograde-Mercury moratorium.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -835,6 +873,33 @@ function SaptarshPanel({ date }: { date?: string }) {
             ))}
           </tbody>
         </table>
+
+        <h3 className="gann-h3">20 · May – Oct 2024 — before the launch: the rules he learned the hard way</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {PRE_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">Calls log, May – Aug 2024</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {PRE_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Three more acknowledged misses here (4 Jun, 24 Jun, 20 Aug) plus
+          the 8 Aug "3% pullback" that did not come. Across ten recordings
+          that is 7 explicit misses and 3 partial ones against roughly 110
+          dated calls — his reposted hit rate is high because he chooses
+          what to repost; the logs keep both sides.
+        </p>
 
         <h3 className="gann-h3">Sources ingested so far</h3>
         <table className="graha-table learn-table">

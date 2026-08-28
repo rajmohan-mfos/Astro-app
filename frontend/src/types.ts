@@ -308,6 +308,7 @@ export interface SaptarshDay {
   }[]
   active_planets: string[]
   mercury_retro_midpoint?: boolean
+  mercury?: { retrograde: boolean; sun_distance: number; combust: boolean; venus_combust: boolean }
   eclipse: string | null
   flags: string[]
   calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>
