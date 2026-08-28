@@ -121,6 +121,9 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Mercury", "Jupiter", 60): "vol",      # 2 May 2025 "little volatility"
     ("Jupiter", "Rahu", 90): "vol",         # 16 May 2025 "Volatility"
     ("Sun", "Venus", 45): "bull",           # 16 May 2025 "Bullish … can pull the market any side"
+    # X Nifty / metals reports, Jan-Mar 2025
+    ("Sun", "Rahu", 45): "bear",            # 3 Feb 2025 "negative and high volatility is expected"
+    ("Sun", "Saturn", 0): "bear",           # 27 Feb 2025 "bearish for whole metal sector including copper"
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
@@ -146,6 +149,8 @@ INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
     ("Mercury", "sign", "Mesha"): ("vol", "6 May 2025: \"Mercury is changing sign and entering in Aries and conjunct with the Sun. This is significant event and there may reversal in many markets\""),
     ("Mercury", "sign", "Mithuna"): ("vol", "5 Jun 2025: \"Mercury enters in Gemini, its own sign … conjunct with Jupiter. In past it created high volatility. Max 8% up from low and down from high\""),
     ("Saturn", "sign", "Meena"): ("bear", "28 Mar 2025: \"Sun eclipse on 29 March and Saturn also change sign. This may be last phase of bullish trend\""),
+    ("Venus", "sign", "Meena"): ("bear", "28 Jan 2025: \"Venus is enters in Pisces, this is slightly bearish\" (metals)"),
+    ("Mercury", "sign", "Meena"): ("bear", "27 Feb 2025: \"Mercury enters in Pisces, this is not favorable\" (metals)"),
     ("Sun", "sign", "Vrishabha"): ("neutral", "16 May 2025: \"favourable for stock markets and slightly bearish for precious metals\"; 15 May 2026: \"trend changer but not for metals\""),
     ("Mercury", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
 }
@@ -188,8 +193,8 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
 OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Ashwini": (None, "bull"),              # 15 May, 8-9 Jul
     "Bharani": (None, "bear"),              # 15 May, 9 Jul
-    "Krittika": (None, "bull"),             # 4 Dec 2025
-    "Rohini": (None, "bear"),               # 4 Dec 2025, 10 Aug "not much favourable"
+    "Krittika": ("neutral", "bull"),        # Nifty "neutral to slightly positive" 10 Jan 2025; metals 4 Dec 2025
+    "Rohini": ("bull", "bear"),             # Nifty "supportive" 10 Jan, 7 Feb 2025; metals bearish 10 Jan, 4 Dec 2025, 10 Aug
     "Mrigashira": (None, "bull"),           # 19 May
     "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
     "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
@@ -197,21 +202,22 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Ashlesha": (None, "neutral"),          # 15 Jul
     "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
     "Hasta": (None, "bear"),                # 26 May, 20 Jul
-    "Chitra": (None, "bull"),               # 20 Jul
-    "Swati": ("bear", "bear"),              # metals bearish 18-19 Nov 2025; both sides 18 Aug (2 of 3)
-    "Vishakha": ("bull", "vol"),            # metals "not supportive" 19 Nov, both sides 19 Aug
-    "Anuradha": ("neutral", "bull"),        # bullish 6 Apr, 4 May; both sides 21 Aug (2 of 3)
+    "Chitra": ("bull", "bull"),             # Nifty "favourable for stocks" 17 Feb 2025; metals 20 Jul
+    "Swati": ("bear", "bear"),              # Nifty 18 Feb 2025, 18 Aug; metals bearish 18-19 Nov 2025, both sides 18 Aug
+    "Vishakha": ("vol", "vol"),             # Nifty "not supportive" 20 Feb 2025 vs "slightly positive" 19 Aug; metals mixed
+    "Anuradha": ("neutral", "bull"),        # Nifty: not supportive 20 Feb 2025 & 20 Aug, supportive 21 Feb 2025 & 21 Aug (2-2);
+                                            # metals bullish 6 Apr, 4 May; both sides 21 Aug
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
     "Mula": ("vol", "bull"),                # Nifty: 9 Jul 2025 "Mool Nakshatra give high volatility";
                                             # metals bullish 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (3 of 4)
     "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
-    "Uttara Ashadha": (None, "bull"),       # 9 Jun, 2 Jul, 28-29 Jul, 25 Aug
+    "Uttara Ashadha": ("bull", "bull"),     # Nifty "supportive for stocks" 1 Jan 2025; metals 9 Jun, 2 Jul, 28-29 Jul, 25 Aug (once "not much supportive", 28 Jan 2025)
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
     "Purva Bhadrapada": (None, "bear"),     # "not supportive" 21 May 2025, bearish 11 Aug 2025; bullish 8 Jun 2026 (2 of 3)
     "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
-    "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
+    "Revati": ("neutral", "bear"),          # Nifty "neutral for stocks" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
 # the sign itself (used when the nakshatra is unobserved). Kumbha was
@@ -296,11 +302,14 @@ OBSERVED_VAAR_TITHI = {(4, 29): "bear",     # Fri 15 May "Vaar-Tithi yog is bear
                        (1, 14): "bull",     # Tue 28 Jul
                        (1, 29): "bear",     # Tue 18 Nov 2025
                        (1, 7): "bull",      # Tue 28 Oct 2025 (classical says Visha/Hutasana)
-                       (1, 13): "bear"}     # Tue 8 Jul 2025 (classical says Siddha)
+                       (1, 13): "bear",     # Tue 8 Jul 2025 (classical says Siddha)
+                       (2, 9): "bear",      # Wed 8 Jan 2025
+                       (4, 11): "bear",     # Fri 10 Jan 2025 (classical says Siddha)
+                       (2, 22): "bear"}     # Wed 19 Feb 2025 (classical says Siddha)
 # Scorecard of the classical tables against his dated calls: 19 May, 3
-# Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025 and
-# 8 Jul 2025 do not (6 of 8). The remaining overrides are days the
-# classical tables are silent.
+# Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025, 8 Jul
+# 2025, 10 Jan 2025 and 19 Feb 2025 do not (6 of 10). His table is his
+# own; the observed overrides above take precedence wherever he spoke.
 
 
 def vaar_tithi_yoga(weekday: int, tithi_num: int) -> dict | None:
@@ -528,7 +537,7 @@ def day_ingresses(d: datetime.date) -> list[dict]:
             out.append({"_jd": c, "time": _hhmm(c, jd0), "et": _et(c),
                         "planet": name, "kind": "station", "to": label,
                         "tone": "vol",
-                        "source": "observed" if name == "Mercury" else "extrapolated",
+                        "source": "observed" if name in ("Mercury", "Mars") else "extrapolated",
                         "note": (("6 Nov 2025: \"Mercury … going to retrograde … "
                                   "sudden drop is possible. BankNifty may get "
                                   "affected more\"" if label == "retrograde" else
@@ -537,7 +546,11 @@ def day_ingresses(d: datetime.date) -> list[dict]:
                                   "Indian stock market\"; 11 Aug: \"may change "
                                   "the trend but you have to watch first\"")
                                  if name == "Mercury"
-                                 else "a station — treated like Mercury's, unseen")})
+                                 else ("23 Feb 2025: \"Mars turning direct, this may "
+                                       "impact the current trend in metal sector. Gold, "
+                                       "Silver and copper may affected. Chemical sector "
+                                       "will also affected\"" if name == "Mars"
+                                       else "a station — treated like Mercury's, unseen"))})
     out.sort(key=lambda x: x["_jd"])
     return out
 
@@ -612,6 +625,7 @@ def regime(d: datetime.date) -> dict:
     groups: dict[int, list[str]] = {}
     for n, s in signs.items():
         groups.setdefault(s, []).append(n)
+    notes: list[str] = []
     conj = []
     for s, members in sorted(groups.items()):
         if len(members) < 2:
@@ -624,10 +638,17 @@ def regime(d: datetime.date) -> dict:
         conj.append({"sign": RASIS[s], "sign_en": SIGN_EN[s],
                      "planets": [r["planet"] for r in rows], "members": rows,
                      "until": min(r["exit"] for r in rows)})
+        # "March end, Sun+Saturn+Rahu+Mercury+Venus in Pisces. Very
+        # critical time for global markets. Make or break" (14 Feb 2025)
+        if len(members) >= 4:
+            notes.append(f"{len(members)} bodies in {SIGN_EN[s]} "
+                         f"({', '.join(members)}) — a sign stellium: \"very "
+                         "critical time for global markets. Make or break for "
+                         "all financial markets\" was their reading of the "
+                         "five-body Pisces stellium of Mar 2025.")
 
     jup_sign = signs["Jupiter"]
     jup_entry, jup_exit = _sign_span(swe.JUPITER, jd)
-    notes = []
 
     # "Four planets in Shravana nakshatra … bullish with high volatility.
     # Very large gap up or gap down is possible" (26 Jan 2026 note)

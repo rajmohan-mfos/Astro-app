@@ -465,3 +465,74 @@ def test_vaar_tithi_8_jul_2025_override_and_nakshatra_updates():
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
     assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("vol", "observed")
     assert saptarsh.nak_tone("Mula", "Dhanu", "silver") == ("bull", "observed")
+
+
+# ---- eighth learning pass: X posts of Jan - Mar 2025 (Jan 2025.mp4) ----
+
+def test_nifty_nakshatra_calls_from_the_2025_reports():
+    """The first batch with daily Nifty reports: Uttarashadha 'supportive
+    for stocks' (1 Jan), Revati 'neutral for stocks' (3 Feb), Rohini
+    'supportive' (7 Feb), Chitra 'favourable' (17 Feb), Swati 'not much
+    favorable' (18 Feb)."""
+    assert saptarsh.nak_tone("Uttara Ashadha", "Makara", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Revati", "Meena", "nifty") == ("neutral", "observed")
+    assert saptarsh.nak_tone("Rohini", "Vrishabha", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Rohini", "Vrishabha", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Chitra", "Kanya", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Vishakha", "Tula", "nifty") == ("vol", "observed")
+    d = saptarsh.day(datetime.date(2025, 2, 20))
+    assert d["moon"]["nakshatra_change"] == {"time": "13:30", "to": "Anuradha"}
+    d = saptarsh.day(datetime.date(2025, 1, 10))
+    assert d["moon"]["nakshatra_change"] == {"time": "13:46", "to": "Rohini"}
+
+
+def test_kshaya_amavasya_27_feb_2025_is_unreadable():
+    """27 Feb 2025: 'Today is Amavashya from 08:56 IST but it is khsaya
+    tithi … Amavashya is bullish but due to its kshaya, very difficult
+    to know its effect' — Amavasya lifts, Kshaya knocks back: volatile."""
+    d = saptarsh.day(datetime.date(2025, 2, 27))
+    assert d["panchang"]["kshaya_tithi"] == "Pournami/Amavasai"
+    assert 30 in d["panchang"]["tithis_in_session"]
+    assert d["calls"]["gold"]["tone"] == "vol"
+    assert any("Amavasya" in w for w in d["calls"]["gold"]["why"])
+    assert any("Kshaya" in w for w in d["calls"]["gold"]["why"])
+    m = [i for i in d["ingresses"] if i["planet"] == "Mercury" and i["to"] == "Meena"]
+    assert m and m[0]["tone"] == "bear"
+
+
+def test_jan_feb_2025_aspects_ingresses_and_mars_station():
+    d = saptarsh.day(datetime.date(2025, 2, 3))
+    got = _aspect(d, "Sun", 45, "Rahu")
+    assert got["tone"] == "bear" and got["source"] == "observed"
+    d = saptarsh.day(datetime.date(2025, 1, 1))
+    got = _aspect(d, "Moon", 45, "Saturn")
+    assert got["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 1, 28))
+    v = [i for i in d["ingresses"] if i["planet"] == "Venus" and i["to"] == "Meena"]
+    assert v and v[0]["tone"] == "bear" and v[0]["source"] == "observed"
+    assert d["moon"]["sign_change"]["to"] == "Makara"
+    assert abs(_mins(d["moon"]["sign_change"]["time"]) - _mins("14:53")) <= 3
+    st = [i for i in saptarsh.day(datetime.date(2025, 2, 24))["ingresses"]
+          if i["kind"] == "station"]
+    assert st and st[0]["planet"] == "Mars" and st[0]["to"] == "direct"
+    assert st[0]["source"] == "observed" and "Chemical" in st[0]["note"]
+
+
+def test_sign_stellium_march_2025_make_or_break():
+    """14 Feb 2025: 'March end, Sun+Saturn+Rahu+Mercury+Venus in Pisces
+    … Make or break for all financial markets.'"""
+    r = saptarsh.regime(datetime.date(2025, 3, 29))
+    pis = [c for c in r["conjunctions"] if c["sign_en"] == "Pisces"]
+    assert pis and len(pis[0]["planets"]) >= 4
+    assert any("Make or break" in n for n in r["notes"])
+    assert not any("Make or break" in n
+                   for n in saptarsh.regime(datetime.date(2026, 8, 28))["notes"])
+
+
+def test_vaar_tithi_jan_feb_2025_overrides():
+    assert saptarsh.vaar_tithi_yoga(2, 9)["source"] == "observed"
+    assert saptarsh.vaar_tithi_yoga(4, 11) == {"names": ["Vaar-Tithi"], "tone": "bear",
+                                               "source": "observed"}
+    assert saptarsh.vaar_tithi_yoga(2, 22)["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 1, 10))
+    assert d["panchang"]["vaar_tithi"]["tone"] == "bear"

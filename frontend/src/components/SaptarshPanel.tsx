@@ -300,6 +300,55 @@ const EARLY_LOG: [string, string, string][] = [
   ['16–25 Jul', 'Both', '"Sun enters Cancer conjunct Mercury — trend changing, may start upward journey"; "huge move coming, high probability sell off, 21 July" → 18 Jul "effects started??"; 25 Jul Kaal Sarp breaking.'],
 ]
 
+// ---- eighth learning pass: X posts of Jan - Mar 2025 (Jan 2025.mp4)
+
+const NIFTY_NAK: [string, string, string][] = [
+  ['Krittika', 'neutral to slightly positive', '10 Jan 2025'],
+  ['Rohini', 'supportive for stocks (bearish for metals the same day)', '10 Jan, 7 Feb 2025'],
+  ['Chitra', 'favourable for stocks', '17 Feb 2025'],
+  ['Swati', 'not much favourable for higher prices', '18 Feb 2025, 18 Aug 2026'],
+  ['Vishakha', 'not supportive (20 Feb 2025) vs slightly positive (19 Aug 2026) — mixed', '20 Feb 2025, 19 Aug 2026'],
+  ['Anuradha', 'not supportive (20 Feb 2025, 20 Aug 2026) vs supportive (21 Feb 2025, 21 Aug 2026) — 2–2', 'Feb 2025, Aug 2026'],
+  ['Mula', 'high volatility, "your stop could be triggered"', '9 Jul 2025'],
+  ['Purvashadha', 'bullish', '24 Aug 2026'],
+  ['Uttarashadha', 'supportive for stocks', '1 Jan 2025'],
+  ['Shravana', 'neutral', '26 Aug 2026'],
+  ['Dhanishta', 'bullish', '27 Aug 2026'],
+  ['Shatabhisha', 'bearish', '28 Aug 2026'],
+  ['Revati', 'neutral for stocks', '3 Feb 2025'],
+]
+
+const JAN_CONCEPTS: [string, string, string][] = [
+  ['The Nifty report format', 'Same skeleton as metals, in three or four session windows: "The Moon is in Capricorn and it stays in Uttarshadha nakshatra during Indian market hours. This is supportive for stocks. Moon 45 Saturn will create volatility with negative bias. Intraday yogs are not bearish … 09:15–11:15 Bullish, 11:15–15:00 Flat to bullish, 15:00–15:30 Bullish." Dow Jones gets the same with ET windows.', '1 Jan 2025'],
+  ['Avoid the first 45 minutes', '"Avoid trading till 10:00 IST, wrong decision may be taken" — the opening window is marked "Bearish — but avoid trading" rather than traded.', '17 Feb 2025'],
+  ['Conditional reversal', '"Mention conditional sharp bullish reversal after 13:00 IST" — posted with the chart showing the 13:00 turn. The time is the call; the direction is conditional on where price arrives.', '8 Jan 2025'],
+  ['Sun 45 Rahu', '"Sun 45° Rahu aspect is negative and high volatility is expected" (Nifty, 3 Feb). Observed bearish in the aspect table.', '3 Feb 2025'],
+  ['Sun–Saturn approaching', '"Sun and Saturn are going to near each other, this is also bearish for whole metal sector including copper." Sun 0 Saturn is now observed bearish; note he reads the APPROACH, days before exactness.', '27 Feb 2025'],
+  ['Kshaya on Amavasya', '"Today is Amavashya from 08:56 IST but it is khsaya tithi, this is considered as a bearish … Amavashya is bullish but as mentioned due to its kshaya, very difficult to know its effect on market." The outlook renders this day as volatile — both rules fire and cancel.', '27 Feb 2025'],
+  ['Mars direct → metals & chemicals', '"Tomorrow Mars turning direct, this may impact the current trend in metal sector. Gold, Silver and copper may affected. Chemical sector will also affected." Mars stations now carry this note (24 Feb, 07:37 IST).', '23 Feb 2025'],
+  ['Five-body sign stellium', '"Very dangerous time is coming. March end, Sun+Saturn+Rahu+Mercury+Venus in Pisces. Very critical time for global markets. Make or break for all financial markets." The Regime block now flags ≥4 bodies in one sign.', '14 Feb 2025'],
+  ['Event stacking', '"Mercury retrograde on 15th March, Uranus enters Taurus 19th March, Saturn enters Pisces 29th March, Sun eclipse 29th March. These all have ability to turn the table." — several slow events in one fortnight is itself the signal.', '14 Mar 2025'],
+  ['Vaar-Tithi for Nifty too', '"IF Vaar-Tithi yog dominate then we may get strong bearish trend in the market" — it is not only a metals rule. Three more dated calls: Wed 8 Jan and Fri 10 Jan bearish, Wed 19 Feb bearish. The classical table now agrees on 6 of his 10 dated calls; the other 4 are stored as observed overrides.', 'Jan–Feb 2025'],
+  ['Self-grading, both ways', '"Nifty — Missed in second half but on spot overall. Gold — on spot" (10 Jan); "Irrespective of my accuracy, I am posting all my last week prediction" (9 Feb); to a troll: "You have time to point out my failure of predictions" (20 Feb). He also posts his broker trade summary (28 Jan).', 'Jan–Feb 2025'],
+]
+
+const JAN_LOG: [string, string, string][] = [
+  ['1 Jan 2025', 'Nifty', 'Report: Uttarashadha supportive, Moon 45 Saturn volatile-negative, bullish windows → "not surprised by today\'s bullish trend … predicted a week ago."'],
+  ['7 Jan', 'Metals', 'Report: Revati→Ashwini bullish, "AVOID SHORT TODAY", bullish yogs 12:00 and 17:30–23:30 → "On spot."'],
+  ['8 Jan', 'Both', 'Metals: Ashwini→Bharani, Vaar-Tithi bearish, bearish yog till 16:30 then bullish; Nifty: "conditional sharp bullish reversal after 13:00" → chart posted.'],
+  ['10 Jan', 'Both', 'Nifty: Krittika→Rohini neutral-positive, bullish yog from 09:45 → "Missed in second half but on spot overall"; Gold: Rohini bearish, Vaar-Tithi bearish, bullish yog till 19:30 → "on spot".'],
+  ['17 Jan', 'Nifty', '"Be careful in short after 12:30 IST. Sharp upside is possible" → "recovered unexpectedly, hope to trade in green."'],
+  ['28 Jan', 'Both', 'Metals: Purvashadha→Uttarashadha "not much supportive", Venus→Pisces slightly bearish, bearish yog till 14:45 then strong bullish till 20:45 → "On spot"; Nifty: "Bearish time starts 13:13 IST" → "100+ points fall in just 2 min."'],
+  ['29 Jan', 'Nifty', '"Bearish time starts at 11:30 IST. Be careful."'],
+  ['3 Feb', 'Nifty', 'Report: Revati neutral, Sun 45 Rahu negative/volatile; bullish 09:15–10:00, slightly bearish 10:00–12:00, bullish 12:00–13:15, strong bearish 13:15–15:30 (posted 9 Feb "irrespective of my accuracy").'],
+  ['7 Feb', 'Nifty', 'Report: Rohini supportive; range-negative 09:30–12:00, strong bearish 12:00–13:30, bullish 13:30–15:30; "many planetary changes Saturday–Sunday, avoid risky positions; Delhi election results tomorrow."'],
+  ['12–15 Feb', 'Both', '"Avoid short after 12:00" (Nifty); "Gold continues to rise. If you think it will, time to be cautious" → 15 Feb "Gold down $43 and $57 from day\'s high."'],
+  ['17–21 Feb', 'Nifty', 'Reports: Chitra favourable, avoid till 10:00, bullish 10:00–13:30; Swati bearish 09:15–11:30 then recovery; Vishakha→Anuradha "not supportive", bearish 09:15–13:15; Anuradha "supportive" but "very difficult to predict today, follow technical levels."'],
+  ['27 Feb', 'Metals', 'Report: Dhanishta→Shatabhisha, Kshaya Amavasya "very difficult to know its effect", Mercury→Pisces not favourable, Sun–Saturn nearing bearish for metals incl. copper; "Avoid risky long."'],
+  ['4–5 Mar', 'Nifty', '"12:15 IST important time. If we fall, we may fall near day\'s low"; "Avoid long for tomorrow. Seems weak 60 min+ opening."'],
+  ['13–14 Mar', 'Global', '"A very important prediction regarding global stock markets will be shared here soon"; event list (Mercury retro, Uranus→Taurus, Saturn→Pisces, eclipse): "These all have ability to turn the table."'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -308,6 +357,7 @@ const SOURCES: [string, string][] = [
   ['Nov 2025.mp4 (recorded 2026-08-28)', 'X account, posts 4 Nov 2025 – 30 Jan 2026 — premium reports of 14, 18, 19 Nov, 4 Dec, 30 Jan; the 26 Jan week note; the 6 Jan Rahu–Ketu and Jupiter-by-pada tables; the Dec-1993 stellium analog; the 21 Jan early-degree post; Nifty timing posts; his 4 Dec option fills; the 30 Jan miss.'],
   ['August 2025.mp4 (recorded 2026-08-28)', 'X account, posts 16 Jul – 30 Oct 2025 — premium reports of 11 Aug, 9–11 Sep, 23 Sep, 30 Sep, 1 Oct, 20 Oct, 27–28 Oct; the 26 Oct grand-trine post; the 9 Aug Mercury-direct reversal call; the 15 Sep Sun–Mercury Virgo ingress; the 22 Sep T&C; ten Nifty timing posts incl. two "Failed".'],
   ['April 2025.mp4 (recorded 2026-08-28)', 'X account, posts 28 Mar – 25 Jul 2025 — the earliest reports (16, 19–23, 29 May; 7–8 Jul), the 20 Apr and 2 May and 16 May week notes with IMP-marked aspects, the Apr 2025 gold-crash call, the 19 May "Nifty 3–5%" call, the Kaal Sarp post, the Pluto admission, the Jagannatha Hora horary example, natal Mercury/Saturn rules.'],
+  ['Jan 2025.mp4 (recorded 2026-08-28)', 'X account, posts 1 Jan – 14 Mar 2025 — daily NIFTY reports (1 Jan; 3, 7, 17–21 Feb), Dow Jones reports with ET windows, metals reports of 7–8, 10, 28 Jan and 27 Feb, the 14 Feb five-body Pisces "make or break" note, the 14 Mar event list, his 28 Jan trade summary, the 20 Feb troll dispute.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -674,6 +724,45 @@ function SaptarshPanel({ date }: { date?: string }) {
           <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
           <tbody>
             {EARLY_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">18 · Jan – Mar 2025 — the Nifty reports</h3>
+        <p className="learn-p">
+          Until this batch nearly every observed nakshatra call was for
+          metals. These posts carry daily NIFTY reports with the Moon's
+          star read for stocks — the table the outlook's Nifty column now
+          draws on.
+        </p>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Nakshatra</th><th>Nifty call</th><th>Report date</th></tr></thead>
+          <tbody>
+            {NIFTY_NAK.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Rohini is the clearest split: supportive for stocks, bearish for
+          metals on the very same day (10 Jan 2025). Thirteen of 27 stars
+          now have a Nifty reading; the rest stay extrapolated by lord.
+        </p>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {JAN_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">Calls log, Jan – Mar 2025</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {JAN_LOG.map(([d, m, c]) => (
               <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
             ))}
           </tbody>
