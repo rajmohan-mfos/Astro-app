@@ -176,5 +176,67 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
-    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
-    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "nifty")[1] == "extrapolated"
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bull", "observed")   # 8 Jun
+    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
+    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "nifty")[1] == "extrapolated"
+
+
+# ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
+
+def test_ingresses_match_the_2_jun_report():
+    """2 Jun report: 'Jupiter enters in Cancer at 01:49 IST', 'Mercury
+    enters in Adra nakshatra at 06:13 IST'."""
+    d = saptarsh.day(datetime.date(2026, 6, 2))
+    jup = [i for i in d["ingresses"] if i["planet"] == "Jupiter" and i["kind"] == "sign"]
+    assert jup and jup[0]["to"] == "Kataka"
+    assert abs(_mins(jup[0]["time"]) - _mins("01:49")) <= 5
+    assert jup[0]["source"] == "observed" and jup[0]["tone"] == "bear"
+    mer = [i for i in d["ingresses"] if i["planet"] == "Mercury" and i["kind"] == "nakshatra"]
+    assert mer and mer[0]["to"] == "Ardra"
+    assert abs(_mins(mer[0]["time"]) - _mins("06:13")) <= 5
+    assert any("Jupiter enters Kataka" in f for f in d["flags"])
+
+
+def test_quintile_and_moon_saturn_conjunction_10_jun():
+    """10 Jun report: Sun 72 Moon 02:36 'strong bearish'; Moon 00 Saturn
+    13:01 'strong bullish'; Venus 00 Jupiter 01:30 'strong bearish';
+    Mercury 90 Saturn 11:10 'high volatile'."""
+    d = saptarsh.day(datetime.date(2026, 6, 10))
+    for a, ang, b, t, tone in [("Sun", 72, "Moon", "02:36", "bear"),
+                               ("Moon", 0, "Saturn", "13:01", "bull"),
+                               ("Venus", 0, "Jupiter", "01:30", "bear"),
+                               ("Mercury", 90, "Saturn", "11:10", "vol")]:
+        got = _aspect(d, a, ang, b)
+        assert abs(_mins(got["time"]) - _mins(t)) <= 4, (a, ang, b, got["time"])
+        assert got["tone"] == tone and got["source"] == "observed"
+    assert {"Venus", "Jupiter", "Saturn"} <= set(d["active_planets"])
+
+
+def test_vaar_nakshatra_thursday_pushya_is_auspicious():
+    """21 May (Thu, Pushya): 'Combination of Nakshatra and Vaar is
+    bullish' — classical Sarvartha Siddhi + Amrita Siddhi."""
+    vn = saptarsh.vaar_nakshatra_yoga(3, "Pushya")
+    assert vn["tone"] == "bull" and "Amrita Siddhi" in vn["names"]
+    assert saptarsh.vaar_nakshatra_yoga(1, "Ardra")["names"] == ["Yamaghanta"]
+    assert saptarsh.vaar_nakshatra_yoga(0, "Bharani") is None
+    d = saptarsh.day(datetime.date(2026, 5, 21))
+    assert d["moon"]["nakshatra"] == "Pushya"
+    assert d["panchang"]["vaar_nakshatra"]["tone"] == "bull"
+
+
+def test_observed_vaar_tithi_overrides_the_classical_table():
+    assert saptarsh.vaar_tithi_yoga(4, 29) == {"names": ["Vaar-Tithi"], "tone": "bear",
+                                               "source": "observed"}      # Fri 15 May
+    assert saptarsh.vaar_tithi_yoga(1, 3)["source"] == "classical"        # Tue 19 May
+    d = saptarsh.day(datetime.date(2026, 5, 15))
+    assert d["panchang"]["vaar_tithi"]["source"] == "observed"
+    assert d["panchang"]["vaar_tithi"]["tone"] == "bear"
+
+
+def test_vyatipata_is_bullish_for_metals_but_not_nifty():
+    moon = {"sign": "Kataka", "nakshatra": "Ashlesha", "sign_change": None,
+            "nakshatra_change": None}
+    gold = saptarsh._call("gold", moon, [], [], "Vyatipata", None, 6)
+    nifty = saptarsh._call("nifty", moon, [], [], "Vyatipata", None, 6)
+    assert gold["tone"] == "bull" and any("Mahapat" in w for w in gold["why"])
+    assert nifty["tone"] == "vol"

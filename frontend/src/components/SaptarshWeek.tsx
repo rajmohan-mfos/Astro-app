@@ -72,8 +72,18 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
         {' · '}Rahu Kaal {d.kaal.rahu_kaal[0]}–{d.kaal.rahu_kaal[1]}
         {d.eclipse ? ` · ${d.eclipse}` : ''}
         {d.panchang.vaar_tithi
-          ? ` · Vaar-Tithi ${d.panchang.vaar_tithi.names.join('/')} (${d.panchang.vaar_tithi.tone}, classical)` : ''}
+          ? ` · Vaar-Tithi ${d.panchang.vaar_tithi.names.join('/')} (${d.panchang.vaar_tithi.tone}, ${d.panchang.vaar_tithi.source})` : ''}
+        {d.panchang.vaar_nakshatra
+          ? ` · Nakshatra+Vaar ${d.panchang.vaar_nakshatra.names.join('/')} (${d.panchang.vaar_nakshatra.tone})` : ''}
+        {d.active_planets.length > 0 ? ` · Active planets: ${d.active_planets.join(', ')}` : ''}
       </div>
+      {d.ingresses.length > 0 && (
+        <div className="gann-detail">
+          Astro events: {d.ingresses.map((i) =>
+            `${i.time} ${i.planet} enters ${i.to}${i.source === 'observed' ? ` (${i.tone})` : ''}`
+          ).join(' · ')}
+        </div>
+      )}
       {/* the X account's premium-report shape: metals trade through the
           night on Globex, so the windows run 03:30 -> 27:30 IST with ET */}
       <div className="sap-windows sap-metal">

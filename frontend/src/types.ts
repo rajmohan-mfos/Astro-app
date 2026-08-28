@@ -289,7 +289,8 @@ export interface SaptarshDay {
     yoga: string
     yoga_ends: string | null
     karanas: { name: string; ends: string | null }[]
-    vaar_tithi: { names: string[]; tone: SaptarshTone; source: 'classical' } | null
+    vaar_tithi: { names: string[]; tone: SaptarshTone; source: 'classical' | 'observed' } | null
+    vaar_nakshatra: { names: string[]; tone: SaptarshTone; source: 'classical' } | null
   }
   kaal: {
     sunrise: string
@@ -300,6 +301,11 @@ export interface SaptarshDay {
     abhijit: [string, string]
   }
   aspects: SaptarshAspect[]
+  ingresses: {
+    time: string; et: string; planet: string; kind: 'sign' | 'nakshatra'
+    to: string; tone: SaptarshTone; source: SaptarshSource; note: string
+  }[]
+  active_planets: string[]
   eclipse: string | null
   flags: string[]
   calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>

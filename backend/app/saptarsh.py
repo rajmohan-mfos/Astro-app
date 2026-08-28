@@ -43,10 +43,14 @@ BODIES = [("Sun", swe.SUN), ("Moon", swe.MOON), ("Mercury", swe.MERCURY),
           ("Saturn", swe.SATURN), ("Uranus", swe.URANUS),
           ("Neptune", swe.NEPTUNE), ("Pluto", swe.PLUTO),
           ("Rahu", swe.MEAN_NODE)]          # the channel's "Mn Node"
-ANGLES = [0, 45, 60, 90, 120, 135, 150, 180]
+ANGLES = [0, 45, 60, 72, 90, 120, 135, 144, 150, 180]
 ASPECT_NAMES = {0: "conjunction", 45: "semi-square", 60: "sextile",
-                90: "square", 120: "trine", 135: "sesquiquadrate",
-                150: "quincunx", 180: "opposition"}
+                72: "quintile", 90: "square", 120: "trine",
+                135: "sesquiquadrate", 144: "biquintile", 150: "quincunx",
+                180: "opposition"}
+INGRESS_BODIES = [("Sun", swe.SUN), ("Mercury", swe.MERCURY),
+                  ("Venus", swe.VENUS), ("Mars", swe.MARS),
+                  ("Jupiter", swe.JUPITER), ("Saturn", swe.SATURN)]
 SIGN_EN = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra",
            "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
 
@@ -87,6 +91,36 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Sun", "Jupiter", 120): "bull",        # 27 Jul "Sun-Jupiter become bullish"
     ("Moon", "Pluto", 0): "bull",           # 2 Jul
     ("Venus", "Rahu", 150): "vol",          # 29 Jul "will affect silver"
+    # X premium reports, May-Jun 2026 (the earlier prose format)
+    ("Sun", "Moon", 72): "bear",            # 10 Jun "strong bearish"
+    ("Sun", "Moon", 120): "bear",           # 26 May
+    ("Sun", "Saturn", 60): "bear",          # 3 Jun
+    ("Moon", "Venus", 0): "bear",           # 19 May "bearish for 1-2 hours"
+    ("Moon", "Mars", 0): "bull",            # 15 May "bullish for few hours"
+    ("Moon", "Jupiter", 0): "bear",         # 20 May "bearish for few hrs"
+    ("Moon", "Saturn", 0): "bull",          # 10 Jun "strong bullish"
+    ("Moon", "Saturn", 180): "bull",        # 26 May
+    ("Moon", "Uranus", 60): "bear",         # 9 Jun
+    ("Moon", "Neptune", 0): "bear",         # 9 Jun
+    ("Moon", "Rahu", 60): "bear",           # 2 Jun
+    ("Mercury", "Saturn", 90): "vol",       # 10 Jun "high volatile"
+    ("Venus", "Jupiter", 0): "bear",        # 10 Jun "strong bearish for the day"
+    ("Venus", "Uranus", 45): "vol",         # 2 Jun
+    ("Mars", "Pluto", 90): "vol",           # 26 May
+}
+
+# Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
+# -> (tone, their words). Anything else is listed as "watch".
+INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
+    ("Jupiter", "sign", "Kataka"): ("bear", "2 Jun: \"very important event, can affect the market heavily for long term … bearish last Oct, careful for few days\""),
+    ("Jupiter", "nakshatra", "Ashlesha"): ("bull", "19 Aug: \"considered bullish for stock markets\""),
+    ("Venus", "nakshatra", "Ardra"): ("bear", "20 May: \"bearish for Silver\""),
+    ("Venus", "sign", "Kataka"): ("bull", "8 Jun: \"bullish for Silver but not immediately\""),
+    ("Mercury", "nakshatra", "Ardra"): ("bear", "2 Jun: \"slightly bearish\""),
+    ("Mercury", "nakshatra", "Rohini"): ("neutral", "19 May: \"not much significant for precious metal market\""),
+    ("Sun", "nakshatra", "Pushya"): ("bull", "20 Jul: \"slightly bullish\""),
+    ("Sun", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
+    ("Mercury", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
 }
 BENEFIC = {"Venus", "Jupiter", "Mercury", "Sun", "Moon"}
 HEAVY = {"Saturn", "Rahu", "Pluto"}
@@ -109,6 +143,9 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
     if angle in (45, 90, 180):
         return ("vol" if {a, b} & {"Mercury"} and other in OUTER
                 else "bear"), "extrapolated"
+    if angle in (72, 144):
+        # quintile family: seen once (Sun 72 Moon, bearish); no rule
+        return "neutral", "extrapolated"
     # 135 / 150
     if other in HEAVY:
         return "bear", "extrapolated"
@@ -122,32 +159,72 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
 # Telegram posts (19-28 Aug); metals column from the X premium reports
 # (2 Jul - 19 Aug) plus the Telegram Gold/Silver lines.
 OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
-    "Ashwini": (None, "bull"),
-    "Bharani": (None, "bear"),
+    "Ashwini": (None, "bull"),              # 15 May, 8-9 Jul
+    "Bharani": (None, "bear"),              # 15 May, 9 Jul
     "Rohini": (None, "bear"),               # 10 Aug "not much favourable"
-    "Ardra": (None, "bear"),                # 10 Aug
-    "Punarvasu": (None, "bear"),            # 14 Jul
-    "Pushya": (None, "bear"),               # 15 Jul
+    "Mrigashira": (None, "bull"),           # 19 May
+    "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
+    "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
+    "Pushya": (None, "vol"),                # bullish 21 May, bearish 15 Jul
     "Ashlesha": (None, "neutral"),          # 15 Jul
-    "Hasta": (None, "bear"),                # 20 Jul
+    "Hasta": (None, "bear"),                # 26 May, 20 Jul
     "Chitra": (None, "bull"),               # 20 Jul
     "Swati": ("bear", "vol"),               # 18 Aug
     "Vishakha": ("bull", "vol"),            # 19 Aug
-    "Anuradha": ("neutral", "vol"),         # bearish on 20 Aug, supportive on 21
-    "Jyeshtha": ("bull", "vol"),
-    "Mula": (None, "bear"),                 # 27 Jul
-    "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 28 Jul
-    "Uttara Ashadha": (None, "bull"),       # 2 Jul, 28-29 Jul, 25 Aug
+    "Anuradha": ("neutral", "vol"),         # bullish 4 May; both sides 21 Aug
+    "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
+    "Mula": (None, "vol"),                  # bullish 2 Jun, bearish 27 Jul
+    "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
+    "Uttara Ashadha": (None, "bull"),       # 9 Jun, 2 Jul, 28-29 Jul, 25 Aug
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
-    "Shatabhisha": ("bear", "bear"),
-    "Uttara Bhadrapada": (None, "bull"),    # 7 Jul
-    "Revati": (None, "bear"),               # 7-8 Jul
+    "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
+    "Purva Bhadrapada": (None, "bull"),     # 8 Jun
+    "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
+    "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
-# the sign itself (used when the nakshatra is unobserved).
+# the sign itself (used when the nakshatra is unobserved). Kumbha was
+# "bearish" on 6 Jul and "slight bullish" on 8 Jun — the two-vote side.
 OBSERVED_SIGN_METALS = {"Makara": "bull", "Kumbha": "bear", "Meena": "bear",
-                        "Kataka": "bear", "Mithuna": "neutral"}
+                        "Kataka": "bear", "Mithuna": "neutral",
+                        "Dhanu": "bear", "Kanya": "neutral"}
+
+# Vaar-Nakshatra yoga ("combination of Nakshatra and Vaar", 21 May):
+# classical Sarvartha Siddhi / Amrita Siddhi (auspicious) and
+# Yamaghanta / Mrityu (inauspicious) tables, weekday Mon=0 .. Sun=6.
+SARVARTHA = {
+    6: {"Hasta", "Mula", "Uttara Phalguni", "Uttara Ashadha", "Uttara Bhadrapada", "Pushya", "Ashwini"},
+    0: {"Shravana", "Rohini", "Mrigashira", "Pushya", "Anuradha"},
+    1: {"Ashwini", "Uttara Bhadrapada", "Krittika", "Ashlesha"},
+    2: {"Rohini", "Anuradha", "Hasta", "Krittika", "Mrigashira"},
+    3: {"Revati", "Anuradha", "Ashwini", "Punarvasu", "Pushya"},
+    4: {"Revati", "Anuradha", "Ashwini", "Punarvasu", "Shravana"},
+    5: {"Shravana", "Rohini", "Swati"},
+}
+AMRITA = {6: "Hasta", 0: "Mrigashira", 1: "Ashwini", 2: "Anuradha",
+          3: "Pushya", 4: "Revati", 5: "Rohini"}
+YAMAGHANTA = {6: "Magha", 0: "Vishakha", 1: "Ardra", 2: "Mula",
+              3: "Krittika", 4: "Rohini", 5: "Hasta"}
+MRITYU_NAK = {6: "Anuradha", 0: "Uttara Ashadha", 1: "Shatabhisha",
+              2: "Ashwini", 3: "Mrigashira", 4: "Ashlesha", 5: "Hasta"}
+
+
+def vaar_nakshatra_yoga(weekday: int, nak: str) -> dict | None:
+    hits = []
+    if nak in SARVARTHA.get(weekday, ()):
+        hits.append(("Sarvartha Siddhi", "bull"))
+    if AMRITA.get(weekday) == nak:
+        hits.append(("Amrita Siddhi", "bull"))
+    if YAMAGHANTA.get(weekday) == nak:
+        hits.append(("Yamaghanta", "bear"))
+    if MRITYU_NAK.get(weekday) == nak:
+        hits.append(("Mrityu", "bear"))
+    if not hits:
+        return None
+    return {"names": [h[0] for h in hits],
+            "tone": "bear" if any(h[1] == "bear" for h in hits) else "bull",
+            "source": "classical"}
 LORD_TONE = {"Venus": "bull", "Jupiter": "bull", "Mercury": "bull",
              "Mars": "bull", "Moon": "neutral", "Sun": "neutral",
              "Saturn": "bear", "Rahu": "bear", "Ketu": "bear"}
@@ -178,8 +255,19 @@ VISHA = {6: 4, 0: 6, 1: 7, 2: 2, 3: 8, 4: 9, 5: 7}
 HUTASANA = {6: 12, 0: 6, 1: 7, 2: 8, 3: 9, 4: 10, 5: 11}
 
 
+# (weekday, tithi-in-paksha) the reports called explicitly. The classical
+# tables agree where they speak (Tue+3 Siddha = "bullish" 19 May; Wed+3
+# Mrityu/Dagdha = "bearish" 3 Jun) and are silent on these three.
+OBSERVED_VAAR_TITHI = {(4, 14): "bear",     # Fri 15 May "Vaar-Tithi yog is bearish"
+                       (0, 13): "bear",     # Mon 27 Jul
+                       (1, 14): "bull"}     # Tue 28 Jul
+
+
 def vaar_tithi_yoga(weekday: int, tithi_num: int) -> dict | None:
     t = (tithi_num - 1) % 15 + 1
+    if (weekday, t) in OBSERVED_VAAR_TITHI:
+        return {"names": ["Vaar-Tithi"], "tone": OBSERVED_VAAR_TITHI[(weekday, t)],
+                "source": "observed"}
     hits = []
     if t in SIDDHA.get(weekday, ()):
         hits.append(("Siddha", "bull"))
@@ -349,6 +437,40 @@ def day_aspects(d: datetime.date) -> list[dict]:
     return dedup
 
 
+def day_ingresses(d: datetime.date) -> list[dict]:
+    """Sign and nakshatra changes of Sun..Saturn between 00:00 and 24:00
+    IST — the reports list these under "Important Astro. Event"."""
+    jd0, jd1 = _jd_local(d, 0), _jd_local(d, 24)
+    out = []
+    for name, body in INGRESS_BODIES:
+        fn = lambda j, b=body: _lon(b, j)          # noqa: E731
+        lon0 = fn(jd0)
+        retro = swe.calc_ut(jd0, body, FLAGS)[0][3] < 0
+        for kind, size, names in (("sign", 30.0, RASIS),
+                                  ("nakshatra", SEG, NAKSHATRAS)):
+            i = int(lon0 // size)
+            n = len(names)
+            if retro:
+                target, to = (i * size) % 360, names[(i - 1) % n]
+            else:
+                target, to = ((i + 1) * size) % 360, names[(i + 1) % n]
+            c = _next_cross(fn, target, jd0, jd1, 1 / 24, decreasing=retro)
+            if c is None:
+                continue
+            tone, note = INGRESS_NOTES.get((name, kind, to), (None, None))
+            out.append({"_jd": c, "time": _hhmm(c, jd0), "et": _et(c),
+                        "planet": name, "kind": kind, "to": to,
+                        "tone": tone or "neutral",
+                        "source": "observed" if note else "extrapolated",
+                        "note": note or ("a slow planet changing sign is a "
+                                         "'trend changer' in their reading — watch"
+                                         if kind == "sign" and name in
+                                         ("Jupiter", "Saturn", "Mars")
+                                         else "listed, no reading given")})
+    out.sort(key=lambda x: x["_jd"])
+    return out
+
+
 def eclipse_on(d: datetime.date) -> str | None:
     jd0, jd1 = _jd_local(d, 0), _jd_local(d, 24)
     try:
@@ -483,7 +605,8 @@ def _karanas_in_session(jd0: float) -> list[dict]:
 
 
 def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
-          yoga: str, vt: dict | None, tithi_num: int) -> dict:
+          yoga: str, vt: dict | None, tithi_num: int,
+          vn: dict | None = None) -> dict:
     nak = moon["nakshatra"]
     tone, src = nak_tone(nak, moon["sign"], instrument)
     why = [f"Moon in {moon['sign']} / {nak} — {TONE_WORD[tone]} ({src})"]
@@ -508,12 +631,30 @@ def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
         tone = "vol"
         why.append("Vaidhriti yog — \"volatility with bullish bias\" (27 Jul, 2 Jul)")
     elif yoga == "Vyatipata":
-        tone = "vol" if tone != "bear" else "bear"
-        why.append("Vyatipata yoga — inauspicious, treat as volatile")
+        if instrument == "nifty":
+            tone = "vol" if tone != "bear" else "bear"
+            why.append("Vyatipata yoga — classically inauspicious; no Nifty "
+                       "reading seen, treat as volatile")
+        else:
+            tone = "bull" if tone != "bear" else "vol"
+            why.append("Vyatipat Mahapat yog — \"this is also bullish\" for "
+                       "metals (21 May)")
     if vt:
         why.append(f"Vaar-Tithi yog {'/'.join(vt['names'])} — "
-                   f"{TONE_WORD[vt['tone']]} (classical table; the channel's "
-                   "own mapping is unpublished)")
+                   f"{TONE_WORD[vt['tone']]} ({vt['source']})")
+        if vt["source"] == "observed":
+            if vt["tone"] == "bull" and tone == "neutral":
+                tone = "bull"
+            elif vt["tone"] == "bear" and tone in ("neutral", "bull"):
+                tone = "vol" if tone == "bull" else "bear"
+    if vn:
+        why.append(f"Nakshatra + Vaar {'/'.join(vn['names'])} — "
+                   f"{TONE_WORD[vn['tone']]} (classical; their 21 May "
+                   "\"combination of Nakshatra and Vaar is bullish\")")
+        if vn["tone"] == "bull" and tone == "neutral":
+            tone = "bull"
+        elif vn["tone"] == "bear" and tone == "neutral":
+            tone = "bear"
     return {"tone": tone, "source": src, "why": why, "caution": list(flags)}
 
 
@@ -590,8 +731,10 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
         a["time"] = _hhmm(a["_jd"], jd0)
         a["in_session"] = False
     ecl = eclipse_on(d)
+    ingresses = day_ingresses(d)
     tithi = pe["thithi"]
     vt = vaar_tithi_yoga(d.weekday(), tithi["num"])
+    vn = vaar_nakshatra_yoga(d.weekday(), moon["nakshatra"])
     # a tithi lasts 20-26 h, so one that begins after the open and ends
     # before tomorrow's open would never be sampled at 09:15 — look at
     # the close as well. Purnima / Amavasya must not slip through.
@@ -623,8 +766,12 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
                          "contacts on metals both ways (bullish 27 Jul, "
                          "bearish 10 Aug / 15 Jul); watch, don't assume.")
 
+    for ing in ingresses:
+        if ing["source"] == "observed":
+            flags.append(f"{ing['planet']} enters {ing['to']} at {ing['time']} — "
+                         f"{ing['note']}.")
     calls = {inst: _call(inst, moon, flags, karanas, pe["yogam"]["name"], vt,
-                         30 if 30 in tithis_in_session else tithi["num"])
+                         30 if 30 in tithis_in_session else tithi["num"], vn)
              for inst in ("nifty", "gold", "silver")}
     if moon["sign"] == "Kumbha" and ecl:
         calls["silver"]["why"].append(
@@ -650,6 +797,9 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
     m_events = [(a["_jd"], f"{a['a']} {a['angle']} {a['b']}", a["tone"])
                 for a in aspects + nxt]
     m_events += [(e[0], e[1], None) for e in moon["_events"]]
+    m_events += [(i["_jd"], f"{i['planet']} enters {i['to']}",
+                  i["tone"] if i["source"] == "observed" else None)
+                 for i in ingresses]
     metal_windows = _tile(m_events, jd0 + METAL_OPEN_H / 24,
                           jd0 + METAL_CLOSE_H / 24, calls["gold"]["tone"],
                           "Moon nakshatra", jd0, clock=_hhmm24, with_et=True)
@@ -659,8 +809,14 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
 
     all_aspects = aspects + [a for a in nxt
                              if (a["_jd"] - jd0) * 24 <= METAL_CLOSE_H]
+    # "Active planets are Venus, Jupiter, Saturn" — the bodies making an
+    # exact aspect that day, in their words
+    active = sorted({a["a"] for a in aspects} | {a["b"] for a in aspects},
+                    key=lambda n: [b[0] for b in BODIES].index(n))
     for a in all_aspects:
         a.pop("_jd", None)
+    for i in ingresses:
+        i.pop("_jd", None)
     for k in karanas:
         k.pop("_end", None)
     moon.pop("_events", None)
@@ -680,9 +836,12 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
             "yoga": pe["yogam"]["name"], "yoga_ends": _strip(pe["yogam"]["ends"]),
             "karanas": karanas,
             "vaar_tithi": vt,
+            "vaar_nakshatra": vn,
         },
         "kaal": kaal,
         "aspects": all_aspects,
+        "ingresses": ingresses,
+        "active_planets": active,
         "eclipse": ecl,
         "flags": flags,
         "calls": calls,
