@@ -9,6 +9,7 @@ Environment:
                        Keywords exist so the date can be typed on a phone
                        when triggering the workflow by hand.
   ASTRO_DRY_RUN        set to 1 to print the message instead of sending
+  ASTRO_FORCE          set to 1 to send even on an NSE holiday / weekend
   ASTRO_DIAGNOSE       set to 1 to check the token and list the chat ids
                        the bot can see, instead of sending. Use this when
                        Telegram answers "chat not found".
@@ -27,17 +28,16 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from app import engine, predict                            # noqa: E402
+from app import engine, nse_holidays, predict              # noqa: E402
 
 LAT = float(os.environ.get("ASTRO_LAT", 19.076))
 LON = float(os.environ.get("ASTRO_LON", 72.8777))
 TZ = 5.5
 IST = datetime.timezone(datetime.timedelta(hours=5.5))
 
-# NSE weekly holidays are handled by the cron (Mon-Fri only). Trading
-# holidays are NOT: the job will still fire on them, since a holiday
-# calendar would need maintaining every year. A message on a closed day
-# is harmless noise.
+# Weekends are handled by the cron (Mon-Fri only); trading holidays by
+# app/nse_holidays.py, which main() consults before sending. The bot's
+# /today and /tomorrow still answer on a closed day, with a note.
 
 
 def build_message(d: datetime.date) -> str:
@@ -53,6 +53,14 @@ def build_message(d: datetime.date) -> str:
          f"Panchang: {pan['vaara']['en']} · {pan['thithi']['name']} "
          f"({pan['thithi']['paksha']}) · {pan['natchathiram']['name']} "
          f"· {pan['yogam']['name']} · {pan['karanam']['name']}"]
+
+    closed = nse_holidays.closed_reason(d)
+    if closed:
+        L += ["", f"🏖 NSE closed — {closed}. Study reading only."]
+    elif not nse_holidays.calendar_known(d):
+        L += ["", f"⚠️ No NSE holiday list for {d.year} yet — add it to "
+                  "app/nse_holidays.py or holiday mornings will still "
+                  "get a message."]
 
     # [P2] "if you open the gate you can enter, then you can put a graph"
     # — the gate qualifies everything below it, so it goes ABOVE the
@@ -258,6 +266,10 @@ def main() -> None:
         diagnose()
         return
     d = resolve_date(os.environ.get("ASTRO_DATE"))
+    closed = nse_holidays.closed_reason(d)
+    if closed and os.environ.get("ASTRO_FORCE") != "1":
+        print(f"skipped: NSE closed on {d} ({closed})")
+        return
     text = build_message(d)
     if os.environ.get("ASTRO_DRY_RUN") == "1":
         print(text)

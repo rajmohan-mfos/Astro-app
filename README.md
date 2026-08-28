@@ -121,8 +121,10 @@ regularly missing the open.
 
 Two other things to know:
 
-- **NSE trading holidays are not handled.** The job fires every weekday,
-  so expect a message on holidays.
+- **NSE trading holidays are skipped** using the hand-kept list in
+  `backend/app/nse_holidays.py`. NSE publishes next year's list each
+  December — add it there, or every morning of the new year will carry
+  a "no holiday list" warning until you do.
 - **GitHub disables cron on repos with no activity for 60 days.** If the
   messages stop, push any commit or re-enable the workflow.
 

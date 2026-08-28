@@ -16,8 +16,10 @@ name: Daily prediction to Telegram
 #   * If every slot is delayed the message still arrives late rather
 #     than never — the marker only blocks a SECOND send on the same day.
 #
-# NSE trading holidays are NOT handled — the job fires on any weekday,
-# so you will get a message on holidays too.
+# NSE trading holidays: the job still fires, but daily_push.py consults
+# backend/app/nse_holidays.py and sends nothing on a closed day (the
+# marker is still stamped so the other slots stop). Add each new year's
+# list there when NSE publishes it in December.
 #
 # GitHub disables cron on repositories with no activity for 60 days; the
 # daily marker commit keeps it alive as a side effect.
@@ -39,6 +41,10 @@ on:
         default: '0'
       diagnose:
         description: 'Check token and list visible chat ids (1 = yes)'
+        required: false
+        default: '0'
+      force:
+        description: 'Send even on an NSE holiday / weekend (1 = yes)'
         required: false
         default: '0'
 
@@ -103,6 +109,7 @@ jobs:
           ASTRO_DATE: ${{ github.event.inputs.date }}
           ASTRO_DRY_RUN: ${{ github.event.inputs.dry_run }}
           ASTRO_DIAGNOSE: ${{ github.event.inputs.diagnose }}
+          ASTRO_FORCE: ${{ github.event.inputs.force }}
         run: python scripts/daily_push.py
 
       # Only a real scheduled send stamps the marker (a dry run or a
