@@ -112,6 +112,15 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Moon", "Rahu", 180): "bull",          # 14 Nov "Moon-Ketu at 0° … is bullish" (Ketu = Rahu+180)
     # X posts, Jul-Oct 2025
     ("Mars", "Jupiter", 120): "bear",       # 27-28 Oct "Mars 120° Jupiter is bearish" (a soft angle!)
+    # X week notes, Apr-May 2025 (the earliest reports)
+    ("Sun", "Mars", 90): "bear",            # 21 Apr 2025 "IMP … very scary correction" (gold -7% in 2 days)
+    ("Venus", "Rahu", 0): "bear",           # 20 Apr 2025 "IMP", same note
+    ("Venus", "Uranus", 60): "vol",         # 20 Apr 2025 "IMP"
+    ("Sun", "Saturn", 45): "bear",          # 2 May 2025 "can affect the stock market, little impact on metals"
+    ("Mars", "Jupiter", 45): "bull",        # 2 May 2025 "bullish for precious metals"
+    ("Mercury", "Jupiter", 60): "vol",      # 2 May 2025 "little volatility"
+    ("Jupiter", "Rahu", 90): "vol",         # 16 May 2025 "Volatility"
+    ("Sun", "Venus", 45): "bull",           # 16 May 2025 "Bullish … can pull the market any side"
 }
 
 # Sign / nakshatra ingresses the reports commented on: (planet, kind, to)
@@ -132,8 +141,12 @@ INGRESS_NOTES: dict[tuple[str, str, str], tuple[str, str]] = {
     ("Sun", "nakshatra", "Anuradha"): ("bull", "19 Nov 2025: \"this is bullish\""),
     ("Venus", "nakshatra", "Vishakha"): ("bear", "18 Nov 2025: \"slightly bearish for silver\""),
     ("Mars", "nakshatra", "Shravana"): ("bull", "26 Jan 2026: \"also bullish for silver\""),
-    ("Jupiter", "sign", "Mithuna"): ("vol", "5 Dec 2025: \"enters Mercury's sign, difficult to predict. Something big in Banking sector\""),
-    ("Sun", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
+    ("Jupiter", "sign", "Mithuna"): ("vol", "16 May 2025: \"favourable for stock markets and slightly bearish for precious metals\"; 5 Dec 2025: \"enters Mercury's sign, difficult to predict. Something big in Banking sector\""),
+    ("Sun", "sign", "Kataka"): ("bull", "16 Jul 2025: \"Sun changes sign and enters in Cancer and conjunct with Mercury. This is trend changing event … We may start upward journey\""),
+    ("Mercury", "sign", "Mesha"): ("vol", "6 May 2025: \"Mercury is changing sign and entering in Aries and conjunct with the Sun. This is significant event and there may reversal in many markets\""),
+    ("Mercury", "sign", "Mithuna"): ("vol", "5 Jun 2025: \"Mercury enters in Gemini, its own sign … conjunct with Jupiter. In past it created high volatility. Max 8% up from low and down from high\""),
+    ("Saturn", "sign", "Meena"): ("bear", "28 Mar 2025: \"Sun eclipse on 29 March and Saturn also change sign. This may be last phase of bullish trend\""),
+    ("Sun", "sign", "Vrishabha"): ("neutral", "16 May 2025: \"favourable for stock markets and slightly bearish for precious metals\"; 15 May 2026: \"trend changer but not for metals\""),
     ("Mercury", "sign", "Vrishabha"): ("neutral", "15 May: \"trend changer but not for metals\""),
 }
 BENEFIC = {"Venus", "Jupiter", "Mercury", "Sun", "Moon"}
@@ -189,13 +202,14 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Vishakha": ("bull", "vol"),            # metals "not supportive" 19 Nov, both sides 19 Aug
     "Anuradha": ("neutral", "bull"),        # bullish 6 Apr, 4 May; both sides 21 Aug (2 of 3)
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
-    "Mula": (None, "bull"),                 # bullish 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (3 of 4)
+    "Mula": ("vol", "bull"),                # Nifty: 9 Jul 2025 "Mool Nakshatra give high volatility";
+                                            # metals bullish 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (3 of 4)
     "Purva Ashadha": ("bull", "bear"),      # 24 Aug / 2-3 Jun, 28 Jul
     "Uttara Ashadha": (None, "bull"),       # 9 Jun, 2 Jul, 28-29 Jul, 25 Aug
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
-    "Purva Bhadrapada": (None, "vol"),      # bullish 8 Jun, bearish 11 Aug 2025 — both ways
+    "Purva Bhadrapada": (None, "bear"),     # "not supportive" 21 May 2025, bearish 11 Aug 2025; bullish 8 Jun 2026 (2 of 3)
     "Uttara Bhadrapada": (None, "bull"),    # 10 Jun "slightly bullish", 7 Jul
     "Revati": (None, "bear"),               # 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
 }
@@ -281,10 +295,12 @@ OBSERVED_VAAR_TITHI = {(4, 29): "bear",     # Fri 15 May "Vaar-Tithi yog is bear
                        (0, 13): "bear",     # Mon 27 Jul
                        (1, 14): "bull",     # Tue 28 Jul
                        (1, 29): "bear",     # Tue 18 Nov 2025
-                       (1, 7): "bull"}      # Tue 28 Oct 2025 (classical says Visha/Hutasana)
+                       (1, 7): "bull",      # Tue 28 Oct 2025 (classical says Visha/Hutasana)
+                       (1, 13): "bear"}     # Tue 8 Jul 2025 (classical says Siddha)
 # Scorecard of the classical tables against his dated calls: 19 May, 3
-# Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025 does
-# not. The remaining overrides are days the classical tables are silent.
+# Jun, 4 Dec, 30 Jan, 10 Sep 2025, 30 Sep 2025 agree; 28 Oct 2025 and
+# 8 Jul 2025 do not (6 of 8). The remaining overrides are days the
+# classical tables are silent.
 
 
 def vaar_tithi_yoga(weekday: int, tithi_num: int) -> dict | None:
@@ -655,6 +671,25 @@ def regime(d: datetime.date) -> dict:
                      "their 26 Oct 2025 reading (Mars–Jupiter–Saturn then; "
                      "gold and silver fell hard the next two days).")
 
+    # Kaal Sarp yog: every classical planet on one side of the Rahu-Ketu
+    # axis. "From Monday, Kaal sarp yog is going to break. Mars is moving
+    # away from Ketu and leaving Leo. Major change in Geopolitical
+    # situations are coming" (25 Jul 2025).
+    ks_bodies = ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
+    side = [((pos[n] - pos["Rahu"]) % 360) < 180 for n in ks_bodies]
+    kaal_sarp = all(side) or not any(side)
+    if kaal_sarp:
+        # the planet nearest the axis is the one whose move will break it
+        gaps = {n: min((pos[n] - pos["Rahu"]) % 360, (pos[n] - pos["Ketu"]) % 360,
+                       (pos["Rahu"] - pos[n]) % 360, (pos["Ketu"] - pos[n]) % 360)
+                for n in ks_bodies}
+        nearest = min(gaps, key=gaps.get)
+        notes.append(f"Kaal Sarp yog — Sun to Saturn all on one side of the "
+                     f"Rahu–Ketu axis ({nearest} is nearest the axis, "
+                     f"{gaps[nearest]:.1f}° away, and will break it). Their "
+                     "reading when it broke on 28 Jul 2025: \"major change in "
+                     "geopolitical situations are coming.\"")
+
     # Rahu-Ketu on the Leo-Aquarius axis: their gold history (6 Jan 2026)
     if {signs["Rahu"], signs["Ketu"]} == {4, 10}:
         which = "Rahu in Leo / Ketu in Aquarius" if signs["Rahu"] == 4 \
@@ -682,6 +717,7 @@ def regime(d: datetime.date) -> dict:
         "nakshatra_stellia": stellia,
         "early_degree_bodies": early,
         "grand_trines": grand_trines,
+        "kaal_sarp": kaal_sarp,
         "conjunctions": conj,
         "notes": notes,
         "jupiter_cancer_history": [
@@ -733,6 +769,12 @@ def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
         if tone != "bull":
             tone = "bull" if tone == "neutral" else "vol"
         why.append("Amavasya — \"considered bullish for gold and silver\" (14 Jul)")
+    if instrument != "nifty" and any(f.startswith("Kshaya tithi") for f in flags):
+        if tone == "bull":
+            tone = "vol"
+        elif tone == "neutral":
+            tone = "bear"
+        why.append("Kshaya tithi — \"considered as bearish for commodities\" (19 May 2025)")
     if any(k["name"] == "Vishti" for k in karanas):
         if tone == "bull":
             tone = "vol"
@@ -855,7 +897,20 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
                    - _lon(swe.SUN, _jd_local(d, CLOSE_H))) % 360
     tithis_in_session = sorted({tithi["num"], int(elong_close // 12) + 1})
 
+    # Kshaya tithi: a tithi that begins after today's sunrise and ends
+    # before tomorrow's, so the panchang skips it. "Today is Kshay tithi
+    # which is considered as bearish for commodities" (19 May 2025).
+    rise0, _ = _rise_set(d, lat, lon)
+    rise1, _ = _rise_set(d + datetime.timedelta(days=1), lat, lon)
+    t0 = int(((_lon(swe.MOON, rise0) - _lon(swe.SUN, rise0)) % 360) // 12)
+    t1 = int(((_lon(swe.MOON, rise1) - _lon(swe.SUN, rise1)) % 360) // 12)
+    kshaya = THITHIS[(t0 + 1) % 15] if (t1 - t0) % 30 >= 2 else None
+
     flags: list[str] = []
+    if kshaya:
+        flags.append(f"Kshaya tithi ({kshaya} is skipped between today's and "
+                     "tomorrow's sunrise) — \"considered as bearish for "
+                     "commodities\" (19 May 2025).")
     if 15 in tithis_in_session:
         flags.append("Purnima — Full Moon: a potential turning point; "
                      "\"Full Moon can be trigger and form bottom\" (29 Jul).")
@@ -944,6 +999,7 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
                      f"({'Shukla' if tithi['num'] <= 15 else 'Krishna'})",
             "tithi_num": tithi["num"],
             "tithis_in_session": tithis_in_session,
+            "kshaya_tithi": kshaya,
             "tithi_ends": _strip(pe["thithi"]["ends"]),
             "nakshatra_ends": _strip(pe["natchathiram"]["ends"]),
             "yoga": pe["yogam"]["name"], "yoga_ends": _strip(pe["yogam"]["ends"]),

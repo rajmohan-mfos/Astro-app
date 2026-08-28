@@ -176,7 +176,7 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
     assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
     # sign-level fallback only for metals, only where the report printed it
-    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("vol", "observed")   # 8 Jun bull, 11 Aug 2025 bear
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")  # 2 of 3 bearish
     # every Virgo star is observed by now, so exercise the sign fallback
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
@@ -394,7 +394,7 @@ def test_mercury_direct_station_11_aug_2025():
     assert abs(_mins(d["moon"]["nakshatra_change"]["time"]) - _mins("13:01")) <= 3
     got = _aspect(d, "Moon", 0, "Rahu")
     assert got["tone"] == "bear"
-    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("vol", "observed")
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
 
 
 def test_classical_vaar_tithi_scorecard():
@@ -404,3 +404,64 @@ def test_classical_vaar_tithi_scorecard():
     for wd, t, tone in agree:
         vt = saptarsh.vaar_tithi_yoga(wd, t)
         assert vt and vt["tone"] == tone and vt["source"] == "classical", (wd, t)
+
+
+# ---- seventh learning pass: X posts of Mar - Jul 2025 (April 2025.mp4) ----
+
+def test_kaal_sarp_july_2025():
+    """25 Jul 2025: 'From Monday, Kaal sarp yog is going to break. Mars is
+    moving away from Ketu.' Degree-based: all of Sun..Saturn on one side
+    of the nodal axis on 21 Jul; Mars past Ketu by early August."""
+    assert saptarsh.regime(datetime.date(2025, 7, 21))["kaal_sarp"]
+    assert any("Kaal Sarp" in n and "Mars" in n
+               for n in saptarsh.regime(datetime.date(2025, 7, 21))["notes"])
+    assert not saptarsh.regime(datetime.date(2025, 8, 5))["kaal_sarp"]
+    assert not saptarsh.regime(datetime.date(2026, 8, 28))["kaal_sarp"]
+
+
+def test_kshaya_tithi_19_may_2025():
+    """19 May 2025: 'Today is Kshay tithi which is considered as bearish
+    for commodities' — Krishna Saptami begins after sunrise and ends
+    before the next."""
+    d = saptarsh.day(datetime.date(2025, 5, 19))
+    assert d["panchang"]["kshaya_tithi"] == "Saptami"
+    assert any("Kshaya" in f for f in d["flags"])
+    assert any("Kshaya" in w for w in d["calls"]["gold"]["why"])
+    assert not any("Kshaya" in w for w in d["calls"]["nifty"]["why"])
+    assert saptarsh.day(datetime.date(2025, 5, 18))["panchang"]["kshaya_tithi"] is None
+
+
+def test_imp_aspects_of_the_april_2025_gold_crash():
+    """20-21 Apr 2025 week note: Venus 000 Mn Node 19:09 IMP, Sun 090 Mars
+    07:05 IMP -> 'very scary correction' -> gold $3,500 -> $3,263."""
+    d = saptarsh.day(datetime.date(2025, 4, 20))
+    got = _aspect(d, "Venus", 0, "Rahu")
+    assert abs(_mins(got["time"]) - _mins("19:09")) <= 3 and got["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 4, 21))
+    got = _aspect(d, "Sun", 90, "Mars")
+    assert abs(_mins(got["time"]) - _mins("07:05")) <= 3 and got["tone"] == "bear"
+    d = saptarsh.day(datetime.date(2025, 5, 15))
+    got = _aspect(d, "Jupiter", 90, "Rahu")
+    assert abs(_mins(got["time"]) - _mins("17:07")) <= 3 and got["tone"] == "vol"
+    d = saptarsh.day(datetime.date(2025, 5, 17))
+    got = _aspect(d, "Sun", 45, "Venus")
+    assert abs(_mins(got["time"]) - _mins("22:37")) <= 3 and got["tone"] == "bull"
+
+
+def test_ingress_readings_of_2025():
+    for ds, planet, to, tone in [("2025-03-29", "Saturn", "Meena", "bear"),
+                                 ("2025-05-14", "Jupiter", "Mithuna", "vol"),
+                                 ("2025-06-06", "Mercury", "Mithuna", "vol"),
+                                 ("2025-07-16", "Sun", "Kataka", "bull")]:
+        d = saptarsh.day(datetime.date.fromisoformat(ds))
+        hits = [i for i in d["ingresses"] if i["planet"] == planet and i["to"] == to]
+        assert hits and hits[0]["tone"] == tone and hits[0]["source"] == "observed", ds
+
+
+def test_vaar_tithi_8_jul_2025_override_and_nakshatra_updates():
+    d = saptarsh.day(datetime.date(2025, 7, 8))
+    assert d["panchang"]["vaar_tithi"] == {"names": ["Vaar-Tithi"], "tone": "bear",
+                                           "source": "observed"}
+    assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
+    assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("vol", "observed")
+    assert saptarsh.nak_tone("Mula", "Dhanu", "silver") == ("bull", "observed")

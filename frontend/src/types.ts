@@ -284,6 +284,7 @@ export interface SaptarshDay {
   panchang: {
     tithi: string
     tithi_num: number
+    kshaya_tithi?: string | null
     tithi_ends: string | null
     nakshatra_ends: string | null
     yoga: string
@@ -323,6 +324,7 @@ export interface SaptarshRegime {
   nakshatra_stellia: { nakshatra: string; planets: string[] }[]
   early_degree_bodies: string[]
   grand_trines: string[][]
+  kaal_sarp: boolean
   conjunctions: {
     sign: string; sign_en: string; planets: string[]; until: string
     members: { planet: string; entry: string; exit: string }[]

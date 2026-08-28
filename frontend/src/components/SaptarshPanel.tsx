@@ -151,11 +151,11 @@ const METAL_NAK: [string, string, string][] = [
   ['Uttara Phalguni', 'bullish', '14 Nov 2025'],
   ['Chitra', 'bullish', '20 Jul'], ['Swati', 'bearish (18–19 Nov 2025); both sides (18 Aug) — majority bearish', '18–19 Nov, 18 Aug'],
   ['Vishakha', '"not much supportive" (19 Nov 2025); both sides (19 Aug)', '19 Nov, 19 Aug'],
-  ['Anuradha → Jyeshtha', 'Anuradha bullish (6 Apr, 4 May), Jyeshtha bearish (4 May); both sides 21 Aug — majority: Anuradha bullish', '6 Apr, 4 May, 21 Aug'],
+  ['Anuradha → Jyeshtha', 'Anuradha bullish (6 Apr, 4 May), Jyeshtha neutral (8 Jul 2025) / bearish (4 May); both sides 21 Aug — majority: Anuradha bullish, Jyeshtha mixed', '8 Jul 2025, 6 Apr, 4 May, 21 Aug'],
   ['Mula', 'bullish (27 Oct 2025, 8 Apr, 2 Jun); bearish once (27 Jul) — 3 of 4 bullish', '27 Oct 2025, 8 Apr, 2 Jun, 27 Jul'], ['Purvashadha', 'bearish / slightly negative', '2–3 Jun, 28 Jul'],
   ['Uttarashadha', 'bullish', '2 Jul, 28–29 Jul, 25 Aug'],
   ['Shravana', 'bearish', '2 Jul, 29 Jul'], ['Dhanishta', 'bullish', '27 Aug'],
-  ['Shatabhisha', 'bearish', '11 Aug 2025, 8 Jun, 28 Aug'], ['Purvabhadra', 'bullish (8 Jun); bearish (11 Aug 2025) — both ways', '8 Jun, 11 Aug 2025'],
+  ['Shatabhisha', 'bearish', '20–21 May 2025, 11 Aug 2025, 8 Jun, 28 Aug'], ['Purvabhadra', '"not supportive" (21 May 2025), bearish (11 Aug 2025); bullish once (8 Jun 2026) — majority bearish', '21 May 2025, 11 Aug 2025, 8 Jun'],
   ['Uttarabhadra', 'bullish / slightly bullish', '16 Apr, 10 Jun, 7 Jul'],
   ['Revati', 'bearish (10 Jun, 7–8 Jul); "neutral" once (16 Apr)', '16 Apr, 10 Jun, 7–8 Jul'],
 ]
@@ -267,6 +267,39 @@ const AUG_LOG: [string, string, string][] = [
   ['30 Oct', 'Nifty', '"May change direction after 13:00. Recovery possible" → "Failed." (miss)'],
 ]
 
+// ---- seventh learning pass: X posts of Mar - Jul 2025 (April 2025.mp4)
+
+const EARLY_CONCEPTS: [string, string, string][] = [
+  ['Kaal Sarp yog', '"From Monday, Kaal sarp yog is going to break. Mars is moving away from Ketu and leaving Leo. Major change in Geopolitical situations are coming." All classical planets on one side of the Rahu–Ketu axis; the breaking planet is the one nearest the axis. Computed in the Regime block.', '25 Jul 2025'],
+  ['Kshaya tithi', '"Today is Kshay tithi which is considered as bearish for commodities" — a tithi that starts after one sunrise and ends before the next, so the panchang skips it. Computed per day; downgrades the metals call.', '19 May 2025'],
+  ['Pluto is not in his system', '"This week we were not able to identify the bullish yog which gave solid upside in gold and silver. If we check, only 3–4 yogs are occurring which involve Pluto. Generally, in Vedic astrology (which I follow) does not consider Pluto." — a stated blind spot; the outlook keeps Pluto aspects, labelled.', '20 Apr 2025'],
+  ['"IMP" aspects', 'Week notes mark a few exact aspects IMP: Venus 0 Mn Node, Venus 60 Uranus, Sun 90 Mars (20–21 Apr) → "very scary correction is expected … do not hold any risky overnight position" → gold $3,500 → $3,263 in two days. Jupiter 90 Mn Node = Volatility, Sun 45 Venus = Bullish (16 May). All in the aspect table as observed.', 'Apr–May 2025'],
+  ['Orb matters', '"Those who are mentioning Mars conj. Ketu in Leo caused plane crash are not completely True. Mars is on 3° while Ketu on 28°, they are in one sign but not on conjunction." Same sign ≠ conjunction.', '13 Jun 2025'],
+  ['Software', 'The horary example (21 Mar 2025, "Will I get US visa?") is a Jagannatha Hora screenshot — Lahiri by default, with the same DK/MK/BK/PK karaka columns that appear in his planet tables. Free software; the app\'s Lahiri choice matches it.', '22 Apr 2025'],
+  ['Natal rules he shares', '"Mercury — key for trading. If Mercury is ahead of the Sun in your chart, you are very quick in trading decisions … If behind, cautious" (7 Jul). "Saturn retrograde from 13 July. If Saturn is lord of 5H or 2H, stay cautious and avoid speculation" (10 Jul). The app\'s profile panel does a comparable birth-chart gate.', 'Jul 2025'],
+  ['Weekly "no strong yog" verdicts', '"Overall, it seems that there is no strong bullish yog which can lift gold and silver prices to the upside" (2 May) → "We were bearish in gold and silver since start of May" (12 May). The weekly note is where his medium-term bias is set; the daily report works inside it.', 'May 2025'],
+  ['Ambiguity criticism', 'A reader: "As always no clear direction is mentioned always ambiguous … mention clearly bearish and bullish days." Reply: "not a magic crystal but a tool to assist, not a sure shot. You must also use technical levels." Same stance as his Sep T&C.', '8 Jul 2025'],
+  ['Marketing voice', '"Nifty is weak as predicted. Astrology works. Also proved that free stuff has no value" (30 Apr); "This is the power of Astro-based timing" (23 Apr). Hits are amplified; treat the record as promotional until scored.', 'Apr 2025'],
+]
+
+const EARLY_LOG: [string, string, string][] = [
+  ['28 Mar 2025', 'Nifty', '"Sun eclipse on 29 March and Saturn also change sign. This may be last phase of bullish trend."'],
+  ['1–4 Apr', 'Both', '"Be careful if you are bullish" (metals); "Nakshatra is not supportive for higher prices. Blood bath??" (3 Apr) → 4 Apr crash; "Gold and silver may weaken after 18:00" → "both are down".'],
+  ['20–23 Apr', 'Metals', 'Week note: IMP aspects → "very scary correction" → "Gold crashed from $3,500 to $3,263 in just 2 days … told them not to go long."'],
+  ['21–22 Apr', 'Nifty', '"May not show strength till 11:30"; "important time from 14:00".'],
+  ['28–30 Apr', 'Nifty', '"After 11:00 real move, cautious in shorts" → new day\'s high; "Do not carry long, weak" → "Nifty is weak as predicted."'],
+  ['2 May', 'Metals', 'Week note: "no strong bullish yog" → 12 May "bearish since start of May, informed well in advance."'],
+  ['6–7 May', 'Nifty', '"Mercury entering Aries conjunct Sun — reversal in many markets. FED tomorrow" → Operation Sindoor.'],
+  ['15 May', 'Nifty', '"From 19 May strong bullish yog — NIFTY could leap 3–5% to 25,800–26,000", time frame 7 June. (Nifty reached ~25,100 by early June — a partial miss to grade.)'],
+  ['16–23 May', 'Metals', 'Reports: Mula→Purvashadha bearish; Shravana→Dhanishta bullish + Kshaya tithi bearish; Dhanishta→Shatabhisha; Shatabhisha/Purvabhadra not supportive + Vaidhriti; Purvabhadra→Uttarabhadra bullish; Revati bearish. Posted as "check accuracy".'],
+  ['29 May', 'Metals', 'Report: Ardra/Punarvasu not supportive; strong bullish yog 17:00–22:30 → "On spot."'],
+  ['4–5 Jun', 'Nifty', '"Good after 9:45"; "avoid long carrying, looks weak"; "Mercury enters Gemini conjunct Jupiter before RBI — max 8% swings in past. Friday key day?"'],
+  ['13 Jun', 'Nifty', '"Though gap down, careful following the downtrend, may recover" → recovered from −400 to −162.'],
+  ['22–23 Jun', 'Nifty', '"Weakness to 11:30, recovery 11:30–15:00, careful in short after 11:30" → "approaching the bullish time".'],
+  ['8–9 Jul', 'Both', 'Report: Jyeshtha neutral, Vaar-tithi bearish, "no strong yog … follow technical levels"; Nifty: "Mool nakshatra gives high volatility, your stop could be triggered."'],
+  ['16–25 Jul', 'Both', '"Sun enters Cancer conjunct Mercury — trend changing, may start upward journey"; "huge move coming, high probability sell off, 21 July" → 18 Jul "effects started??"; 25 Jul Kaal Sarp breaking.'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -274,6 +307,7 @@ const SOURCES: [string, string][] = [
   ['April.mp4 (recorded 2026-08-28)', 'X account, posts 1–23 Apr 2026 — premium reports of 6, 8, 16, 17, 23 Apr (second confirmations of Amavasya-bullish and Vyatipata-positive; Anuradha / Mula / Pushya bullish; Venus→Bharani, Mars→Uttarabhadra), the 1 Apr Nifty "pivotal time" post.'],
   ['Nov 2025.mp4 (recorded 2026-08-28)', 'X account, posts 4 Nov 2025 – 30 Jan 2026 — premium reports of 14, 18, 19 Nov, 4 Dec, 30 Jan; the 26 Jan week note; the 6 Jan Rahu–Ketu and Jupiter-by-pada tables; the Dec-1993 stellium analog; the 21 Jan early-degree post; Nifty timing posts; his 4 Dec option fills; the 30 Jan miss.'],
   ['August 2025.mp4 (recorded 2026-08-28)', 'X account, posts 16 Jul – 30 Oct 2025 — premium reports of 11 Aug, 9–11 Sep, 23 Sep, 30 Sep, 1 Oct, 20 Oct, 27–28 Oct; the 26 Oct grand-trine post; the 9 Aug Mercury-direct reversal call; the 15 Sep Sun–Mercury Virgo ingress; the 22 Sep T&C; ten Nifty timing posts incl. two "Failed".'],
+  ['April 2025.mp4 (recorded 2026-08-28)', 'X account, posts 28 Mar – 25 Jul 2025 — the earliest reports (16, 19–23, 29 May; 7–8 Jul), the 20 Apr and 2 May and 16 May week notes with IMP-marked aspects, the Apr 2025 gold-crash call, the 19 May "Nifty 3–5%" call, the Kaal Sarp post, the Pluto admission, the Jagannatha Hora horary example, natal Mercury/Saturn rules.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -620,6 +654,26 @@ function SaptarshPanel({ date }: { date?: string }) {
           <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
           <tbody>
             {AUG_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">17 · Mar – Jul 2025 — the beginning: Kaal Sarp, Kshaya tithi, and what he leaves out</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {EARLY_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">Calls log, Mar – Jul 2025</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {EARLY_LOG.map(([d, m, c]) => (
               <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
             ))}
           </tbody>
