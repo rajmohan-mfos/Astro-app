@@ -11,7 +11,7 @@ import PredictionGraph from './components/PredictionGraph'
 import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 import GannCosmogram from './components/GannCosmogram'
-import NewConceptsPanel from './components/NewConceptsPanel'
+import SaptarshPanel from './components/SaptarshPanel'
 
 // Opens on today at 09:00 — just before the 09:15 open, and the moment
 // the author's own reference charts are cast at.
@@ -115,7 +115,7 @@ function App() {
             <button className={view === 'gann' ? 'tab active' : 'tab'}
               onClick={() => setView('gann')}>Gann cosmogram</button>
             <button className={view === 'learn' ? 'tab active' : 'tab'}
-              onClick={() => setView('learn')}>New concepts</button>
+              onClick={() => setView('learn')}>Saptarsh Insight</button>
           </div>
 
           {!result && !error && <div className="loading">Computing…</div>}
@@ -190,8 +190,8 @@ function App() {
               so it works even while the compute call is in flight */}
           {view === 'gann' && <GannCosmogram date={result?.input.date} />}
 
-          {/* Static study material — needs no compute result at all */}
-          {view === 'learn' && <NewConceptsPanel />}
+          {/* Week outlook needs only a date; the study notes are static */}
+          {view === 'learn' && <SaptarshPanel date={result?.input.date} />}
         </div>
       </div>
     </div>

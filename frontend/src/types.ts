@@ -244,3 +244,67 @@ export interface GannCalendarResult {
   events: GannEvent[]
   note: string
 }
+
+// ---- Saptarsh Insight–style week outlook (/api/saptarsh-week) ----
+export type SaptarshTone = 'bull' | 'bear' | 'vol' | 'neutral'
+export type SaptarshSource = 'observed' | 'extrapolated'
+
+export interface SaptarshAspect {
+  time: string
+  a: string
+  angle: number
+  b: string
+  name: string
+  tone: SaptarshTone
+  source: SaptarshSource
+  in_session: boolean
+}
+
+export interface SaptarshCall {
+  tone: SaptarshTone
+  source: SaptarshSource
+  why: string[]
+  caution: string[]
+  text: string
+}
+
+export interface SaptarshDay {
+  date: string
+  weekday: string
+  closed: string | null
+  moon: {
+    sign: string
+    nakshatra: string
+    pada: number
+    sign_change: { time: string; to: string } | null
+    nakshatra_change: { time: string; to: string } | null
+  }
+  panchang: {
+    tithi: string
+    tithi_ends: string | null
+    nakshatra_ends: string | null
+    yoga: string
+    yoga_ends: string | null
+    karanas: { name: string; ends: string | null }[]
+  }
+  kaal: {
+    sunrise: string
+    sunset: string
+    rahu_kaal: [string, string]
+    yamaganda: [string, string]
+    gulika_kaal: [string, string]
+    abhijit: [string, string]
+  }
+  aspects: SaptarshAspect[]
+  eclipse: string | null
+  flags: string[]
+  calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>
+  windows: { start: string; end: string; tone: SaptarshTone; driver: string }[]
+}
+
+export interface SaptarshWeekResult {
+  start: string
+  end: string
+  days: SaptarshDay[]
+  note: string
+}

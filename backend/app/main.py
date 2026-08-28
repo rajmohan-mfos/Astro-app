@@ -180,6 +180,21 @@ def gann_calendar(date: str | None = None, back: int = 21, ahead: int = 60):
     return gann_cal.scan(center, back, ahead)
 
 
+@app.get("/api/saptarsh-week")
+def saptarsh_week(date: str | None = None, days: int = 7):
+    """Saptarsh Insight–style Nifty/Gold/Silver outlook, one entry a day."""
+    import datetime
+
+    from . import saptarsh
+    try:
+        start = (datetime.date.fromisoformat(date) if date
+                 else (datetime.datetime.now(datetime.timezone.utc)
+                       + datetime.timedelta(hours=5.5)).date())
+    except ValueError as e:
+        return JSONResponse(status_code=400, content={"error": str(e)})
+    return saptarsh.week(start, max(1, min(days, 14)))
+
+
 @app.post("/api/compute")
 def compute(req: ComputeRequest):
     try:

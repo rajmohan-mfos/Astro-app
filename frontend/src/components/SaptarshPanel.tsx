@@ -1,4 +1,5 @@
-// "New concepts" — a study tab for a new astrologer.
+// "Saptarsh Insight channel" — a study tab for a new astrologer, with a
+// computed week-ahead outlook on top (SaptarshWeek).
 //
 // Source: a screen recording (28 Aug 2026) scrolling through the
 // "Saptarsh Insight" Telegram channel, a daily market-astrology bulletin
@@ -7,6 +8,8 @@
 // channel's interpretations are reported as THEIR practice — nothing
 // here has been backtested by this app, and the app's own 5-year audit
 // of the taught GRAHA MARKETS method found no edge. Study material.
+
+import SaptarshWeek from './SaptarshWeek'
 
 type Tone = 'bull' | 'bear' | 'vol' | 'neutral'
 
@@ -122,11 +125,13 @@ const CHECKLIST: string[] = [
 
 // ---------------------------------------------------------------- view
 
-function NewConceptsPanel() {
+function SaptarshPanel({ date }: { date?: string }) {
   return (
     <>
+      <SaptarshWeek date={date} />
+
       <section className="panel">
-        <h2>New concepts — the daily bulletin method</h2>
+        <h2>Saptarsh Insight channel — how the bulletin is built</h2>
         <p className="learn-lead">
           How a professional daily market-astrology post is built, learned
           from the <em>Saptarsh Insight</em> channel (Nifty · Gold · Silver,
@@ -346,4 +351,4 @@ function NewConceptsPanel() {
   )
 }
 
-export default NewConceptsPanel
+export default SaptarshPanel

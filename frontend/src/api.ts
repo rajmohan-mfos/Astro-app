@@ -1,6 +1,6 @@
 import type {
   CanTradeResult, ComputeRequest, ComputeResult, GannCalendarResult,
-  PrasanamResult,
+  PrasanamResult, SaptarshWeekResult,
 } from './types'
 
 /** Cosmogram aspect calendar around a date (tropical Gann layer). */
@@ -65,5 +65,18 @@ export async function compute(req: ComputeRequest): Promise<ComputeResult> {
 export async function health(): Promise<{ ok: boolean }> {
   const res = await fetch('/api/health')
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return res.json()
+}
+
+/** Saptarsh Insight–style Nifty/Gold/Silver outlook, one entry per day. */
+export async function saptarshWeek(
+  date?: string, days = 7,
+): Promise<SaptarshWeekResult> {
+  const qs = `?days=${days}${date ? `&date=${date}` : ''}`
+  const res = await fetch(`/api/saptarsh-week${qs}`)
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `HTTP ${res.status}`)
+  }
   return res.json()
 }

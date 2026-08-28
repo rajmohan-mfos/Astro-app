@@ -1146,3 +1146,73 @@ body {
   font-size: 0.85em;
   color: var(--accent2);
 }
+
+/* ---- Saptarsh week outlook ---- */
+.bias-chip.bias-neutral {
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+.sap-inst {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.sap-inst .sap-name {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.src-badge {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.src-badge.src-observed {
+  color: var(--accent2);
+  border-color: var(--accent2);
+}
+
+.sap-line {
+  font-size: 0.86rem;
+  margin: 0.25rem 0 0;
+}
+
+.sap-line .sap-k {
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 0.3rem;
+}
+
+.sap-windows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.5rem 0;
+}
+
+.sap-win {
+  font-size: 0.74rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.sap-win.t-bull { border-color: #4a7a4a; color: #7dc87d; }
+.sap-win.t-bear { border-color: #a4444a; color: var(--retro); }
+.sap-win.t-vol { border-color: var(--accent); color: var(--accent); }
+.sap-win.t-neutral { color: var(--muted); }
+
+.sap-closed .gann-title {
+  color: var(--muted);
+}
