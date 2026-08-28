@@ -25,6 +25,10 @@ SYMBOLS = {
     "banknifty": "%5ENSEBANK",
     "metal": "%5ECNXMETAL",
     "pharma": "%5ECNXPHARMA",
+    # COMEX front-month futures — the Globex day Saptarsh's metals
+    # report is written for (bars are dated in New York time)
+    "gold": "GC%3DF",
+    "silver": "SI%3DF",
 }
 
 

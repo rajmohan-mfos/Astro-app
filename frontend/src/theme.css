@@ -1245,3 +1245,20 @@ body {
   color: var(--muted);
   margin-right: 0.4rem;
 }
+
+/* ---- Saptarsh backtest ---- */
+.learn-table tr.sig-weak td { background: rgba(217, 164, 65, 0.10); }
+.learn-table tr.sig-strong td { background: rgba(231, 119, 119, 0.14); }
+
+details > summary.gann-h3 {
+  cursor: pointer;
+  list-style: none;
+}
+
+details > summary.gann-h3::before {
+  content: '▸ ';
+}
+
+details[open] > summary.gann-h3::before {
+  content: '▾ ';
+}

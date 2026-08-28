@@ -10,6 +10,7 @@
 // of the taught GRAHA MARKETS method found no edge. Study material.
 
 import SaptarshWeek from './SaptarshWeek'
+import SaptarshBacktest from './SaptarshBacktest'
 
 type Tone = 'bull' | 'bear' | 'vol' | 'neutral'
 
@@ -455,6 +456,8 @@ function SaptarshPanel({ date }: { date?: string }) {
   return (
     <>
       <SaptarshWeek date={date} />
+
+      <SaptarshBacktest />
 
       <section className="panel">
         <h2>Saptarsh Insight channel — how the bulletin is built</h2>

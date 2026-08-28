@@ -33,6 +33,25 @@ npm run dev        # Vite serves http://localhost:5173, proxies /api → :8000
 
 Run the backend first; the page shows a "connected ✓" indicator when the proxy works.
 
+Terminal 1 — backend (FastAPI)
+cd backend
+python -m uvicorn app.main:app --reload --port 8000
+Check: http://127.0.0.1:8000/api/health → {"ok":true}
+
+Terminal 2 — frontend (Vite)
+cd frontend
+npm run dev
+Open: http://localhost:5173 — Vite proxies /api to the backend, so the app needs both running.
+
+If port 8000 is busy (right now your Sku-extraction project holds it), run the backend on another port and tell Vite where it is:
+# terminal 1
+cd backend
+python -m uvicorn app.main:app --reload --port 8001
+
+# terminal 2
+cd frontend
+$env:ASTRO_API = "http://127.0.0.1:8001"; npm run dev
+
 ## What the app does now
 
 - **Jothidam tab**: panchang tiles, KP planet-position sheet with the
@@ -54,6 +73,14 @@ Run the backend first; the page shows a "connected ✓" indicator when the proxy
   browser and answers "can I trade today" (Moon 5/8/12 gochara rule).
 - Rule provenance: `backend/knowledge/RULES-SOURCES.md` and
   `MASTER-RULES.md`; scenario regressions in `backend/tests/`.
+- Saptarsh-method backtest: `python scripts/backtest_saptarsh.py` from
+  `backend/` scores the Saptarsh Insight tab's outlook (every rule learned
+  from the channel) against Nifty sessions and COMEX gold/silver over
+  2016–2026. Results in `backend/knowledge/backtest/saptarsh/RESULTS.md`
+  and, rendered, at the top of the Saptarsh Insight tab (copy
+  `results.json` to `frontend/src/saptarsh_backtest.json` after a re-run).
+  Ten-year result: no instrument beats the majority-side benchmark; 0 of
+  31 rules per instrument survive Bonferroni.
 - Backtest: `backend/scripts/backtest_nifty.py N` (results in
   `backend/knowledge/backtest/` — 5-year result: no predictive edge; the
   app is a study aid, not a trading system).
