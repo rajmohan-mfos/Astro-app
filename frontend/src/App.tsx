@@ -11,6 +11,7 @@ import PredictionGraph from './components/PredictionGraph'
 import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 import GannCosmogram from './components/GannCosmogram'
+import NewConceptsPanel from './components/NewConceptsPanel'
 
 // Opens on today at 09:00 — just before the 09:15 open, and the moment
 // the author's own reference charts are cast at.
@@ -68,7 +69,7 @@ function App() {
   // sit underneath it, which meant they appeared below EVERY prediction
   // sub-tab. They now have one home of their own.
   const [view, setView] =
-    useState<'prediction' | 'jothidam' | 'panchang' | 'gann'>('prediction')
+    useState<'prediction' | 'jothidam' | 'panchang' | 'gann' | 'learn'>('prediction')
 
   const run = (req: ComputeRequest) => {
     setBusy(true)
@@ -113,6 +114,8 @@ function App() {
               onClick={() => setView('panchang')}>Panchang chart (KP)</button>
             <button className={view === 'gann' ? 'tab active' : 'tab'}
               onClick={() => setView('gann')}>Gann cosmogram</button>
+            <button className={view === 'learn' ? 'tab active' : 'tab'}
+              onClick={() => setView('learn')}>New concepts</button>
           </div>
 
           {!result && !error && <div className="loading">Computing…</div>}
@@ -186,6 +189,9 @@ function App() {
           {/* Independent of `result` — the calendar only needs a date,
               so it works even while the compute call is in flight */}
           {view === 'gann' && <GannCosmogram date={result?.input.date} />}
+
+          {/* Static study material — needs no compute result at all */}
+          {view === 'learn' && <NewConceptsPanel />}
         </div>
       </div>
     </div>

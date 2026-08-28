@@ -1087,3 +1087,62 @@ body {
   font-size: 0.72rem;
   color: var(--muted);
 }
+
+/* ---- New concepts (study tab) ---- */
+.learn-lead {
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+}
+
+.learn-p {
+  margin: 0.2rem 0 0.6rem;
+  font-size: 0.92rem;
+}
+
+.learn-table td {
+  vertical-align: top;
+  font-size: 0.86rem;
+}
+
+.learn-table .learn-key {
+  white-space: nowrap;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.learn-table .mono {
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.learn-tag {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.learn-tag-bull { color: #7dc87d; }
+.learn-tag-bear { color: var(--retro); }
+.learn-tag-vol { color: var(--accent); }
+.learn-tag-neutral { color: var(--muted); }
+
+.learn-have { color: #7dc87d; text-align: center; }
+.learn-missing { color: var(--muted); text-align: center; white-space: nowrap; }
+
+.learn-ol,
+.learn-ul {
+  margin: 0.2rem 0 0.4rem;
+  padding-left: 1.3rem;
+  font-size: 0.92rem;
+}
+
+.learn-ol li,
+.learn-ul li {
+  margin-bottom: 0.35rem;
+}
+
+.learn-p code,
+.panel h2 + .learn-p code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85em;
+  color: var(--accent2);
+}
