@@ -29,7 +29,7 @@ def test_owner_gets_the_real_answer():
     chat, text = fn.reply_for(_update(int(OWNER), "/today"))
     assert chat == OWNER
     assert "Astro-app" in text
-    assert "not financial advice" in text.lower()
+    assert "not a signal" in text.lower()
 
 
 def test_a_stranger_is_refused_but_not_ignored_silently():

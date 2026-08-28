@@ -27,7 +27,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from app import engine, predict, quotes, volmodel          # noqa: E402
+from app import engine, predict                            # noqa: E402
 
 LAT = float(os.environ.get("ASTRO_LAT", 19.076))
 LON = float(os.environ.get("ASTRO_LON", 72.8777))
@@ -122,60 +122,11 @@ def build_message(d: datetime.date) -> str:
         L += ["", expr[0]["title"],
               "  Reported as the taught method, NOT a recommendation."]
 
-    fit = (score or {}).get("fitted")
-    if fit:
-        L += ["", f"Fitted tables ({fit['in_sample_rate']:g}% in-sample / "
-                  f"{fit['out_of_sample_rate']:g}% out-of-sample):",
-              f"  {fit['call'].upper()}  (score {fit['total']:+g}, "
-              f"threshold ±{fit['threshold']:g})",
-              "  Tuned on the same history it is scored against — the "
-              "first number describes the past, the second is what to "
-              "expect."]
+    # Deliberately NOT included (owner asked for a short message, Aug
+    # 2026): the fitted-tables call, the volatility band and the long
+    # backtest disclaimer. The volatility forecast still lives in /vol.
 
-    vol = volatility_lines(d)
-    if vol:
-        L += vol
-
-    L += ["",
-          "⚠️ Study aid reproducing a taught method — NOT financial "
-          "advice and not a signal. A 5-year backtest over Nifty, "
-          "BankNifty, Metal, Pharma and a Defence proxy found no "
-          "forecasting ability on any of them: the engine loses to "
-          "\"always predict down\" on every index. Do not trade this."]
     return "\n".join(L)
-
-
-def volatility_lines(d: datetime.date) -> list:
-    """The one part of this message with measured predictive value.
-
-    Deliberately separated from everything above it: this block contains
-    no astrology at all. It is a 6-feature logistic regression on recent
-    high-low ranges, ~60% out-of-sample on session WIDTH, and it says
-    nothing whatever about direction.
-
-    Returns [] if prices cannot be fetched — PythonAnywhere's free tier
-    may not allow Yahoo, and a missing volatility line must never break
-    the push.
-    """
-    bars = quotes.recent_bars("nifty")
-    if not bars or len(bars) < 10:
-        return []
-    # score the next not-yet-traded session when d is past the last bar
-    i = len(bars) if d.isoformat() > bars[-1]["date"] else len(bars) - 1
-    try:
-        f = volmodel.forecast(bars, i, date=d.isoformat())
-    except (ValueError, KeyError, OSError):
-        return []
-    b = f["band90"]
-    return ["", "Volatility (no astrology):",
-            f"  Nifty should close within ±{b['half_width_points']} pts "
-            f"({b['half_width_pct']:.2f}%) of {b['reference_close']:.0f}",
-            f"    → {b['low']:.0f} – {b['high']:.0f}",
-            f"    this band holds {b['realised_coverage']:.0f}% of the "
-            f"time, measured out-of-sample",
-            f"  {f['band'].upper()} session — P(wider than usual) = "
-            f"{f['p_wide'] * 100:.0f}%  ({f['oos_accuracy']}% OOS)",
-            "  Size only — says nothing about up or down."]
 
 
 def send(text: str) -> None:

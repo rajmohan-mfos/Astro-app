@@ -131,9 +131,11 @@ def test_unknown_command_falls_back_to_help():
 
 
 def test_every_reply_carries_a_disclaimer_or_is_help():
-    """A push that looks like a signal must say it is not one."""
+    """A reply that looks like a signal must say it is not one. (The
+    scheduled morning push is deliberately bare - the owner asked for it
+    short - so the interactive replies add the one-line DISCLAIMER.)"""
     for cmd in ("/today", "/tomorrow", "/date +2"):
-        assert "not financial advice" in handle(cmd).lower()
+        assert "not a signal" in handle(cmd).lower()
 
 
 def test_handler_never_raises():

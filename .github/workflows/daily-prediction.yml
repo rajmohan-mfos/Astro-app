@@ -1,28 +1,38 @@
 name: Daily prediction to Telegram
 
-# 02:45 UTC = 08:15 IST, Monday–Friday.
+# Target: the message in hand by 08:15 IST, Monday–Friday, before the
+# 09:15 open.
 #
-# Deliberately an hour before the 09:15 open rather than minutes before.
-# GitHub's scheduled workflows are best-effort: they routinely start 5–20
-# minutes late, and during peak load can be delayed much further or
-# skipped altogether. An hour of slack means an ordinary delay still
-# arrives in time. Do not tighten this to 09:00 IST expecting punctuality.
+# GitHub's scheduled workflows are best-effort. Measured on this repo in
+# Aug 2026: the single 02:45 UTC slot fired 45–55 minutes late on a
+# normal day, ten hours late on 27 Aug, and not at all on 28 Aug. So:
+#
+#   * THREE slots instead of one, at odd minutes (jobs queued on :00,
+#     :15, :30, :45 are the ones that get starved). 07:53, 08:23 and
+#     08:53 IST — whichever fires first sends; the others see the marker
+#     and stop.
+#   * A committed marker file (backend/app/last_push.txt) makes the
+#     later slots idempotent: one message a day, never two.
+#   * If every slot is delayed the message still arrives late rather
+#     than never — the marker only blocks a SECOND send on the same day.
 #
 # NSE trading holidays are NOT handled — the job fires on any weekday,
 # so you will get a message on holidays too.
 #
-# GitHub disables cron on repositories with no activity for 60 days; if
-# the messages stop, push any commit or re-enable the workflow.
+# GitHub disables cron on repositories with no activity for 60 days; the
+# daily marker commit keeps it alive as a side effect.
 
 on:
   schedule:
-    - cron: '45 2 * * 1-5'
+    - cron: '23 2 * * 1-5'    # 07:53 IST
+    - cron: '53 2 * * 1-5'    # 08:23 IST
+    - cron: '23 3 * * 1-5'    # 08:53 IST
   workflow_dispatch:        # lets you run it by hand to test
     inputs:
       date:
         description: 'today | tomorrow | +N | YYYY-MM-DD (blank = today)'
         required: false
-        default: 'tomorrow'
+        default: 'today'
       dry_run:
         description: 'Print the message instead of sending (1 = yes)'
         required: false
@@ -32,23 +42,42 @@ on:
         required: false
         default: '0'
 
+# Two slots that happen to run together must not both send.
+concurrency:
+  group: daily-prediction
+  cancel-in-progress: false
+
 jobs:
   send:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write      # to commit the published volatility forecast
+      contents: write      # to commit the forecast and the sent-marker
     steps:
-      # v7 for both: v4/v5 target Node 20, which GitHub deprecated and
-      # already force-runs on Node 24. Pinned to the major tag so patch
-      # releases arrive without another edit.
       - uses: actions/checkout@v7
 
+      # Scheduled runs only: stop if an earlier slot already sent today's
+      # message. Manual runs always go through.
+      - name: Already sent today?
+        id: marker
+        run: |
+          today=$(TZ=Asia/Kolkata date +%F)
+          echo "today=$today" >> "$GITHUB_OUTPUT"
+          last=$(cat backend/app/last_push.txt 2>/dev/null || true)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$last" = "$today" ]; then
+            echo "already sent for $today — nothing to do"
+            echo "skip=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=0" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v7
+        if: steps.marker.outputs.skip == '0'
         with:
           python-version: '3.11'      # pyswisseph builds cleanly here
 
       - name: Install dependencies
+        if: steps.marker.outputs.skip == '0'
         working-directory: backend
         run: |
           python -m pip install --upgrade pip
@@ -57,26 +86,16 @@ jobs:
       # The bot runs on a free host whose outbound access is restricted to
       # an allowlist that excludes every quote provider, so it cannot fetch
       # prices itself. This runner can, so it publishes the finished
-      # forecast and the bot reads it back from GitHub (allowlisted).
-      # Never fails the job: a missed refresh just leaves yesterday's
-      # forecast in place, and the bot displays its age.
+      # forecast (read back by the bot's /vol) — the morning message
+      # itself no longer shows it. Never fails the job.
       - name: Publish volatility forecast for the bot
+        if: steps.marker.outputs.skip == '0'
         continue-on-error: true
         working-directory: backend
-        run: |
-          python scripts/publish_forecast.py
-          cd ..
-          if ! git diff --quiet -- backend/app/volforecast.json; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add backend/app/volforecast.json
-            git commit -m "Publish volatility forecast $(date -u +%Y-%m-%d)"
-            git push
-          else
-            echo "forecast unchanged"
-          fi
+        run: python scripts/publish_forecast.py
 
       - name: Send prediction
+        if: steps.marker.outputs.skip == '0'
         working-directory: backend
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -85,3 +104,17 @@ jobs:
           ASTRO_DRY_RUN: ${{ github.event.inputs.dry_run }}
           ASTRO_DIAGNOSE: ${{ github.event.inputs.diagnose }}
         run: python scripts/daily_push.py
+
+      # Only a real scheduled send stamps the marker (a dry run or a
+      # manual test must not block the morning message). The forecast
+      # rides along in the same commit.
+      - name: Record the send
+        if: steps.marker.outputs.skip == '0' && github.event_name == 'schedule'
+        run: |
+          echo "${{ steps.marker.outputs.today }}" > backend/app/last_push.txt
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/app/last_push.txt backend/app/volforecast.json
+          git commit -m "Daily push ${{ steps.marker.outputs.today }}"
+          git pull --rebase
+          git push

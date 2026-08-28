@@ -30,10 +30,15 @@ def _prediction(d):
 
 
 @pytest.mark.parametrize("d", DAYS)
-def test_message_always_carries_the_disclaimer(d):
+def test_message_stays_short(d):
+    """The owner reads this on a phone and asked for a short message:
+    no fitted-tables call, no volatility band, no backtest disclaimer.
+    Those still exist behind /vol and the web UI."""
     m = build_message(d)
-    assert "NOT financial advice" in m
-    assert "Do not trade this" in m
+    assert "Fitted tables" not in m
+    assert "Volatility" not in m
+    assert "NOT financial advice" not in m
+    assert m.startswith("📈 Astro-app")
 
 
 @pytest.mark.parametrize("d", DAYS)

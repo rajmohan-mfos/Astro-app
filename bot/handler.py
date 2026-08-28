@@ -148,11 +148,11 @@ def handle(text: str) -> str:
         if cmd in ("start", "help"):
             return HELP
         if cmd in ("today", "tomorrow"):
-            return build_message(resolve_date(cmd))
+            return build_message(resolve_date(cmd)) + DISCLAIMER
         if cmd in ("date", "d"):
             if not arg:
                 return "Give a date: /date 2026-09-15, /date +3, /date tomorrow"
-            return build_message(resolve_date(arg))
+            return build_message(resolve_date(arg)) + DISCLAIMER
         if cmd == "prasanam":
             return _prasanam_text(arg, resolve_date("today"))
         if cmd == "chart":
