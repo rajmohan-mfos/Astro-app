@@ -83,7 +83,7 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
       {d.ingresses.length > 0 && (
         <div className="gann-detail">
           Astro events: {d.ingresses.map((i) =>
-            `${i.time} ${i.planet} ${i.kind === 'station' ? `stations ${i.to}` : `enters ${i.to}`}${i.source === 'observed' ? ` (${i.tone})` : ''}`
+            `${i.time} ${i.planet} ${i.kind === 'station' ? `stations ${i.to}` : i.kind === 'combust' ? (i.to === 'out of bound' ? 'out of bound of the Sun' : 'combust') : `enters ${i.to}`}${i.source === 'observed' ? ` (${i.tone})` : ''}`
           ).join(' · ')}
         </div>
       )}

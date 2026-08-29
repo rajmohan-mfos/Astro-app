@@ -131,6 +131,12 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Sun", "Neptune", 90): "vol",          # same note
     ("Venus", "Jupiter", 120): "bear",      # same note: "Friday aspects are bearish"
     ("Sun", "Mars", 144): "bear",           # same note
+    # X posts, Feb-May 2024 (the origins)
+    ("Mars", "Saturn", 0): "vol",           # 8 Apr 2024 "Mars 0 Sat, Sun 0 Mer are trend changer. Must watch for commodities"
+    ("Jupiter", "Uranus", 0): "vol",        # 21 Apr 2024 "potential to change the direction in all markets. Uranus is unpredictable"
+    # (Sun 0 Mercury: "triggering a market drop … 2nd event of bearish
+    # trend" on 28 Feb 2024, "trend changer" 8 Apr 2024, yet "Bullish"
+    # in the 27 Aug 2026 table — kept as his latest label, bullish)
     # X posts, May-Oct 2024 (before the launch)
     ("Sun", "Pluto", 180): "bear",          # 23 Jul 2024 "responsible for huge drop in gold and silver"
     ("Sun", "Saturn", 120): "bull",         # 17 Jul 2024 "bullish yog involving the Sun and Saturn is ending"
@@ -211,16 +217,16 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
 # Telegram posts (19-28 Aug); metals column from the X premium reports
 # (2 Jul - 19 Aug) plus the Telegram Gold/Silver lines.
 OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
-    "Ashwini": (None, "bull"),              # 15 May, 8-9 Jul
-    "Bharani": (None, "bear"),              # 15 May, 9 Jul
+    "Ashwini": ("bear", "bull"),            # Nifty "not favourable, bearish effects" 13 Mar 2024; metals 15 May, 8-9 Jul
+    "Bharani": ("bear", "bear"),            # Nifty "not favourable" 14 Mar 2024; metals 15 May, 9 Jul
     "Krittika": ("neutral", "bull"),        # Nifty "neutral to slightly positive" 10 Jan 2025; metals 4 Dec 2025
     "Rohini": ("bull", "bear"),             # Nifty "supportive" 10 Jan, 7 Feb 2025; metals bearish 10 Jan, 4 Dec 2025, 10 Aug
     "Mrigashira": ("bull", "bull"),         # Nifty "supportive for higher prices" 7 Jun 2024; metals 19 May
     "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
-    "Punarvasu": (None, "bear"),            # 20 May, 14 Jul
-    "Pushya": (None, "bull"),               # bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
-    "Ashlesha": (None, "neutral"),          # 15 Jul
-    "Magha": ("vol", None),                 # Dow 20 Dec 2024 "unpredictable for stocks, but if uptrend, quite strong"
+    "Punarvasu": ("bull", "bear"),          # Nifty "favourable for stocks" 19 Mar 2024; metals 20 May, 14 Jul
+    "Pushya": ("bull", "bull"),             # Nifty "supportive" 20 Mar 2024; metals bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
+    "Ashlesha": ("bull", "neutral"),        # Dow "favourable for stocks" 17 Apr 2024; metals 15 Jul
+    "Magha": ("bear", None),                # Nifty "not supportive … consider it as a bearish" 16 May 2024; Dow "unpredictable" 20 Dec 2024
     "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
     "Hasta": ("bull", "bear"),              # Nifty "favourable / supportive" 23-24 Dec 2024; metals 26 May, 20 Jul
     "Chitra": ("bull", "bull"),             # Nifty supportive 24 Dec 2024, 17 Feb 2025; neutral 27 Nov 2024 (2 of 3); metals 20 Jul
@@ -229,16 +235,16 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Anuradha": ("neutral", "bull"),        # Nifty: not supportive 20 Feb 2025 & 20 Aug, supportive 21 Feb 2025 & 21 Aug (2-2);
                                             # metals bullish 6 Apr, 4 May; both sides 21 Aug
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
-    "Mula": ("bear", "bull"),               # Nifty: "bearish" 5 Nov 2024, "not supportive" 30 Dec 2024, "high volatility" 9 Jul 2025;
+    "Mula": ("bear", "bull"),               # Nifty: "not favourable" 5 Mar & 1 Apr 2024, "bearish" 5 Nov 2024, "not supportive" 30 Dec 2024, "high volatility" 9 Jul 2025;
                                             # metals bullish 5 Nov 2024, 27 Oct 2025, 8 Apr, 2 Jun; bearish 27 Jul (4 of 5)
-    "Purva Ashadha": ("bull", "bear"),      # Nifty supportive 6 Nov 2024, 24 Aug 2026; metals 6 Nov 2024, 2-3 Jun, 28 Jul
+    "Purva Ashadha": ("bull", "bear"),      # Nifty favourable 29 Apr 2024, 6 Nov 2024, 24 Aug 2026; metals 6 Nov 2024, 2-3 Jun, 28 Jul
     "Uttara Ashadha": ("bull", "bull"),     # Nifty "supportive for stocks" 1 Jan 2025; metals 9 Jun, 2 Jul, 28-29 Jul, 25 Aug (once "not much supportive", 28 Jan 2025)
     "Shravana": ("neutral", "bear"),        # 26 Aug / 2 Jul, 29 Jul
     "Dhanishta": ("bull", "bull"),
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
     "Purva Bhadrapada": ("bull", "bear"),   # Nifty "bullish for stocks" 11 Nov 2024; metals bearish 11 Nov 2024, 21 May 2025, 11 Aug 2025; bullish 8 Jun 2026 (3 of 4)
-    "Uttara Bhadrapada": ("neutral", "bull"),  # Nifty "neutral for stocks" 28 Jun 2024; metals 16 Apr, 10 Jun, 7 Jul
-    "Revati": ("neutral", "bear"),          # Nifty "neutral for stocks" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr (2 of 3)
+    "Uttara Bhadrapada": ("neutral", "bull"),  # Nifty "not favourable" 11 Mar 2024, "neutral" 28 Jun 2024; metals 16 Apr, 10 Jun, 7 Jul
+    "Revati": ("neutral", "bear"),          # Nifty "little favourable" 12 Mar 2024, "neutral" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
 # the sign itself (used when the nakshatra is unobserved). Kumbha was
@@ -550,6 +556,42 @@ def day_ingresses(d: datetime.date) -> list[dict]:
                                          if kind == "sign" and name in
                                          ("Jupiter", "Saturn", "Mars")
                                          else "listed, no reading given")})
+    # "out of bound of the Sun": a planet leaving the combustion orb.
+    # 11 Mar 2024: "Mercury is out of bound of the Sun. This may turn
+    # negative for medium term"; 19 Mar 2024: "Saturn is moving out of
+    # bound. This can be trend changer specially in metals and crude oil".
+    # Classical orbs: Mercury 12 (14 retro), Venus 10 (8), Mars 17,
+    # Jupiter 11, Saturn 15.
+    sun0, sun1 = _lon(swe.SUN, jd0), _lon(swe.SUN, jd1)
+    for name, body, orb in (("Mercury", swe.MERCURY, 12), ("Venus", swe.VENUS, 10),
+                            ("Mars", swe.MARS, 17), ("Jupiter", swe.JUPITER, 11),
+                            ("Saturn", swe.SATURN, 15)):
+        def gap(j, b=body):
+            x = abs(_lon(b, j) - _lon(swe.SUN, j)) % 360
+            return min(x, 360 - x)
+        g0, g1 = gap(jd0), gap(jd1)
+        if (g0 < orb) != (g1 < orb):
+            lo, hi = jd0, jd1
+            for _ in range(30):
+                mid = (lo + hi) / 2
+                if (gap(mid) < orb) == (g0 < orb):
+                    lo = mid
+                else:
+                    hi = mid
+            c = (lo + hi) / 2
+            leaving = g1 >= orb
+            note = {
+                ("Mercury", True): "11 Mar 2024: \"Mercury is out of bound of the Sun. This may turn negative for medium term so wait before taking risk\"",
+                ("Saturn", True): "19 Mar 2024: \"Major astronomical event, Saturn is moving out of bound. This can be trend changer specially in metals and crude oil\"",
+            }.get((name, leaving))
+            out.append({"_jd": c, "time": _hhmm(c, jd0), "et": _et(c),
+                        "planet": name, "kind": "combust",
+                        "to": "out of bound" if leaving else "combust",
+                        "tone": "vol" if note else "neutral",
+                        "source": "observed" if note else "extrapolated",
+                        "note": note or (f"{name} {'leaves' if leaving else 'enters'} "
+                                         f"the {orb}° combustion orb — unremarked by him")})
+
     # stations: "Mercury is reducing its speed and going to retrograde on
     # Sunday night. BankNifty may get affected more" (6 Nov 2025)
     for name, body in INGRESS_BODIES:
@@ -891,12 +933,15 @@ def _call(instrument: str, moon: dict, flags: list[str], karanas: list[dict],
         if tone != "bull":
             tone = "bull" if tone == "neutral" else "vol"
         why.append("Amavasya — \"considered bullish for gold and silver\" (14 Jul)")
-    if instrument != "nifty" and any(f.startswith("Kshaya tithi") for f in flags):
+    if any(f.startswith("Kshaya tithi") for f in flags):
+        # "believed bearish for all markets" (Nifty, 5 Mar 2024); "considered
+        # as bearish for commodities" (19 May 2025)
         if tone == "bull":
             tone = "vol"
         elif tone == "neutral":
             tone = "bear"
-        why.append("Kshaya tithi — \"considered as bearish for commodities\" (19 May 2025)")
+        why.append("Kshaya tithi — \"believed bearish for all markets\" (5 Mar 2024; "
+                   "19 May 2025 for commodities)")
     if any(k["name"] == "Vishti" for k in karanas):
         if tone == "bull":
             tone = "vol"

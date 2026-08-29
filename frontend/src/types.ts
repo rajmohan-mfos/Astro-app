@@ -303,7 +303,7 @@ export interface SaptarshDay {
   }
   aspects: SaptarshAspect[]
   ingresses: {
-    time: string; et: string; planet: string; kind: 'sign' | 'nakshatra' | 'station'
+    time: string; et: string; planet: string; kind: 'sign' | 'nakshatra' | 'station' | 'combust'
     to: string; tone: SaptarshTone; source: SaptarshSource; note: string
   }[]
   active_planets: string[]

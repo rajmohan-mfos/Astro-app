@@ -174,14 +174,14 @@ def test_amavasya_is_read_bullish_for_metals():
 def test_metals_nakshatra_calls_from_the_x_reports():
     assert saptarsh.nak_tone("Pushya", "Kataka", "gold") == ("bull", "observed")  # 2 of 3 reports
     assert saptarsh.nak_tone("Chitra", "Kanya", "silver") == ("bull", "observed")
-    assert saptarsh.nak_tone("Pushya", "Kataka", "nifty")[1] == "extrapolated"
+    assert saptarsh.nak_tone("Pushya", "Kataka", "nifty") == ("bull", "observed")  # 20 Mar 2024
     # sign-level fallback only for metals, only where the report printed it
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")  # 2 of 3 bearish
     # every Virgo star is observed by now, so exercise the sign fallback
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
     assert saptarsh.nak_tone("Magha", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
-    assert saptarsh.nak_tone("Ashlesha", "Kanya", "nifty")[1] == "extrapolated"   # no Nifty sign fallback
+    assert saptarsh.nak_tone("Ardra", "Kanya", "nifty")[1] == "extrapolated"   # no Nifty reading, no sign fallback
 
 
 # ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
@@ -427,7 +427,7 @@ def test_kshaya_tithi_19_may_2025():
     assert d["panchang"]["kshaya_tithi"] == "Saptami"
     assert any("Kshaya" in f for f in d["flags"])
     assert any("Kshaya" in w for w in d["calls"]["gold"]["why"])
-    assert not any("Kshaya" in w for w in d["calls"]["nifty"]["why"])
+    assert any("Kshaya" in w for w in d["calls"]["nifty"]["why"])   # "all markets", 5 Mar 2024
     assert saptarsh.day(datetime.date(2025, 5, 18))["panchang"]["kshaya_tithi"] is None
 
 
@@ -563,7 +563,7 @@ def test_launch_period_nifty_reports():
         assert abs(_mins(d["moon"]["nakshatra_change"]["time"]) - _mins(t)) <= 2, ds
     assert saptarsh.nak_tone("Mula", "Dhanu", "nifty") == ("bear", "observed")
     assert saptarsh.nak_tone("Hasta", "Kanya", "nifty") == ("bull", "observed")
-    assert saptarsh.nak_tone("Magha", "Simha", "nifty") == ("vol", "observed")
+    assert saptarsh.nak_tone("Magha", "Simha", "nifty") == ("bear", "observed")  # 16 May 2024
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "nifty") == ("bull", "observed")
     assert saptarsh.nak_tone("Purva Bhadrapada", "Kumbha", "gold") == ("bear", "observed")
 
@@ -646,3 +646,51 @@ def test_june_2024_nifty_reports_and_vaidhriti_for_nifty():
     d = saptarsh.day(datetime.date(2024, 6, 24))
     assert abs(_mins(_aspect(d, "Moon", 0, "Pluto")["time"]) - _mins("11:22")) <= 3
     assert abs(_mins(_aspect(d, "Moon", 45, "Saturn")["time"]) - _mins("16:17")) <= 3
+
+
+# ---- eleventh learning pass: X posts of Feb - May 2024 (March 2024.mp4) ----
+
+def test_kshaya_applies_to_nifty_5_mar_2024():
+    """5 Mar 2024 Nifty: 'Moon in Mool till 16:00 … kshaya tithi, believed
+    bearish for all markets'."""
+    d = saptarsh.day(datetime.date(2024, 3, 5))
+    assert d["moon"]["nakshatra"] == "Mula"
+    assert d["panchang"]["kshaya_tithi"] == "Dasami"
+    assert any("Kshaya" in w for w in d["calls"]["nifty"]["why"])
+    assert d["calls"]["nifty"]["tone"] == "bear"
+
+
+def test_28_feb_2024_sun_mercury_and_trend_changer_conjunctions():
+    d = saptarsh.day(datetime.date(2024, 2, 28))
+    got = _aspect(d, "Sun", 0, "Mercury")
+    assert abs(_mins(got["time"]) - _mins("14:14")) <= 3          # "2:14 PM IST"
+    d = saptarsh.day(datetime.date(2024, 4, 21))
+    got = _aspect(d, "Jupiter", 0, "Uranus")
+    assert abs(_mins(got["time"]) - _mins("07:57")) <= 3          # his 02:27 UT
+    assert got["tone"] == "vol" and got["source"] == "observed"
+    assert saptarsh.aspect_tone("Mars", "Saturn", 0) == ("vol", "observed")
+
+
+def test_out_of_bound_of_the_sun_march_2024():
+    """11 Mar 2024 'Mercury is out of bound of the Sun'; 19 Mar 'Saturn is
+    moving out of bound'. With the classical orbs the exits are 13 Mar
+    (Mercury, 12°) and 17 Mar (Saturn, 15°)."""
+    found = {}
+    for dd in range(9, 21):
+        for i in saptarsh.day(datetime.date(2024, 3, dd))["ingresses"]:
+            if i["kind"] == "combust" and i["to"] == "out of bound":
+                found[i["planet"]] = (dd, i)
+    assert "Mercury" in found and 10 <= found["Mercury"][0] <= 14
+    assert found["Mercury"][1]["source"] == "observed"
+    assert "Saturn" in found and 15 <= found["Saturn"][0] <= 19
+    assert "trend changer" in found["Saturn"][1]["note"]
+
+
+def test_origin_nifty_nakshatra_readings():
+    for nak, sign, tone in [("Ashwini", "Mesha", "bear"), ("Bharani", "Mesha", "bear"),
+                            ("Punarvasu", "Mithuna", "bull"), ("Pushya", "Kataka", "bull"),
+                            ("Ashlesha", "Kataka", "bull"), ("Magha", "Simha", "bear")]:
+        assert saptarsh.nak_tone(nak, sign, "nifty") == (tone, "observed"), nak
+    d = saptarsh.day(datetime.date(2024, 4, 30))
+    assert d["moon"]["sign_change"] == {"time": "10:37", "to": "Makara"}
+    assert d["moon"]["nakshatra"] == "Uttara Ashadha"

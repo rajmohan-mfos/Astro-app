@@ -16,31 +16,31 @@ posts, the base tables from classical texts.
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1879 | 51.0% | [48.7, 53.2] | 51.9% | -0.83 | 0.406 | 0.187 |
-|   source = observed | 1296 | 52.2% | [49.5, 54.9] | 53.2% | -0.72 | 0.113 | nan |
-|   source = extrapolated | 583 | 48.2% | [44.2, 52.3] | 50.9% | -1.33 | 0.408 | nan |
-|   Mercury direct | 1503 | 50.8% | [48.3, 53.4] | 52.8% | -1.50 | 0.536 | nan |
-|   Mercury retrograde (his moratorium) | 376 | 51.6% | [46.6, 56.6] | 51.3% | +0.10 | 0.571 | nan |
-| Nakshatra base call alone | 1847 | 47.8% | [45.5, 50.1] | 52.0% | -3.63 | 0.063 | 0.905 |
-| Window lean (duration-weighted, |lean| > 0.2) | 2023 | 51.7% | [49.5, 53.9] | 52.8% | -0.98 | 0.131 | 0.162 |
-| 'Volatile' call → |move| above median | 545 | 47.2% | [43.0, 51.4] | 0.0% | -1.33 | 0.199 | nan |
+| Final call, all directional days | 1946 | 51.9% | [49.7, 54.1] | 52.4% | -0.41 | 0.098 | 0.075 |
+|   source = observed | 1757 | 52.3% | [50.0, 54.6] | 53.2% | -0.72 | 0.056 | nan |
+|   source = extrapolated | 189 | 48.1% | [41.1, 55.2] | 55.0% | -1.90 | 0.663 | nan |
+|   Mercury direct | 1561 | 52.1% | [49.6, 54.6] | 53.2% | -0.86 | 0.105 | nan |
+|   Mercury retrograde (his moratorium) | 385 | 51.2% | [46.2, 56.1] | 50.9% | +0.10 | 0.684 | nan |
+| Nakshatra base call alone | 1950 | 49.1% | [46.9, 51.3] | 52.5% | -2.95 | 0.455 | 0.556 |
+| Window lean (duration-weighted, |lean| > 0.2) | 2061 | 52.0% | [49.9, 54.2] | 52.9% | -0.84 | 0.071 | 0.134 |
+| 'Volatile' call → |move| above median | 489 | 46.0% | [41.6, 50.4] | 0.0% | -1.76 | 0.086 | nan |
 
-Per year (final call): 2016 49.1% (n=169) · 2017 46.2% (n=171) · 2018 44.9% (n=185) · 2019 48.2% (n=168) · 2020 61.8% (n=178) · 2021 49.2% (n=185) · 2022 50.8% (n=177) · 2023 55.5% (n=173) · 2024 47.3% (n=184) · 2025 50.9% (n=171) · 2026 60.2% (n=118)
+Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n=187) · 2019 50.3% (n=177) · 2020 60.0% (n=185) · 2021 51.6% (n=188) · 2022 51.6% (n=184) · 2023 59.7% (n=181) · 2024 46.6% (n=189) · 2025 51.7% (n=180) · 2026 56.7% (n=120)
 
 ### Moon nakshatra at the open
 
 | Nakshatra | his call | n | up-rate | mean (bp) | z | p vs base |
 |---|---|---|---|---|---|---|
-| Ashwini | bear (ext) | 98 | 50.0% | -9.5 | +0.61 | 0.546 |
-| Bharani | bull (ext) | 89 | 43.8% | -16.8 | -0.59 | 0.596 |
+| Ashwini | bear (obs) | 98 | 50.0% | -9.5 | +0.61 | 0.546 |
+| Bharani | bear (obs) | 89 | 43.8% | -16.8 | -0.59 | 0.596 |
 | Krittika | neutral (obs) | 99 | 55.6% | +10.2 | +1.72 | 0.088 |
 | Rohini | bull (obs) | 95 | 54.7% | +2.0 | +1.53 | 0.150 |
 | Mrigashira | bull (obs) | 98 | 43.9% | -17.2 | -0.60 | 0.613 |
 | Ardra | bear (ext) | 97 | 57.7% | -0.6 | +2.13 | 0.041 |
-| Punarvasu | bull (ext) | 96 | 51.0% | +2.0 | +0.81 | 0.474 |
-| Pushya | bear (ext) | 94 | 51.1% | -3.9 | +0.81 | 0.470 |
-| Ashlesha | bull (ext) | 99 | 42.4% | -13.0 | -0.90 | 0.421 |
-| Magha | vol (obs) | 103 | 39.8% | -11.7 | -1.45 | 0.167 |
+| Punarvasu | bull (obs) | 96 | 51.0% | +2.0 | +0.81 | 0.474 |
+| Pushya | bull (obs) | 94 | 51.1% | -3.9 | +0.81 | 0.470 |
+| Ashlesha | bull (obs) | 99 | 42.4% | -13.0 | -0.90 | 0.421 |
+| Magha | bear (obs) | 103 | 39.8% | -11.7 | -1.45 | 0.167 |
 | Purva Phalguni | bull (ext) | 95 | 49.5% | -7.3 | +0.50 | 0.681 |
 | Uttara Phalguni | neutral (ext) | 91 | 50.5% | +1.4 | +0.69 | 0.529 |
 | Hasta | bull (obs) | 101 | 46.5% | -8.4 | -0.08 | 1.000 |
@@ -134,13 +134,13 @@ Per year (final call): 2016 49.1% (n=169) · 2017 46.2% (n=171) · 2018 44.9% (n
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1947 | 48.8% | [46.6, 51.0] | 54.6% | -5.19 | 0.297 | 0.669 |
+| Final call, all directional days | 1947 | 48.8% | [46.6, 51.0] | 54.6% | -5.19 | 0.297 | 0.668 |
 |   source = observed | 1788 | 49.0% | [46.7, 51.3] | 54.6% | -4.75 | 0.408 | nan |
 |   source = extrapolated | 159 | 46.5% | [39.0, 54.3] | 55.3% | -2.23 | 0.428 | nan |
 |   Mercury direct | 1583 | 48.8% | [46.4, 51.3] | 54.1% | -4.19 | 0.366 | nan |
 |   Mercury retrograde (his moratorium) | 364 | 48.6% | [43.5, 53.7] | 57.1% | -3.28 | 0.637 | nan |
-| Nakshatra base call alone | 2386 | 49.7% | [47.7, 51.7] | 54.5% | -4.73 | 0.790 | 0.544 |
-| Window lean (duration-weighted, |lean| > 0.2) | 1693 | 49.3% | [46.9, 51.7] | 53.1% | -3.12 | 0.593 | 0.451 |
+| Nakshatra base call alone | 2386 | 49.7% | [47.7, 51.7] | 54.5% | -4.73 | 0.790 | 0.545 |
+| Window lean (duration-weighted, |lean| > 0.2) | 1695 | 49.4% | [47.0, 51.8] | 53.0% | -2.97 | 0.627 | 0.399 |
 | 'Volatile' call → |move| above median | 688 | 49.0% | [45.3, 52.7] | 0.0% | -0.53 | 0.620 | nan |
 
 Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n=182) · 2019 40.7% (n=182) · 2020 52.1% (n=192) · 2021 54.9% (n=182) · 2022 51.1% (n=180) · 2023 54.2% (n=179) · 2024 48.0% (n=177) · 2025 39.8% (n=181) · 2026 49.2% (n=120)
@@ -261,13 +261,13 @@ Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1947 | 49.7% | [47.4, 51.9] | 52.5% | -2.50 | 0.786 | 0.470 |
+| Final call, all directional days | 1947 | 49.7% | [47.4, 51.9] | 52.5% | -2.50 | 0.786 | 0.472 |
 |   source = observed | 1788 | 49.6% | [47.3, 51.9] | 52.7% | -2.65 | 0.759 | nan |
 |   source = extrapolated | 159 | 50.3% | [42.6, 58.0] | 50.3% | +0.00 | 1.000 | nan |
 |   Mercury direct | 1583 | 49.3% | [46.9, 51.8] | 52.1% | -2.16 | 0.615 | nan |
 |   Mercury retrograde (his moratorium) | 364 | 51.1% | [46.0, 56.2] | 54.4% | -1.26 | 0.714 | nan |
-| Nakshatra base call alone | 2386 | 50.1% | [48.1, 52.1] | 52.7% | -2.58 | 0.951 | 0.449 |
-| Window lean (duration-weighted, |lean| > 0.2) | 1693 | 48.1% | [45.7, 50.5] | 52.2% | -3.41 | 0.120 | 0.904 |
+| Nakshatra base call alone | 2386 | 50.1% | [48.1, 52.1] | 52.7% | -2.58 | 0.951 | 0.451 |
+| Window lean (duration-weighted, |lean| > 0.2) | 1695 | 48.1% | [45.8, 50.5] | 52.1% | -3.26 | 0.132 | 0.859 |
 | 'Volatile' call → |move| above median | 688 | 50.3% | [46.6, 54.0] | 0.0% | +0.15 | 0.909 | nan |
 
 Per year (final call): 2016 50.5% (n=186) · 2017 53.2% (n=186) · 2018 50.5% (n=182) · 2019 44.0% (n=182) · 2020 47.4% (n=192) · 2021 56.6% (n=182) · 2022 47.2% (n=180) · 2023 55.3% (n=179) · 2024 49.2% (n=177) · 2025 44.2% (n=181) · 2026 47.5% (n=120)
