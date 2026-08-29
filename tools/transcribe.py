@@ -40,8 +40,10 @@ def fmt(t):
     return f"{h:02d}:{m:02d}:{s:02d}"
 
 
-def transcribe_one(model, path, outdir, task, suffix):
-    segs, info = model.transcribe(path, language="ta", task=task,
+def transcribe_one(model, path, outdir, task, suffix, language="ta"):
+    # language=None lets Whisper detect it from the first 30 s — needed
+    # for the Vikas classes, which mix Tamil and Hindi sessions
+    segs, info = model.transcribe(path, language=language, task=task,
                                   beam_size=1, vad_filter=True)
     base = os.path.splitext(os.path.basename(path))[0]
     out = os.path.join(outdir, base + suffix)
@@ -62,7 +64,11 @@ def main():
                     help="also write the Tamil transcript (.ta.txt)")
     ap.add_argument("--only", default=None,
                     help="substring: transcribe only matching filenames")
+    ap.add_argument("--lang", default="ta",
+                    help="source language code, or 'auto' to detect per file "
+                         "(default ta)")
     args = ap.parse_args()
+    lang = None if args.lang.lower() == "auto" else args.lang
 
     os.makedirs(args.out, exist_ok=True)
     vids = [os.path.join(args.folder, f) for f in os.listdir(args.folder)
@@ -80,10 +86,10 @@ def main():
     for i, v in enumerate(vids, 1):
         print(f"\n[{i}/{len(vids)}] {os.path.basename(v)}")
         t = time.time()
-        en = transcribe_one(model, v, args.out, "translate", ".en.txt")
+        en = transcribe_one(model, v, args.out, "translate", ".en.txt", lang)
         msg = os.path.basename(en)
         if args.both:
-            ta = transcribe_one(model, v, args.out, "transcribe", ".ta.txt")
+            ta = transcribe_one(model, v, args.out, "transcribe", ".ta.txt", lang)
             msg += " + " + os.path.basename(ta)
         print(f"   -> {msg}   ({time.time()-t:.0f}s)")
 
