@@ -26,6 +26,7 @@ const CONCEPTS: [string, string, string][] = [
   ['Saturn → Mercury retrace', 'If a Saturn-star day falls the whole session, the next Mercury-star day (Ashlesha, Jyeshtha, Revati) retraces at least half of it, then falls again — "100%, don\'t doubt it". Pushya → Ashlesha is his favourite.', 'Class 1, 5'],
   ['Chart layer', 'Measuring gap between candle 1 and candle 3 of a leg = support/resistance (order block); never trade the break, wait for the retest; 5-/15-minute frames for intraday, weekly for trend, hourly is useless for a 6-hour market; flag targets = pole height; after a big candle sell options in the range.', 'Class 1, 3, 5, 6'],
   ['RBI policy day', 'Sideways till 10:00; the first 5-minute move at 10:00 / 10:05 is a trap — trade the opposite side with the candle\'s extreme as stop. "100% in the last 8, 90% last year".', 'Class 5'],
+  ['Gann level file (RRR)', 'A price→degree sheet: degree = (180·√price + 135) mod 360, so the levels are the prices whose square root is a quarter-integer, 45° apart (Nifty 23,947 = 270°, 24,025 = 315°, 24,100 = 0°). Use them as support/resistance on 5-minute (some stocks 15-minute) charts; the "green" degrees matter more for the index, each stock respects its own. Calculator below.', 'RRR video'],
   ['Sectors and stocks', 'Mars = metals (also power, property); Jupiter = banking; Saturn = oil & gas, IT, Nifty itself; Venus = luxury, finance; Mercury/Rahu = IT; Ketu = pharma (Glenmark). Stock radix: incorporation or listing date; the sector planet at 0°/30°/60° to its natal place marks tops and bottoms.', 'Class 1, 5, 6'],
 ]
 
@@ -100,6 +101,61 @@ function DayRow({ d, today }: { d: VikasDay; today: string }) {
   )
 }
 
+// His "Gann level file": degree = (180·√P + 135) mod 360 — every price
+// whose square root is a quarter-integer sits on a 45° line. Verified
+// against every number he reads out in the RRR video (517.5 → 269.75°,
+// 506.5 → 225.99°, 24,025 → 315°, 23,947 → 270°).
+function gannDegree(p: number) { return ((180 * Math.sqrt(p) + 135) % 360 + 360) % 360 }
+function gannLevels(p: number, each = 6): { price: number; deg: number }[] {
+  if (!(p > 0)) return []
+  const k0 = Math.round(Math.sqrt(p) * 4)
+  const out: { price: number; deg: number }[] = []
+  for (let k = k0 - each; k <= k0 + each; k++) {
+    if (k <= 0) continue
+    const price = (k / 4) ** 2
+    out.push({ price, deg: Math.round(gannDegree(price)) % 360 })
+  }
+  return out.reverse()
+}
+
+function GannLevels() {
+  const [raw, setRaw] = useState('24000')
+  const p = parseFloat(raw)
+  const levels = gannLevels(p)
+  const step = p > 0 ? Math.sqrt(p) / 2 : 0
+  return (
+    <section className="panel">
+      <h2>Gann level file — the RRR calculator</h2>
+      <p className="learn-p">
+        Type a price; the lines are the prices on his 45° degrees above and below it
+        (spacing ≈ √price ⁄ 2, so about {step.toFixed(0)} points here). Cardinal degrees
+        (0 / 90 / 180 / 270) are bold — the usual "important" set; his file marks its own in
+        green. A level is a place to expect a reaction, to be confirmed on the 5-minute chart,
+        never a direction.
+      </p>
+      <p><label className="learn-key">Price{' '}
+        <input value={raw} onChange={(e) => setRaw(e.target.value)} inputMode="decimal"
+          style={{ width: '8em', marginLeft: '0.5em' }} /></label>
+        {p > 0 && <span className="muted-note"> → {gannDegree(p).toFixed(1)}° on the wheel</span>}
+      </p>
+      {levels.length > 0 && (
+        <table className="graha-table learn-table">
+          <thead><tr><th>Level</th><th>Degree</th><th>vs price</th></tr></thead>
+          <tbody>
+            {levels.map((l) => (
+              <tr key={l.price} className={l.price <= p && (levels.find((x) => x.price <= p)?.price === l.price) ? 'sig-weak' : ''}>
+                <td className="mono">{l.deg % 90 === 0 ? <strong>{l.price.toFixed(2)}</strong> : l.price.toFixed(2)}</td>
+                <td className="mono">{l.deg}°</td>
+                <td className="mono">{(l.price - p) >= 0 ? '+' : ''}{(l.price - p).toFixed(1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
+  )
+}
+
 export default function VikasPanel({ date }: { date?: string }) {
   const [week, setWeek] = useState<VikasWeekResult | null>(null)
   const [err, setErr] = useState<string | null>(null)
@@ -152,6 +208,8 @@ export default function VikasPanel({ date }: { date?: string }) {
           classes are in Hindi and Tamil, transcribed with <code>tools/transcribe.py --lang auto</code>.
         </p>
       </section>
+
+      <GannLevels />
 
       <section className="panel">
         <h2>Backtest verdict — Nifty 2011–2026, Bank Nifty, Nifty Metal, COMEX gold &amp; silver</h2>

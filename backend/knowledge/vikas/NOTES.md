@@ -7,8 +7,32 @@ transcripts\`. Tags: [V1] Astro class 1 (2 h), [V2] Astro class 2 (1 h 15),
 [V3] Astro class 3 (1 h 15), [V4] Astro class 4 (1 h 07), [V5] Class 5
 (1 h 26), [V6] Astro Class 6 (53 min), [VD1] Vikas – Demo class, [VD2]
 Vikas Demo Class 2, [RRR] "RRR level file video on support and
-resistance". Timestamps are transcript timestamps. [VD1] and [RRR] are
-still transcribing and are not in these notes yet.
+resistance". Timestamps are transcript timestamps.
+
+[RRR] (7 min, mostly screen) is his "Gann level file" — a price→degree
+sheet: type a price, read its degree, and take the prices that land on
+the listed degrees as support/resistance "in stock, commodity, index"
+[RRR @ 00:15–01:23]. The numbers he reads out (520 → ≈280°, 517.5 →
+269.75°, 506.5 → 225.99°, 495 → 180°; Nifty 24,025 → 315°, 23,947 →
+270°, 24,100 → ≈0°) all fit the Square-of-9 rule
+**degree = (180·√price + 135) mod 360**, so his levels are simply the
+prices whose square root is a quarter-integer, P = (k/4)², 45° apart. The
+"green" degrees are the more important ones for the index (which ones is
+in the file, not on the audio; the cardinal 0/90/180/270 is the usual
+Gann choice); each stock "respects" its own degree — find it by trial;
+check reactions on 5-minute, some stocks on 15-minute
+[RRR @ 00:44–01:18, 03:29–04:55]. The Vikas tab has the calculator; the
+levels are a chart tool and are not backtested (no intraday bars).
+
+[VD1] (10 min) is the tour of his tools and adds nothing to the rules:
+drikpanchang's *upcoming planetary events*, *planet transit* (sign and
+nakshatra), *planet combustion* (a planet within 15° of the Sun "loses its
+impact") and *planet retrograde* pages are each "something to back-test
+against Nifty, gold, crude"; keep a concept only at "at least 90% —
+leave the 60–70% ones" [VD1 @ 00:39–05:13]. His Uttarashadha example is
+restated with the entry rule: 13 Jan 2025 opened gap-down, so "you trade
+only after the gap" — sell the put once the gap is in, the week then
+held [VD1 @ 05:33–10:03].
 
 Vikas is a separate teacher from GRAHA MARKETS (Prediction tab) and
 Saptarsh. His own framing [V1 @ 01:02–01:03, 01:17; V2 @ 30:25]: daily
