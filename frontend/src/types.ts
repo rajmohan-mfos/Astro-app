@@ -327,6 +327,7 @@ export interface SaptarshRegime {
   early_degree_bodies: string[]
   grand_trines: string[][]
   kaal_sarp: boolean
+  mars_retro?: boolean
   conjunctions: {
     sign: string; sign_en: string; planets: string[]; until: string
     members: { planet: string; entry: string; exit: string }[]

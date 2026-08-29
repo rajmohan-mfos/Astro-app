@@ -16,16 +16,16 @@ posts, the base tables from classical texts.
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1946 | 51.9% | [49.7, 54.1] | 52.4% | -0.41 | 0.098 | 0.075 |
-|   source = observed | 1757 | 52.3% | [50.0, 54.6] | 53.2% | -0.72 | 0.056 | nan |
-|   source = extrapolated | 189 | 48.1% | [41.1, 55.2] | 55.0% | -1.90 | 0.663 | nan |
-|   Mercury direct | 1561 | 52.1% | [49.6, 54.6] | 53.2% | -0.86 | 0.105 | nan |
-|   Mercury retrograde (his moratorium) | 385 | 51.2% | [46.2, 56.1] | 50.9% | +0.10 | 0.684 | nan |
-| Nakshatra base call alone | 1950 | 49.1% | [46.9, 51.3] | 52.5% | -2.95 | 0.455 | 0.556 |
-| Window lean (duration-weighted, |lean| > 0.2) | 2061 | 52.0% | [49.9, 54.2] | 52.9% | -0.84 | 0.071 | 0.134 |
-| 'Volatile' call → |move| above median | 489 | 46.0% | [41.6, 50.4] | 0.0% | -1.76 | 0.086 | nan |
+| Final call, all directional days | 1959 | 51.6% | [49.3, 53.8] | 52.3% | -0.68 | 0.175 | 0.114 |
+|   source = observed | 1929 | 51.5% | [49.2, 53.7] | 52.3% | -0.73 | 0.202 | nan |
+|   source = extrapolated | 30 | 56.7% | [39.2, 72.6] | 53.3% | +0.37 | 0.585 | nan |
+|   Mercury direct | 1575 | 51.6% | [49.2, 54.1] | 53.0% | -1.06 | 0.208 | nan |
+|   Mercury retrograde (his moratorium) | 384 | 51.3% | [46.3, 56.3] | 50.3% | +0.41 | 0.646 | nan |
+| Nakshatra base call alone | 2152 | 49.4% | [47.3, 51.6] | 53.1% | -3.41 | 0.620 | 0.410 |
+| Window lean (duration-weighted, |lean| > 0.2) | 2058 | 51.8% | [49.6, 54.0] | 53.0% | -1.10 | 0.108 | 0.143 |
+| 'Volatile' call → |move| above median | 516 | 46.3% | [42.1, 50.6] | 0.0% | -1.67 | 0.103 | nan |
 
-Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n=187) · 2019 50.3% (n=177) · 2020 60.0% (n=185) · 2021 51.6% (n=188) · 2022 51.6% (n=184) · 2023 59.7% (n=181) · 2024 46.6% (n=189) · 2025 51.7% (n=180) · 2026 56.7% (n=120)
+Per year (final call): 2016 51.1% (n=182) · 2017 48.0% (n=173) · 2018 45.5% (n=191) · 2019 50.0% (n=178) · 2020 59.6% (n=188) · 2021 49.7% (n=189) · 2022 51.6% (n=188) · 2023 58.9% (n=180) · 2024 46.6% (n=189) · 2025 52.0% (n=179) · 2026 55.7% (n=122)
 
 ### Moon nakshatra at the open
 
@@ -36,18 +36,18 @@ Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n
 | Krittika | neutral (obs) | 99 | 55.6% | +10.2 | +1.72 | 0.088 |
 | Rohini | bull (obs) | 95 | 54.7% | +2.0 | +1.53 | 0.150 |
 | Mrigashira | bull (obs) | 98 | 43.9% | -17.2 | -0.60 | 0.613 |
-| Ardra | bear (ext) | 97 | 57.7% | -0.6 | +2.13 | 0.041 |
+| Ardra | bear (obs) | 97 | 57.7% | -0.6 | +2.13 | 0.041 |
 | Punarvasu | bull (obs) | 96 | 51.0% | +2.0 | +0.81 | 0.474 |
 | Pushya | bull (obs) | 94 | 51.1% | -3.9 | +0.81 | 0.470 |
 | Ashlesha | bull (obs) | 99 | 42.4% | -13.0 | -0.90 | 0.421 |
 | Magha | bear (obs) | 103 | 39.8% | -11.7 | -1.45 | 0.167 |
-| Purva Phalguni | bull (ext) | 95 | 49.5% | -7.3 | +0.50 | 0.681 |
+| Purva Phalguni | bull (obs) | 95 | 49.5% | -7.3 | +0.50 | 0.681 |
 | Uttara Phalguni | neutral (ext) | 91 | 50.5% | +1.4 | +0.69 | 0.529 |
 | Hasta | bull (obs) | 101 | 46.5% | -8.4 | -0.08 | 1.000 |
 | Chitra | bull (obs) | 91 | 53.8% | +3.4 | +1.32 | 0.208 |
 | Swati | bear (obs) | 96 | 44.8% | +5.4 | -0.42 | 0.684 |
 | Vishakha | vol (obs) | 90 | 41.1% | -3.8 | -1.10 | 0.292 |
-| Anuradha | neutral (obs) | 104 | 38.5% | -19.9 | -1.73 | 0.095 |
+| Anuradha | bear (obs) | 104 | 38.5% | -19.9 | -1.73 | 0.095 |
 | Jyeshtha | bull (obs) | 101 | 51.5% | +0.5 | +0.92 | 0.371 |
 | Mula | bear (obs) | 104 | 49.0% | -3.5 | +0.43 | 0.695 |
 | Purva Ashadha | bull (obs) | 98 | 37.8% | -21.2 | -1.82 | 0.085 |
@@ -57,7 +57,7 @@ Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n
 | Shatabhisha | bear (obs) | 99 | 48.5% | -2.2 | +0.31 | 0.764 |
 | Purva Bhadrapada | bull (obs) | 103 | 36.9% | -23.6 | -2.04 | 0.048 |
 | Uttara Bhadrapada | neutral (obs) | 103 | 39.8% | -17.5 | -1.45 | 0.167 |
-| Revati | neutral (obs) | 98 | 42.9% | -8.4 | -0.81 | 0.479 |
+| Revati | bull (obs) | 98 | 42.9% | -8.4 | -0.81 | 0.479 |
 
 ### Rules as event studies (direction; 'wide' = |move| above the median)
 
@@ -77,6 +77,7 @@ Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n
 | Slow-planet sign ingress (Mars..Uranus) | 73 | 45.2% | 46.9% | -11.4 | -6.2 | 62% | -0.29 | 0.815 |
 | Planetary station | 95 | 48.4% | 46.9% | -0.6 | -6.2 | 56% | +0.29 | 0.837 |
 | Kaal Sarp yog | 598 | 45.3% | 46.9% | -10.5 | -6.2 | 55% | -0.78 | 0.437 |
+| Mars retrograde | 248 | 49.2% | 46.9% | -3.3 | -6.2 | 47% | +0.72 | 0.484 |
 | Grand trine | 44 | 38.6% | 46.9% | -12.5 | -6.2 | 57% | -1.10 | 0.293 |
 | Nakshatra stellium (≥3) | 542 | 51.3% | 46.9% | -2.5 | -6.2 | 58% | +2.04 | 0.043 |
 | Sign stellium (≥4) | 606 | 47.5% | 46.9% | -5.4 | -6.2 | 53% | +0.30 | 0.776 |
@@ -95,7 +96,7 @@ Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n
 | Nakshatra changes in session | 664 | 48.2% | 46.9% | -4.0 | -6.2 | 50% | +0.66 | 0.509 |
 | Moon changes sign in session | 302 | 46.7% | 46.9% | -6.2 | -6.2 | 50% | -0.08 | 0.954 |
 
-31 rule tests; Bonferroni α = 0.0016; **0 survive**.
+32 rule tests; Bonferroni α = 0.0016; **0 survive**.
 
 ### Observed aspect labels (exact hit on the day; n ≥ 15)
 
@@ -134,13 +135,13 @@ Per year (final call): 2016 51.1% (n=180) · 2017 47.4% (n=175) · 2018 46.0% (n
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1947 | 48.8% | [46.6, 51.0] | 54.6% | -5.19 | 0.297 | 0.668 |
+| Final call, all directional days | 1947 | 48.8% | [46.6, 51.0] | 54.6% | -5.19 | 0.297 | 0.676 |
 |   source = observed | 1788 | 49.0% | [46.7, 51.3] | 54.6% | -4.75 | 0.408 | nan |
 |   source = extrapolated | 159 | 46.5% | [39.0, 54.3] | 55.3% | -2.23 | 0.428 | nan |
 |   Mercury direct | 1583 | 48.8% | [46.4, 51.3] | 54.1% | -4.19 | 0.366 | nan |
 |   Mercury retrograde (his moratorium) | 364 | 48.6% | [43.5, 53.7] | 57.1% | -3.28 | 0.637 | nan |
-| Nakshatra base call alone | 2386 | 49.7% | [47.7, 51.7] | 54.5% | -4.73 | 0.790 | 0.545 |
-| Window lean (duration-weighted, |lean| > 0.2) | 1695 | 49.4% | [47.0, 51.8] | 53.0% | -2.97 | 0.627 | 0.399 |
+| Nakshatra base call alone | 2386 | 49.7% | [47.7, 51.7] | 54.5% | -4.73 | 0.790 | 0.553 |
+| Window lean (duration-weighted, |lean| > 0.2) | 1688 | 49.5% | [47.1, 51.9] | 53.2% | -3.07 | 0.679 | 0.511 |
 | 'Volatile' call → |move| above median | 688 | 49.0% | [45.3, 52.7] | 0.0% | -0.53 | 0.620 | nan |
 
 Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n=182) · 2019 40.7% (n=182) · 2020 52.1% (n=192) · 2021 54.9% (n=182) · 2022 51.1% (n=180) · 2023 54.2% (n=179) · 2024 48.0% (n=177) · 2025 39.8% (n=181) · 2026 49.2% (n=120)
@@ -195,6 +196,7 @@ Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n
 | Slow-planet sign ingress (Mars..Uranus) | 76 | 50.0% | 53.9% | -1.1 | +6.1 | 45% | -0.68 | 0.565 |
 | Planetary station | 97 | 59.8% | 53.9% | +11.6 | +6.1 | 47% | +1.17 | 0.263 |
 | Kaal Sarp yog | 612 | 50.8% | 53.9% | -3.6 | +6.1 | 55% | -1.52 | 0.134 |
+| Mars retrograde | 244 | 55.3% | 53.9% | +10.9 | +6.1 | 50% | +0.45 | 0.700 |
 | Grand trine | 46 | 47.8% | 53.9% | -1.6 | +6.1 | 46% | -0.82 | 0.461 |
 | Nakshatra stellium (≥3) | 554 | 55.1% | 53.9% | +8.3 | +6.1 | 60% | +0.55 | 0.609 |
 | Sign stellium (≥4) | 623 | 54.3% | 53.9% | +7.8 | +6.1 | 55% | +0.19 | 0.872 |
@@ -213,7 +215,7 @@ Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n
 | Nakshatra changes in session | 688 | 57.1% | 53.9% | +12.0 | +6.1 | 52% | +1.70 | 0.092 |
 | Moon changes sign in session | 307 | 53.4% | 53.9% | +4.0 | +6.1 | 55% | -0.16 | 0.909 |
 
-31 rule tests; Bonferroni α = 0.0016; **0 survive**.
+32 rule tests; Bonferroni α = 0.0016; **0 survive**.
 
 ### Observed aspect labels (exact hit on the day; n ≥ 15)
 
@@ -261,13 +263,13 @@ Per year (final call): 2016 51.6% (n=186) · 2017 47.8% (n=186) · 2018 47.3% (n
 
 | Test | n | hit | 95% CI | naive | z vs base | p | perm-p |
 |---|---|---|---|---|---|---|---|
-| Final call, all directional days | 1947 | 49.7% | [47.4, 51.9] | 52.5% | -2.50 | 0.786 | 0.472 |
+| Final call, all directional days | 1947 | 49.7% | [47.4, 51.9] | 52.5% | -2.50 | 0.786 | 0.475 |
 |   source = observed | 1788 | 49.6% | [47.3, 51.9] | 52.7% | -2.65 | 0.759 | nan |
 |   source = extrapolated | 159 | 50.3% | [42.6, 58.0] | 50.3% | +0.00 | 1.000 | nan |
 |   Mercury direct | 1583 | 49.3% | [46.9, 51.8] | 52.1% | -2.16 | 0.615 | nan |
 |   Mercury retrograde (his moratorium) | 364 | 51.1% | [46.0, 56.2] | 54.4% | -1.26 | 0.714 | nan |
-| Nakshatra base call alone | 2386 | 50.1% | [48.1, 52.1] | 52.7% | -2.58 | 0.951 | 0.451 |
-| Window lean (duration-weighted, |lean| > 0.2) | 1695 | 48.1% | [45.8, 50.5] | 52.1% | -3.26 | 0.132 | 0.859 |
+| Nakshatra base call alone | 2386 | 50.1% | [48.1, 52.1] | 52.7% | -2.58 | 0.951 | 0.448 |
+| Window lean (duration-weighted, |lean| > 0.2) | 1688 | 48.2% | [45.8, 50.6] | 52.4% | -3.46 | 0.151 | 0.893 |
 | 'Volatile' call → |move| above median | 688 | 50.3% | [46.6, 54.0] | 0.0% | +0.15 | 0.909 | nan |
 
 Per year (final call): 2016 50.5% (n=186) · 2017 53.2% (n=186) · 2018 50.5% (n=182) · 2019 44.0% (n=182) · 2020 47.4% (n=192) · 2021 56.6% (n=182) · 2022 47.2% (n=180) · 2023 55.3% (n=179) · 2024 49.2% (n=177) · 2025 44.2% (n=181) · 2026 47.5% (n=120)
@@ -322,6 +324,7 @@ Per year (final call): 2016 50.5% (n=186) · 2017 53.2% (n=186) · 2018 50.5% (n
 | Slow-planet sign ingress (Mars..Uranus) | 76 | 47.4% | 52.5% | -2.9 | +8.4 | 57% | -0.89 | 0.422 |
 | Planetary station | 97 | 56.7% | 52.5% | +22.5 | +8.4 | 56% | +0.84 | 0.418 |
 | Kaal Sarp yog | 612 | 50.7% | 52.5% | -3.1 | +8.4 | 52% | -0.90 | 0.374 |
+| Mars retrograde | 244 | 56.1% | 52.5% | +10.9 | +8.4 | 51% | +1.15 | 0.276 |
 | Grand trine | 46 | 50.0% | 52.5% | +36.8 | +8.4 | 57% | -0.33 | 0.769 |
 | Nakshatra stellium (≥3) | 554 | 53.2% | 52.5% | +14.6 | +8.4 | 57% | +0.37 | 0.734 |
 | Sign stellium (≥4) | 623 | 53.5% | 52.5% | +9.1 | +8.4 | 51% | +0.49 | 0.630 |
@@ -340,7 +343,7 @@ Per year (final call): 2016 50.5% (n=186) · 2017 53.2% (n=186) · 2018 50.5% (n
 | Nakshatra changes in session | 688 | 53.9% | 52.5% | +17.0 | +8.4 | 50% | +0.77 | 0.446 |
 | Moon changes sign in session | 307 | 55.4% | 52.5% | -2.5 | +8.4 | 51% | +1.02 | 0.331 |
 
-31 rule tests; Bonferroni α = 0.0016; **0 survive**.
+32 rule tests; Bonferroni α = 0.0016; **0 survive**.
 
 ### Observed aspect labels (exact hit on the day; n ≥ 15)
 

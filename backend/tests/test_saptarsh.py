@@ -181,7 +181,7 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
     assert saptarsh.nak_tone("Magha", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
-    assert saptarsh.nak_tone("Ardra", "Kanya", "nifty")[1] == "extrapolated"   # no Nifty reading, no sign fallback
+    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "nifty")[1] == "extrapolated"   # the one star with no Nifty reading
 
 
 # ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
@@ -475,7 +475,7 @@ def test_nifty_nakshatra_calls_from_the_2025_reports():
     'supportive' (7 Feb), Chitra 'favourable' (17 Feb), Swati 'not much
     favorable' (18 Feb)."""
     assert saptarsh.nak_tone("Uttara Ashadha", "Makara", "nifty") == ("bull", "observed")
-    assert saptarsh.nak_tone("Revati", "Meena", "nifty") == ("neutral", "observed")
+    assert saptarsh.nak_tone("Revati", "Meena", "nifty") == ("bull", "observed")   # 2 of 3 since Feb 2024
     assert saptarsh.nak_tone("Rohini", "Vrishabha", "nifty") == ("bull", "observed")
     assert saptarsh.nak_tone("Rohini", "Vrishabha", "gold") == ("bear", "observed")
     assert saptarsh.nak_tone("Chitra", "Kanya", "nifty") == ("bull", "observed")
@@ -640,7 +640,10 @@ def test_june_2024_nifty_reports_and_vaidhriti_for_nifty():
     assert d["moon"]["nakshatra_change"] == {"time": "10:11", "to": "Uttara Bhadrapada"}
     assert saptarsh.nak_tone("Mrigashira", "Mithuna", "nifty") == ("bull", "observed")
     assert saptarsh.nak_tone("Uttara Bhadrapada", "Meena", "nifty") == ("neutral", "observed")
-    moon = {"sign": "Meena", "nakshatra": "Revati", "sign_change": None, "nakshatra_change": None}
+    moon = {"sign": "Vrishabha", "nakshatra": "Krittika", "sign_change": None, "nakshatra_change": None}
+    # Krittika is neutral for Nifty; exaltation lifts it, Vaidhriti knocks it to volatile
+    assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
+    moon = {"sign": "Kanya", "nakshatra": "Uttara Phalguni", "sign_change": None, "nakshatra_change": None}
     assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "bear"
     assert saptarsh._call("gold", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
     d = saptarsh.day(datetime.date(2024, 6, 24))
@@ -694,3 +697,38 @@ def test_origin_nifty_nakshatra_readings():
     d = saptarsh.day(datetime.date(2024, 4, 30))
     assert d["moon"]["sign_change"] == {"time": "10:37", "to": "Makara"}
     assert d["moon"]["nakshatra"] == "Uttara Ashadha"
+
+
+# ---- twelfth learning pass: X posts of Dec 2023 - Feb 2024 (Jan 2024.mp4) ----
+
+def test_mars_retrograde_windows_from_his_19_feb_2024_quiz():
+    """'17-Apr-16 – 30-Jun-16, 26-Jun-18 – 25-Aug-18 … very important
+    planetary change took place' — Mars retrograde, flagged in regime."""
+    assert saptarsh.regime(datetime.date(2016, 5, 15))["mars_retro"]
+    assert saptarsh.regime(datetime.date(2018, 7, 20))["mars_retro"]
+    assert any("Mars retrograde" in n for n in saptarsh.regime(datetime.date(2018, 7, 20))["notes"])
+    assert not saptarsh.regime(datetime.date(2026, 8, 28))["mars_retro"]
+
+
+def test_first_posts_aspects_and_nakshatras():
+    """17 Jan 2024: Sun 90 Moon 09:22, Moon 90 Pluto 13:33, Mercury 60
+    Saturn 14:19 ('extremely important and mixed'); 11 Jan: Venus 45
+    Pluto, Sun 90 Rahu 'volatile session'; 29 Feb Sun 0 Saturn."""
+    d = saptarsh.day(datetime.date(2024, 1, 18))
+    assert abs(_mins(_aspect(d, "Sun", 90, "Moon")["time"]) - _mins("09:22")) <= 3
+    assert _aspect(d, "Moon", 90, "Pluto")["tone"] == "vol"
+    assert _aspect(d, "Mercury", 60, "Saturn")["tone"] == "vol"
+    d = saptarsh.day(datetime.date(2024, 1, 11))
+    assert _aspect(d, "Venus", 45, "Pluto")["source"] == "observed"
+    assert _aspect(d, "Sun", 90, "Rahu")["tone"] == "vol"
+    d = saptarsh.day(datetime.date(2024, 2, 29))
+    assert abs(_mins(_aspect(d, "Sun", 0, "Saturn")["time"]) - _mins("02:56")) <= 3
+    for ds, to, t in [("2024-02-19", "Ardra", "10:30"), ("2024-02-12", "Uttara Bhadrapada", "14:55"),
+                      ("2024-02-13", "Revati", "12:35")]:
+        x = saptarsh.day(datetime.date.fromisoformat(ds))
+        assert x["moon"]["nakshatra_change"]["to"] == to
+        assert abs(_mins(x["moon"]["nakshatra_change"]["time"]) - _mins(t)) <= 4
+    assert saptarsh.nak_tone("Ardra", "Mithuna", "nifty") == ("bear", "observed")
+    assert saptarsh.nak_tone("Purva Phalguni", "Simha", "nifty") == ("bull", "observed")
+    assert saptarsh.nak_tone("Anuradha", "Vrischika", "nifty") == ("bear", "observed")
+    assert saptarsh.nak_tone("Revati", "Meena", "nifty") == ("bull", "observed")

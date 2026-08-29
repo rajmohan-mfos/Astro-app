@@ -305,10 +305,12 @@ const EARLY_LOG: [string, string, string][] = [
 
 const NIFTY_NAK: [string, string, string][] = [
   ['Magha', '"not supportive for stocks, consider it as a bearish" (16 May 2024); "unpredictable" (Dow, 20 Dec 2024)', '16 May 2024, 20 Dec 2024'],
+  ['Purva Phalguni', '"favourable for stocks but other yogas may kill this"', '29 Jan 2024'],
   ['Ashwini', '"not favourable, bearish effects witnessed"', '13 Mar 2024'],
   ['Bharani', '"not favourable, bearish effects"', '14 Mar 2024'],
   ['Krittika', 'neutral to slightly positive', '10 Jan 2025'],
-  ['Mrigashira', 'supportive for higher prices', '7 Jun 2024'],
+  ['Mrigashira', 'supportive for higher prices', '19 Feb 2024, 7 Jun 2024'],
+  ['Ardra', '"seems not bullish" (23 Jan 2024); "malefic for stock market" (19 Feb 2024)', '23 Jan, 19 Feb 2024'],
   ['Punarvasu', 'favourable for stocks', '19 Mar 2024'],
   ['Pushya', 'supportive', '20 Mar 2024'],
   ['Ashlesha', 'favourable for stocks (Dow)', '17 Apr 2024'],
@@ -317,7 +319,7 @@ const NIFTY_NAK: [string, string, string][] = [
   ['Chitra', 'supportive (24 Dec 2024, 17 Feb 2025); neutral once (27 Nov 2024)', '27 Nov 2024, 24 Dec 2024, 17 Feb 2025'],
   ['Swati', 'not much favourable for higher prices', '18 Feb 2025, 18 Aug 2026'],
   ['Vishakha', 'not supportive (20 Feb 2025) vs slightly positive (19 Aug 2026) — mixed', '20 Feb 2025, 19 Aug 2026'],
-  ['Anuradha', 'not supportive (20 Feb 2025, 20 Aug 2026) vs supportive (21 Feb 2025, 21 Aug 2026) — 2–2', 'Feb 2025, Aug 2026'],
+  ['Anuradha', 'not favourable (8 Jan 2024, 20 Feb 2025, 20 Aug 2026) vs supportive (21 Feb 2025, 21 Aug 2026) — 3 of 5 bearish', '2024–2026'],
   ['Mula', '"not favourable" (5 Mar, 1 Apr 2024), "bearish" (5 Nov 2024), "not supportive" (30 Dec 2024), "high volatility" (9 Jul 2025)', '2024–2025'],
   ['Purvashadha', 'favourable / supportive for higher prices', '29 Apr 2024, 6 Nov 2024, 24 Aug 2026'],
   ['Uttarashadha', 'supportive for stocks', '1 Jan 2025'],
@@ -326,7 +328,8 @@ const NIFTY_NAK: [string, string, string][] = [
   ['Shatabhisha', 'bearish', '28 Aug 2026'],
   ['Purvabhadra', '"later is bullish for stocks" (11 Nov 2024); recovery after 11:30 (27 Jun 2024); "neutral" (28 Jun 2024)', '27–28 Jun 2024, 11 Nov 2024'],
   ['Uttarabhadra', '"not favourable" (11 Mar 2024); "neutral" (28 Jun 2024)', '11 Mar 2024, 28 Jun 2024'],
-  ['Revati', '"little favourable" (12 Mar 2024); "neutral" (3 Feb 2025)', '12 Mar 2024, 3 Feb 2025'],
+  ['Revati', '"supportive" (13 Feb 2024), "little favourable" (12 Mar 2024); "neutral" (3 Feb 2025) — 2 of 3 bullish', '13 Feb 2024, 12 Mar 2024, 3 Feb 2025'],
+  ['Shravana', '"not favourable" (9 Feb 2024); "neutral" (26 Aug 2026) — mixed, kept neutral', '9 Feb 2024, 26 Aug 2026'],
 ]
 
 const JAN_CONCEPTS: [string, string, string][] = [
@@ -468,6 +471,41 @@ const ORIGIN_LOG: [string, string, string][] = [
   ['16 May', 'Nifty', 'Magha till 18:14 bearish, "Bullish 14:10–15:00" → "didn\'t expect this sharp rise" (hit).'],
 ]
 
+// ---- twelfth learning pass: X posts of Dec 2023 - Feb 2024 (Jan 2024.mp4) — the first posts
+
+const FIRST_CONCEPTS: [string, string, string][] = [
+  ['Mars retrograde as a regime', '"Can you get what happened in stock market during following period? 17-Oct-90 to 1-Jan-91, 02-Jan-95 – 24-March-95, 06-Feb-97 – 27-Apr-97, 18-Mar-99 – 5-Jun-99, 15-Nov-07 – 30-Jan-08, 17-Apr-16 – 30-Jun-16, 26-Jun-18 – 25-Aug-18. During this date very important planetary change took place." Every range is a Mars-retrograde window. The Regime block now flags Mars retrograde; the backtest scores it as a rule.', '19 Feb 2024'],
+  ['His own backtest of Sun 0 Saturn', 'A 25-post thread with charts 2000–2023 before the 29 Feb 2024 conjunction: "Many well known financial astrologers are emphasising … strong bearish phase will start after that … From all analysis, we can say that Sun–Saturn conjunction clearly did not make sharp fall in the market … We got almost 50–60% rate in this conjunction. Do not create huge position based on this aspect." His finding matches this app\'s backtest of his labels — a coin flip.', '22–23 Feb 2024'],
+  ['Moon-sign-wise transit', 'Each early report ends with a Gochara line: "The Moon is in Scorpio, this may give transit results: beneficial to Cancer, Leo and Sagittarius; bad to Virgo, Libra and Pisces; neutral for rest of Moon signs" (8 Jan); "Moon in Sagittarius: beneficial to Sagittarius, Leo; bad to Taurus, Cancer, Scorpio" (10 Jan). Not the classical 1/3/6/7/10/11 table — his own. The app\'s profile panel uses the classical 2/6/11 vs 5/8/12 gate.', 'Jan 2024'],
+  ['The unpublished toolkit', 'The paid-service announcement lists what the yogs come from: "Planets and its effects on commodity as per Argha Martand; Sarvato Bhadra Chakra — all planetary (including Moon) vedhs; Chandra Kalanala chakra — daily Moon analysis; some daily yogas formed from combination of Vaar+Nakshatra." Sarvatobhadra vedha and Chandra Kalanala are classical nakshatra-grid techniques — the likeliest source of his "bullish yog / bearish yog" windows, and not yet in this app.', '15 Feb 2024'],
+  ['"Planets may misguide"', '"Be careful in trading decisions till 9:40 IST as planets may misguide you" (10–11 Jan) — the earliest form of the avoid-the-first-45-minutes rule.', 'Jan 2024'],
+  ['Nakshatra change as the pivot', '"Be careful after 12:30 IST as nakshatra is changing" (20 Feb); "Moon changing Nakshatra in few minutes. Avoid bottom fishing. Another wave of selling is possible" (12 Feb → Nifty −135); "Be careful in shorts after 12:30 IST though strong bearish yog is running" (13 Feb → "Nifty suddenly reversed … this is how Astrology can save").', 'Feb 2024'],
+  ['Thu + Pushya, acknowledged', '"IMP NOTE — I am not confident as Thursday and Pushya nakshatra combination is good as per some scholars. I believed it is good for Gold and Silver. Lets see…" (24 Jan) — he knows the classical Sarvartha/Amrita Siddhi pairing; his 21 May 2025 "combination of Nakshatra and Vaar is bullish" is the same rule a year later.', '24 Jan 2024'],
+  ['30° and 36° again', '"Some very important aspects tomorrow. Moon 030 Neptune 05:40, Sun 090 Moon 09:22, Moon 090 Pluto 13:33, Mercury 060 Saturn 14:19, Venus 036 Pluto 15:32. Moon–Pluto and Mer–Sat are extremely important and mixed for markets." Venus 045 Pluto and Sun 090 Rahu (11 Jan) "not considered bullish and can create volatile session." Four of these are now observed volatile.', 'Jan 2024'],
+  ['"Major shift 8–9 Feb"', '"MAJOR SHIFT IN PLANETARY ENERGIES IS OCCURRING FROM 8-9 FEB 2024. Capable to create one side move in all financial markets. Chances are more for negative side" (5 Feb) → 13 Feb "Dow drops more than 1% … I clearly mentioned not to carry any long" (the 9 Feb New Moon with Mars and Venus together in Capricorn).', 'Feb 2024'],
+  ['Trolls, fakes, and the move to paid', '"Again, when astrologer fails, trolled lot. When technical analyst fails they keep silence … Why 100% accuracy is expected?" (14 Feb, after "NIFTY in green, failed today"); "fake account using my identity and collect money. I do not have any paid group" (23 Feb); "Time to cut the noise. Will start paid service at token price" (15 Feb).', 'Feb 2024'],
+  ['Lahiri, a fourth time', 'A spring-equinox ayanamsa table (Astro-Seek) posted 15 Feb 2024 with Lahiri 24°11′ highlighted.', '15 Feb 2024'],
+]
+
+const FIRST_LOG: [string, string, string][] = [
+  ['31 Dec 2023', 'Nifty', 'First daily post: "Monday, 01-01-2024 …" (the series begins).'],
+  ['2 Jan 2024', 'Both', '"Nifty couldn\'t close in green though gained 100 … lost 278 from high. Planets are not supporting bullish trend"; "Dow future +100 at 15:00 IST now −168."'],
+  ['8 Jan', 'Nifty', 'Anuradha "not favorable, negative price action possible"; Moon in Scorpio transit table.'],
+  ['10–11 Jan', 'Nifty', 'Mula "not favorable, high volatility & negative"; Purvashadha till 17:38 "neutral … careful till 09:40, planets may misguide"; Venus 45 Pluto and Sun 90 Rahu "volatile session".'],
+  ['17–18 Jan', 'Nifty', 'Ashwini "not favorable worldwide, 4:33 IST to 02:57 next day, avoid bottom fishing"; aspect list with Moon 90 Pluto and Mercury 60 Saturn "extremely important and mixed".'],
+  ['19–23 Jan', 'Nifty', '"RIL result out, planets indicate negative trend"; Saturday session "Astro indicate bearish trend"; "Avoid long for Tuesday. Seems not bullish. Adra nakshatra" → 23 Jan "Made good profit in short. Only due to the Astrology" (Nifty −1.5%).'],
+  ['24–25 Jan', 'Nifty', 'Pushya favourable but "Moon in bad aspect of Rahu, volatile session; weak start, change after 09:40; weak after 13:40"; the Thu+Pushya note.'],
+  ['29 Jan', 'Nifty', 'Purvaphalguni "favourable for stocks but other yogas may kill this. Be careful after 13:30."'],
+  ['5–13 Feb', 'Global', '"Major shift 8–9 Feb, chances more for negative side" → 13 Feb "Dow drops more than 1%. Many trolled for my bearishness."'],
+  ['8–9 Feb', 'Dow / Nifty', 'Dow: Shravana/Dhanishta "not much favourable, negative bias till 12:00 ET"; Nifty 9 Feb: Shravana "not favourable for stocks".'],
+  ['12–13 Feb', 'Nifty', 'Purvabhadra→Uttarabhadra 14:55 "supportive till 14:55 … one strong yoga running" → 11:40 "bearishness may intensify" → −135; Uttarabhadra→Revati 12:35 "bearish till 12:30, bounce after" → "suddenly reversed and recovered".'],
+  ['14 Feb', 'Nifty', '"NIFTY in green, failed today." (miss)'],
+  ['16 Feb', 'Nifty', '"Seems neutral. Mixed yogas. If we drop after 13:00, that trend may continue till closing."'],
+  ['19–22 Feb', 'Nifty', 'Mrigashira→Ardra 10:30 "later is malefic; strong bearish after 10:15; bounce last 40–45 min"; "careful after 12:30, nakshatra changing"; "weak after 10:00, bounce last hour"; "bearish till 13:00 then caution in shorts" → "recovered all the loss, now in green".'],
+  ['22–23 Feb', 'Nifty', 'Sun 0 Saturn thread: "50–60% rate … do not be biased for sharp fall after 29 Feb"; "AVOID SHORTS FOR TOMORROW"; "I\'m going to create a short position for Monday. Small quantity."'],
+  ['26 Feb', 'Nifty', '"Bearish period till 10:30 IST. No short then" → "I closed my short."'],
+]
+
 const SOURCES: [string, string][] = [
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -480,6 +518,7 @@ const SOURCES: [string, string][] = [
   ['Nov 2024.mp4 (recorded 2026-08-28)', 'X account, posts 1 Nov – 30 Dec 2024 — the launch: free-trial Telegram channels, the first Nifty reports (4–6, 11, 27–28 Nov; 5, 23–24, 30 Dec), metals reports (4–7, 11, 13 Nov; 11–13 Dec), Dow 20 Dec, the 16 Dec week note, Mercury-retro-midpoint and Saturn-direct posts, the 12 Nov BankNifty miss, the Rs 2000/month notice.'],
   ['May 2024.mp4 (recorded 2026-08-28)', 'X account, posts 30 May – 30 Aug 2024 — before the launch: the 30 May post-election report with a colour-coded aspect list, the 4 Jun and 24 Jun admitted misses, the 23 Jun week note, Nifty/Dow reports of 7, 27–28 Jun and 15 Jul, the free-week promo, the 29 Jun combustion dispute (Lahiri), Sun 180 Pluto on budget day, the Aug bearish-yog calls, the 28 Aug retrograde-Mercury moratorium.'],
   ['March 2024.mp4 (recorded 2026-08-29)', 'X account, posts 28 Feb – 23 May 2024 — the origins: free daily Nifty posts (5–6, 11–14, 19–20 Mar; 1, 29 Apr; 16 May), metals reports (10, 15–16, 30 Apr), Dow 17 Apr, the 28 Feb Sun–Mercury "trend shift", the 11/19 Mar "out of bound" posts, the 21 Apr Jupiter–Uranus post, the 16 Mar T&C, the 27 Mar move to paid channels.'],
+  ['Jan 2024.mp4 (recorded 2026-08-29)', 'X account, posts 31 Dec 2023 – 26 Feb 2024 — the first daily Nifty posts (8, 10–11, 18, 25, 29 Jan; 9, 12–13, 16, 19 Feb), Dow 8 Feb, the Moon-sign transit tables, the 19 Feb Mars-retrograde quiz, the 22–23 Feb Sun–Saturn thread, the 15 Feb paid-service announcement with his toolkit, the 14 Feb miss.'],
 ]
 
 const CHECKLIST: string[] = [
@@ -970,6 +1009,31 @@ function SaptarshPanel({ date }: { date?: string }) {
           With this batch the Nifty nakshatra table has an observed reading
           for 23 of 27 stars. The complete visible history of the account —
           28 Feb 2024 → 28 Aug 2026, eleven recordings — is now ingested.
+        </p>
+
+        <h3 className="gann-h3">22 · Dec 2023 – Feb 2024 — the first posts</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Concept</th><th>What they wrote</th><th>Where</th></tr></thead>
+          <tbody>
+            {FIRST_CONCEPTS.map(([k, v, w]) => (
+              <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td>{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h3 className="gann-h3">Calls log, Dec 2023 – Feb 2024</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {FIRST_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="muted-note">
+          Twelve recordings, 31 Dec 2023 → 28 Aug 2026: the account's entire
+          public record. The Nifty nakshatra table now has an observed reading
+          for 26 of 27 stars (Uttara Phalguni is the last gap).
         </p>
 
         <h3 className="gann-h3">Sources ingested so far</h3>

@@ -96,10 +96,11 @@ def cheap_regime(d: datetime.date) -> dict:
     for n, l in pos.items():
         signs[int(l // 30)] += 1
     early = sum(1 for l in pos.values() if l % 30 < 10)
+    mars_retro = swe.calc_ut(jd, swe.MARS, saptarsh.FLAGS)[0][3] < 0
     return {"kaal_sarp": kaal, "grand_trine": trine,
             "nak_stellium": max(naks.values()) >= 3,
             "sign_stellium": max(signs.values()) >= 4,
-            "early_degree": early >= 6}
+            "early_degree": early >= 6, "mars_retro": mars_retro}
 
 
 def window_lean(windows: list, key_start="start", key_end="end") -> float:
@@ -391,6 +392,7 @@ def phase_evaluate(path: str) -> dict:
             ("Slow-planet sign ingress (Mars..Uranus)", lambda f: f["slow_ingress"]),
             ("Planetary station", lambda f: f["station"]),
             ("Kaal Sarp yog", lambda f: f["kaal_sarp"]),
+            ("Mars retrograde", lambda f: f.get("mars_retro", False)),
             ("Grand trine", lambda f: f["grand_trine"]),
             ("Nakshatra stellium (≥3)", lambda f: f["nak_stellium"]),
             ("Sign stellium (≥4)", lambda f: f["sign_stellium"]),

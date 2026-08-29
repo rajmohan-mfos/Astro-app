@@ -125,6 +125,8 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     # X Nifty / metals reports, Jan-Mar 2025
     ("Sun", "Rahu", 45): "bear",            # 3 Feb 2025 "negative and high volatility is expected"
     ("Sun", "Saturn", 0): "bear",           # 27 Feb 2025 "bearish for whole metal sector including copper"
+                                            # — but his own 2000-2023 study (23 Feb 2024): "clearly did not
+                                            #   make sharp fall … almost 50-60% rate"
     # X posts, Nov-Dec 2024 (the launch)
     ("Moon", "Uranus", 0): "vol",           # 13 Dec 2024 "Moon-Uranus conjunction will create volatility"
     ("Venus", "Neptune", 45): "vol",        # 16 Dec 2024 week note "very important, can turn the market one way"
@@ -132,6 +134,10 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Venus", "Jupiter", 120): "bear",      # same note: "Friday aspects are bearish"
     ("Sun", "Mars", 144): "bear",           # same note
     # X posts, Feb-May 2024 (the origins)
+    ("Venus", "Pluto", 45): "vol",          # 11 Jan 2024 "not considered bullish and can create volatile session"
+    ("Sun", "Rahu", 90): "vol",             # same post
+    ("Moon", "Pluto", 90): "vol",           # 17 Jan 2024 "Moon-Pluto and Mer-Sat are extremely important and mixed for markets"
+    ("Mercury", "Saturn", 60): "vol",       # same post
     ("Mars", "Saturn", 0): "vol",           # 8 Apr 2024 "Mars 0 Sat, Sun 0 Mer are trend changer. Must watch for commodities"
     ("Jupiter", "Uranus", 0): "vol",        # 21 Apr 2024 "potential to change the direction in all markets. Uranus is unpredictable"
     # (Sun 0 Mercury: "triggering a market drop … 2nd event of bearish
@@ -221,18 +227,19 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Bharani": ("bear", "bear"),            # Nifty "not favourable" 14 Mar 2024; metals 15 May, 9 Jul
     "Krittika": ("neutral", "bull"),        # Nifty "neutral to slightly positive" 10 Jan 2025; metals 4 Dec 2025
     "Rohini": ("bull", "bear"),             # Nifty "supportive" 10 Jan, 7 Feb 2025; metals bearish 10 Jan, 4 Dec 2025, 10 Aug
-    "Mrigashira": ("bull", "bull"),         # Nifty "supportive for higher prices" 7 Jun 2024; metals 19 May
-    "Ardra": (None, "bear"),                # 19-20 May, 10 Aug
+    "Mrigashira": ("bull", "bull"),         # Nifty 19 Feb 2024, 7 Jun 2024; metals 19 May
+    "Ardra": ("bear", "bear"),              # Nifty "seems not bullish" 23 Jan 2024, "malefic" 19 Feb 2024; metals 19-20 May, 10 Aug
     "Punarvasu": ("bull", "bear"),          # Nifty "favourable for stocks" 19 Mar 2024; metals 20 May, 14 Jul
     "Pushya": ("bull", "bull"),             # Nifty "supportive" 20 Mar 2024; metals bullish 23 Apr, 21 May; bearish 15 Jul (2 of 3)
     "Ashlesha": ("bull", "neutral"),        # Dow "favourable for stocks" 17 Apr 2024; metals 15 Jul
     "Magha": ("bear", None),                # Nifty "not supportive … consider it as a bearish" 16 May 2024; Dow "unpredictable" 20 Dec 2024
+    "Purva Phalguni": ("bull", None),       # Nifty "favourable for stocks but other yogas may kill this" 29 Jan 2024
     "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
     "Hasta": ("bull", "bear"),              # Nifty "favourable / supportive" 23-24 Dec 2024; metals 26 May, 20 Jul
     "Chitra": ("bull", "bull"),             # Nifty supportive 24 Dec 2024, 17 Feb 2025; neutral 27 Nov 2024 (2 of 3); metals 20 Jul
     "Swati": ("bear", "bear"),              # Nifty 18 Feb 2025, 18 Aug; metals bearish 18-19 Nov 2025, both sides 18 Aug
     "Vishakha": ("vol", "vol"),             # Nifty "not supportive" 20 Feb 2025 vs "slightly positive" 19 Aug; metals mixed
-    "Anuradha": ("neutral", "bull"),        # Nifty: not supportive 20 Feb 2025 & 20 Aug, supportive 21 Feb 2025 & 21 Aug (2-2);
+    "Anuradha": ("bear", "bull"),           # Nifty: not favourable 8 Jan 2024, 20 Feb 2025, 20 Aug 2026; supportive 21 Feb 2025, 21 Aug 2026 (3 of 5);
                                             # metals bullish 6 Apr, 4 May; both sides 21 Aug
     "Jyeshtha": ("bull", "vol"),            # bearish 4 May; both sides 21 Aug
     "Mula": ("bear", "bull"),               # Nifty: "not favourable" 5 Mar & 1 Apr 2024, "bearish" 5 Nov 2024, "not supportive" 30 Dec 2024, "high volatility" 9 Jul 2025;
@@ -244,7 +251,7 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Shatabhisha": ("bear", "bear"),        # 8 Jun, 28 Aug
     "Purva Bhadrapada": ("bull", "bear"),   # Nifty "bullish for stocks" 11 Nov 2024; metals bearish 11 Nov 2024, 21 May 2025, 11 Aug 2025; bullish 8 Jun 2026 (3 of 4)
     "Uttara Bhadrapada": ("neutral", "bull"),  # Nifty "not favourable" 11 Mar 2024, "neutral" 28 Jun 2024; metals 16 Apr, 10 Jun, 7 Jul
-    "Revati": ("neutral", "bear"),          # Nifty "little favourable" 12 Mar 2024, "neutral" 3 Feb 2025; metals 10 Jun, 7-8 Jul; "neutral" 16 Apr
+    "Revati": ("bull", "bear"),             # Nifty "supportive" 13 Feb 2024, "little favourable" 12 Mar 2024, "neutral" 3 Feb 2025 (2 of 3); metals 10 Jun, 7-8 Jul; "neutral" 16 Apr
 }
 # Moon SIGN -> metals bias, only where the report printed one next to
 # the sign itself (used when the nakshatra is unobserved). Kumbha was
@@ -854,6 +861,20 @@ def regime(d: datetime.date) -> dict:
                      "reading when it broke on 28 Jul 2025: \"major change in "
                      "geopolitical situations are coming.\"")
 
+    # Mars retrograde: his 19 Feb 2024 quiz — "Can you get what happened in
+    # stock market during following period? 17-Oct-90 to 1-Jan-91,
+    # 02-Jan-95 – 24-March-95, 06-Feb-97 – 27-Apr-97, 18-Mar-99 – 5-Jun-99,
+    # 15-Nov-07 – 30-Jan-08, 17-Apr-16 – 30-Jun-16, 26-Jun-18 – 25-Aug-18.
+    # During this date very important planetary change took place." Every
+    # one is a Mars-retrograde window.
+    mars_retro = swe.calc_ut(jd, swe.MARS, FLAGS)[0][3] < 0
+    if mars_retro:
+        notes.append("Mars retrograde — the 'very important planetary change' "
+                     "behind his 19 Feb 2024 list of seven historic windows "
+                     "(Oct 1990, Jan 1995, Feb 1997, Mar 1999, Nov 2007, Apr "
+                     "2016, Jun 2018): \"must have some significant price "
+                     "movement in stock market.\"")
+
     # Rahu-Ketu on the Leo-Aquarius axis: their gold history (6 Jan 2026)
     if {signs["Rahu"], signs["Ketu"]} == {4, 10}:
         which = "Rahu in Leo / Ketu in Aquarius" if signs["Rahu"] == 4 \
@@ -882,6 +903,7 @@ def regime(d: datetime.date) -> dict:
         "early_degree_bodies": early,
         "grand_trines": grand_trines,
         "kaal_sarp": kaal_sarp,
+        "mars_retro": mars_retro,
         "conjunctions": conj,
         "notes": notes,
         "jupiter_cancer_history": [
