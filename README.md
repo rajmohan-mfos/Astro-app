@@ -75,6 +75,11 @@ $env:ASTRO_API = "http://127.0.0.1:8001"; npm run dev
   `MASTER-RULES.md`; scenario regressions in `backend/tests/`.
 - **Which method to use — the three-way comparison and the combined recipe:
   `STRATEGY.md`** (also the app's opening "Strategy" tab).
+- Gann catalogue backtest: `python scripts/backtest_gann.py` from `backend/`
+  scores every exact event of the 11 rules in `app/gann/calendar.py` on
+  Nifty and Bank Nifty 2011–2026 (5-day return, reversal, ±2-day flip,
+  candle follow-through, month histogram) →
+  `backend/knowledge/backtest/gann/RESULTS.md`.
 - Vikas-method backtest: `python scripts/backtest_vikas.py` from `backend/`
   computes every date his rules produce (`app/vikas.py`: star dates,
   ingresses, big×small aspects, Moon-45°, Mars-vs-Saturn spans, the

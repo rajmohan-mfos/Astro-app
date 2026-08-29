@@ -1,0 +1,6454 @@
+{
+ "window": [
+  "2011-01-01",
+  "2026-08-28"
+ ],
+ "instruments": {
+  "nifty": {
+   "days": 3848,
+   "base": {
+    "ft": 57.51325869180908,
+    "held": 0.312256049960968,
+    "rev": 49.192287649817615,
+    "flip2": 88.3793642522147,
+    "mean5_bp": 20.91897591999532,
+    "up5": 56.12802498048399
+   },
+   "rules": {
+    "venus_jupiter_quadrature": {
+     "prev": {
+      "id": "venus_jupiter_quadrature",
+      "title": "Venus\u2013Jupiter quadrature",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "54% win rate vs 43% base on 26 decided trades (14W/12L/10 undecided), +35 pts expectancy \u2014 the best rule in the catalogue, still not statistically significant. Claimed: >80%.",
+      "n_events": 31,
+      "n_sessions": 31,
+      "excluded_retro": 10,
+      "months": {
+       "1": 2,
+       "2": 4,
+       "3": 3,
+       "4": 1,
+       "5": 2,
+       "6": 3,
+       "7": 1,
+       "8": 5,
+       "9": 2,
+       "10": 2,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-07",
+       "2011-08-05",
+       "2011-12-21",
+       "2012-10-17",
+       "2013-03-04",
+       "2013-08-28",
+       "2014-05-18",
+       "2014-11-10",
+       "2015-03-28",
+       "2016-01-18",
+       "2016-06-05",
+       "2016-11-25",
+       "2017-08-17",
+       "2018-02-04",
+       "2018-06-26",
+       "2019-04-16",
+       "2019-09-03",
+       "2020-02-24",
+       "2020-11-16",
+       "2021-05-08",
+       "2021-10-01",
+       "2022-07-25",
+       "2022-12-09",
+       "2023-06-11",
+       "2023-08-22",
+       "2023-09-17",
+       "2024-02-25",
+       "2024-08-19",
+       "2025-01-15",
+       "2025-11-03",
+       "2026-03-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 31,
+        "mean_bp": 20.486791962622892,
+        "up": 61.29032258064516,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.36265933516620846,
+        "p_up": 0.3748708829629669
+       },
+       "3": {
+        "n": 31,
+        "mean_bp": 13.284117026399183,
+        "up": 54.83870967741935,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.9825043739065233,
+        "p_up": 0.9999999999999969
+       },
+       "5": {
+        "n": 31,
+        "mean_bp": 35.79864811184488,
+        "up": 51.61290322580645,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.7118220444888778,
+        "p_up": 0.7180469381828699
+       },
+       "10": {
+        "n": 31,
+        "mean_bp": 70.97782777791954,
+        "up": 74.19354838709677,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.6130967258185454,
+        "p_up": 0.06989680669025261
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Jupiter quadrature: follow-through at +5",
+        "hits": 19,
+        "n": 28,
+        "rate": 67.85714285714286,
+        "ci_lo": 49.33850455563118,
+        "ci_hi": 82.06695245657927,
+        "z_vs_base": 1.1072660018971692,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.34010507275347895
+       },
+       "same_day": {
+        "label": "Venus\u2013Jupiter quadrature: cross-day closes beyond",
+        "hits": 23,
+        "n": 28,
+        "rate": 82.14285714285714,
+        "ci_lo": 64.4082084514089,
+        "ci_hi": 92.12161417056988,
+        "z_vs_base": 1.8062456447555801,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.07511299756410106
+       },
+       "held": {
+        "label": "Venus\u2013Jupiter quadrature: range held 5 sessions",
+        "hits": 1,
+        "n": 31,
+        "rate": 3.225806451612903,
+        "ci_lo": 0.571707408694444,
+        "ci_hi": 16.19445717616962,
+        "z_vs_base": 2.907549169044176,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.09239936078943103
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Jupiter quadrature: 5d reverses 3d trend",
+       "hits": 17,
+       "n": 31,
+       "rate": 54.83870967741935,
+       "ci_lo": 37.771879603669134,
+       "ci_hi": 70.83851716341388,
+       "z_vs_base": 0.6288410032878979,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.5920994699881644
+      },
+      "flip2": {
+       "label": "Venus\u2013Jupiter quadrature: trend flip within \u00b12 days",
+       "hits": 28,
+       "n": 31,
+       "rate": 90.32258064516128,
+       "ci_lo": 75.09971000182296,
+       "ci_hi": 96.6535963905356,
+       "z_vs_base": 0.33760714684621435,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.9999999999999967
+      }
+     },
+     "next": {
+      "id": "venus_jupiter_quadrature",
+      "title": "Venus\u2013Jupiter quadrature",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "54% win rate vs 43% base on 26 decided trades (14W/12L/10 undecided), +35 pts expectancy \u2014 the best rule in the catalogue, still not statistically significant. Claimed: >80%.",
+      "n_events": 31,
+      "n_sessions": 31,
+      "excluded_retro": 10,
+      "months": {
+       "1": 2,
+       "2": 4,
+       "3": 3,
+       "4": 1,
+       "5": 2,
+       "6": 3,
+       "7": 1,
+       "8": 5,
+       "9": 2,
+       "10": 2,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-07",
+       "2011-08-05",
+       "2011-12-21",
+       "2012-10-17",
+       "2013-03-04",
+       "2013-08-28",
+       "2014-05-18",
+       "2014-11-10",
+       "2015-03-28",
+       "2016-01-18",
+       "2016-06-05",
+       "2016-11-25",
+       "2017-08-17",
+       "2018-02-04",
+       "2018-06-26",
+       "2019-04-16",
+       "2019-09-03",
+       "2020-02-24",
+       "2020-11-16",
+       "2021-05-08",
+       "2021-10-01",
+       "2022-07-25",
+       "2022-12-09",
+       "2023-06-11",
+       "2023-08-22",
+       "2023-09-17",
+       "2024-02-25",
+       "2024-08-19",
+       "2025-01-15",
+       "2025-11-03",
+       "2026-03-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 31,
+        "mean_bp": 7.602423217560238,
+        "up": 61.29032258064516,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.8505373656585854,
+        "p_up": 0.3748708829629669
+       },
+       "3": {
+        "n": 31,
+        "mean_bp": 7.476826142604816,
+        "up": 51.61290322580645,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.8657835541114721,
+        "p_up": 0.7214471090009629
+       },
+       "5": {
+        "n": 31,
+        "mean_bp": 34.43015304506883,
+        "up": 51.61290322580645,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.736065983504124,
+        "p_up": 0.7180469381828699
+       },
+       "10": {
+        "n": 31,
+        "mean_bp": 64.32838093614939,
+        "up": 77.41935483870968,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.7183204198950263,
+        "p_up": 0.028651192703024013
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Jupiter quadrature: follow-through at +5",
+        "hits": 19,
+        "n": 29,
+        "rate": 65.51724137931035,
+        "ci_lo": 47.344776507155984,
+        "ci_hi": 80.05949125080951,
+        "z_vs_base": 0.8719557394512895,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.45479825858231665
+       },
+       "same_day": {
+        "label": "Venus\u2013Jupiter quadrature: cross-day closes beyond",
+        "hits": 22,
+        "n": 29,
+        "rate": 75.86206896551724,
+        "ci_lo": 57.892047781671295,
+        "ci_hi": 87.78173181493787,
+        "z_vs_base": 1.1243671074611228,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.32876531114391244
+       },
+       "held": {
+        "label": "Venus\u2013Jupiter quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 31,
+        "rate": 0.0,
+        "ci_lo": -1.3877787807814457e-15,
+        "ci_hi": 11.025900073475386,
+        "z_vs_base": -0.31161287550689526,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999989
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Jupiter quadrature: 5d reverses 3d trend",
+       "hits": 17,
+       "n": 31,
+       "rate": 54.83870967741935,
+       "ci_lo": 37.771879603669134,
+       "ci_hi": 70.83851716341388,
+       "z_vs_base": 0.6288410032878979,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.5920994699881644
+      },
+      "flip2": {
+       "label": "Venus\u2013Jupiter quadrature: trend flip within \u00b12 days",
+       "hits": 29,
+       "n": 31,
+       "rate": 93.54838709677419,
+       "ci_lo": 79.28101168125355,
+       "ci_hi": 98.21255922249368,
+       "z_vs_base": 0.8980466925191267,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.5737781391550146
+      }
+     }
+    },
+    "mercury_saturn_conjunction": {
+     "prev": {
+      "id": "mercury_saturn_conjunction",
+      "title": "Mercury\u2013Saturn conjunction",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "Trend flipped 16/23 (70%) vs 49% base, p=0.038 \u2014 the strongest number in the project, but ~25 rules were tested so one such false positive is expected, and his own forward call (25 Feb 2025) failed.",
+      "n_events": 19,
+      "n_sessions": 19,
+      "excluded_retro": 0,
+      "months": {
+       "1": 4,
+       "2": 2,
+       "3": 2,
+       "4": 1,
+       "10": 4,
+       "11": 5,
+       "12": 1
+      },
+      "dates": [
+       "2011-10-07",
+       "2012-10-05",
+       "2013-10-09",
+       "2013-10-30",
+       "2013-11-26",
+       "2014-11-26",
+       "2015-11-25",
+       "2016-11-24",
+       "2017-11-28",
+       "2017-12-06",
+       "2018-01-13",
+       "2019-01-13",
+       "2020-01-12",
+       "2021-01-10",
+       "2022-03-03",
+       "2023-03-02",
+       "2024-02-28",
+       "2025-02-25",
+       "2026-04-20"
+      ],
+      "fwd": {
+       "1": {
+        "n": 19,
+        "mean_bp": 42.65353228027481,
+        "up": 68.42105263157895,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.09822544363909022,
+        "p_up": 0.2503078619090586
+       },
+       "3": {
+        "n": 19,
+        "mean_bp": 75.23274587036266,
+        "up": 73.68421052631578,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.11897025743564109,
+        "p_up": 0.11198392739286997
+       },
+       "5": {
+        "n": 19,
+        "mean_bp": 81.58543381748987,
+        "up": 73.68421052631578,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.23794051487128218,
+        "p_up": 0.16527510394093456
+       },
+       "10": {
+        "n": 19,
+        "mean_bp": 79.63538591089413,
+        "up": 47.368421052631575,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.6113471632091977,
+        "p_up": 0.3650831018928478
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Saturn conjunction: follow-through at +5",
+        "hits": 11,
+        "n": 18,
+        "rate": 61.111111111111114,
+        "ci_lo": 38.61866858065617,
+        "ci_hi": 79.69500807306883,
+        "z_vs_base": 0.3087940323241297,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.8160225493306703
+       },
+       "same_day": {
+        "label": "Mercury\u2013Saturn conjunction: cross-day closes beyond",
+        "hits": 13,
+        "n": 18,
+        "rate": 72.22222222222221,
+        "ci_lo": 49.12692245380548,
+        "ci_hi": 87.50043085364452,
+        "z_vs_base": 0.5598982002057441,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.8041157561874982
+       },
+       "held": {
+        "label": "Mercury\u2013Saturn conjunction: range held 5 sessions",
+        "hits": 1,
+        "n": 19,
+        "rate": 5.263157894736842,
+        "ci_lo": 0.9351752490529969,
+        "ci_hi": 24.63921533654521,
+        "z_vs_base": 3.8679851862624517,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.05769047108467689
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Saturn conjunction: 5d reverses 3d trend",
+       "hits": 11,
+       "n": 19,
+       "rate": 57.89473684210527,
+       "ci_lo": 36.275551465160106,
+       "ci_hi": 76.85837960796962,
+       "z_vs_base": 0.7587609412817562,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.4974870337546943
+      },
+      "flip2": {
+       "label": "Mercury\u2013Saturn conjunction: trend flip within \u00b12 days",
+       "hits": 18,
+       "n": 19,
+       "rate": 94.73684210526315,
+       "ci_lo": 75.3607846634548,
+       "ci_hi": 99.064824750947,
+       "z_vs_base": 0.8647115813732307,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7172382042032376
+      }
+     },
+     "next": {
+      "id": "mercury_saturn_conjunction",
+      "title": "Mercury\u2013Saturn conjunction",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "Trend flipped 16/23 (70%) vs 49% base, p=0.038 \u2014 the strongest number in the project, but ~25 rules were tested so one such false positive is expected, and his own forward call (25 Feb 2025) failed.",
+      "n_events": 19,
+      "n_sessions": 19,
+      "excluded_retro": 0,
+      "months": {
+       "1": 4,
+       "2": 2,
+       "3": 2,
+       "4": 1,
+       "10": 4,
+       "11": 5,
+       "12": 1
+      },
+      "dates": [
+       "2011-10-07",
+       "2012-10-05",
+       "2013-10-09",
+       "2013-10-30",
+       "2013-11-26",
+       "2014-11-26",
+       "2015-11-25",
+       "2016-11-24",
+       "2017-11-28",
+       "2017-12-06",
+       "2018-01-13",
+       "2019-01-13",
+       "2020-01-12",
+       "2021-01-10",
+       "2022-03-03",
+       "2023-03-02",
+       "2024-02-28",
+       "2025-02-25",
+       "2026-04-20"
+      ],
+      "fwd": {
+       "1": {
+        "n": 19,
+        "mean_bp": 44.291615819760786,
+        "up": 68.42105263157895,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.08622844288927768,
+        "p_up": 0.2503078619090586
+       },
+       "3": {
+        "n": 19,
+        "mean_bp": 68.42841557261629,
+        "up": 73.68421052631578,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.17870532366908273,
+        "p_up": 0.11198392739286997
+       },
+       "5": {
+        "n": 19,
+        "mean_bp": 60.44195360969626,
+        "up": 57.89473684210527,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.4553861534616346,
+        "p_up": 1.0
+       },
+       "10": {
+        "n": 19,
+        "mean_bp": 52.45551010033901,
+        "up": 42.10526315789473,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.8850287428142964,
+        "p_up": 0.24484754594987962
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Saturn conjunction: follow-through at +5",
+        "hits": 8,
+        "n": 18,
+        "rate": 44.44444444444444,
+        "ci_lo": 24.559231101389127,
+        "ci_hi": 66.28393057174837,
+        "z_vs_base": -1.1216613075868294,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.3408640955533457
+       },
+       "same_day": {
+        "label": "Mercury\u2013Saturn conjunction: cross-day closes beyond",
+        "hits": 13,
+        "n": 18,
+        "rate": 72.22222222222221,
+        "ci_lo": 49.12692245380548,
+        "ci_hi": 87.50043085364452,
+        "z_vs_base": 0.5598982002057441,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.8041157561874982
+       },
+       "held": {
+        "label": "Mercury\u2013Saturn conjunction: range held 5 sessions",
+        "hits": 1,
+        "n": 19,
+        "rate": 5.263157894736842,
+        "ci_lo": 0.9351752490529969,
+        "ci_hi": 24.63921533654521,
+        "z_vs_base": 3.8679851862624517,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.05769047108467689
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Saturn conjunction: 5d reverses 3d trend",
+       "hits": 13,
+       "n": 19,
+       "rate": 68.42105263157895,
+       "ci_lo": 46.01001017506463,
+       "ci_hi": 84.6358289955714,
+       "z_vs_base": 1.676543636724359,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.11031863154743797
+      },
+      "flip2": {
+       "label": "Mercury\u2013Saturn conjunction: trend flip within \u00b12 days",
+       "hits": 18,
+       "n": 19,
+       "rate": 94.73684210526315,
+       "ci_lo": 75.3607846634548,
+       "ci_hi": 99.064824750947,
+       "z_vs_base": 0.8647115813732307,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7172382042032376
+      }
+     }
+    },
+    "mars_jupiter_semisquare": {
+     "prev": {
+      "id": "mars_jupiter_semisquare",
+      "title": "Mars\u2013Jupiter semisquare",
+      "verdict_catalogue": "lean",
+      "bias": "bullish",
+      "evidence_catalogue": "+1.4% Nifty / +1.9% BankNifty 5-day forward, p\u22480.1 \u2014 directionally consistent on both indices, unproven.",
+      "n_events": 17,
+      "n_sessions": 17,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 1,
+       "3": 2,
+       "4": 1,
+       "5": 3,
+       "7": 3,
+       "8": 1,
+       "9": 1,
+       "10": 1,
+       "11": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-08",
+       "2011-07-24",
+       "2013-04-21",
+       "2013-10-24",
+       "2015-07-06",
+       "2016-01-18",
+       "2017-09-23",
+       "2018-03-31",
+       "2019-12-17",
+       "2020-05-31",
+       "2022-03-06",
+       "2022-08-09",
+       "2024-05-18",
+       "2024-11-18",
+       "2025-01-14",
+       "2025-05-04",
+       "2026-07-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 17,
+        "mean_bp": 20.823609419075932,
+        "up": 70.58823529411765,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.49462634341414646,
+        "p_up": 0.22347579022919076
+       },
+       "3": {
+        "n": 17,
+        "mean_bp": 61.30502598539324,
+        "up": 70.58823529411765,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.23969007748062984,
+        "p_up": 0.2296981741096268
+       },
+       "5": {
+        "n": 17,
+        "mean_bp": 125.50471993528322,
+        "up": 70.58823529411765,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.0664833791552112,
+        "p_up": 0.3288657896517134
+       },
+       "10": {
+        "n": 17,
+        "mean_bp": 154.69093834989877,
+        "up": 82.35294117647058,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.14846288427893026,
+        "p_up": 0.04838479782453816
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Jupiter semisquare: follow-through at +5",
+        "hits": 10,
+        "n": 16,
+        "rate": 62.5,
+        "ci_lo": 38.64064709793481,
+        "ci_hi": 81.5190174452472,
+        "z_vs_base": 0.40352099133238933,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.8031607238023788
+       },
+       "same_day": {
+        "label": "Mars\u2013Jupiter semisquare: cross-day closes beyond",
+        "hits": 10,
+        "n": 16,
+        "rate": 62.5,
+        "ci_lo": 38.64064709793481,
+        "ci_hi": 81.5190174452472,
+        "z_vs_base": -0.29288886983208945,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.7946956399891825
+       },
+       "held": {
+        "label": "Mars\u2013Jupiter semisquare: range held 5 sessions",
+        "hits": 0,
+        "n": 17,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 18.432366037156456,
+        "z_vs_base": -0.23075919099498707,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Jupiter semisquare: 5d reverses 3d trend",
+       "hits": 8,
+       "n": 17,
+       "rate": 47.05882352941176,
+       "ci_lo": 26.164801196088106,
+       "ci_hi": 69.03710268845052,
+       "z_vs_base": -0.17595291814600686,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Mars\u2013Jupiter semisquare: trend flip within \u00b12 days",
+       "hits": 13,
+       "n": 17,
+       "rate": 76.47058823529412,
+       "ci_lo": 52.73775411082839,
+       "ci_hi": 90.44511092832406,
+       "z_vs_base": -1.5321497228572176,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.12664097483440862
+      },
+      "direction": {
+       "label": "Mars\u2013Jupiter semisquare: 5d goes the called way",
+       "hits": 12,
+       "n": 17,
+       "rate": 70.58823529411765,
+       "ci_lo": 46.8664666737861,
+       "ci_hi": 86.72020613444361,
+       "z_vs_base": 1.2014773748520278,
+       "base": 56.12802498048399,
+       "p_binom_vs_base": 0.3288657896517134
+      }
+     },
+     "next": {
+      "id": "mars_jupiter_semisquare",
+      "title": "Mars\u2013Jupiter semisquare",
+      "verdict_catalogue": "lean",
+      "bias": "bullish",
+      "evidence_catalogue": "+1.4% Nifty / +1.9% BankNifty 5-day forward, p\u22480.1 \u2014 directionally consistent on both indices, unproven.",
+      "n_events": 17,
+      "n_sessions": 17,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 1,
+       "3": 2,
+       "4": 1,
+       "5": 3,
+       "7": 3,
+       "8": 1,
+       "9": 1,
+       "10": 1,
+       "11": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-08",
+       "2011-07-24",
+       "2013-04-21",
+       "2013-10-24",
+       "2015-07-06",
+       "2016-01-18",
+       "2017-09-23",
+       "2018-03-31",
+       "2019-12-17",
+       "2020-05-31",
+       "2022-03-06",
+       "2022-08-09",
+       "2024-05-18",
+       "2024-11-18",
+       "2025-01-14",
+       "2025-05-04",
+       "2026-07-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 17,
+        "mean_bp": 14.39703644051627,
+        "up": 64.70588235294117,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.6775806048487878,
+        "p_up": 0.46729529515364954
+       },
+       "3": {
+        "n": 17,
+        "mean_bp": 55.60218150827941,
+        "up": 64.70588235294117,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.3221694576355911,
+        "p_up": 0.4736838552247605
+       },
+       "5": {
+        "n": 17,
+        "mean_bp": 154.31399191437976,
+        "up": 76.47058823529412,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.019245188702824295,
+        "p_up": 0.14038727346851243
+       },
+       "10": {
+        "n": 17,
+        "mean_bp": 93.88888099791248,
+        "up": 64.70588235294117,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.5023744063984004,
+        "p_up": 0.6305407472690002
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Jupiter semisquare: follow-through at +5",
+        "hits": 8,
+        "n": 14,
+        "rate": 57.14285714285714,
+        "ci_lo": 32.59026690286936,
+        "ci_hi": 78.61949006959948,
+        "z_vs_base": -0.028036649550216015,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Mars\u2013Jupiter semisquare: cross-day closes beyond",
+        "hits": 9,
+        "n": 14,
+        "rate": 64.28571428571429,
+        "ci_lo": 38.76400468214042,
+        "ci_hi": 83.65550926279727,
+        "z_vs_base": -0.13295599676203906,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Mars\u2013Jupiter semisquare: range held 5 sessions",
+        "hits": 0,
+        "n": 17,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 18.432366037156456,
+        "z_vs_base": -0.23075919099498707,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Jupiter semisquare: 5d reverses 3d trend",
+       "hits": 7,
+       "n": 17,
+       "rate": 41.17647058823529,
+       "ci_lo": 21.610786039131384,
+       "ci_hi": 63.994925614484465,
+       "z_vs_base": -0.6610874726319081,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.6298325364933803
+      },
+      "flip2": {
+       "label": "Mars\u2013Jupiter semisquare: trend flip within \u00b12 days",
+       "hits": 13,
+       "n": 17,
+       "rate": 76.47058823529412,
+       "ci_lo": 52.73775411082839,
+       "ci_hi": 90.44511092832406,
+       "z_vs_base": -1.5321497228572176,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.12664097483440862
+      },
+      "direction": {
+       "label": "Mars\u2013Jupiter semisquare: 5d goes the called way",
+       "hits": 13,
+       "n": 17,
+       "rate": 76.47058823529412,
+       "ci_lo": 52.73775411082839,
+       "ci_hi": 90.44511092832406,
+       "z_vs_base": 1.6902333345806542,
+       "base": 56.12802498048399,
+       "p_binom_vs_base": 0.14038727346851243
+      }
+     }
+    },
+    "mars_neptune_conjunction": {
+     "prev": {
+      "id": "mars_neptune_conjunction",
+      "title": "Mars\u2013Neptune conjunction",
+      "verdict_catalogue": "lean",
+      "bias": "bearish",
+      "evidence_catalogue": "\u22122.45% avg 5-day on Nifty at p=0.023 \u2014 but n=9, and one of 36 tests where two false positives are expected by chance.",
+      "n_events": 9,
+      "n_sessions": 9,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 2,
+       "4": 2,
+       "5": 1,
+       "6": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-21",
+       "2013-02-05",
+       "2015-01-20",
+       "2017-01-01",
+       "2018-12-07",
+       "2020-06-13",
+       "2022-05-18",
+       "2024-04-29",
+       "2026-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 9,
+        "mean_bp": -58.36425931679101,
+        "up": 33.33333333333333,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.06398400399900026,
+        "p_up": 0.3215521104726383
+       },
+       "3": {
+        "n": 9,
+        "mean_bp": -34.78126087695784,
+        "up": 44.44444444444444,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.4123969007748063,
+        "p_up": 0.739960262507947
+       },
+       "5": {
+        "n": 9,
+        "mean_bp": 36.74301399734138,
+        "up": 55.55555555555556,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.8335416145963509,
+        "p_up": 0.999999999999997
+       },
+       "10": {
+        "n": 9,
+        "mean_bp": 87.47833568377173,
+        "up": 77.77777777777779,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.6450887278180455,
+        "p_up": 0.31820559768761253
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Neptune conjunction: follow-through at +5",
+        "hits": 6,
+        "n": 9,
+        "rate": 66.66666666666666,
+        "ci_lo": 35.419734749908976,
+        "ci_hi": 87.9418401317257,
+        "z_vs_base": 0.5555119112581783,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.7416406926967034
+       },
+       "same_day": {
+        "label": "Mars\u2013Neptune conjunction: cross-day closes beyond",
+        "hits": 5,
+        "n": 9,
+        "rate": 55.55555555555556,
+        "ci_lo": 26.66473457440297,
+        "ci_hi": 81.1224570528086,
+        "z_vs_base": -0.659362699883847,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.5004446274580793
+       },
+       "held": {
+        "label": "Mars\u2013Neptune conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 9,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 29.91527535509594,
+        "z_vs_base": -0.16790197386254319,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Neptune conjunction: 5d reverses 3d trend",
+       "hits": 6,
+       "n": 9,
+       "rate": 66.66666666666666,
+       "ci_lo": 35.419734749908976,
+       "ci_hi": 87.9418401317257,
+       "z_vs_base": 1.048599571051084,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.3363182437965397
+      },
+      "flip2": {
+       "label": "Mars\u2013Neptune conjunction: trend flip within \u00b12 days",
+       "hits": 6,
+       "n": 9,
+       "rate": 66.66666666666666,
+       "ci_lo": 35.419734749908976,
+       "ci_hi": 87.9418401317257,
+       "z_vs_base": -2.032566004376168,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.07698591849524501
+      },
+      "direction": {
+       "label": "Mars\u2013Neptune conjunction: 5d goes the called way",
+       "hits": 4,
+       "n": 9,
+       "rate": 44.44444444444444,
+       "ci_lo": 18.8775429471914,
+       "ci_hi": 73.33526542559703,
+       "z_vs_base": 0.03460908183953725,
+       "base": 43.87197501951601,
+       "p_binom_vs_base": 0.9999999999999971
+      }
+     },
+     "next": {
+      "id": "mars_neptune_conjunction",
+      "title": "Mars\u2013Neptune conjunction",
+      "verdict_catalogue": "lean",
+      "bias": "bearish",
+      "evidence_catalogue": "\u22122.45% avg 5-day on Nifty at p=0.023 \u2014 but n=9, and one of 36 tests where two false positives are expected by chance.",
+      "n_events": 9,
+      "n_sessions": 9,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 2,
+       "4": 2,
+       "5": 1,
+       "6": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-21",
+       "2013-02-05",
+       "2015-01-20",
+       "2017-01-01",
+       "2018-12-07",
+       "2020-06-13",
+       "2022-05-18",
+       "2024-04-29",
+       "2026-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 9,
+        "mean_bp": -26.684212594631802,
+        "up": 55.55555555555556,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.34716320919770055,
+        "p_up": 0.9999999999999973
+       },
+       "3": {
+        "n": 9,
+        "mean_bp": 19.08230697513175,
+        "up": 55.55555555555556,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.9075231192201949,
+        "p_up": 0.9999999999999971
+       },
+       "5": {
+        "n": 9,
+        "mean_bp": 62.63059380867488,
+        "up": 55.55555555555556,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.5503624093976506,
+        "p_up": 0.999999999999997
+       },
+       "10": {
+        "n": 9,
+        "mean_bp": 100.82037893651474,
+        "up": 77.77777777777779,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.5701074731317171,
+        "p_up": 0.31820559768761253
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Neptune conjunction: follow-through at +5",
+        "hits": 6,
+        "n": 9,
+        "rate": 66.66666666666666,
+        "ci_lo": 35.419734749908976,
+        "ci_hi": 87.9418401317257,
+        "z_vs_base": 0.5555119112581783,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.7416406926967034
+       },
+       "same_day": {
+        "label": "Mars\u2013Neptune conjunction: cross-day closes beyond",
+        "hits": 5,
+        "n": 9,
+        "rate": 55.55555555555556,
+        "ci_lo": 26.66473457440297,
+        "ci_hi": 81.1224570528086,
+        "z_vs_base": -0.659362699883847,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.5004446274580793
+       },
+       "held": {
+        "label": "Mars\u2013Neptune conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 9,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 29.91527535509594,
+        "z_vs_base": -0.16790197386254319,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Neptune conjunction: 5d reverses 3d trend",
+       "hits": 6,
+       "n": 9,
+       "rate": 66.66666666666666,
+       "ci_lo": 35.419734749908976,
+       "ci_hi": 87.9418401317257,
+       "z_vs_base": 1.048599571051084,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.3363182437965397
+      },
+      "flip2": {
+       "label": "Mars\u2013Neptune conjunction: trend flip within \u00b12 days",
+       "hits": 6,
+       "n": 9,
+       "rate": 66.66666666666666,
+       "ci_lo": 35.419734749908976,
+       "ci_hi": 87.9418401317257,
+       "z_vs_base": -2.032566004376168,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.07698591849524501
+      },
+      "direction": {
+       "label": "Mars\u2013Neptune conjunction: 5d goes the called way",
+       "hits": 4,
+       "n": 9,
+       "rate": 44.44444444444444,
+       "ci_lo": 18.8775429471914,
+       "ci_hi": 73.33526542559703,
+       "z_vs_base": 0.03460908183953725,
+       "base": 43.87197501951601,
+       "p_binom_vs_base": 0.9999999999999971
+      }
+     }
+    },
+    "venus_saturn_quadrature": {
+     "prev": {
+      "id": "venus_saturn_quadrature",
+      "title": "Venus\u2013Saturn quadrature",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "57% vs a 55% base across all 40 events since 2007, identical median excursions \u2014 and a \u2265150-pt counter-move within 2 days happens on 39% of ALL days. Performs at the noise floor.",
+      "n_events": 35,
+      "n_sessions": 35,
+      "excluded_retro": 0,
+      "months": {
+       "1": 3,
+       "2": 2,
+       "3": 4,
+       "4": 4,
+       "5": 2,
+       "6": 2,
+       "7": 3,
+       "8": 5,
+       "9": 3,
+       "10": 3,
+       "11": 2,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-19",
+       "2011-07-13",
+       "2011-12-18",
+       "2012-09-03",
+       "2013-02-11",
+       "2013-07-02",
+       "2014-03-30",
+       "2014-08-27",
+       "2015-01-30",
+       "2015-07-14",
+       "2015-08-05",
+       "2015-10-11",
+       "2016-03-26",
+       "2016-08-13",
+       "2017-01-28",
+       "2017-04-09",
+       "2017-04-21",
+       "2017-10-08",
+       "2018-03-13",
+       "2018-08-10",
+       "2019-05-07",
+       "2019-09-26",
+       "2020-03-04",
+       "2020-11-19",
+       "2021-04-25",
+       "2021-09-17",
+       "2022-06-19",
+       "2022-11-07",
+       "2023-04-15",
+       "2024-01-01",
+       "2024-06-08",
+       "2024-10-28",
+       "2025-08-01",
+       "2025-12-21",
+       "2026-05-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 35,
+        "mean_bp": -3.20284379193571,
+        "up": 48.57142857142857,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.6773306673331667,
+        "p_up": 0.6156485495076907
+       },
+       "3": {
+        "n": 35,
+        "mean_bp": -1.1540712303958716,
+        "up": 54.285714285714285,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.6530867283179205,
+        "p_up": 1.0
+       },
+       "5": {
+        "n": 35,
+        "mean_bp": -40.27234297608082,
+        "up": 51.42857142857142,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.11922019495126218,
+        "p_up": 0.6118126053738044
+       },
+       "10": {
+        "n": 35,
+        "mean_bp": 9.827273368296316,
+        "up": 68.57142857142857,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.5561109722569357,
+        "p_up": 0.23201562484822869
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Saturn quadrature: follow-through at +5",
+        "hits": 18,
+        "n": 32,
+        "rate": 56.25,
+        "ci_lo": 39.32530203122613,
+        "ci_hi": 71.83491403055682,
+        "z_vs_base": -0.1445628113109781,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.999999999999992
+       },
+       "same_day": {
+        "label": "Venus\u2013Saturn quadrature: cross-day closes beyond",
+        "hits": 17,
+        "n": 32,
+        "rate": 53.125,
+        "ci_lo": 36.44923793257382,
+        "ci_hi": 69.13087009831767,
+        "z_vs_base": -1.533490816662985,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.13699882115737402
+       },
+       "held": {
+        "label": "Venus\u2013Saturn quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 35,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 9.890426758938869,
+        "z_vs_base": -0.33110715770357063,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999997
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Saturn quadrature: 5d reverses 3d trend",
+       "hits": 14,
+       "n": 35,
+       "rate": 40.0,
+       "ci_lo": 25.550504933307245,
+       "ci_hi": 56.42758041848053,
+       "z_vs_base": -1.0877880861957259,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.3127216815834893
+      },
+      "flip2": {
+       "label": "Venus\u2013Saturn quadrature: trend flip within \u00b12 days",
+       "hits": 32,
+       "n": 35,
+       "rate": 91.42857142857143,
+       "ci_lo": 77.62040092883747,
+       "ci_hi": 97.0418168994703,
+       "z_vs_base": 0.5628991263916213,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7926059656323404
+      }
+     },
+     "next": {
+      "id": "venus_saturn_quadrature",
+      "title": "Venus\u2013Saturn quadrature",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "57% vs a 55% base across all 40 events since 2007, identical median excursions \u2014 and a \u2265150-pt counter-move within 2 days happens on 39% of ALL days. Performs at the noise floor.",
+      "n_events": 35,
+      "n_sessions": 35,
+      "excluded_retro": 0,
+      "months": {
+       "1": 3,
+       "2": 2,
+       "3": 4,
+       "4": 4,
+       "5": 2,
+       "6": 2,
+       "7": 3,
+       "8": 5,
+       "9": 3,
+       "10": 3,
+       "11": 2,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-19",
+       "2011-07-13",
+       "2011-12-18",
+       "2012-09-03",
+       "2013-02-11",
+       "2013-07-02",
+       "2014-03-30",
+       "2014-08-27",
+       "2015-01-30",
+       "2015-07-14",
+       "2015-08-05",
+       "2015-10-11",
+       "2016-03-26",
+       "2016-08-13",
+       "2017-01-28",
+       "2017-04-09",
+       "2017-04-21",
+       "2017-10-08",
+       "2018-03-13",
+       "2018-08-10",
+       "2019-05-07",
+       "2019-09-26",
+       "2020-03-04",
+       "2020-11-19",
+       "2021-04-25",
+       "2021-09-17",
+       "2022-06-19",
+       "2022-11-07",
+       "2023-04-15",
+       "2024-01-01",
+       "2024-06-08",
+       "2024-10-28",
+       "2025-08-01",
+       "2025-12-21",
+       "2026-05-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 35,
+        "mean_bp": -3.5370480222252088,
+        "up": 48.57142857142857,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.64383904023994,
+        "p_up": 0.6156485495076907
+       },
+       "3": {
+        "n": 35,
+        "mean_bp": -1.3028400245860272,
+        "up": 51.42857142857142,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.6503374156460885,
+        "p_up": 0.7351408364382427
+       },
+       "5": {
+        "n": 35,
+        "mean_bp": -25.566655600282804,
+        "up": 54.285714285714285,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.24343914021494625,
+        "p_up": 0.865719972821239
+       },
+       "10": {
+        "n": 35,
+        "mean_bp": 27.10305074853785,
+        "up": 68.57142857142857,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.7883029242689328,
+        "p_up": 0.23201562484822869
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Saturn quadrature: follow-through at +5",
+        "hits": 15,
+        "n": 33,
+        "rate": 45.45454545454545,
+        "ci_lo": 29.842689125891496,
+        "ci_hi": 62.014342056250435,
+        "z_vs_base": -1.4013520029256061,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.1641315174159526
+       },
+       "same_day": {
+        "label": "Venus\u2013Saturn quadrature: cross-day closes beyond",
+        "hits": 14,
+        "n": 33,
+        "rate": 42.42424242424242,
+        "ci_lo": 27.2353589950299,
+        "ci_hi": 59.19302630853998,
+        "z_vs_base": -2.8546415969209473,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.0056798531644706995
+       },
+       "held": {
+        "label": "Venus\u2013Saturn quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 35,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 9.890426758938869,
+        "z_vs_base": -0.33110715770357063,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999997
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Saturn quadrature: 5d reverses 3d trend",
+       "hits": 14,
+       "n": 35,
+       "rate": 40.0,
+       "ci_lo": 25.550504933307245,
+       "ci_hi": 56.42758041848053,
+       "z_vs_base": -1.0877880861957259,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.3127216815834893
+      },
+      "flip2": {
+       "label": "Venus\u2013Saturn quadrature: trend flip within \u00b12 days",
+       "hits": 32,
+       "n": 35,
+       "rate": 91.42857142857143,
+       "ci_lo": 77.62040092883747,
+       "ci_hi": 97.0418168994703,
+       "z_vs_base": 0.5628991263916213,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7926059656323404
+      }
+     }
+    },
+    "jupiter_uranus_conjunction": {
+     "prev": {
+      "id": "jupiter_uranus_conjunction",
+      "title": "Jupiter\u2013Uranus conjunction/opposition",
+      "verdict_catalogue": "rare",
+      "bias": "reversal",
+      "evidence_catalogue": "7 exact passes since 2007, 1 produced the claimed reversal. Retrogradation makes each 'rare event' a triple pass over ~9 months \u2014 only the pass followed by a fall was shown.",
+      "n_events": 5,
+      "n_sessions": 5,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "3": 1,
+       "4": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-01-04",
+       "2016-12-27",
+       "2017-03-03",
+       "2017-09-28",
+       "2024-04-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 5,
+        "mean_bp": 14.782648465434534,
+        "up": 80.0,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.7980504873781554,
+        "p_up": 0.37949889589652397
+       },
+       "3": {
+        "n": 5,
+        "mean_bp": 18.37390811862938,
+        "up": 80.0,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.9387653086728318,
+        "p_up": 0.3874697051583974
+       },
+       "5": {
+        "n": 5,
+        "mean_bp": -11.837044161629784,
+        "up": 80.0,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.7370657335666083,
+        "p_up": 0.3936353246268823
+       },
+       "10": {
+        "n": 5,
+        "mean_bp": 86.0915027456428,
+        "up": 80.0,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.7385653586603349,
+        "p_up": 0.4041905306329606
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: follow-through at +5",
+        "hits": 5,
+        "n": 5,
+        "rate": 100.0,
+        "ci_lo": 56.550850524791905,
+        "ci_hi": 100.00000000000003,
+        "z_vs_base": 1.9218864537177023,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.07677158883963561
+       },
+       "same_day": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: cross-day closes beyond",
+        "hits": 3,
+        "n": 5,
+        "rate": 60.0,
+        "ci_lo": 23.07199322088371,
+        "ci_hi": 88.23817688407468,
+        "z_vs_base": -0.2817126858997914,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: range held 5 sessions",
+        "hits": 0,
+        "n": 5,
+        "rate": 0.0,
+        "ci_lo": -2.7755575615628914e-15,
+        "ci_hi": 43.4491494752081,
+        "z_vs_base": -0.12514674237101317,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: 5d reverses 3d trend",
+       "hits": 3,
+       "n": 5,
+       "rate": 60.0,
+       "ci_lo": 23.07199322088371,
+       "ci_hi": 88.23817688407468,
+       "z_vs_base": 0.4833986678256654,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.6826175107511188
+      },
+      "flip2": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: trend flip within \u00b12 days",
+       "hits": 5,
+       "n": 5,
+       "rate": 100.0,
+       "ci_lo": 56.550850524791905,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 0.8108201066099796,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 1.0
+      }
+     },
+     "next": {
+      "id": "jupiter_uranus_conjunction",
+      "title": "Jupiter\u2013Uranus conjunction/opposition",
+      "verdict_catalogue": "rare",
+      "bias": "reversal",
+      "evidence_catalogue": "7 exact passes since 2007, 1 produced the claimed reversal. Retrogradation makes each 'rare event' a triple pass over ~9 months \u2014 only the pass followed by a fall was shown.",
+      "n_events": 5,
+      "n_sessions": 5,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "3": 1,
+       "4": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-01-04",
+       "2016-12-27",
+       "2017-03-03",
+       "2017-09-28",
+       "2024-04-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 5,
+        "mean_bp": 0.5081436965550523,
+        "up": 80.0,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.9412646838290427,
+        "p_up": 0.37949889589652397
+       },
+       "3": {
+        "n": 5,
+        "mean_bp": 16.25760048496194,
+        "up": 80.0,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.9582604348912772,
+        "p_up": 0.3874697051583974
+       },
+       "5": {
+        "n": 5,
+        "mean_bp": -8.99714800454987,
+        "up": 80.0,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.7570607348162959,
+        "p_up": 0.3936353246268823
+       },
+       "10": {
+        "n": 5,
+        "mean_bp": 56.35274330127449,
+        "up": 60.0,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.9157710572356911,
+        "p_up": 1.0
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: follow-through at +5",
+        "hits": 5,
+        "n": 5,
+        "rate": 100.0,
+        "ci_lo": 56.550850524791905,
+        "ci_hi": 100.00000000000003,
+        "z_vs_base": 1.9218864537177023,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.07677158883963561
+       },
+       "same_day": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: cross-day closes beyond",
+        "hits": 2,
+        "n": 5,
+        "rate": 40.0,
+        "ci_lo": 11.76182311592533,
+        "ci_hi": 76.9280067791163,
+        "z_vs_base": -1.2255753275028427,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.34525677048612247
+       },
+       "held": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: range held 5 sessions",
+        "hits": 0,
+        "n": 5,
+        "rate": 0.0,
+        "ci_lo": -2.7755575615628914e-15,
+        "ci_hi": 43.4491494752081,
+        "z_vs_base": -0.12514674237101317,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: 5d reverses 3d trend",
+       "hits": 2,
+       "n": 5,
+       "rate": 40.0,
+       "ci_lo": 11.76182311592533,
+       "ci_hi": 76.9280067791163,
+       "z_vs_base": -0.41114525074468344,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: trend flip within \u00b12 days",
+       "hits": 5,
+       "n": 5,
+       "rate": 100.0,
+       "ci_lo": 56.550850524791905,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 0.8108201066099796,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 1.0
+      }
+     }
+    },
+    "venus_natal_venus": {
+     "prev": {
+      "id": "venus_natal_venus",
+      "title": "Venus\u2013natalVenus",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "The flagship birth-chart rule: sextile scored 10/15 (67%) vs a 64% base \u2014 not the claimed 85%; quadrature and trine averaged \u22120.1% to +0.9%, all p>0.37. No edge at any of the three angles.",
+      "n_events": 100,
+      "n_sessions": 100,
+      "excluded_retro": 2,
+      "months": {
+       "1": 10,
+       "2": 8,
+       "3": 14,
+       "4": 8,
+       "5": 6,
+       "6": 4,
+       "7": 6,
+       "8": 14,
+       "9": 14,
+       "10": 10,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-03-16",
+       "2011-04-10",
+       "2011-05-04",
+       "2011-08-11",
+       "2011-09-04",
+       "2011-09-28",
+       "2012-01-03",
+       "2012-01-27",
+       "2012-02-22",
+       "2012-09-21",
+       "2012-10-17",
+       "2012-11-11",
+       "2013-02-15",
+       "2013-03-11",
+       "2013-04-04",
+       "2013-07-11",
+       "2013-08-05",
+       "2013-08-30",
+       "2014-03-23",
+       "2014-04-21",
+       "2014-05-17",
+       "2014-08-25",
+       "2014-09-19",
+       "2014-10-13",
+       "2015-01-16",
+       "2015-02-09",
+       "2015-03-06",
+       "2015-06-24",
+       "2015-08-28",
+       "2015-09-16",
+       "2015-10-26",
+       "2015-11-23",
+       "2016-03-01",
+       "2016-03-25",
+       "2016-04-19",
+       "2016-07-25",
+       "2016-08-19",
+       "2016-09-12",
+       "2016-12-22",
+       "2017-01-19",
+       "2017-05-22",
+       "2017-09-09",
+       "2017-10-03",
+       "2017-10-27",
+       "2018-01-31",
+       "2018-02-24",
+       "2018-03-20",
+       "2018-06-28",
+       "2018-07-25",
+       "2018-08-23",
+       "2019-03-15",
+       "2019-04-09",
+       "2019-05-04",
+       "2019-08-10",
+       "2019-09-03",
+       "2019-09-27",
+       "2020-01-02",
+       "2020-01-27",
+       "2020-02-22",
+       "2020-09-21",
+       "2020-10-16",
+       "2020-11-10",
+       "2021-02-14",
+       "2021-03-10",
+       "2021-04-03",
+       "2021-07-10",
+       "2021-08-04",
+       "2021-08-30",
+       "2022-03-23",
+       "2022-04-20",
+       "2022-05-17",
+       "2022-08-25",
+       "2022-09-18",
+       "2022-10-12",
+       "2023-01-16",
+       "2023-02-09",
+       "2023-03-05",
+       "2023-06-24",
+       "2023-08-21",
+       "2023-09-19",
+       "2023-10-26",
+       "2023-11-23",
+       "2024-03-01",
+       "2024-03-25",
+       "2024-04-18",
+       "2024-07-25",
+       "2024-08-18",
+       "2024-09-12",
+       "2024-12-21",
+       "2025-01-19",
+       "2025-05-22",
+       "2025-09-08",
+       "2025-10-03",
+       "2025-10-27",
+       "2026-01-30",
+       "2026-02-23",
+       "2026-03-19",
+       "2026-06-27",
+       "2026-07-24",
+       "2026-08-24"
+      ],
+      "fwd": {
+       "1": {
+        "n": 100,
+        "mean_bp": -0.01049925728737744,
+        "up": 51.0,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.685828542864284,
+        "p_up": 0.6901226784297717
+       },
+       "3": {
+        "n": 100,
+        "mean_bp": -0.6905440686062247,
+        "up": 54.0,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.4566358410397401,
+        "p_up": 0.8414328422683961
+       },
+       "5": {
+        "n": 99,
+        "mean_bp": 13.481392332251435,
+        "up": 59.59595959595959,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.7535616095976005,
+        "p_up": 0.5437679655678697
+       },
+       "10": {
+        "n": 99,
+        "mean_bp": 26.499919901480684,
+        "up": 57.57575757575758,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.6393401649587603,
+        "p_up": 1.0
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013natalVenus: follow-through at +5",
+        "hits": 46,
+        "n": 89,
+        "rate": 51.68539325842697,
+        "ci_lo": 41.45040372503965,
+        "ci_hi": 61.78090637732825,
+        "z_vs_base": -1.1122279887368385,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.2843158803825037
+       },
+       "same_day": {
+        "label": "Venus\u2013natalVenus: cross-day closes beyond",
+        "hits": 55,
+        "n": 89,
+        "rate": 61.79775280898876,
+        "ci_lo": 51.41392792900943,
+        "ci_hi": 71.20524278756588,
+        "z_vs_base": -0.8306000814085923,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.43386942676306256
+       },
+       "held": {
+        "label": "Venus\u2013natalVenus: range held 5 sessions",
+        "hits": 2,
+        "n": 99,
+        "rate": 2.0202020202020203,
+        "ci_lo": 0.5557603625523106,
+        "ci_hi": 7.069169626868313,
+        "z_vs_base": 3.0458983854427815,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.03874186532856076
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013natalVenus: 5d reverses 3d trend",
+       "hits": 51,
+       "n": 99,
+       "rate": 51.515151515151516,
+       "ci_lo": 41.79916540057243,
+       "ci_hi": 61.117942073445874,
+       "z_vs_base": 0.4623043981667702,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.6880669120216986
+      },
+      "flip2": {
+       "label": "Venus\u2013natalVenus: trend flip within \u00b12 days",
+       "hits": 90,
+       "n": 99,
+       "rate": 90.9090909090909,
+       "ci_lo": 83.61842304768152,
+       "ci_hi": 95.14347875081248,
+       "z_vs_base": 0.785417934155088,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.5308704769081556
+      }
+     },
+     "next": {
+      "id": "venus_natal_venus",
+      "title": "Venus\u2013natalVenus",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "The flagship birth-chart rule: sextile scored 10/15 (67%) vs a 64% base \u2014 not the claimed 85%; quadrature and trine averaged \u22120.1% to +0.9%, all p>0.37. No edge at any of the three angles.",
+      "n_events": 100,
+      "n_sessions": 100,
+      "excluded_retro": 2,
+      "months": {
+       "1": 10,
+       "2": 8,
+       "3": 14,
+       "4": 8,
+       "5": 6,
+       "6": 4,
+       "7": 6,
+       "8": 14,
+       "9": 14,
+       "10": 10,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-03-16",
+       "2011-04-10",
+       "2011-05-04",
+       "2011-08-11",
+       "2011-09-04",
+       "2011-09-28",
+       "2012-01-03",
+       "2012-01-27",
+       "2012-02-22",
+       "2012-09-21",
+       "2012-10-17",
+       "2012-11-11",
+       "2013-02-15",
+       "2013-03-11",
+       "2013-04-04",
+       "2013-07-11",
+       "2013-08-05",
+       "2013-08-30",
+       "2014-03-23",
+       "2014-04-21",
+       "2014-05-17",
+       "2014-08-25",
+       "2014-09-19",
+       "2014-10-13",
+       "2015-01-16",
+       "2015-02-09",
+       "2015-03-06",
+       "2015-06-24",
+       "2015-08-28",
+       "2015-09-16",
+       "2015-10-26",
+       "2015-11-23",
+       "2016-03-01",
+       "2016-03-25",
+       "2016-04-19",
+       "2016-07-25",
+       "2016-08-19",
+       "2016-09-12",
+       "2016-12-22",
+       "2017-01-19",
+       "2017-05-22",
+       "2017-09-09",
+       "2017-10-03",
+       "2017-10-27",
+       "2018-01-31",
+       "2018-02-24",
+       "2018-03-20",
+       "2018-06-28",
+       "2018-07-25",
+       "2018-08-23",
+       "2019-03-15",
+       "2019-04-09",
+       "2019-05-04",
+       "2019-08-10",
+       "2019-09-03",
+       "2019-09-27",
+       "2020-01-02",
+       "2020-01-27",
+       "2020-02-22",
+       "2020-09-21",
+       "2020-10-16",
+       "2020-11-10",
+       "2021-02-14",
+       "2021-03-10",
+       "2021-04-03",
+       "2021-07-10",
+       "2021-08-04",
+       "2021-08-30",
+       "2022-03-23",
+       "2022-04-20",
+       "2022-05-17",
+       "2022-08-25",
+       "2022-09-18",
+       "2022-10-12",
+       "2023-01-16",
+       "2023-02-09",
+       "2023-03-05",
+       "2023-06-24",
+       "2023-08-21",
+       "2023-09-19",
+       "2023-10-26",
+       "2023-11-23",
+       "2024-03-01",
+       "2024-03-25",
+       "2024-04-18",
+       "2024-07-25",
+       "2024-08-18",
+       "2024-09-12",
+       "2024-12-21",
+       "2025-01-19",
+       "2025-05-22",
+       "2025-09-08",
+       "2025-10-03",
+       "2025-10-27",
+       "2026-01-30",
+       "2026-02-23",
+       "2026-03-19",
+       "2026-06-27",
+       "2026-07-24",
+       "2026-08-24"
+      ],
+      "fwd": {
+       "1": {
+        "n": 100,
+        "mean_bp": 9.06884345007839,
+        "up": 51.0,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.6255936015996001,
+        "p_up": 0.6901226784297717
+       },
+       "3": {
+        "n": 100,
+        "mean_bp": 5.753819910624047,
+        "up": 56.00000000000001,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.7005748562859285,
+        "p_up": 0.9200125680610265
+       },
+       "5": {
+        "n": 99,
+        "mean_bp": 8.727783023914105,
+        "up": 59.59595959595959,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.6065983504123968,
+        "p_up": 0.5437679655678697
+       },
+       "10": {
+        "n": 99,
+        "mean_bp": 34.104791813598794,
+        "up": 58.58585858585859,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.8097975506123469,
+        "p_up": 0.9191040154389016
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013natalVenus: follow-through at +5",
+        "hits": 44,
+        "n": 87,
+        "rate": 50.57471264367817,
+        "ci_lo": 40.26891499485618,
+        "ci_hi": 60.831902251867795,
+        "z_vs_base": -1.3092343833141562,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.19474941529642287
+       },
+       "same_day": {
+        "label": "Venus\u2013natalVenus: cross-day closes beyond",
+        "hits": 51,
+        "n": 87,
+        "rate": 58.620689655172406,
+        "ci_lo": 48.12140531159266,
+        "ci_hi": 68.39085338926685,
+        "z_vs_base": -1.446645280705942,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.1740054495578012
+       },
+       "held": {
+        "label": "Venus\u2013natalVenus: range held 5 sessions",
+        "hits": 0,
+        "n": 99,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 3.7354533573962287,
+        "z_vs_base": -0.5568678488621152,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.99999999999999
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013natalVenus: 5d reverses 3d trend",
+       "hits": 46,
+       "n": 99,
+       "rate": 46.464646464646464,
+       "ci_lo": 36.956329835017776,
+       "ci_hi": 56.23708605893953,
+       "z_vs_base": -0.5428645799456612,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.616151730340805
+      },
+      "flip2": {
+       "label": "Venus\u2013natalVenus: trend flip within \u00b12 days",
+       "hits": 90,
+       "n": 99,
+       "rate": 90.9090909090909,
+       "ci_lo": 83.61842304768152,
+       "ci_hi": 95.14347875081248,
+       "z_vs_base": 0.785417934155088,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.5308704769081556
+      }
+     }
+    },
+    "mercury_mars_radix": {
+     "prev": {
+      "id": "mercury_mars_radix",
+      "title": "Mercury\u2013Mars radix\u2013transit conjunction",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "Reversal at the exact date 5/13 (38%) \u2014 below the 49% random-day rate. With his \u00b12-day deflection it reads 85%\u2026 which is exactly the base rate of any random day. The window manufactures the accuracy.",
+      "n_events": 29,
+      "n_sessions": 29,
+      "excluded_retro": 0,
+      "months": {
+       "2": 1,
+       "3": 5,
+       "4": 11,
+       "5": 8,
+       "6": 2,
+       "7": 1,
+       "8": 1
+      },
+      "dates": [
+       "2011-03-25",
+       "2011-04-06",
+       "2011-05-09",
+       "2011-06-10",
+       "2012-05-04",
+       "2013-04-27",
+       "2013-05-21",
+       "2014-04-19",
+       "2015-04-11",
+       "2015-05-01",
+       "2016-04-02",
+       "2017-03-26",
+       "2017-04-10",
+       "2018-05-08",
+       "2019-03-20",
+       "2019-05-02",
+       "2020-04-24",
+       "2021-02-19",
+       "2021-04-15",
+       "2022-04-07",
+       "2022-08-08",
+       "2023-03-30",
+       "2024-03-24",
+       "2024-04-12",
+       "2024-05-08",
+       "2024-07-10",
+       "2025-05-05",
+       "2026-04-29",
+       "2026-06-18"
+      ],
+      "fwd": {
+       "1": {
+        "n": 29,
+        "mean_bp": 4.837787819453952,
+        "up": 48.275862068965516,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.9740064983754061,
+        "p_up": 0.7107476995723472
+       },
+       "3": {
+        "n": 29,
+        "mean_bp": -22.614837378735544,
+        "up": 37.93103448275862,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.2891777055736066,
+        "p_up": 0.09127984954419933
+       },
+       "5": {
+        "n": 29,
+        "mean_bp": -26.977697534993464,
+        "up": 44.827586206896555,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.2646838290427393,
+        "p_up": 0.2623408578148768
+       },
+       "10": {
+        "n": 29,
+        "mean_bp": -10.1207814178558,
+        "up": 58.620689655172406,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.3806548362909273,
+        "p_up": 0.9999999999999922
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: follow-through at +5",
+        "hits": 13,
+        "n": 26,
+        "rate": 50.0,
+        "ci_lo": 32.06030631500207,
+        "ci_hi": 67.93969368499792,
+        "z_vs_base": -0.775004666590518,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.43638217543536656
+       },
+       "same_day": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: cross-day closes beyond",
+        "hits": 16,
+        "n": 26,
+        "rate": 61.53846153846154,
+        "ci_lo": 42.53452003942007,
+        "ci_hi": 77.57164048816557,
+        "z_vs_base": -0.47683930301477406,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.6803011330507421
+       },
+       "held": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 29,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 11.697359446555588,
+        "z_vs_base": -0.30139326689766166,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999999
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: 5d reverses 3d trend",
+       "hits": 9,
+       "n": 29,
+       "rate": 31.03448275862069,
+       "ci_lo": 17.275424489768067,
+       "ci_hi": 49.230470472718544,
+       "z_vs_base": -1.9559106610756298,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.06240233515204946
+      },
+      "flip2": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: trend flip within \u00b12 days",
+       "hits": 26,
+       "n": 29,
+       "rate": 89.65517241379311,
+       "ci_lo": 73.61455275293085,
+       "ci_hi": 96.41857596186989,
+       "z_vs_base": 0.21438480192029266,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.9999999999999898
+      }
+     },
+     "next": {
+      "id": "mercury_mars_radix",
+      "title": "Mercury\u2013Mars radix\u2013transit conjunction",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "Reversal at the exact date 5/13 (38%) \u2014 below the 49% random-day rate. With his \u00b12-day deflection it reads 85%\u2026 which is exactly the base rate of any random day. The window manufactures the accuracy.",
+      "n_events": 29,
+      "n_sessions": 29,
+      "excluded_retro": 0,
+      "months": {
+       "2": 1,
+       "3": 5,
+       "4": 11,
+       "5": 8,
+       "6": 2,
+       "7": 1,
+       "8": 1
+      },
+      "dates": [
+       "2011-03-25",
+       "2011-04-06",
+       "2011-05-09",
+       "2011-06-10",
+       "2012-05-04",
+       "2013-04-27",
+       "2013-05-21",
+       "2014-04-19",
+       "2015-04-11",
+       "2015-05-01",
+       "2016-04-02",
+       "2017-03-26",
+       "2017-04-10",
+       "2018-05-08",
+       "2019-03-20",
+       "2019-05-02",
+       "2020-04-24",
+       "2021-02-19",
+       "2021-04-15",
+       "2022-04-07",
+       "2022-08-08",
+       "2023-03-30",
+       "2024-03-24",
+       "2024-04-12",
+       "2024-05-08",
+       "2024-07-10",
+       "2025-05-05",
+       "2026-04-29",
+       "2026-06-18"
+      ],
+      "fwd": {
+       "1": {
+        "n": 29,
+        "mean_bp": -17.365968968579388,
+        "up": 41.37931034482759,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.24068982754311422,
+        "p_up": 0.26444430200143454
+       },
+       "3": {
+        "n": 29,
+        "mean_bp": -51.47199760407221,
+        "up": 34.48275862068966,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.058485378655336165,
+        "p_up": 0.038217458201236204
+       },
+       "5": {
+        "n": 29,
+        "mean_bp": -24.174300031073383,
+        "up": 41.37931034482759,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.27618095476130966,
+        "p_up": 0.13413282584884387
+       },
+       "10": {
+        "n": 29,
+        "mean_bp": -22.73811842015663,
+        "up": 58.620689655172406,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.2871782054486378,
+        "p_up": 0.9999999999999922
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: follow-through at +5",
+        "hits": 15,
+        "n": 25,
+        "rate": 60.0,
+        "ci_lo": 40.739127785127344,
+        "ci_hi": 76.59694233580909,
+        "z_vs_base": 0.2515300714065998,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.8427390445091153
+       },
+       "same_day": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: cross-day closes beyond",
+        "hits": 15,
+        "n": 25,
+        "rate": 60.0,
+        "ci_lo": 40.739127785127344,
+        "ci_hi": 76.59694233580909,
+        "z_vs_base": -0.6299287157959801,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.531686724034646
+       },
+       "held": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 29,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 11.697359446555588,
+        "z_vs_base": -0.30139326689766166,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999999
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: 5d reverses 3d trend",
+       "hits": 8,
+       "n": 29,
+       "rate": 27.586206896551722,
+       "ci_lo": 14.69858133850274,
+       "ci_hi": 45.71747634443597,
+       "z_vs_base": -2.3273498059152278,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.02464600205068643
+      },
+      "flip2": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: trend flip within \u00b12 days",
+       "hits": 26,
+       "n": 29,
+       "rate": 89.65517241379311,
+       "ci_lo": 73.61455275293085,
+       "ci_hi": 96.41857596186989,
+       "z_vs_base": 0.21438480192029266,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.9999999999999898
+      }
+     }
+    },
+    "jupiter_natal_jupiter": {
+     "prev": {
+      "id": "jupiter_natal_jupiter",
+      "title": "Jupiter\u2013natalJupiter opposition",
+      "verdict_catalogue": "rare",
+      "bias": "bullish",
+      "evidence_catalogue": "Once per ~11.9-year orbit, as a triple pass. The Aug 2025 pass ran +4.4% at three months (his first graded forward hit); the Feb 2026 pass of the same triple was followed by \u22125%. Too rare to establish.",
+      "n_events": 6,
+      "n_sessions": 6,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "4": 1,
+       "5": 1,
+       "8": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2013-09-23",
+       "2013-12-22",
+       "2014-05-16",
+       "2025-08-29",
+       "2026-01-31",
+       "2026-04-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 6,
+        "mean_bp": 16.506625794522517,
+        "up": 83.33333333333334,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.7515621094726318,
+        "p_up": 0.2238142975454173
+       },
+       "3": {
+        "n": 6,
+        "mean_bp": 61.975423959703306,
+        "up": 83.33333333333334,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.469632591852037,
+        "p_up": 0.23280182047968934
+       },
+       "5": {
+        "n": 6,
+        "mean_bp": 13.550448750448048,
+        "up": 66.66666666666666,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.934016495876031,
+        "p_up": 0.7013717872692673
+       },
+       "10": {
+        "n": 6,
+        "mean_bp": 28.178335303114164,
+        "up": 66.66666666666666,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.9105223694076481,
+        "p_up": 1.0
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013natalJupiter opposition: follow-through at +5",
+        "hits": 3,
+        "n": 5,
+        "rate": 60.0,
+        "ci_lo": 23.07199322088371,
+        "ci_hi": 88.23817688407468,
+        "z_vs_base": 0.11248766761010666,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Jupiter\u2013natalJupiter opposition: cross-day closes beyond",
+        "hits": 2,
+        "n": 5,
+        "rate": 40.0,
+        "ci_lo": 11.76182311592533,
+        "ci_hi": 76.9280067791163,
+        "z_vs_base": -1.2255753275028427,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.34525677048612247
+       },
+       "held": {
+        "label": "Jupiter\u2013natalJupiter opposition: range held 5 sessions",
+        "hits": 1,
+        "n": 6,
+        "rate": 16.666666666666664,
+        "ci_lo": 3.005258587173032,
+        "ci_hi": 56.350943656364606,
+        "z_vs_base": 7.180161425014881,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.018589714735565928
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d reverses 3d trend",
+       "hits": 2,
+       "n": 6,
+       "rate": 33.33333333333333,
+       "ci_lo": 9.676933255921682,
+       "ci_hi": 70.00116786584712,
+       "z_vs_base": -0.7770283117413248,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.6877445858770784
+      },
+      "flip2": {
+       "label": "Jupiter\u2013natalJupiter opposition: trend flip within \u00b12 days",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": -1.6595831930830707,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.14749886153153768
+      },
+      "direction": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d goes the called way",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": 0.520207717334877,
+       "base": 56.12802498048399,
+       "p_binom_vs_base": 0.7013717872692673
+      }
+     },
+     "next": {
+      "id": "jupiter_natal_jupiter",
+      "title": "Jupiter\u2013natalJupiter opposition",
+      "verdict_catalogue": "rare",
+      "bias": "bullish",
+      "evidence_catalogue": "Once per ~11.9-year orbit, as a triple pass. The Aug 2025 pass ran +4.4% at three months (his first graded forward hit); the Feb 2026 pass of the same triple was followed by \u22125%. Too rare to establish.",
+      "n_events": 6,
+      "n_sessions": 6,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "4": 1,
+       "5": 1,
+       "8": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2013-09-23",
+       "2013-12-22",
+       "2014-05-16",
+       "2025-08-29",
+       "2026-01-31",
+       "2026-04-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 6,
+        "mean_bp": 80.97262699660656,
+        "up": 83.33333333333334,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.06623344163959011,
+        "p_up": 0.2238142975454173
+       },
+       "3": {
+        "n": 6,
+        "mean_bp": 60.5682660253513,
+        "up": 66.66666666666666,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.4873781554611347,
+        "p_up": 0.6968054745158135
+       },
+       "5": {
+        "n": 6,
+        "mean_bp": 53.998011224646135,
+        "up": 66.66666666666666,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.7208197950512372,
+        "p_up": 0.7013717872692673
+       },
+       "10": {
+        "n": 6,
+        "mean_bp": 51.68211975298431,
+        "up": 66.66666666666666,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.9332666833291677,
+        "p_up": 1.0
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013natalJupiter opposition: follow-through at +5",
+        "hits": 3,
+        "n": 5,
+        "rate": 60.0,
+        "ci_lo": 23.07199322088371,
+        "ci_hi": 88.23817688407468,
+        "z_vs_base": 0.11248766761010666,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Jupiter\u2013natalJupiter opposition: cross-day closes beyond",
+        "hits": 3,
+        "n": 5,
+        "rate": 60.0,
+        "ci_lo": 23.07199322088371,
+        "ci_hi": 88.23817688407468,
+        "z_vs_base": -0.2817126858997914,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Jupiter\u2013natalJupiter opposition: range held 5 sessions",
+        "hits": 1,
+        "n": 6,
+        "rate": 16.666666666666664,
+        "ci_lo": 3.005258587173032,
+        "ci_hi": 56.350943656364606,
+        "z_vs_base": 7.180161425014881,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.018589714735565928
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d reverses 3d trend",
+       "hits": 3,
+       "n": 6,
+       "rate": 50.0,
+       "ci_lo": 18.761280689940868,
+       "ci_hi": 81.23871931005912,
+       "z_vs_base": 0.039574826392082874,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Jupiter\u2013natalJupiter opposition: trend flip within \u00b12 days",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": -1.6595831930830707,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.14749886153153768
+      },
+      "direction": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d goes the called way",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": 0.520207717334877,
+       "base": 56.12802498048399,
+       "p_binom_vs_base": 0.7013717872692673
+      }
+     }
+    },
+    "venus_station": {
+     "prev": {
+      "id": "venus_station",
+      "title": "Venus station",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "All 22 stations 2007\u20132026: flip at the date 55% vs 49% base; within \u00b12 days 95% vs an 85% base. Mercury's 118 stations flip at the same 55% \u2014 the slow-planet accuracy claim isn't in the data.",
+      "n_events": 18,
+      "n_sessions": 18,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "2": 1,
+       "3": 2,
+       "4": 2,
+       "5": 2,
+       "6": 2,
+       "7": 2,
+       "9": 2,
+       "10": 1,
+       "11": 1,
+       "12": 2
+      },
+      "dates": [
+       "2012-05-16",
+       "2012-06-28",
+       "2013-12-22",
+       "2014-02-01",
+       "2015-07-26",
+       "2015-09-07",
+       "2017-03-05",
+       "2017-04-16",
+       "2018-10-06",
+       "2018-11-17",
+       "2020-05-14",
+       "2020-06-26",
+       "2021-12-20",
+       "2022-01-30",
+       "2023-07-23",
+       "2023-09-04",
+       "2025-03-02",
+       "2025-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 18,
+        "mean_bp": 36.79090616155999,
+        "up": 61.111111111111114,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.1669582604348913,
+        "p_up": 0.6382328450023053
+       },
+       "3": {
+        "n": 18,
+        "mean_bp": 79.75188092865329,
+        "up": 72.22222222222221,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.10622344413896526,
+        "p_up": 0.16145667027612984
+       },
+       "5": {
+        "n": 18,
+        "mean_bp": 148.19808160336433,
+        "up": 72.22222222222221,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.02274431392151962,
+        "p_up": 0.2351267107230553
+       },
+       "10": {
+        "n": 18,
+        "mean_bp": 201.83554874089586,
+        "up": 77.77777777777779,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.03649087728067983,
+        "p_up": 0.09788501757994271
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus station: follow-through at +5",
+        "hits": 12,
+        "n": 17,
+        "rate": 70.58823529411765,
+        "ci_lo": 46.8664666737861,
+        "ci_hi": 86.72020613444361,
+        "z_vs_base": 1.0905728513411066,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.33276063297239467
+       },
+       "same_day": {
+        "label": "Venus station: cross-day closes beyond",
+        "hits": 9,
+        "n": 17,
+        "rate": 52.94117647058824,
+        "ci_lo": 30.962897311549487,
+        "ci_hi": 73.8351988039119,
+        "z_vs_base": -1.133710191249931,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.30665047641035503
+       },
+       "held": {
+        "label": "Venus station: range held 5 sessions",
+        "hits": 0,
+        "n": 18,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 17.58845505823749,
+        "z_vs_base": -0.2374492485856215,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999999
+       }
+      },
+      "reversal": {
+       "label": "Venus station: 5d reverses 3d trend",
+       "hits": 9,
+       "n": 18,
+       "rate": 50.0,
+       "ci_lo": 29.03070395897999,
+       "ci_hi": 70.96929604102,
+       "z_vs_base": 0.06854561001180526,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Venus station: trend flip within \u00b12 days",
+       "hits": 17,
+       "n": 18,
+       "rate": 94.44444444444444,
+       "ci_lo": 74.24220019799247,
+       "ci_hi": 99.01250641690757,
+       "z_vs_base": 0.8029387531394961,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7137370263071673
+      }
+     },
+     "next": {
+      "id": "venus_station",
+      "title": "Venus station",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "All 22 stations 2007\u20132026: flip at the date 55% vs 49% base; within \u00b12 days 95% vs an 85% base. Mercury's 118 stations flip at the same 55% \u2014 the slow-planet accuracy claim isn't in the data.",
+      "n_events": 18,
+      "n_sessions": 18,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "2": 1,
+       "3": 2,
+       "4": 2,
+       "5": 2,
+       "6": 2,
+       "7": 2,
+       "9": 2,
+       "10": 1,
+       "11": 1,
+       "12": 2
+      },
+      "dates": [
+       "2012-05-16",
+       "2012-06-28",
+       "2013-12-22",
+       "2014-02-01",
+       "2015-07-26",
+       "2015-09-07",
+       "2017-03-05",
+       "2017-04-16",
+       "2018-10-06",
+       "2018-11-17",
+       "2020-05-14",
+       "2020-06-26",
+       "2021-12-20",
+       "2022-01-30",
+       "2023-07-23",
+       "2023-09-04",
+       "2025-03-02",
+       "2025-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 18,
+        "mean_bp": 22.527301702480244,
+        "up": 44.44444444444444,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.4311422144463884,
+        "p_up": 0.48876978178577996
+       },
+       "3": {
+        "n": 18,
+        "mean_bp": 65.00887941485765,
+        "up": 66.66666666666666,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.22319420144963759,
+        "p_up": 0.3538174647305033
+       },
+       "5": {
+        "n": 18,
+        "mean_bp": 154.8489858953907,
+        "up": 83.33333333333334,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.019745063734066485,
+        "p_up": 0.029566517980545045
+       },
+       "10": {
+        "n": 18,
+        "mean_bp": 185.41460383027749,
+        "up": 77.77777777777779,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.06423394151462135,
+        "p_up": 0.09788501757994271
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus station: follow-through at +5",
+        "hits": 9,
+        "n": 15,
+        "rate": 60.0,
+        "ci_lo": 35.746442756507705,
+        "ci_hi": 80.17577191740534,
+        "z_vs_base": 0.19483435552562467,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 0.9999999999999994
+       },
+       "same_day": {
+        "label": "Venus station: cross-day closes beyond",
+        "hits": 6,
+        "n": 15,
+        "rate": 40.0,
+        "ci_lo": 19.824228082594665,
+        "ci_hi": 64.2535572434923,
+        "z_vs_base": -2.12275873573779,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.05229808519095643
+       },
+       "held": {
+        "label": "Venus station: range held 5 sessions",
+        "hits": 0,
+        "n": 18,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 17.58845505823749,
+        "z_vs_base": -0.2374492485856215,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 0.9999999999999999
+       }
+      },
+      "reversal": {
+       "label": "Venus station: 5d reverses 3d trend",
+       "hits": 12,
+       "n": 18,
+       "rate": 66.66666666666666,
+       "ci_lo": 43.74906934425036,
+       "ci_hi": 83.72144563633714,
+       "z_vs_base": 1.482943734879053,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 0.16115157834605467
+      },
+      "flip2": {
+       "label": "Venus station: trend flip within \u00b12 days",
+       "hits": 17,
+       "n": 18,
+       "rate": 94.44444444444444,
+       "ci_lo": 74.24220019799247,
+       "ci_hi": 99.01250641690757,
+       "z_vs_base": 0.8029387531394961,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 0.7137370263071673
+      }
+     }
+    },
+    "sun_uranus_neptune": {
+     "prev": {
+      "id": "sun_uranus_neptune",
+      "title": "Sun\u2013Uranus\u2013Neptune triangle",
+      "verdict_catalogue": "calendar-trap",
+      "bias": "reversal",
+      "evidence_catalogue": "Uranus\u2013Neptune sit within 5\u00b0 of sextile on 11% of all days \u2014 the Sun supplies all the timing, so the 'rare pattern' recurs every mid-to-late October. 1 of 3 windows produced a flip.",
+      "n_events": 3,
+      "n_sessions": 3,
+      "excluded_retro": 0,
+      "months": {
+       "10": 3
+      },
+      "dates": [
+       "2023-10-17",
+       "2024-10-18",
+       "2025-10-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 3,
+        "mean_bp": -30.468624941658952,
+        "up": 33.33333333333333,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.5078730317420644,
+        "p_up": 0.6039157498640366
+       },
+       "3": {
+        "n": 3,
+        "mean_bp": -88.81188422014833,
+        "up": 33.33333333333333,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.2999250187453137,
+        "p_up": 0.591587459479891
+       },
+       "5": {
+        "n": 3,
+        "mean_bp": -182.40137456782173,
+        "up": 33.33333333333333,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.11272181954511372,
+        "p_up": 0.5853630876407666
+       },
+       "10": {
+        "n": 3,
+        "mean_bp": -258.3328150147853,
+        "up": 0.0,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.09697575606098476,
+        "p_up": 0.07576055779007239
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: follow-through at +5",
+        "hits": 2,
+        "n": 3,
+        "rate": 66.66666666666666,
+        "ci_lo": 20.76549551264879,
+        "ci_hi": 93.85096847238394,
+        "z_vs_base": 0.32072495150295277,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: cross-day closes beyond",
+        "hits": 1,
+        "n": 3,
+        "rate": 33.33333333333333,
+        "ci_lo": 6.14903152761605,
+        "ci_hi": 79.23450448735122,
+        "z_vs_base": -1.1930308527239728,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.2686046581430528
+       },
+       "held": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: range held 5 sessions",
+        "hits": 0,
+        "n": 3,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 56.15060804490177,
+        "z_vs_base": -0.09693824980700882,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: 5d reverses 3d trend",
+       "hits": 1,
+       "n": 3,
+       "rate": 33.33333333333333,
+       "ci_lo": 6.14903152761605,
+       "ci_hi": 79.23450448735122,
+       "z_vs_base": -0.5494419884062255,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: trend flip within \u00b12 days",
+       "hits": 3,
+       "n": 3,
+       "rate": 100.0,
+       "ci_lo": 43.84939195509823,
+       "ci_hi": 100.0,
+       "z_vs_base": 0.6280585539341146,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 1.0
+      }
+     },
+     "next": {
+      "id": "sun_uranus_neptune",
+      "title": "Sun\u2013Uranus\u2013Neptune triangle",
+      "verdict_catalogue": "calendar-trap",
+      "bias": "reversal",
+      "evidence_catalogue": "Uranus\u2013Neptune sit within 5\u00b0 of sextile on 11% of all days \u2014 the Sun supplies all the timing, so the 'rare pattern' recurs every mid-to-late October. 1 of 3 windows produced a flip.",
+      "n_events": 3,
+      "n_sessions": 3,
+      "excluded_retro": 0,
+      "months": {
+       "10": 3
+      },
+      "dates": [
+       "2023-10-17",
+       "2024-10-18",
+       "2025-10-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 3,
+        "mean_bp": -30.468624941658952,
+        "up": 33.33333333333333,
+        "base_mean_bp": 4.160937556765368,
+        "base_up": 53.00233948531323,
+        "p_mean": 0.5048737815546114,
+        "p_up": 0.6039157498640366
+       },
+       "3": {
+        "n": 3,
+        "mean_bp": -88.81188422014833,
+        "up": 33.33333333333333,
+        "base_mean_bp": 12.546714937333315,
+        "base_up": 55.006501950585175,
+        "p_mean": 0.2946763309172707,
+        "p_up": 0.591587459479891
+       },
+       "5": {
+        "n": 3,
+        "mean_bp": -182.40137456782173,
+        "up": 33.33333333333333,
+        "base_mean_bp": 20.91897591999532,
+        "base_up": 56.12802498048399,
+        "p_mean": 0.11422144463884029,
+        "p_up": 0.5853630876407666
+       },
+       "10": {
+        "n": 3,
+        "mean_bp": -258.3328150147853,
+        "up": 0.0,
+        "base_mean_bp": 41.74598863553396,
+        "base_up": 57.686294945284,
+        "p_mean": 0.10172456885778555,
+        "p_up": 0.07576055779007239
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: follow-through at +5",
+        "hits": 2,
+        "n": 3,
+        "rate": 66.66666666666666,
+        "ci_lo": 20.76549551264879,
+        "ci_hi": 93.85096847238394,
+        "z_vs_base": 0.32072495150295277,
+        "base": 57.51325869180908,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: cross-day closes beyond",
+        "hits": 1,
+        "n": 3,
+        "rate": 33.33333333333333,
+        "ci_lo": 6.14903152761605,
+        "ci_hi": 79.23450448735122,
+        "z_vs_base": -1.1930308527239728,
+        "base": 65.96935769004125,
+        "p_binom_vs_base": 0.2686046581430528
+       },
+       "held": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: range held 5 sessions",
+        "hits": 0,
+        "n": 3,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 56.15060804490177,
+        "z_vs_base": -0.09693824980700882,
+        "base": 0.312256049960968,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: 5d reverses 3d trend",
+       "hits": 1,
+       "n": 3,
+       "rate": 33.33333333333333,
+       "ci_lo": 6.14903152761605,
+       "ci_hi": 79.23450448735122,
+       "z_vs_base": -0.5494419884062255,
+       "base": 49.192287649817615,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: trend flip within \u00b12 days",
+       "hits": 3,
+       "n": 3,
+       "rate": 100.0,
+       "ci_lo": 43.84939195509823,
+       "ci_hi": 100.0,
+       "z_vs_base": 0.6280585539341146,
+       "base": 88.3793642522147,
+       "p_binom_vs_base": 1.0
+      }
+     }
+    }
+   }
+  },
+  "banknifty": {
+   "days": 3863,
+   "base": {
+    "ft": 54.93372606774669,
+    "held": 0.3110419906687403,
+    "rev": 50.220607318972235,
+    "flip2": 89.9039709317415,
+    "mean5_bp": 26.401240491565098,
+    "up5": 55.028512182477975
+   },
+   "rules": {
+    "venus_jupiter_quadrature": {
+     "prev": {
+      "id": "venus_jupiter_quadrature",
+      "title": "Venus\u2013Jupiter quadrature",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "54% win rate vs 43% base on 26 decided trades (14W/12L/10 undecided), +35 pts expectancy \u2014 the best rule in the catalogue, still not statistically significant. Claimed: >80%.",
+      "n_events": 31,
+      "n_sessions": 31,
+      "excluded_retro": 10,
+      "months": {
+       "1": 2,
+       "2": 4,
+       "3": 3,
+       "4": 1,
+       "5": 2,
+       "6": 3,
+       "7": 1,
+       "8": 5,
+       "9": 2,
+       "10": 2,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-07",
+       "2011-08-05",
+       "2011-12-21",
+       "2012-10-17",
+       "2013-03-04",
+       "2013-08-28",
+       "2014-05-18",
+       "2014-11-10",
+       "2015-03-28",
+       "2016-01-18",
+       "2016-06-05",
+       "2016-11-25",
+       "2017-08-17",
+       "2018-02-04",
+       "2018-06-26",
+       "2019-04-16",
+       "2019-09-03",
+       "2020-02-24",
+       "2020-11-16",
+       "2021-05-08",
+       "2021-10-01",
+       "2022-07-25",
+       "2022-12-09",
+       "2023-06-11",
+       "2023-08-22",
+       "2023-09-17",
+       "2024-02-25",
+       "2024-08-19",
+       "2025-01-15",
+       "2025-11-03",
+       "2026-03-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 31,
+        "mean_bp": 39.23196083355169,
+        "up": 51.61290322580645,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.18120469882529366,
+        "p_up": 0.9999999999999959
+       },
+       "3": {
+        "n": 31,
+        "mean_bp": 31.081508171680298,
+        "up": 61.29032258064516,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.7383154211447138,
+        "p_up": 0.47421314164526746
+       },
+       "5": {
+        "n": 31,
+        "mean_bp": 51.34667260652564,
+        "up": 61.29032258064516,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.6640839790052487,
+        "p_up": 0.589099162874988
+       },
+       "10": {
+        "n": 31,
+        "mean_bp": 91.42242501728813,
+        "up": 70.96774193548387,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.6523369157710572,
+        "p_up": 0.10720527960084292
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Jupiter quadrature: follow-through at +5",
+        "hits": 15,
+        "n": 27,
+        "rate": 55.55555555555556,
+        "ci_lo": 37.312719479576884,
+        "ci_hi": 72.41440232992717,
+        "z_vs_base": 0.06493933546599434,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Venus\u2013Jupiter quadrature: cross-day closes beyond",
+        "hits": 19,
+        "n": 27,
+        "rate": 70.37037037037037,
+        "ci_lo": 51.5189666191624,
+        "ci_hi": 84.14714668235244,
+        "z_vs_base": 0.9078328472678061,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.43163290707826
+       },
+       "held": {
+        "label": "Venus\u2013Jupiter quadrature: range held 5 sessions",
+        "hits": 1,
+        "n": 31,
+        "rate": 3.225806451612903,
+        "ci_lo": 0.571707408694444,
+        "ci_hi": 16.19445717616962,
+        "z_vs_base": 2.9144141907051653,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.0920566451247209
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Jupiter quadrature: 5d reverses 3d trend",
+       "hits": 17,
+       "n": 31,
+       "rate": 54.83870967741935,
+       "ci_lo": 37.771879603669134,
+       "ci_hi": 70.83851716341388,
+       "z_vs_base": 0.5142551202410093,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.7201818529912823
+      },
+      "flip2": {
+       "label": "Venus\u2013Jupiter quadrature: trend flip within \u00b12 days",
+       "hits": 28,
+       "n": 31,
+       "rate": 90.32258064516128,
+       "ci_lo": 75.09971000182296,
+       "ci_hi": 96.6535963905356,
+       "z_vs_base": 0.07736159497590189,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.9999999999999976
+      }
+     },
+     "next": {
+      "id": "venus_jupiter_quadrature",
+      "title": "Venus\u2013Jupiter quadrature",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "54% win rate vs 43% base on 26 decided trades (14W/12L/10 undecided), +35 pts expectancy \u2014 the best rule in the catalogue, still not statistically significant. Claimed: >80%.",
+      "n_events": 31,
+      "n_sessions": 31,
+      "excluded_retro": 10,
+      "months": {
+       "1": 2,
+       "2": 4,
+       "3": 3,
+       "4": 1,
+       "5": 2,
+       "6": 3,
+       "7": 1,
+       "8": 5,
+       "9": 2,
+       "10": 2,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-07",
+       "2011-08-05",
+       "2011-12-21",
+       "2012-10-17",
+       "2013-03-04",
+       "2013-08-28",
+       "2014-05-18",
+       "2014-11-10",
+       "2015-03-28",
+       "2016-01-18",
+       "2016-06-05",
+       "2016-11-25",
+       "2017-08-17",
+       "2018-02-04",
+       "2018-06-26",
+       "2019-04-16",
+       "2019-09-03",
+       "2020-02-24",
+       "2020-11-16",
+       "2021-05-08",
+       "2021-10-01",
+       "2022-07-25",
+       "2022-12-09",
+       "2023-06-11",
+       "2023-08-22",
+       "2023-09-17",
+       "2024-02-25",
+       "2024-08-19",
+       "2025-01-15",
+       "2025-11-03",
+       "2026-03-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 31,
+        "mean_bp": 20.257692832323816,
+        "up": 51.61290322580645,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.5431142214446388,
+        "p_up": 0.9999999999999959
+       },
+       "3": {
+        "n": 31,
+        "mean_bp": 17.114309634676868,
+        "up": 58.06451612903226,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.9727568107973007,
+        "p_up": 0.7208056449687497
+       },
+       "5": {
+        "n": 31,
+        "mean_bp": 40.96689506910885,
+        "up": 54.83870967741935,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.7983004248937765,
+        "p_up": 0.9999999999999961
+       },
+       "10": {
+        "n": 31,
+        "mean_bp": 72.3898287023411,
+        "up": 74.19354838709677,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.8082979255186203,
+        "p_up": 0.04775660023012468
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Jupiter quadrature: follow-through at +5",
+        "hits": 14,
+        "n": 28,
+        "rate": 50.0,
+        "ci_lo": 32.63284683244634,
+        "ci_hi": 67.36715316755367,
+        "z_vs_base": -0.5246971358856422,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.7049071609883438
+       },
+       "same_day": {
+        "label": "Venus\u2013Jupiter quadrature: cross-day closes beyond",
+        "hits": 19,
+        "n": 28,
+        "rate": 67.85714285714286,
+        "ci_lo": 49.33850455563118,
+        "ci_hi": 82.06695245657927,
+        "z_vs_base": 0.6506683979676583,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.5654803073416427
+       },
+       "held": {
+        "label": "Venus\u2013Jupiter quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 31,
+        "rate": 0.0,
+        "ci_lo": -1.3877787807814457e-15,
+        "ci_hi": 11.025900073475386,
+        "z_vs_base": -0.31100461243325345,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Jupiter quadrature: 5d reverses 3d trend",
+       "hits": 17,
+       "n": 31,
+       "rate": 54.83870967741935,
+       "ci_lo": 37.771879603669134,
+       "ci_hi": 70.83851716341388,
+       "z_vs_base": 0.5142551202410093,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.7201818529912823
+      },
+      "flip2": {
+       "label": "Venus\u2013Jupiter quadrature: trend flip within \u00b12 days",
+       "hits": 29,
+       "n": 31,
+       "rate": 93.54838709677419,
+       "ci_lo": 79.28101168125355,
+       "ci_hi": 98.21255922249368,
+       "z_vs_base": 0.6735100458601974,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.7650421528000745
+      }
+     }
+    },
+    "mercury_saturn_conjunction": {
+     "prev": {
+      "id": "mercury_saturn_conjunction",
+      "title": "Mercury\u2013Saturn conjunction",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "Trend flipped 16/23 (70%) vs 49% base, p=0.038 \u2014 the strongest number in the project, but ~25 rules were tested so one such false positive is expected, and his own forward call (25 Feb 2025) failed.",
+      "n_events": 19,
+      "n_sessions": 19,
+      "excluded_retro": 0,
+      "months": {
+       "1": 4,
+       "2": 2,
+       "3": 2,
+       "4": 1,
+       "10": 4,
+       "11": 5,
+       "12": 1
+      },
+      "dates": [
+       "2011-10-07",
+       "2012-10-05",
+       "2013-10-09",
+       "2013-10-30",
+       "2013-11-26",
+       "2014-11-26",
+       "2015-11-25",
+       "2016-11-24",
+       "2017-11-28",
+       "2017-12-06",
+       "2018-01-13",
+       "2019-01-13",
+       "2020-01-12",
+       "2021-01-10",
+       "2022-03-03",
+       "2023-03-02",
+       "2024-02-28",
+       "2025-02-25",
+       "2026-04-20"
+      ],
+      "fwd": {
+       "1": {
+        "n": 19,
+        "mean_bp": 38.114620534465416,
+        "up": 63.1578947368421,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.30467383154211447,
+        "p_up": 0.49184926845078303
+       },
+       "3": {
+        "n": 19,
+        "mean_bp": 96.24604436287672,
+        "up": 63.1578947368421,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.16220944763809048,
+        "p_up": 0.4953168412492885
+       },
+       "5": {
+        "n": 19,
+        "mean_bp": 87.32082374119138,
+        "up": 63.1578947368421,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.4008997750562359,
+        "p_up": 0.5012498494563078
+       },
+       "10": {
+        "n": 19,
+        "mean_bp": 100.16798065936209,
+        "up": 47.368421052631575,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.6475881029742564,
+        "p_up": 0.49094741013671966
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Saturn conjunction: follow-through at +5",
+        "hits": 7,
+        "n": 17,
+        "rate": 41.17647058823529,
+        "ci_lo": 21.610786039131384,
+        "ci_hi": 63.994925614484465,
+        "z_vs_base": -1.1400158992057665,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.33070261485453184
+       },
+       "same_day": {
+        "label": "Mercury\u2013Saturn conjunction: cross-day closes beyond",
+        "hits": 10,
+        "n": 17,
+        "rate": 58.82352941176471,
+        "ci_lo": 36.00507438551554,
+        "ci_hi": 78.38921396086862,
+        "z_vs_base": -0.2599153474632326,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.8065377213637893
+       },
+       "held": {
+        "label": "Mercury\u2013Saturn conjunction: range held 5 sessions",
+        "hits": 1,
+        "n": 19,
+        "rate": 5.263157894736842,
+        "ci_lo": 0.9351752490529969,
+        "ci_hi": 24.63921533654521,
+        "z_vs_base": 3.8764533467212243,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.05747240259471485
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Saturn conjunction: 5d reverses 3d trend",
+       "hits": 12,
+       "n": 19,
+       "rate": 63.1578947368421,
+       "ci_lo": 41.03915749815672,
+       "ci_hi": 80.85072762372616,
+       "z_vs_base": 1.1278575472356818,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.35937324655541936
+      },
+      "flip2": {
+       "label": "Mercury\u2013Saturn conjunction: trend flip within \u00b12 days",
+       "hits": 19,
+       "n": 19,
+       "rate": 100.0,
+       "ci_lo": 83.18156346315496,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 1.4607054830057777,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.250455250342608
+      }
+     },
+     "next": {
+      "id": "mercury_saturn_conjunction",
+      "title": "Mercury\u2013Saturn conjunction",
+      "verdict_catalogue": "paper-trade",
+      "bias": "reversal",
+      "evidence_catalogue": "Trend flipped 16/23 (70%) vs 49% base, p=0.038 \u2014 the strongest number in the project, but ~25 rules were tested so one such false positive is expected, and his own forward call (25 Feb 2025) failed.",
+      "n_events": 19,
+      "n_sessions": 19,
+      "excluded_retro": 0,
+      "months": {
+       "1": 4,
+       "2": 2,
+       "3": 2,
+       "4": 1,
+       "10": 4,
+       "11": 5,
+       "12": 1
+      },
+      "dates": [
+       "2011-10-07",
+       "2012-10-05",
+       "2013-10-09",
+       "2013-10-30",
+       "2013-11-26",
+       "2014-11-26",
+       "2015-11-25",
+       "2016-11-24",
+       "2017-11-28",
+       "2017-12-06",
+       "2018-01-13",
+       "2019-01-13",
+       "2020-01-12",
+       "2021-01-10",
+       "2022-03-03",
+       "2023-03-02",
+       "2024-02-28",
+       "2025-02-25",
+       "2026-04-20"
+      ],
+      "fwd": {
+       "1": {
+        "n": 19,
+        "mean_bp": 49.34524347663592,
+        "up": 63.1578947368421,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.1617095726068483,
+        "p_up": 0.49184926845078303
+       },
+       "3": {
+        "n": 19,
+        "mean_bp": 96.69877234391278,
+        "up": 63.1578947368421,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.16370907273181703,
+        "p_up": 0.4953168412492885
+       },
+       "5": {
+        "n": 19,
+        "mean_bp": 68.4549317870795,
+        "up": 57.89473684210527,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.5713571607098226,
+        "p_up": 1.0
+       },
+       "10": {
+        "n": 19,
+        "mean_bp": 77.71516006662061,
+        "up": 47.368421052631575,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.79680079980005,
+        "p_up": 0.49094741013671966
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Saturn conjunction: follow-through at +5",
+        "hits": 7,
+        "n": 16,
+        "rate": 43.75,
+        "ci_lo": 23.09836333518552,
+        "ci_hi": 66.82180439322347,
+        "z_vs_base": -0.899085839149918,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.453753926161582
+       },
+       "same_day": {
+        "label": "Mercury\u2013Saturn conjunction: cross-day closes beyond",
+        "hits": 9,
+        "n": 16,
+        "rate": 56.25,
+        "ci_lo": 33.17819560677652,
+        "ci_hi": 76.90163666481448,
+        "z_vs_base": -0.46411240212789784,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.618574838605827
+       },
+       "held": {
+        "label": "Mercury\u2013Saturn conjunction: range held 5 sessions",
+        "hits": 1,
+        "n": 19,
+        "rate": 5.263157894736842,
+        "ci_lo": 0.9351752490529969,
+        "ci_hi": 24.63921533654521,
+        "z_vs_base": 3.8764533467212243,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.05747240259471485
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Saturn conjunction: 5d reverses 3d trend",
+       "hits": 13,
+       "n": 19,
+       "rate": 68.42105263157895,
+       "ci_lo": 46.01001017506463,
+       "ci_hi": 84.6358289955714,
+       "z_vs_base": 1.5866934810862876,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.16714705837320293
+      },
+      "flip2": {
+       "label": "Mercury\u2013Saturn conjunction: trend flip within \u00b12 days",
+       "hits": 19,
+       "n": 19,
+       "rate": 100.0,
+       "ci_lo": 83.18156346315496,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 1.4607054830057777,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.250455250342608
+      }
+     }
+    },
+    "mars_jupiter_semisquare": {
+     "prev": {
+      "id": "mars_jupiter_semisquare",
+      "title": "Mars\u2013Jupiter semisquare",
+      "verdict_catalogue": "lean",
+      "bias": "bullish",
+      "evidence_catalogue": "+1.4% Nifty / +1.9% BankNifty 5-day forward, p\u22480.1 \u2014 directionally consistent on both indices, unproven.",
+      "n_events": 17,
+      "n_sessions": 17,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 1,
+       "3": 2,
+       "4": 1,
+       "5": 3,
+       "7": 3,
+       "8": 1,
+       "9": 1,
+       "10": 1,
+       "11": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-08",
+       "2011-07-24",
+       "2013-04-21",
+       "2013-10-24",
+       "2015-07-06",
+       "2016-01-18",
+       "2017-09-23",
+       "2018-03-31",
+       "2019-12-17",
+       "2020-05-31",
+       "2022-03-06",
+       "2022-08-09",
+       "2024-05-18",
+       "2024-11-18",
+       "2025-01-14",
+       "2025-05-04",
+       "2026-07-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 17,
+        "mean_bp": 18.869718469596155,
+        "up": 52.94117647058824,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.6743314171457135,
+        "p_up": 1.0
+       },
+       "3": {
+        "n": 17,
+        "mean_bp": 94.96386154535153,
+        "up": 58.82352941176471,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.19045238690327418,
+        "p_up": 0.8098549741714502
+       },
+       "5": {
+        "n": 17,
+        "mean_bp": 202.61895410544926,
+        "up": 76.47058823529412,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.030492376905773555,
+        "p_up": 0.08978871783708102
+       },
+       "10": {
+        "n": 17,
+        "mean_bp": 190.36502307662082,
+        "up": 82.35294117647058,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.22119470132466884,
+        "p_up": 0.047114369063356636
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Jupiter semisquare: follow-through at +5",
+        "hits": 10,
+        "n": 16,
+        "rate": 62.5,
+        "ci_lo": 38.64064709793481,
+        "ci_hi": 81.5190174452472,
+        "z_vs_base": 0.6082704195730303,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.621643819407448
+       },
+       "same_day": {
+        "label": "Mars\u2013Jupiter semisquare: cross-day closes beyond",
+        "hits": 9,
+        "n": 16,
+        "rate": 56.25,
+        "ci_lo": 33.17819560677652,
+        "ci_hi": 76.90163666481448,
+        "z_vs_base": -0.46411240212789784,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.618574838605827
+       },
+       "held": {
+        "label": "Mars\u2013Jupiter semisquare: range held 5 sessions",
+        "hits": 0,
+        "n": 17,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 18.432366037156456,
+        "z_vs_base": -0.23030875294887812,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Jupiter semisquare: 5d reverses 3d trend",
+       "hits": 4,
+       "n": 17,
+       "rate": 23.52941176470588,
+       "ci_lo": 9.55488907167594,
+       "ci_hi": 47.262245889171595,
+       "z_vs_base": -2.2010337947911003,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.03018812588265556
+      },
+      "flip2": {
+       "label": "Mars\u2013Jupiter semisquare: trend flip within \u00b12 days",
+       "hits": 15,
+       "n": 17,
+       "rate": 88.23529411764706,
+       "ci_lo": 65.66315750229009,
+       "ci_hi": 96.7120919987079,
+       "z_vs_base": -0.2283662702543199,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.6873477898955941
+      },
+      "direction": {
+       "label": "Mars\u2013Jupiter semisquare: 5d goes the called way",
+       "hits": 13,
+       "n": 17,
+       "rate": 76.47058823529412,
+       "ci_lo": 52.73775411082839,
+       "ci_hi": 90.44511092832406,
+       "z_vs_base": 1.7771692062255084,
+       "base": 55.028512182477975,
+       "p_binom_vs_base": 0.08978871783708102
+      }
+     },
+     "next": {
+      "id": "mars_jupiter_semisquare",
+      "title": "Mars\u2013Jupiter semisquare",
+      "verdict_catalogue": "lean",
+      "bias": "bullish",
+      "evidence_catalogue": "+1.4% Nifty / +1.9% BankNifty 5-day forward, p\u22480.1 \u2014 directionally consistent on both indices, unproven.",
+      "n_events": 17,
+      "n_sessions": 17,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 1,
+       "3": 2,
+       "4": 1,
+       "5": 3,
+       "7": 3,
+       "8": 1,
+       "9": 1,
+       "10": 1,
+       "11": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-08",
+       "2011-07-24",
+       "2013-04-21",
+       "2013-10-24",
+       "2015-07-06",
+       "2016-01-18",
+       "2017-09-23",
+       "2018-03-31",
+       "2019-12-17",
+       "2020-05-31",
+       "2022-03-06",
+       "2022-08-09",
+       "2024-05-18",
+       "2024-11-18",
+       "2025-01-14",
+       "2025-05-04",
+       "2026-07-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 17,
+        "mean_bp": 21.649071139293465,
+        "up": 52.94117647058824,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.625343664083979,
+        "p_up": 1.0
+       },
+       "3": {
+        "n": 17,
+        "mean_bp": 87.78481714251122,
+        "up": 64.70588235294117,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.23394151462134466,
+        "p_up": 0.4692438805822803
+       },
+       "5": {
+        "n": 17,
+        "mean_bp": 240.82475339326223,
+        "up": 76.47058823529412,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.008747813046738315,
+        "p_up": 0.08978871783708102
+       },
+       "10": {
+        "n": 17,
+        "mean_bp": 118.43576870884206,
+        "up": 76.47058823529412,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.5518620344913772,
+        "p_up": 0.14049535239972158
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Jupiter semisquare: follow-through at +5",
+        "hits": 8,
+        "n": 17,
+        "rate": 47.05882352941176,
+        "ci_lo": 26.164801196088106,
+        "ci_hi": 69.03710268845052,
+        "z_vs_base": -0.6525657760567015,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.6278202640835838
+       },
+       "same_day": {
+        "label": "Mars\u2013Jupiter semisquare: cross-day closes beyond",
+        "hits": 11,
+        "n": 17,
+        "rate": 64.70588235294117,
+        "ci_lo": 41.299966721211824,
+        "ci_hi": 82.69051385609511,
+        "z_vs_base": 0.23946926183935638,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Mars\u2013Jupiter semisquare: range held 5 sessions",
+        "hits": 0,
+        "n": 17,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 18.432366037156456,
+        "z_vs_base": -0.23030875294887812,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Jupiter semisquare: 5d reverses 3d trend",
+       "hits": 7,
+       "n": 17,
+       "rate": 41.17647058823529,
+       "ci_lo": 21.610786039131384,
+       "ci_hi": 63.994925614484465,
+       "z_vs_base": -0.7458058800173016,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.4787879707342712
+      },
+      "flip2": {
+       "label": "Mars\u2013Jupiter semisquare: trend flip within \u00b12 days",
+       "hits": 15,
+       "n": 17,
+       "rate": 88.23529411764706,
+       "ci_lo": 65.66315750229009,
+       "ci_hi": 96.7120919987079,
+       "z_vs_base": -0.2283662702543199,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.6873477898955941
+      },
+      "direction": {
+       "label": "Mars\u2013Jupiter semisquare: 5d goes the called way",
+       "hits": 13,
+       "n": 17,
+       "rate": 76.47058823529412,
+       "ci_lo": 52.73775411082839,
+       "ci_hi": 90.44511092832406,
+       "z_vs_base": 1.7771692062255084,
+       "base": 55.028512182477975,
+       "p_binom_vs_base": 0.08978871783708102
+      }
+     }
+    },
+    "mars_neptune_conjunction": {
+     "prev": {
+      "id": "mars_neptune_conjunction",
+      "title": "Mars\u2013Neptune conjunction",
+      "verdict_catalogue": "lean",
+      "bias": "bearish",
+      "evidence_catalogue": "\u22122.45% avg 5-day on Nifty at p=0.023 \u2014 but n=9, and one of 36 tests where two false positives are expected by chance.",
+      "n_events": 9,
+      "n_sessions": 9,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 2,
+       "4": 2,
+       "5": 1,
+       "6": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-21",
+       "2013-02-05",
+       "2015-01-20",
+       "2017-01-01",
+       "2018-12-07",
+       "2020-06-13",
+       "2022-05-18",
+       "2024-04-29",
+       "2026-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 9,
+        "mean_bp": -109.02253551030027,
+        "up": 22.22222222222222,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.02074481379655086,
+        "p_up": 0.0944168222728181
+       },
+       "3": {
+        "n": 9,
+        "mean_bp": -113.04632056586125,
+        "up": 44.44444444444444,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.12121969507623094,
+        "p_up": 0.7408255742618834
+       },
+       "5": {
+        "n": 9,
+        "mean_bp": 40.52373326334235,
+        "up": 66.66666666666666,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.8852786803299175,
+        "p_up": 0.5274250992176509
+       },
+       "10": {
+        "n": 9,
+        "mean_bp": 64.90673280000858,
+        "up": 44.44444444444444,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.939265183704074,
+        "p_up": 0.5158919845236802
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Neptune conjunction: follow-through at +5",
+        "hits": 3,
+        "n": 7,
+        "rate": 42.857142857142854,
+        "ci_lo": 15.821692226262684,
+        "ci_hi": 74.95457695909742,
+        "z_vs_base": -0.6421666439197409,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.7082712500549653
+       },
+       "same_day": {
+        "label": "Mars\u2013Neptune conjunction: cross-day closes beyond",
+        "hits": 4,
+        "n": 7,
+        "rate": 57.14285714285714,
+        "ci_lo": 25.04542304090258,
+        "ci_hi": 84.17830777373732,
+        "z_vs_base": -0.25834183001921845,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Mars\u2013Neptune conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 9,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 29.91527535509594,
+        "z_vs_base": -0.16757423204338368,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Neptune conjunction: 5d reverses 3d trend",
+       "hits": 5,
+       "n": 9,
+       "rate": 55.55555555555556,
+       "ci_lo": 26.66473457440297,
+       "ci_hi": 81.1224570528086,
+       "z_vs_base": 0.320100009909319,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.9999999999999972
+      },
+      "flip2": {
+       "label": "Mars\u2013Neptune conjunction: trend flip within \u00b12 days",
+       "hits": 8,
+       "n": 9,
+       "rate": 88.88888888888889,
+       "ci_lo": 56.49937852319399,
+       "ci_hi": 98.01096286728695,
+       "z_vs_base": -0.10107823887239785,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.9999999999999989
+      },
+      "direction": {
+       "label": "Mars\u2013Neptune conjunction: 5d goes the called way",
+       "hits": 3,
+       "n": 9,
+       "rate": 33.33333333333333,
+       "ci_lo": 12.058159868274293,
+       "ci_hi": 64.58026525009102,
+       "z_vs_base": -0.701847664506811,
+       "base": 44.971487817522025,
+       "p_binom_vs_base": 0.527425099217651
+      }
+     },
+     "next": {
+      "id": "mars_neptune_conjunction",
+      "title": "Mars\u2013Neptune conjunction",
+      "verdict_catalogue": "lean",
+      "bias": "bearish",
+      "evidence_catalogue": "\u22122.45% avg 5-day on Nifty at p=0.023 \u2014 but n=9, and one of 36 tests where two false positives are expected by chance.",
+      "n_events": 9,
+      "n_sessions": 9,
+      "excluded_retro": 0,
+      "months": {
+       "1": 2,
+       "2": 2,
+       "4": 2,
+       "5": 1,
+       "6": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-02-21",
+       "2013-02-05",
+       "2015-01-20",
+       "2017-01-01",
+       "2018-12-07",
+       "2020-06-13",
+       "2022-05-18",
+       "2024-04-29",
+       "2026-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 9,
+        "mean_bp": -30.939214953410207,
+        "up": 44.44444444444444,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.4078980254936266,
+        "p_up": 0.7435798905382138
+       },
+       "3": {
+        "n": 9,
+        "mean_bp": -3.9240696068791143,
+        "up": 66.66666666666666,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.7990502374406399,
+        "p_up": 0.5208748642963964
+       },
+       "5": {
+        "n": 9,
+        "mean_bp": 118.23402021616334,
+        "up": 66.66666666666666,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.3731567108222944,
+        "p_up": 0.5274250992176509
+       },
+       "10": {
+        "n": 9,
+        "mean_bp": 119.91851573883974,
+        "up": 44.44444444444444,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.6453386653336666,
+        "p_up": 0.5158919845236802
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mars\u2013Neptune conjunction: follow-through at +5",
+        "hits": 3,
+        "n": 7,
+        "rate": 42.857142857142854,
+        "ci_lo": 15.821692226262684,
+        "ci_hi": 74.95457695909742,
+        "z_vs_base": -0.6421666439197409,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.7082712500549653
+       },
+       "same_day": {
+        "label": "Mars\u2013Neptune conjunction: cross-day closes beyond",
+        "hits": 4,
+        "n": 7,
+        "rate": 57.14285714285714,
+        "ci_lo": 25.04542304090258,
+        "ci_hi": 84.17830777373732,
+        "z_vs_base": -0.25834183001921845,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Mars\u2013Neptune conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 9,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 29.91527535509594,
+        "z_vs_base": -0.16757423204338368,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mars\u2013Neptune conjunction: 5d reverses 3d trend",
+       "hits": 5,
+       "n": 9,
+       "rate": 55.55555555555556,
+       "ci_lo": 26.66473457440297,
+       "ci_hi": 81.1224570528086,
+       "z_vs_base": 0.320100009909319,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.9999999999999972
+      },
+      "flip2": {
+       "label": "Mars\u2013Neptune conjunction: trend flip within \u00b12 days",
+       "hits": 8,
+       "n": 9,
+       "rate": 88.88888888888889,
+       "ci_lo": 56.49937852319399,
+       "ci_hi": 98.01096286728695,
+       "z_vs_base": -0.10107823887239785,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.9999999999999989
+      },
+      "direction": {
+       "label": "Mars\u2013Neptune conjunction: 5d goes the called way",
+       "hits": 3,
+       "n": 9,
+       "rate": 33.33333333333333,
+       "ci_lo": 12.058159868274293,
+       "ci_hi": 64.58026525009102,
+       "z_vs_base": -0.701847664506811,
+       "base": 44.971487817522025,
+       "p_binom_vs_base": 0.527425099217651
+      }
+     }
+    },
+    "venus_saturn_quadrature": {
+     "prev": {
+      "id": "venus_saturn_quadrature",
+      "title": "Venus\u2013Saturn quadrature",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "57% vs a 55% base across all 40 events since 2007, identical median excursions \u2014 and a \u2265150-pt counter-move within 2 days happens on 39% of ALL days. Performs at the noise floor.",
+      "n_events": 35,
+      "n_sessions": 35,
+      "excluded_retro": 0,
+      "months": {
+       "1": 3,
+       "2": 2,
+       "3": 4,
+       "4": 4,
+       "5": 2,
+       "6": 2,
+       "7": 3,
+       "8": 5,
+       "9": 3,
+       "10": 3,
+       "11": 2,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-19",
+       "2011-07-13",
+       "2011-12-18",
+       "2012-09-03",
+       "2013-02-11",
+       "2013-07-02",
+       "2014-03-30",
+       "2014-08-27",
+       "2015-01-30",
+       "2015-07-14",
+       "2015-08-05",
+       "2015-10-11",
+       "2016-03-26",
+       "2016-08-13",
+       "2017-01-28",
+       "2017-04-09",
+       "2017-04-21",
+       "2017-10-08",
+       "2018-03-13",
+       "2018-08-10",
+       "2019-05-07",
+       "2019-09-26",
+       "2020-03-04",
+       "2020-11-19",
+       "2021-04-25",
+       "2021-09-17",
+       "2022-06-19",
+       "2022-11-07",
+       "2023-04-15",
+       "2024-01-01",
+       "2024-06-08",
+       "2024-10-28",
+       "2025-08-01",
+       "2025-12-21",
+       "2026-05-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 35,
+        "mean_bp": -3.1750993367812996,
+        "up": 60.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.7200699825043739,
+        "p_up": 0.40363505727325305
+       },
+       "3": {
+        "n": 35,
+        "mean_bp": -3.4391769146579407,
+        "up": 48.57142857142857,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.6560859785053736,
+        "p_up": 0.6115505551370798
+       },
+       "5": {
+        "n": 35,
+        "mean_bp": -50.49593213209312,
+        "up": 57.14285714285714,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.16020994751312173,
+        "p_up": 0.8661303361806323
+       },
+       "10": {
+        "n": 35,
+        "mean_bp": -10.329181786119237,
+        "up": 54.285714285714285,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.4106473381654586,
+        "p_up": 0.8652296544271103
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Saturn quadrature: follow-through at +5",
+        "hits": 20,
+        "n": 35,
+        "rate": 57.14285714285714,
+        "ci_lo": 40.857129258973366,
+        "ci_hi": 72.01566691832107,
+        "z_vs_base": 0.26266980524770184,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.8660055033535007
+       },
+       "same_day": {
+        "label": "Venus\u2013Saturn quadrature: cross-day closes beyond",
+        "hits": 22,
+        "n": 35,
+        "rate": 62.857142857142854,
+        "ci_lo": 46.33664048802106,
+        "ci_hi": 76.83439263110894,
+        "z_vs_base": 0.1184043880789066,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Venus\u2013Saturn quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 35,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 9.890426758938869,
+        "z_vs_base": -0.330460842120102,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Saturn quadrature: 5d reverses 3d trend",
+       "hits": 18,
+       "n": 35,
+       "rate": 51.42857142857142,
+       "ci_lo": 35.568539626711626,
+       "ci_hi": 67.00601960874725,
+       "z_vs_base": 0.1429296321650889,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.9999999999999999
+      },
+      "flip2": {
+       "label": "Venus\u2013Saturn quadrature: trend flip within \u00b12 days",
+       "hits": 32,
+       "n": 35,
+       "rate": 91.42857142857143,
+       "ci_lo": 77.62040092883747,
+       "ci_hi": 97.0418168994703,
+       "z_vs_base": 0.29938176595053334,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 1.0
+      }
+     },
+     "next": {
+      "id": "venus_saturn_quadrature",
+      "title": "Venus\u2013Saturn quadrature",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "57% vs a 55% base across all 40 events since 2007, identical median excursions \u2014 and a \u2265150-pt counter-move within 2 days happens on 39% of ALL days. Performs at the noise floor.",
+      "n_events": 35,
+      "n_sessions": 35,
+      "excluded_retro": 0,
+      "months": {
+       "1": 3,
+       "2": 2,
+       "3": 4,
+       "4": 4,
+       "5": 2,
+       "6": 2,
+       "7": 3,
+       "8": 5,
+       "9": 3,
+       "10": 3,
+       "11": 2,
+       "12": 2
+      },
+      "dates": [
+       "2011-02-19",
+       "2011-07-13",
+       "2011-12-18",
+       "2012-09-03",
+       "2013-02-11",
+       "2013-07-02",
+       "2014-03-30",
+       "2014-08-27",
+       "2015-01-30",
+       "2015-07-14",
+       "2015-08-05",
+       "2015-10-11",
+       "2016-03-26",
+       "2016-08-13",
+       "2017-01-28",
+       "2017-04-09",
+       "2017-04-21",
+       "2017-10-08",
+       "2018-03-13",
+       "2018-08-10",
+       "2019-05-07",
+       "2019-09-26",
+       "2020-03-04",
+       "2020-11-19",
+       "2021-04-25",
+       "2021-09-17",
+       "2022-06-19",
+       "2022-11-07",
+       "2023-04-15",
+       "2024-01-01",
+       "2024-06-08",
+       "2024-10-28",
+       "2025-08-01",
+       "2025-12-21",
+       "2026-05-29"
+      ],
+      "fwd": {
+       "1": {
+        "n": 35,
+        "mean_bp": 0.32435287181915257,
+        "up": 60.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.8375406148462884,
+        "p_up": 0.40363505727325305
+       },
+       "3": {
+        "n": 35,
+        "mean_bp": 3.385123981483337,
+        "up": 51.42857142857142,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.7585603599100225,
+        "p_up": 0.8656425839500231
+       },
+       "5": {
+        "n": 35,
+        "mean_bp": -34.88034327709452,
+        "up": 60.0,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.2661834541364659,
+        "p_up": 0.6128100420614434
+       },
+       "10": {
+        "n": 35,
+        "mean_bp": 24.56587554991734,
+        "up": 60.0,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.7260684828792802,
+        "p_up": 0.7351241977706697
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013Saturn quadrature: follow-through at +5",
+        "hits": 21,
+        "n": 35,
+        "rate": 60.0,
+        "ci_lo": 43.57241958151947,
+        "ci_hi": 74.44949506669273,
+        "z_vs_base": 0.602389420034731,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.6124807497903202
+       },
+       "same_day": {
+        "label": "Venus\u2013Saturn quadrature: cross-day closes beyond",
+        "hits": 23,
+        "n": 35,
+        "rate": 65.71428571428571,
+        "ci_lo": 49.15164687273671,
+        "ci_hi": 79.16850471731107,
+        "z_vs_base": 0.46644152879569406,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.729416273247085
+       },
+       "held": {
+        "label": "Venus\u2013Saturn quadrature: range held 5 sessions",
+        "hits": 0,
+        "n": 35,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 9.890426758938869,
+        "z_vs_base": -0.330460842120102,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013Saturn quadrature: 5d reverses 3d trend",
+       "hits": 19,
+       "n": 35,
+       "rate": 54.285714285714285,
+       "ci_lo": 38.189451340137516,
+       "ci_hi": 69.53422636623914,
+       "z_vs_base": 0.4809946246341444,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.735966195411283
+      },
+      "flip2": {
+       "label": "Venus\u2013Saturn quadrature: trend flip within \u00b12 days",
+       "hits": 31,
+       "n": 35,
+       "rate": 88.57142857142857,
+       "ci_lo": 74.04820521187976,
+       "ci_hi": 95.46489414551024,
+       "z_vs_base": -0.2616678178079314,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.7764959452157679
+      }
+     }
+    },
+    "jupiter_uranus_conjunction": {
+     "prev": {
+      "id": "jupiter_uranus_conjunction",
+      "title": "Jupiter\u2013Uranus conjunction/opposition",
+      "verdict_catalogue": "rare",
+      "bias": "reversal",
+      "evidence_catalogue": "7 exact passes since 2007, 1 produced the claimed reversal. Retrogradation makes each 'rare event' a triple pass over ~9 months \u2014 only the pass followed by a fall was shown.",
+      "n_events": 5,
+      "n_sessions": 5,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "3": 1,
+       "4": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-01-04",
+       "2016-12-27",
+       "2017-03-03",
+       "2017-09-28",
+       "2024-04-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 5,
+        "mean_bp": -10.163403169787255,
+        "up": 60.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.7835541114721319,
+        "p_up": 1.0
+       },
+       "3": {
+        "n": 5,
+        "mean_bp": -2.765388693677373,
+        "up": 80.0,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.8597850537365659,
+        "p_up": 0.38334933373164404
+       },
+       "5": {
+        "n": 5,
+        "mean_bp": -44.746279247572126,
+        "up": 80.0,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.6123469132716821,
+        "p_up": 0.38757902953494927
+       },
+       "10": {
+        "n": 5,
+        "mean_bp": 68.0086939038802,
+        "up": 80.0,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.9332666833291677,
+        "p_up": 0.3954608434932121
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: follow-through at +5",
+        "hits": 5,
+        "n": 5,
+        "rate": 100.0,
+        "ci_lo": 56.550850524791905,
+        "ci_hi": 100.00000000000003,
+        "z_vs_base": 2.0253090321240403,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.06861503903121417
+       },
+       "same_day": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: cross-day closes beyond",
+        "hits": 3,
+        "n": 5,
+        "rate": 60.0,
+        "ci_lo": 23.07199322088371,
+        "ci_hi": 88.23817688407468,
+        "z_vs_base": -0.08679302233643485,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: range held 5 sessions",
+        "hits": 0,
+        "n": 5,
+        "rate": 0.0,
+        "ci_lo": -2.7755575615628914e-15,
+        "ci_hi": 43.4491494752081,
+        "z_vs_base": -0.1249024580421098,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: 5d reverses 3d trend",
+       "hits": 4,
+       "n": 5,
+       "rate": 80.0,
+       "ci_lo": 37.55282641185388,
+       "ci_hi": 96.37768390302125,
+       "z_vs_base": 1.3317878903130298,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.3750243335577391
+      },
+      "flip2": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: trend flip within \u00b12 days",
+       "hits": 5,
+       "n": 5,
+       "rate": 100.0,
+       "ci_lo": 56.550850524791905,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 0.7493261021680084,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 1.0
+      }
+     },
+     "next": {
+      "id": "jupiter_uranus_conjunction",
+      "title": "Jupiter\u2013Uranus conjunction/opposition",
+      "verdict_catalogue": "rare",
+      "bias": "reversal",
+      "evidence_catalogue": "7 exact passes since 2007, 1 produced the claimed reversal. Retrogradation makes each 'rare event' a triple pass over ~9 months \u2014 only the pass followed by a fall was shown.",
+      "n_events": 5,
+      "n_sessions": 5,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "3": 1,
+       "4": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2011-01-04",
+       "2016-12-27",
+       "2017-03-03",
+       "2017-09-28",
+       "2024-04-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 5,
+        "mean_bp": -23.0078829232645,
+        "up": 60.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.6293426643339165,
+        "p_up": 1.0
+       },
+       "3": {
+        "n": 5,
+        "mean_bp": -4.824189023072467,
+        "up": 80.0,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.8450387403149213,
+        "p_up": 0.38334933373164404
+       },
+       "5": {
+        "n": 5,
+        "mean_bp": -8.53845974753975,
+        "up": 80.0,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.7960509872531867,
+        "p_up": 0.38757902953494927
+       },
+       "10": {
+        "n": 5,
+        "mean_bp": 27.510342842969717,
+        "up": 80.0,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.8922769307673082,
+        "p_up": 0.3954608434932121
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: follow-through at +5",
+        "hits": 5,
+        "n": 5,
+        "rate": 100.0,
+        "ci_lo": 56.550850524791905,
+        "ci_hi": 100.00000000000003,
+        "z_vs_base": 2.0253090321240403,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.06861503903121417
+       },
+       "same_day": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: cross-day closes beyond",
+        "hits": 2,
+        "n": 5,
+        "rate": 40.0,
+        "ci_lo": 11.76182311592533,
+        "ci_hi": 76.9280067791163,
+        "z_vs_base": -1.0076127436870461,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.3761735603229608
+       },
+       "held": {
+        "label": "Jupiter\u2013Uranus conjunction/opposition: range held 5 sessions",
+        "hits": 0,
+        "n": 5,
+        "rate": 0.0,
+        "ci_lo": -2.7755575615628914e-15,
+        "ci_hi": 43.4491494752081,
+        "z_vs_base": -0.1249024580421098,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: 5d reverses 3d trend",
+       "hits": 3,
+       "n": 5,
+       "rate": 60.0,
+       "ci_lo": 23.07199322088371,
+       "ci_hi": 88.23817688407468,
+       "z_vs_base": 0.4373519932629853,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Jupiter\u2013Uranus conjunction/opposition: trend flip within \u00b12 days",
+       "hits": 5,
+       "n": 5,
+       "rate": 100.0,
+       "ci_lo": 56.550850524791905,
+       "ci_hi": 100.00000000000003,
+       "z_vs_base": 0.7493261021680084,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 1.0
+      }
+     }
+    },
+    "venus_natal_venus": {
+     "prev": {
+      "id": "venus_natal_venus",
+      "title": "Venus\u2013natalVenus",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "The flagship birth-chart rule: sextile scored 10/15 (67%) vs a 64% base \u2014 not the claimed 85%; quadrature and trine averaged \u22120.1% to +0.9%, all p>0.37. No edge at any of the three angles.",
+      "n_events": 100,
+      "n_sessions": 100,
+      "excluded_retro": 2,
+      "months": {
+       "1": 10,
+       "2": 8,
+       "3": 14,
+       "4": 8,
+       "5": 6,
+       "6": 4,
+       "7": 6,
+       "8": 14,
+       "9": 14,
+       "10": 10,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-03-16",
+       "2011-04-10",
+       "2011-05-04",
+       "2011-08-11",
+       "2011-09-04",
+       "2011-09-28",
+       "2012-01-03",
+       "2012-01-27",
+       "2012-02-22",
+       "2012-09-21",
+       "2012-10-17",
+       "2012-11-11",
+       "2013-02-15",
+       "2013-03-11",
+       "2013-04-04",
+       "2013-07-11",
+       "2013-08-05",
+       "2013-08-30",
+       "2014-03-23",
+       "2014-04-21",
+       "2014-05-17",
+       "2014-08-25",
+       "2014-09-19",
+       "2014-10-13",
+       "2015-01-16",
+       "2015-02-09",
+       "2015-03-06",
+       "2015-06-24",
+       "2015-08-28",
+       "2015-09-16",
+       "2015-10-26",
+       "2015-11-23",
+       "2016-03-01",
+       "2016-03-25",
+       "2016-04-19",
+       "2016-07-25",
+       "2016-08-19",
+       "2016-09-12",
+       "2016-12-22",
+       "2017-01-19",
+       "2017-05-22",
+       "2017-09-09",
+       "2017-10-03",
+       "2017-10-27",
+       "2018-01-31",
+       "2018-02-24",
+       "2018-03-20",
+       "2018-06-28",
+       "2018-07-25",
+       "2018-08-23",
+       "2019-03-15",
+       "2019-04-09",
+       "2019-05-04",
+       "2019-08-10",
+       "2019-09-03",
+       "2019-09-27",
+       "2020-01-02",
+       "2020-01-27",
+       "2020-02-22",
+       "2020-09-21",
+       "2020-10-16",
+       "2020-11-10",
+       "2021-02-14",
+       "2021-03-10",
+       "2021-04-03",
+       "2021-07-10",
+       "2021-08-04",
+       "2021-08-30",
+       "2022-03-23",
+       "2022-04-20",
+       "2022-05-17",
+       "2022-08-25",
+       "2022-09-18",
+       "2022-10-12",
+       "2023-01-16",
+       "2023-02-09",
+       "2023-03-05",
+       "2023-06-24",
+       "2023-08-21",
+       "2023-09-19",
+       "2023-10-26",
+       "2023-11-23",
+       "2024-03-01",
+       "2024-03-25",
+       "2024-04-18",
+       "2024-07-25",
+       "2024-08-18",
+       "2024-09-12",
+       "2024-12-21",
+       "2025-01-19",
+       "2025-05-22",
+       "2025-09-08",
+       "2025-10-03",
+       "2025-10-27",
+       "2026-01-30",
+       "2026-02-23",
+       "2026-03-19",
+       "2026-06-27",
+       "2026-07-24",
+       "2026-08-24"
+      ],
+      "fwd": {
+       "1": {
+        "n": 100,
+        "mean_bp": 4.825043698400278,
+        "up": 55.00000000000001,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.9777555611097226,
+        "p_up": 0.6892788318690904
+       },
+       "3": {
+        "n": 100,
+        "mean_bp": 1.0004143393148923,
+        "up": 57.99999999999999,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.5398650337415646,
+        "p_up": 0.48277906286188843
+       },
+       "5": {
+        "n": 99,
+        "mean_bp": 21.8714340739957,
+        "up": 60.60606060606061,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.8905273681579605,
+        "p_up": 0.3123978056147396
+       },
+       "10": {
+        "n": 99,
+        "mean_bp": 18.989013238439746,
+        "up": 55.55555555555556,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.4983754061484629,
+        "p_up": 0.9193507165015656
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013natalVenus: follow-through at +5",
+        "hits": 47,
+        "n": 88,
+        "rate": 53.40909090909091,
+        "ci_lo": 43.06328060247704,
+        "ci_hi": 63.46970662771058,
+        "z_vs_base": -0.28744973443530064,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.8305477850921156
+       },
+       "same_day": {
+        "label": "Venus\u2013natalVenus: cross-day closes beyond",
+        "hits": 56,
+        "n": 88,
+        "rate": 63.63636363636363,
+        "ci_lo": 53.21109452578119,
+        "ci_hi": 72.92085439496931,
+        "z_vs_base": 0.33825656545435734,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.8264090431771385
+       },
+       "held": {
+        "label": "Venus\u2013natalVenus: range held 5 sessions",
+        "hits": 1,
+        "n": 99,
+        "rate": 1.0101010101010102,
+        "ci_lo": 0.17852613200520298,
+        "ci_hi": 5.501665541403223,
+        "z_vs_base": 1.2491034304941175,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.26538701126199116
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013natalVenus: 5d reverses 3d trend",
+       "hits": 51,
+       "n": 99,
+       "rate": 51.515151515151516,
+       "ci_lo": 41.79916540057243,
+       "ci_hi": 61.117942073445874,
+       "z_vs_base": 0.2576135498938209,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.8409732922265604
+      },
+      "flip2": {
+       "label": "Venus\u2013natalVenus: trend flip within \u00b12 days",
+       "hits": 95,
+       "n": 99,
+       "rate": 95.95959595959596,
+       "ci_lo": 90.0678316760222,
+       "ci_hi": 98.41776170253279,
+       "z_vs_base": 1.999916388251635,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.04418646460258458
+      }
+     },
+     "next": {
+      "id": "venus_natal_venus",
+      "title": "Venus\u2013natalVenus",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "The flagship birth-chart rule: sextile scored 10/15 (67%) vs a 64% base \u2014 not the claimed 85%; quadrature and trine averaged \u22120.1% to +0.9%, all p>0.37. No edge at any of the three angles.",
+      "n_events": 100,
+      "n_sessions": 100,
+      "excluded_retro": 2,
+      "months": {
+       "1": 10,
+       "2": 8,
+       "3": 14,
+       "4": 8,
+       "5": 6,
+       "6": 4,
+       "7": 6,
+       "8": 14,
+       "9": 14,
+       "10": 10,
+       "11": 4,
+       "12": 2
+      },
+      "dates": [
+       "2011-03-16",
+       "2011-04-10",
+       "2011-05-04",
+       "2011-08-11",
+       "2011-09-04",
+       "2011-09-28",
+       "2012-01-03",
+       "2012-01-27",
+       "2012-02-22",
+       "2012-09-21",
+       "2012-10-17",
+       "2012-11-11",
+       "2013-02-15",
+       "2013-03-11",
+       "2013-04-04",
+       "2013-07-11",
+       "2013-08-05",
+       "2013-08-30",
+       "2014-03-23",
+       "2014-04-21",
+       "2014-05-17",
+       "2014-08-25",
+       "2014-09-19",
+       "2014-10-13",
+       "2015-01-16",
+       "2015-02-09",
+       "2015-03-06",
+       "2015-06-24",
+       "2015-08-28",
+       "2015-09-16",
+       "2015-10-26",
+       "2015-11-23",
+       "2016-03-01",
+       "2016-03-25",
+       "2016-04-19",
+       "2016-07-25",
+       "2016-08-19",
+       "2016-09-12",
+       "2016-12-22",
+       "2017-01-19",
+       "2017-05-22",
+       "2017-09-09",
+       "2017-10-03",
+       "2017-10-27",
+       "2018-01-31",
+       "2018-02-24",
+       "2018-03-20",
+       "2018-06-28",
+       "2018-07-25",
+       "2018-08-23",
+       "2019-03-15",
+       "2019-04-09",
+       "2019-05-04",
+       "2019-08-10",
+       "2019-09-03",
+       "2019-09-27",
+       "2020-01-02",
+       "2020-01-27",
+       "2020-02-22",
+       "2020-09-21",
+       "2020-10-16",
+       "2020-11-10",
+       "2021-02-14",
+       "2021-03-10",
+       "2021-04-03",
+       "2021-07-10",
+       "2021-08-04",
+       "2021-08-30",
+       "2022-03-23",
+       "2022-04-20",
+       "2022-05-17",
+       "2022-08-25",
+       "2022-09-18",
+       "2022-10-12",
+       "2023-01-16",
+       "2023-02-09",
+       "2023-03-05",
+       "2023-06-24",
+       "2023-08-21",
+       "2023-09-19",
+       "2023-10-26",
+       "2023-11-23",
+       "2024-03-01",
+       "2024-03-25",
+       "2024-04-18",
+       "2024-07-25",
+       "2024-08-18",
+       "2024-09-12",
+       "2024-12-21",
+       "2025-01-19",
+       "2025-05-22",
+       "2025-09-08",
+       "2025-10-03",
+       "2025-10-27",
+       "2026-01-30",
+       "2026-02-23",
+       "2026-03-19",
+       "2026-06-27",
+       "2026-07-24",
+       "2026-08-24"
+      ],
+      "fwd": {
+       "1": {
+        "n": 100,
+        "mean_bp": 8.11831230161084,
+        "up": 54.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.8347913021744564,
+        "p_up": 0.8415627724987341
+       },
+       "3": {
+        "n": 100,
+        "mean_bp": -0.8210295151782732,
+        "up": 54.0,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.5191202199450138,
+        "p_up": 0.9999999999999816
+       },
+       "5": {
+        "n": 99,
+        "mean_bp": 6.448164931950205,
+        "up": 58.58585858585859,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.5423644088977756,
+        "p_up": 0.5446601833283508
+       },
+       "10": {
+        "n": 99,
+        "mean_bp": 22.43268951636438,
+        "up": 57.57575757575758,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.5111222194451387,
+        "p_up": 0.8400774013759381
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus\u2013natalVenus: follow-through at +5",
+        "hits": 45,
+        "n": 84,
+        "rate": 53.57142857142857,
+        "ci_lo": 42.98452712277692,
+        "ci_hi": 63.84594955342207,
+        "z_vs_base": -0.2509378927147228,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.8269660474151691
+       },
+       "same_day": {
+        "label": "Venus\u2013natalVenus: cross-day closes beyond",
+        "hits": 52,
+        "n": 84,
+        "rate": 61.904761904761905,
+        "ci_lo": 51.21524397704628,
+        "ci_hi": 71.55301161028366,
+        "z_vs_base": 0.0037056826112928103,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 1.0
+       },
+       "held": {
+        "label": "Venus\u2013natalVenus: range held 5 sessions",
+        "hits": 0,
+        "n": 99,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 3.7354533573962287,
+        "z_vs_base": -0.5557808522198544,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.9999999999999943
+       }
+      },
+      "reversal": {
+       "label": "Venus\u2013natalVenus: 5d reverses 3d trend",
+       "hits": 48,
+       "n": 99,
+       "rate": 48.484848484848484,
+       "ci_lo": 38.88205792655413,
+       "ci_hi": 58.20083459942757,
+       "z_vs_base": -0.34541500887950494,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.7635609337742127
+      },
+      "flip2": {
+       "label": "Venus\u2013natalVenus: trend flip within \u00b12 days",
+       "hits": 94,
+       "n": 99,
+       "rate": 94.94949494949495,
+       "ci_lo": 88.7171464182119,
+       "ci_hi": 97.82370864433089,
+       "z_vs_base": 1.6663228195285946,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.1298736866494218
+      }
+     }
+    },
+    "mercury_mars_radix": {
+     "prev": {
+      "id": "mercury_mars_radix",
+      "title": "Mercury\u2013Mars radix\u2013transit conjunction",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "Reversal at the exact date 5/13 (38%) \u2014 below the 49% random-day rate. With his \u00b12-day deflection it reads 85%\u2026 which is exactly the base rate of any random day. The window manufactures the accuracy.",
+      "n_events": 29,
+      "n_sessions": 29,
+      "excluded_retro": 0,
+      "months": {
+       "2": 1,
+       "3": 5,
+       "4": 11,
+       "5": 8,
+       "6": 2,
+       "7": 1,
+       "8": 1
+      },
+      "dates": [
+       "2011-03-25",
+       "2011-04-06",
+       "2011-05-09",
+       "2011-06-10",
+       "2012-05-04",
+       "2013-04-27",
+       "2013-05-21",
+       "2014-04-19",
+       "2015-04-11",
+       "2015-05-01",
+       "2016-04-02",
+       "2017-03-26",
+       "2017-04-10",
+       "2018-05-08",
+       "2019-03-20",
+       "2019-05-02",
+       "2020-04-24",
+       "2021-02-19",
+       "2021-04-15",
+       "2022-04-07",
+       "2022-08-08",
+       "2023-03-30",
+       "2024-03-24",
+       "2024-04-12",
+       "2024-05-08",
+       "2024-07-10",
+       "2025-05-05",
+       "2026-04-29",
+       "2026-06-18"
+      ],
+      "fwd": {
+       "1": {
+        "n": 29,
+        "mean_bp": 7.154166845062997,
+        "up": 55.172413793103445,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.9430142464383904,
+        "p_up": 0.8538655959197587
+       },
+       "3": {
+        "n": 29,
+        "mean_bp": -8.949661045403332,
+        "up": 48.275862068965516,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.5921019745063734,
+        "p_up": 0.578932034235023
+       },
+       "5": {
+        "n": 29,
+        "mean_bp": -32.258737694289174,
+        "up": 51.724137931034484,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.3366658335416146,
+        "p_up": 0.7141951202014318
+       },
+       "10": {
+        "n": 29,
+        "mean_bp": -35.30409923479427,
+        "up": 55.172413793103445,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.29267683079230195,
+        "p_up": 0.9999999999999915
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: follow-through at +5",
+        "hits": 15,
+        "n": 26,
+        "rate": 57.692307692307686,
+        "ci_lo": 38.94829692111983,
+        "ci_hi": 74.4558100972706,
+        "z_vs_base": 0.28270087850754216,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.8455313530318292
+       },
+       "same_day": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: cross-day closes beyond",
+        "hits": 12,
+        "n": 26,
+        "rate": 46.15384615384615,
+        "ci_lo": 28.755582695234907,
+        "ci_hi": 64.54236379556988,
+        "z_vs_base": -1.6516207199800788,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.10850876975658602
+       },
+       "held": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 29,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 11.697359446555588,
+        "z_vs_base": -0.3008049523275403,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: 5d reverses 3d trend",
+       "hits": 10,
+       "n": 29,
+       "rate": 34.48275862068966,
+       "ci_lo": 19.94050874919048,
+       "ci_hi": 52.655223492844016,
+       "z_vs_base": -1.6950346777305434,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.09734717114170702
+      },
+      "flip2": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: trend flip within \u00b12 days",
+       "hits": 27,
+       "n": 29,
+       "rate": 93.10344827586206,
+       "ci_lo": 78.03505240414808,
+       "ci_hi": 98.08791359020054,
+       "z_vs_base": 0.5718910564377188,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.7636960111834648
+      }
+     },
+     "next": {
+      "id": "mercury_mars_radix",
+      "title": "Mercury\u2013Mars radix\u2013transit conjunction",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "Reversal at the exact date 5/13 (38%) \u2014 below the 49% random-day rate. With his \u00b12-day deflection it reads 85%\u2026 which is exactly the base rate of any random day. The window manufactures the accuracy.",
+      "n_events": 29,
+      "n_sessions": 29,
+      "excluded_retro": 0,
+      "months": {
+       "2": 1,
+       "3": 5,
+       "4": 11,
+       "5": 8,
+       "6": 2,
+       "7": 1,
+       "8": 1
+      },
+      "dates": [
+       "2011-03-25",
+       "2011-04-06",
+       "2011-05-09",
+       "2011-06-10",
+       "2012-05-04",
+       "2013-04-27",
+       "2013-05-21",
+       "2014-04-19",
+       "2015-04-11",
+       "2015-05-01",
+       "2016-04-02",
+       "2017-03-26",
+       "2017-04-10",
+       "2018-05-08",
+       "2019-03-20",
+       "2019-05-02",
+       "2020-04-24",
+       "2021-02-19",
+       "2021-04-15",
+       "2022-04-07",
+       "2022-08-08",
+       "2023-03-30",
+       "2024-03-24",
+       "2024-04-12",
+       "2024-05-08",
+       "2024-07-10",
+       "2025-05-05",
+       "2026-04-29",
+       "2026-06-18"
+      ],
+      "fwd": {
+       "1": {
+        "n": 29,
+        "mean_bp": -13.220898418403765,
+        "up": 51.724137931034484,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.4846288427893027,
+        "p_up": 0.9999999999999911
+       },
+       "3": {
+        "n": 29,
+        "mean_bp": -41.002869997450766,
+        "up": 44.827586206896555,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.23069232691827044,
+        "p_up": 0.354396362185077
+       },
+       "5": {
+        "n": 29,
+        "mean_bp": -23.814700609090483,
+        "up": 51.724137931034484,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.40039990002499376,
+        "p_up": 0.7141951202014318
+       },
+       "10": {
+        "n": 29,
+        "mean_bp": -24.954549524900813,
+        "up": 48.275862068965516,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.37190702324418895,
+        "p_up": 0.4546215796606462
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: follow-through at +5",
+        "hits": 15,
+        "n": 25,
+        "rate": 60.0,
+        "ci_lo": 40.739127785127344,
+        "ci_hi": 76.59694233580909,
+        "z_vs_base": 0.5091119813457963,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.6903931101916453
+       },
+       "same_day": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: cross-day closes beyond",
+        "hits": 13,
+        "n": 25,
+        "rate": 52.0,
+        "ci_lo": 33.498217953147304,
+        "ci_hi": 69.96899607103998,
+        "z_vs_base": -1.017681294701878,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.31095461150359477
+       },
+       "held": {
+        "label": "Mercury\u2013Mars radix\u2013transit conjunction: range held 5 sessions",
+        "hits": 0,
+        "n": 29,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 11.697359446555588,
+        "z_vs_base": -0.3008049523275403,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: 5d reverses 3d trend",
+       "hits": 10,
+       "n": 29,
+       "rate": 34.48275862068966,
+       "ci_lo": 19.94050874919048,
+       "ci_hi": 52.655223492844016,
+       "z_vs_base": -1.6950346777305434,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.09734717114170702
+      },
+      "flip2": {
+       "label": "Mercury\u2013Mars radix\u2013transit conjunction: trend flip within \u00b12 days",
+       "hits": 26,
+       "n": 29,
+       "rate": 89.65517241379311,
+       "ci_lo": 73.61455275293085,
+       "ci_hi": 96.41857596186989,
+       "z_vs_base": -0.044471528304805955,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.9999999999999903
+      }
+     }
+    },
+    "jupiter_natal_jupiter": {
+     "prev": {
+      "id": "jupiter_natal_jupiter",
+      "title": "Jupiter\u2013natalJupiter opposition",
+      "verdict_catalogue": "rare",
+      "bias": "bullish",
+      "evidence_catalogue": "Once per ~11.9-year orbit, as a triple pass. The Aug 2025 pass ran +4.4% at three months (his first graded forward hit); the Feb 2026 pass of the same triple was followed by \u22125%. Too rare to establish.",
+      "n_events": 6,
+      "n_sessions": 6,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "4": 1,
+       "5": 1,
+       "8": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2013-09-23",
+       "2013-12-22",
+       "2014-05-16",
+       "2025-08-29",
+       "2026-01-31",
+       "2026-04-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 6,
+        "mean_bp": 31.83771013696527,
+        "up": 66.66666666666666,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.6055986003499125,
+        "p_up": 0.6902637617095787
+       },
+       "3": {
+        "n": 6,
+        "mean_bp": 53.196687570009615,
+        "up": 83.33333333333334,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.7020744813796551,
+        "p_up": 0.22815348055332174
+       },
+       "5": {
+        "n": 6,
+        "mean_bp": -21.560880733978436,
+        "up": 66.66666666666666,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.6975756060984754,
+        "p_up": 0.6968866421095852
+       },
+       "10": {
+        "n": 6,
+        "mean_bp": -51.829446597522015,
+        "up": 33.33333333333333,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.554111472131967,
+        "p_up": 0.4140260108143315
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013natalJupiter opposition: follow-through at +5",
+        "hits": 2,
+        "n": 4,
+        "rate": 50.0,
+        "ci_lo": 15.003570882017147,
+        "ci_hi": 84.99642911798286,
+        "z_vs_base": -0.19831687645446763,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.9999999999999994
+       },
+       "same_day": {
+        "label": "Jupiter\u2013natalJupiter opposition: cross-day closes beyond",
+        "hits": 3,
+        "n": 4,
+        "rate": 75.0,
+        "ci_lo": 30.06360524426366,
+        "ci_hi": 95.44139373553637,
+        "z_vs_base": 0.5400746084219442,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.9999999999999994
+       },
+       "held": {
+        "label": "Jupiter\u2013natalJupiter opposition: range held 5 sessions",
+        "hits": 1,
+        "n": 6,
+        "rate": 16.666666666666664,
+        "ci_lo": 3.005258587173032,
+        "ci_hi": 56.350943656364606,
+        "z_vs_base": 7.194650826831055,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.018517999206266466
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d reverses 3d trend",
+       "hits": 2,
+       "n": 6,
+       "rate": 33.33333333333333,
+       "ci_lo": 9.676933255921682,
+       "ci_hi": 70.00116786584712,
+       "z_vs_base": -0.8273121409245048,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.4510796995730206
+      },
+      "flip2": {
+       "label": "Jupiter\u2013natalJupiter opposition: trend flip within \u00b12 days",
+       "hits": 6,
+       "n": 6,
+       "rate": 100.0,
+       "ci_lo": 60.96569663469354,
+       "ci_hi": 99.99999999999999,
+       "z_vs_base": 0.8208456181696778,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 1.0
+      },
+      "direction": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d goes the called way",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": 0.5730562184019207,
+       "base": 55.028512182477975,
+       "p_binom_vs_base": 0.6968866421095852
+      }
+     },
+     "next": {
+      "id": "jupiter_natal_jupiter",
+      "title": "Jupiter\u2013natalJupiter opposition",
+      "verdict_catalogue": "rare",
+      "bias": "bullish",
+      "evidence_catalogue": "Once per ~11.9-year orbit, as a triple pass. The Aug 2025 pass ran +4.4% at three months (his first graded forward hit); the Feb 2026 pass of the same triple was followed by \u22125%. Too rare to establish.",
+      "n_events": 6,
+      "n_sessions": 6,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "4": 1,
+       "5": 1,
+       "8": 1,
+       "9": 1,
+       "12": 1
+      },
+      "dates": [
+       "2013-09-23",
+       "2013-12-22",
+       "2014-05-16",
+       "2025-08-29",
+       "2026-01-31",
+       "2026-04-19"
+      ],
+      "fwd": {
+       "1": {
+        "n": 6,
+        "mean_bp": 103.02582777832656,
+        "up": 66.66666666666666,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.09322669332666833,
+        "p_up": 0.6902637617095787
+       },
+       "3": {
+        "n": 6,
+        "mean_bp": 50.1970675879478,
+        "up": 66.66666666666666,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.7183204198950263,
+        "p_up": 0.6937410400882884
+       },
+       "5": {
+        "n": 6,
+        "mean_bp": 15.770675560839813,
+        "up": 66.66666666666666,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.9372656835791052,
+        "p_up": 0.6968866421095852
+       },
+       "10": {
+        "n": 6,
+        "mean_bp": -26.077206974434162,
+        "up": 33.33333333333333,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.6578355411147213,
+        "p_up": 0.4140260108143315
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Jupiter\u2013natalJupiter opposition: follow-through at +5",
+        "hits": 2,
+        "n": 4,
+        "rate": 50.0,
+        "ci_lo": 15.003570882017147,
+        "ci_hi": 84.99642911798286,
+        "z_vs_base": -0.19831687645446763,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.9999999999999994
+       },
+       "same_day": {
+        "label": "Jupiter\u2013natalJupiter opposition: cross-day closes beyond",
+        "hits": 4,
+        "n": 4,
+        "rate": 100.0,
+        "ci_lo": 51.009997959600085,
+        "ci_hi": 100.0,
+        "z_vs_base": 1.5695823544031349,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.30484193257776016
+       },
+       "held": {
+        "label": "Jupiter\u2013natalJupiter opposition: range held 5 sessions",
+        "hits": 1,
+        "n": 6,
+        "rate": 16.666666666666664,
+        "ci_lo": 3.005258587173032,
+        "ci_hi": 56.350943656364606,
+        "z_vs_base": 7.194650826831055,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 0.018517999206266466
+       }
+      },
+      "reversal": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d reverses 3d trend",
+       "hits": 3,
+       "n": 6,
+       "rate": 50.0,
+       "ci_lo": 18.761280689940868,
+       "ci_hi": 81.23871931005912,
+       "z_vs_base": -0.010807612496708582,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 1.0
+      },
+      "flip2": {
+       "label": "Jupiter\u2013natalJupiter opposition: trend flip within \u00b12 days",
+       "hits": 6,
+       "n": 6,
+       "rate": 100.0,
+       "ci_lo": 60.96569663469354,
+       "ci_hi": 99.99999999999999,
+       "z_vs_base": 0.8208456181696778,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 1.0
+      },
+      "direction": {
+       "label": "Jupiter\u2013natalJupiter opposition: 5d goes the called way",
+       "hits": 4,
+       "n": 6,
+       "rate": 66.66666666666666,
+       "ci_lo": 29.998832134152863,
+       "ci_hi": 90.3230667440783,
+       "z_vs_base": 0.5730562184019207,
+       "base": 55.028512182477975,
+       "p_binom_vs_base": 0.6968866421095852
+      }
+     }
+    },
+    "venus_station": {
+     "prev": {
+      "id": "venus_station",
+      "title": "Venus station",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "All 22 stations 2007\u20132026: flip at the date 55% vs 49% base; within \u00b12 days 95% vs an 85% base. Mercury's 118 stations flip at the same 55% \u2014 the slow-planet accuracy claim isn't in the data.",
+      "n_events": 18,
+      "n_sessions": 18,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "2": 1,
+       "3": 2,
+       "4": 2,
+       "5": 2,
+       "6": 2,
+       "7": 2,
+       "9": 2,
+       "10": 1,
+       "11": 1,
+       "12": 2
+      },
+      "dates": [
+       "2012-05-16",
+       "2012-06-28",
+       "2013-12-22",
+       "2014-02-01",
+       "2015-07-26",
+       "2015-09-07",
+       "2017-03-05",
+       "2017-04-16",
+       "2018-10-06",
+       "2018-11-17",
+       "2020-05-14",
+       "2020-06-26",
+       "2021-12-20",
+       "2022-01-30",
+       "2023-07-23",
+       "2023-09-04",
+       "2025-03-02",
+       "2025-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 18,
+        "mean_bp": 34.838154172232876,
+        "up": 50.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.35691077230692325,
+        "p_up": 0.8187739869206663
+       },
+       "3": {
+        "n": 18,
+        "mean_bp": 127.97337563844336,
+        "up": 72.22222222222221,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.06423394151462135,
+        "p_up": 0.15692475444292603
+       },
+       "5": {
+        "n": 18,
+        "mean_bp": 164.41065452790997,
+        "up": 83.33333333333334,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.06898275431142215,
+        "p_up": 0.016931119078625753
+       },
+       "10": {
+        "n": 18,
+        "mean_bp": 277.77331466067295,
+        "up": 83.33333333333334,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.048237940514871284,
+        "p_up": 0.02962550699734645
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus station: follow-through at +5",
+        "hits": 12,
+        "n": 17,
+        "rate": 70.58823529411765,
+        "ci_lo": 46.8664666737861,
+        "ci_hi": 86.72020613444361,
+        "z_vs_base": 1.2972347165395588,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 0.22924962028644416
+       },
+       "same_day": {
+        "label": "Venus station: cross-day closes beyond",
+        "hits": 10,
+        "n": 17,
+        "rate": 58.82352941176471,
+        "ci_lo": 36.00507438551554,
+        "ci_hi": 78.38921396086862,
+        "z_vs_base": -0.2599153474632326,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.8065377213637893
+       },
+       "held": {
+        "label": "Venus station: range held 5 sessions",
+        "hits": 0,
+        "n": 18,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 17.58845505823749,
+        "z_vs_base": -0.23698575166000926,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Venus station: 5d reverses 3d trend",
+       "hits": 12,
+       "n": 18,
+       "rate": 66.66666666666666,
+       "ci_lo": 43.74906934425036,
+       "ci_hi": 83.72144563633714,
+       "z_vs_base": 1.3955079938941934,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.2379672329666505
+      },
+      "flip2": {
+       "label": "Venus station: trend flip within \u00b12 days",
+       "hits": 18,
+       "n": 18,
+       "rate": 100.0,
+       "ci_lo": 82.41154494176251,
+       "ci_hi": 100.0,
+       "z_vs_base": 1.4217463158401649,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.24814231532269057
+      }
+     },
+     "next": {
+      "id": "venus_station",
+      "title": "Venus station",
+      "verdict_catalogue": "null",
+      "bias": "reversal",
+      "evidence_catalogue": "All 22 stations 2007\u20132026: flip at the date 55% vs 49% base; within \u00b12 days 95% vs an 85% base. Mercury's 118 stations flip at the same 55% \u2014 the slow-planet accuracy claim isn't in the data.",
+      "n_events": 18,
+      "n_sessions": 18,
+      "excluded_retro": 0,
+      "months": {
+       "1": 1,
+       "2": 1,
+       "3": 2,
+       "4": 2,
+       "5": 2,
+       "6": 2,
+       "7": 2,
+       "9": 2,
+       "10": 1,
+       "11": 1,
+       "12": 2
+      },
+      "dates": [
+       "2012-05-16",
+       "2012-06-28",
+       "2013-12-22",
+       "2014-02-01",
+       "2015-07-26",
+       "2015-09-07",
+       "2017-03-05",
+       "2017-04-16",
+       "2018-10-06",
+       "2018-11-17",
+       "2020-05-14",
+       "2020-06-26",
+       "2021-12-20",
+       "2022-01-30",
+       "2023-07-23",
+       "2023-09-04",
+       "2025-03-02",
+       "2025-04-13"
+      ],
+      "fwd": {
+       "1": {
+        "n": 18,
+        "mean_bp": 41.623178294402095,
+        "up": 50.0,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.25868532866783306,
+        "p_up": 0.8187739869206663
+       },
+       "3": {
+        "n": 18,
+        "mean_bp": 110.25168424115994,
+        "up": 77.77777777777779,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.0997250687328168,
+        "p_up": 0.0568729306261432
+       },
+       "5": {
+        "n": 18,
+        "mean_bp": 163.20760277073447,
+        "up": 88.88888888888889,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.08897775556110972,
+        "p_up": 0.0035129288241957965
+       },
+       "10": {
+        "n": 18,
+        "mean_bp": 250.28600895750145,
+        "up": 83.33333333333334,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.07223194201449637,
+        "p_up": 0.02962550699734645
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Venus station: follow-through at +5",
+        "hits": 10,
+        "n": 18,
+        "rate": 55.55555555555556,
+        "ci_lo": 33.716069428251636,
+        "ci_hi": 75.44076889861088,
+        "z_vs_base": 0.05302274537570299,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Venus station: cross-day closes beyond",
+        "hits": 8,
+        "n": 18,
+        "rate": 44.44444444444444,
+        "ci_lo": 24.559231101389127,
+        "ci_hi": 66.28393057174837,
+        "z_vs_base": -1.5235590771615735,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.14772542114809703
+       },
+       "held": {
+        "label": "Venus station: range held 5 sessions",
+        "hits": 0,
+        "n": 18,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 17.58845505823749,
+        "z_vs_base": -0.23698575166000926,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Venus station: 5d reverses 3d trend",
+       "hits": 12,
+       "n": 18,
+       "rate": 66.66666666666666,
+       "ci_lo": 43.74906934425036,
+       "ci_hi": 83.72144563633714,
+       "z_vs_base": 1.3955079938941934,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.2379672329666505
+      },
+      "flip2": {
+       "label": "Venus station: trend flip within \u00b12 days",
+       "hits": 18,
+       "n": 18,
+       "rate": 100.0,
+       "ci_lo": 82.41154494176251,
+       "ci_hi": 100.0,
+       "z_vs_base": 1.4217463158401649,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.24814231532269057
+      }
+     }
+    },
+    "sun_uranus_neptune": {
+     "prev": {
+      "id": "sun_uranus_neptune",
+      "title": "Sun\u2013Uranus\u2013Neptune triangle",
+      "verdict_catalogue": "calendar-trap",
+      "bias": "reversal",
+      "evidence_catalogue": "Uranus\u2013Neptune sit within 5\u00b0 of sextile on 11% of all days \u2014 the Sun supplies all the timing, so the 'rare pattern' recurs every mid-to-late October. 1 of 3 windows produced a flip.",
+      "n_events": 3,
+      "n_sessions": 3,
+      "excluded_retro": 0,
+      "months": {
+       "10": 3
+      },
+      "dates": [
+       "2023-10-17",
+       "2024-10-18",
+       "2025-10-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 3,
+        "mean_bp": -43.4336147924852,
+        "up": 33.33333333333333,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.4816295926018495,
+        "p_up": 0.6057780816885561
+       },
+       "3": {
+        "n": 3,
+        "mean_bp": -100.09395588363704,
+        "up": 33.33333333333333,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.385153711572107,
+        "p_up": 0.5970194855876093
+       },
+       "5": {
+        "n": 3,
+        "mean_bp": -180.2957924442276,
+        "up": 33.33333333333333,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.22944263934016496,
+        "p_up": 0.5914605007399135
+       },
+       "10": {
+        "n": 3,
+        "mean_bp": -181.16411183311754,
+        "up": 0.0,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.335166208447888,
+        "p_up": 0.0827475342587839
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: follow-through at +5",
+        "hits": 2,
+        "n": 3,
+        "rate": 66.66666666666666,
+        "ci_lo": 20.76549551264879,
+        "ci_hi": 93.85096847238394,
+        "z_vs_base": 0.40843424148349183,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: cross-day closes beyond",
+        "hits": 1,
+        "n": 3,
+        "rate": 33.33333333333333,
+        "ci_lo": 6.14903152761605,
+        "ci_hi": 79.23450448735122,
+        "z_vs_base": -1.0182481048552767,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.5620865340984966
+       },
+       "held": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: range held 5 sessions",
+        "hits": 0,
+        "n": 3,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 56.15060804490177,
+        "z_vs_base": -0.09674902797949238,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: 5d reverses 3d trend",
+       "hits": 1,
+       "n": 3,
+       "rate": 33.33333333333333,
+       "ci_lo": 6.14903152761605,
+       "ci_hi": 79.23450448735122,
+       "z_vs_base": -0.5849980250056779,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.6233527774553652
+      },
+      "flip2": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: trend flip within \u00b12 days",
+       "hits": 2,
+       "n": 3,
+       "rate": 66.66666666666666,
+       "ci_lo": 20.76549551264879,
+       "ci_hi": 93.85096847238394,
+       "z_vs_base": -1.3359236510966614,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.2733310174170951
+      }
+     },
+     "next": {
+      "id": "sun_uranus_neptune",
+      "title": "Sun\u2013Uranus\u2013Neptune triangle",
+      "verdict_catalogue": "calendar-trap",
+      "bias": "reversal",
+      "evidence_catalogue": "Uranus\u2013Neptune sit within 5\u00b0 of sextile on 11% of all days \u2014 the Sun supplies all the timing, so the 'rare pattern' recurs every mid-to-late October. 1 of 3 windows produced a flip.",
+      "n_events": 3,
+      "n_sessions": 3,
+      "excluded_retro": 0,
+      "months": {
+       "10": 3
+      },
+      "dates": [
+       "2023-10-17",
+       "2024-10-18",
+       "2025-10-21"
+      ],
+      "fwd": {
+       "1": {
+        "n": 3,
+        "mean_bp": -43.4336147924852,
+        "up": 33.33333333333333,
+        "base_mean_bp": 5.2052694345252295,
+        "base_up": 52.71879854997411,
+        "p_mean": 0.4798800299925019,
+        "p_up": 0.6057780816885561
+       },
+       "3": {
+        "n": 3,
+        "mean_bp": -100.09395588363704,
+        "up": 33.33333333333333,
+        "base_mean_bp": 15.803868431174385,
+        "base_up": 54.09326424870466,
+        "p_mean": 0.3804048987753062,
+        "p_up": 0.5970194855876093
+       },
+       "5": {
+        "n": 3,
+        "mean_bp": -180.2957924442276,
+        "up": 33.33333333333333,
+        "base_mean_bp": 26.401240491565098,
+        "base_up": 55.028512182477975,
+        "p_mean": 0.23544113971507125,
+        "p_up": 0.5914605007399135
+       },
+       "10": {
+        "n": 3,
+        "mean_bp": -181.16411183311754,
+        "up": 0.0,
+        "base_mean_bp": 52.89514393398775,
+        "base_up": 56.42356605242668,
+        "p_mean": 0.34416395901024743,
+        "p_up": 0.0827475342587839
+       }
+      },
+      "candle": {
+       "follow_through": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: follow-through at +5",
+        "hits": 2,
+        "n": 3,
+        "rate": 66.66666666666666,
+        "ci_lo": 20.76549551264879,
+        "ci_hi": 93.85096847238394,
+        "z_vs_base": 0.40843424148349183,
+        "base": 54.93372606774669,
+        "p_binom_vs_base": 1.0
+       },
+       "same_day": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: cross-day closes beyond",
+        "hits": 1,
+        "n": 3,
+        "rate": 33.33333333333333,
+        "ci_lo": 6.14903152761605,
+        "ci_hi": 79.23450448735122,
+        "z_vs_base": -1.0182481048552767,
+        "base": 61.88512518409426,
+        "p_binom_vs_base": 0.5620865340984966
+       },
+       "held": {
+        "label": "Sun\u2013Uranus\u2013Neptune triangle: range held 5 sessions",
+        "hits": 0,
+        "n": 3,
+        "rate": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 56.15060804490177,
+        "z_vs_base": -0.09674902797949238,
+        "base": 0.3110419906687403,
+        "p_binom_vs_base": 1.0
+       }
+      },
+      "reversal": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: 5d reverses 3d trend",
+       "hits": 1,
+       "n": 3,
+       "rate": 33.33333333333333,
+       "ci_lo": 6.14903152761605,
+       "ci_hi": 79.23450448735122,
+       "z_vs_base": -0.5849980250056779,
+       "base": 50.220607318972235,
+       "p_binom_vs_base": 0.6233527774553652
+      },
+      "flip2": {
+       "label": "Sun\u2013Uranus\u2013Neptune triangle: trend flip within \u00b12 days",
+       "hits": 2,
+       "n": 3,
+       "rate": 66.66666666666666,
+       "ci_lo": 20.76549551264879,
+       "ci_hi": 93.85096847238394,
+       "z_vs_base": -1.3359236510966614,
+       "base": 89.9039709317415,
+       "p_binom_vs_base": 0.2733310174170951
+      }
+     }
+    }
+   }
+  }
+ }
+}

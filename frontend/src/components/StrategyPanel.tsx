@@ -9,11 +9,11 @@ import type { SaptarshDay, VikasDay, VolatilityResult } from '../types'
 
 const ROWS: [string, string, string, string, string][] = [
   ['Predicts', 'Nifty session direction (sunrise chain, panchang tally, horai)', 'Reversals / swings at dated aspects and stations', 'Nifty session; gold & silver daily direction; intraday windows', 'Dates, not direction: planetary events → the date candle\'s high/low as levels; a day-lord direction rule; Mars-vs-Saturn metal rules'],
-  ['Tested on', 'Nifty 2011–2026, walk-forward (3,830 bars); BankNifty', 'Nifty 2007–2026, every exact event of 11 rules', 'Nifty, COMEX gold & silver 2016–2026 (~2,650 days each)', 'Nifty 2011–2026 (3,848 bars); Bank Nifty; Nifty Metal; COMEX gold & silver 2016–2026'],
-  ['Must beat', 'Always-down on its own days: 53.0%', 'Trend flips on any day: 49%; within ±2 days: 85%', 'Majority side on its own days: 52.3% / 54.6% / 52.5%', 'The same statistic on every other day: candle follow-through 57.5%, week-holds-low 31%, majority side 54.6%'],
-  ['Headline', 'Engine 48.9% (z −4.2, worse than always-down); best nested walk-forward 53.95% (z +0.5)', 'Best rule 54% vs 43% on 26 trades (n.s.); Mercury–Saturn 70% vs 49% (p 0.038, 1 of ~25 tests)', 'Nifty 51.6% vs 52.3% (perm-p 0.11); gold 48.8% vs 54.6%; silver 49.7% vs 52.5%', 'Day-lord rule 49.8% (n 2,808); carry-over 47%; Saturn→Mercury retrace 70.6% vs 68.8% base; his date candles follow through 52–60% vs 57.5% for any candle'],
-  ['Survives correction', '0 of 6,912 variants', '0 of 11 rules', '0 of 32 rules, any instrument', '0 of ~45 daily / candle tests; 1 transit rule (Mars vs Saturn\'s sign, p ≈ 0.01 on n = 11)'],
-  ['Second check', 'BankNifty 47.1% (z −2.85) — the Nifty winner vanishes', '—', '"Observed" calls = extrapolated calls; both below benchmark', 'Mars-vs-Saturn repeats on Nifty Metal (−4.0% / +8.2%) and in both halves; Sun→Uttarashadha "95%" week holds the low 6 of 16'],
+  ['Tested on', 'Nifty 2011–2026, walk-forward (3,830 bars); BankNifty', 'Nifty & Bank Nifty 2011–2026, every exact event of the 11 catalogued rules', 'Nifty, COMEX gold & silver 2016–2026 (~2,650 days each)', 'Nifty 2011–2026 (3,848 bars); Bank Nifty; Nifty Metal; COMEX gold & silver 2016–2026'],
+  ['Must beat', 'Always-down on its own days: 53.0%', 'Same statistic on every other day: 5d reversal 49%, flip within ±2 days 88%, candle follow-through 57.5%', 'Majority side on its own days: 52.3% / 54.6% / 52.5%', 'The same statistic on every other day: candle follow-through 57.5%, week-holds-low 31%, majority side 54.6%'],
+  ['Headline', 'Engine 48.9% (z −4.2, worse than always-down); best nested walk-forward 53.95% (z +0.5)', 'Mercury–Saturn flips 11/19 = 58% vs 49% (p 0.50 — the archive’s 70% does not replicate); Venus–Jupiter 55%; best row Mars–Jupiter semisquare +126 / +203 bp (p 0.07 / 0.03), 1 of 22 tests', 'Nifty 51.6% vs 52.3% (perm-p 0.11); gold 48.8% vs 54.6%; silver 49.7% vs 52.5%', 'Day-lord rule 49.8% (n 2,808); carry-over 47%; Saturn→Mercury retrace 70.6% vs 68.8% base; his date candles follow through 52–60% vs 57.5% for any candle'],
+  ['Survives correction', '0 of 6,912 variants', '0 of 11 rules on either index', '0 of 32 rules, any instrument', '0 of ~45 daily / candle tests; 1 transit rule (Mars vs Saturn\'s sign, p ≈ 0.01 on n = 11)'],
+  ['Second check', 'BankNifty 47.1% (z −2.85) — the Nifty winner vanishes', 'Bank Nifty agrees: nothing beyond chance size', '"Observed" calls = extrapolated calls; both below benchmark', 'Mars-vs-Saturn repeats on Nifty Metal (−4.0% / +8.2%) and in both halves; Sun→Uttarashadha "95%" week holds the low 6 of 16'],
   ['Verdict', 'No directional edge', 'No rule clears a fair bar', 'No directional edge', 'No edge in the daily or date-candle rules; one transit lead (n = 11) for a forward ledger'],
 ]
 
@@ -26,7 +26,8 @@ const LEADS: [string, string, string, string, string][] = [
   ['Amavasya → silver up', 'Saptarsh', '66.4%, n=107, p=0.005', '77% / 56%', 'decays to nothing after 2020'],
   ['Saturn-star days close down', 'Vikas (his rule says up)', '58.4% down, n=406, p=0.001', '57.6% / 59.1%', 'one of 9 lords; the opposite of his reading — study, not a rule'],
   ['Moon at 45/135/225/315° (tropical) at open → breakout follows', 'Vikas', '64% vs 57.5%, n=281, p=0.03', '—', 'one of ~25 candle families; sidereal version 55%'],
-  ['Mercury–Saturn conjunction flip', 'Gann', '70% vs 49%, n=23, p=0.038', '—', 'one expected false positive in 25; forward call failed'],
+  ['Mars–Jupiter semisquare → up 5 days', 'Gann ("lean")', '+126 bp Nifty (p 0.07), +203 bp Bank Nifty (p 0.03), n=17', '—', 'one of 22 rule × index tests — watch'],
+  ['Mercury–Saturn conjunction flip', 'Gann', 'archive 70%; repo 58% vs 49%, n=19, p=0.50', '—', 'does not replicate; forward call failed'],
 ]
 
 function pct(x: number) { return `${(x * 100).toFixed(0)}%` }
@@ -122,7 +123,8 @@ export default function StrategyPanel({ date }: { date?: string }) {
           the number of rules tried. Full write-ups: <code>STRATEGY.md</code>,{' '}
           <code>backend/knowledge/backtest/opt/OPTIMISATION.md</code>,{' '}
           <code>backend/knowledge/backtest/saptarsh/RESULTS.md</code>,{' '}
-          <code>backend/knowledge/backtest/vikas/RESULTS.md</code>, and the Gann tab's evidence lines.
+          <code>backend/knowledge/backtest/vikas/RESULTS.md</code>,{' '}
+          <code>backend/knowledge/backtest/gann/RESULTS.md</code>.
         </p>
 
         <h3 className="gann-h3">The one thing that works — and it isn't astrology</h3>
