@@ -231,6 +231,23 @@ def saptarsh_week(date: str | None = None, days: int = 7):
     return saptarsh.week(start, max(1, min(days, 14)))
 
 
+@app.get("/api/vikas-week")
+def vikas_week(date: str | None = None, days: int = 21):
+    """Vikas-method 'important dates' calendar: the session's Moon star and
+    lord, star dates, planetary-event dates (after-close → next day) and
+    the carry-over setups, one entry per calendar day."""
+    import datetime
+
+    from . import vikas
+    try:
+        start = (datetime.date.fromisoformat(date) if date
+                 else (datetime.datetime.now(datetime.timezone.utc)
+                       + datetime.timedelta(hours=5.5)).date())
+    except ValueError as e:
+        return JSONResponse(status_code=400, content={"error": str(e)})
+    return vikas.week(start, max(1, min(days, 45)))
+
+
 @app.post("/api/compute")
 def compute(req: ComputeRequest):
     try:

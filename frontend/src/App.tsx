@@ -13,6 +13,7 @@ import DayScoreBar from './components/DayScoreBar'
 import GannCosmogram from './components/GannCosmogram'
 import SaptarshPanel from './components/SaptarshPanel'
 import StrategyPanel from './components/StrategyPanel'
+import VikasPanel from './components/VikasPanel'
 
 // Opens on today at 09:00 — just before the 09:15 open, and the moment
 // the author's own reference charts are cast at.
@@ -70,7 +71,7 @@ function App() {
   // sit underneath it, which meant they appeared below EVERY prediction
   // sub-tab. They now have one home of their own.
   const [view, setView] =
-    useState<'strategy' | 'prediction' | 'jothidam' | 'panchang' | 'gann' | 'learn'>('strategy')
+    useState<'strategy' | 'prediction' | 'jothidam' | 'panchang' | 'gann' | 'learn' | 'vikas'>('strategy')
 
   const run = (req: ComputeRequest) => {
     setBusy(true)
@@ -119,6 +120,8 @@ function App() {
               onClick={() => setView('gann')}>Gann cosmogram</button>
             <button className={view === 'learn' ? 'tab active' : 'tab'}
               onClick={() => setView('learn')}>Saptarsh Insight</button>
+            <button className={view === 'vikas' ? 'tab active' : 'tab'}
+              onClick={() => setView('vikas')}>Vikas dates</button>
           </div>
 
           {/* Opens here on purpose: the one thing with measured skill, plus
@@ -199,6 +202,9 @@ function App() {
 
           {/* Week outlook needs only a date; the study notes are static */}
           {view === 'learn' && <SaptarshPanel date={result?.input.date} />}
+
+          {/* Date calendar + concept notes; needs only a date */}
+          {view === 'vikas' && <VikasPanel date={result?.input.date} />}
         </div>
       </div>
     </div>

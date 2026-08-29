@@ -365,3 +365,45 @@ export interface VolatilityResult {
   age_hours: number | null
   note?: string
 }
+
+// ---- Vikas "important dates" calendar (/api/vikas-week) ----
+export type VikasNature = 'malefic' | 'benefic'
+
+export interface VikasStar {
+  nakshatra: string
+  lord: string
+  nature: VikasNature
+  full_session: boolean
+  hours: number
+  clean: boolean
+  open_nakshatra: string
+  open_ends: string | null
+  tithi: number
+  moon_sign: string
+  signs: Record<string, number>
+}
+
+export interface VikasEvent {
+  family: string
+  label: string
+  note: string
+  instrument: string
+  key: string
+}
+
+export interface VikasDay {
+  date: string
+  weekday: string
+  trading: boolean
+  closed: string | null
+  star: VikasStar
+  star_date: string | null
+  events: VikasEvent[]
+  shifted_to: string | null
+  carry_over: { setup: boolean; text: string } | null
+}
+
+export interface VikasWeekResult {
+  start: string
+  days: VikasDay[]
+}

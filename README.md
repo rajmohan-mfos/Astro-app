@@ -75,6 +75,14 @@ $env:ASTRO_API = "http://127.0.0.1:8001"; npm run dev
   `MASTER-RULES.md`; scenario regressions in `backend/tests/`.
 - **Which method to use — the three-way comparison and the combined recipe:
   `STRATEGY.md`** (also the app's opening "Strategy" tab).
+- Vikas-method backtest: `python scripts/backtest_vikas.py` from `backend/`
+  computes every date his rules produce (`app/vikas.py`: star dates,
+  ingresses, big×small aspects, Moon-45°, Mars-vs-Saturn spans, the
+  day-lord and carry-over rules) for 2011–2026 and scores each against the
+  same statistic on every other day. Results in
+  `backend/knowledge/backtest/vikas/RESULTS.md`; concept provenance in
+  `backend/knowledge/vikas/NOTES.md`; the Vikas dates tab renders the
+  calendar via `GET /api/vikas-week?date&days`.
 - Saptarsh-method backtest: `python scripts/backtest_saptarsh.py` from
   `backend/` scores the Saptarsh Insight tab's outlook (every rule learned
   from the channel) against Nifty sessions and COMEX gold/silver over

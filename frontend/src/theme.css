@@ -1262,3 +1262,7 @@ details > summary.gann-h3::before {
 details[open] > summary.gann-h3::before {
   content: '▾ ';
 }
+
+/* Vikas dates tab: days with no star date / event / setup sit quieter */
+.gann-event.vikas-quiet .gann-title { color: var(--muted); }
+.gann-event.vikas-quiet { opacity: 0.75; }
