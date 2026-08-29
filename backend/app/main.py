@@ -180,6 +180,42 @@ def gann_calendar(date: str | None = None, back: int = 21, ahead: int = 60):
     return gann_cal.scan(center, back, ahead)
 
 
+@app.get("/api/volatility")
+def volatility():
+    """The volatility model on its own — the one component with measured
+    out-of-sample skill (session WIDTH, ~60%; no direction, no astrology).
+
+    Live prices when this host can reach Yahoo; otherwise the forecast the
+    daily workflow published (with its age, so staleness is visible).
+    """
+    from . import quotes, volmodel
+    bars = quotes.recent_bars("nifty")
+    if bars and len(bars) > volmodel.MAX_LOOKBACK:
+        f = volmodel.forecast(bars, len(bars))
+        return {
+            "source": "live",
+            "for_session_after": bars[-1]["date"],
+            "reference_close": bars[-1]["close"],
+            "p_wide": f["p_wide"], "band_label": f["band"],
+            "expected_range_points": f["expected_range_points"],
+            "intervals": {f"{c:.2f}": volmodel.interval(bars, len(bars), c)
+                          for c in (0.80, 0.90, 0.95)},
+            "history_bars": f["history_bars"],
+            "oos_accuracy": f["oos_accuracy"],
+            "age_hours": None,
+            "note": f["note"],
+        }
+    d = quotes.published_forecast()
+    if not d:
+        return JSONResponse(status_code=503, content={
+            "error": "no price data reachable and no published forecast"})
+    d = dict(d)
+    d["source"] = "published"
+    d["age_hours"] = quotes.forecast_age_hours(d)
+    d.setdefault("note", "Session WIDTH only — says nothing about direction.")
+    return d
+
+
 @app.get("/api/saptarsh-week")
 def saptarsh_week(date: str | None = None, days: int = 7):
     """Saptarsh Insight–style Nifty/Gold/Silver outlook, one entry a day."""

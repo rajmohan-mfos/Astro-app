@@ -12,6 +12,7 @@ import ChainVariables from './components/ChainVariables'
 import DayScoreBar from './components/DayScoreBar'
 import GannCosmogram from './components/GannCosmogram'
 import SaptarshPanel from './components/SaptarshPanel'
+import StrategyPanel from './components/StrategyPanel'
 
 // Opens on today at 09:00 — just before the 09:15 open, and the moment
 // the author's own reference charts are cast at.
@@ -69,7 +70,7 @@ function App() {
   // sit underneath it, which meant they appeared below EVERY prediction
   // sub-tab. They now have one home of their own.
   const [view, setView] =
-    useState<'prediction' | 'jothidam' | 'panchang' | 'gann' | 'learn'>('prediction')
+    useState<'strategy' | 'prediction' | 'jothidam' | 'panchang' | 'gann' | 'learn'>('strategy')
 
   const run = (req: ComputeRequest) => {
     setBusy(true)
@@ -106,6 +107,8 @@ function App() {
 
         <div className="output-col">
           <div className="view-tabs">
+            <button className={view === 'strategy' ? 'tab active' : 'tab'}
+              onClick={() => setView('strategy')}>Strategy</button>
             <button className={view === 'prediction' ? 'tab active' : 'tab'}
               onClick={() => setView('prediction')}>Prediction</button>
             <button className={view === 'jothidam' ? 'tab active' : 'tab'}
@@ -118,7 +121,11 @@ function App() {
               onClick={() => setView('learn')}>Saptarsh Insight</button>
           </div>
 
-          {!result && !error && <div className="loading">Computing…</div>}
+          {/* Opens here on purpose: the one thing with measured skill, plus
+              the verdict on everything else. Needs only the date. */}
+          {view === 'strategy' && <StrategyPanel date={result?.input.date} />}
+
+          {!result && !error && view !== 'strategy' && <div className="loading">Computing…</div>}
           {result && view === 'prediction' && (
             <>
               {result.prediction.graph_segments &&

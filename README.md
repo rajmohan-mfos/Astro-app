@@ -73,6 +73,8 @@ $env:ASTRO_API = "http://127.0.0.1:8001"; npm run dev
   browser and answers "can I trade today" (Moon 5/8/12 gochara rule).
 - Rule provenance: `backend/knowledge/RULES-SOURCES.md` and
   `MASTER-RULES.md`; scenario regressions in `backend/tests/`.
+- **Which method to use — the three-way comparison and the combined recipe:
+  `STRATEGY.md`** (also the app's opening "Strategy" tab).
 - Saptarsh-method backtest: `python scripts/backtest_saptarsh.py` from
   `backend/` scores the Saptarsh Insight tab's outlook (every rule learned
   from the channel) against Nifty sessions and COMEX gold/silver over

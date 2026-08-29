@@ -1,6 +1,6 @@
 import type {
   CanTradeResult, ComputeRequest, ComputeResult, GannCalendarResult,
-  PrasanamResult, SaptarshWeekResult,
+  PrasanamResult, SaptarshWeekResult, VolatilityResult,
 } from './types'
 
 /** Cosmogram aspect calendar around a date (tropical Gann layer). */
@@ -74,6 +74,16 @@ export async function saptarshWeek(
 ): Promise<SaptarshWeekResult> {
   const qs = `?days=${days}${date ? `&date=${date}` : ''}`
   const res = await fetch(`/api/saptarsh-week${qs}`)
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `HTTP ${res.status}`)
+  }
+  return res.json()
+}
+
+/** The volatility model alone — session width, ~60% OOS, no direction. */
+export async function volatility(): Promise<VolatilityResult> {
+  const res = await fetch('/api/volatility')
   if (!res.ok) {
     const body = await res.json().catch(() => null)
     throw new Error(body?.error ?? `HTTP ${res.status}`)

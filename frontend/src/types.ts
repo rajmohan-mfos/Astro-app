@@ -345,3 +345,23 @@ export interface SaptarshWeekResult {
   regime: SaptarshRegime
   note: string
 }
+
+// ---- volatility model (/api/volatility) — width only, no direction ----
+export interface VolInterval {
+  half_width_pct: number; half_width_points: number; low: number; high: number
+  realised_coverage: number
+}
+export interface VolatilityResult {
+  source: 'live' | 'published'
+  for_session_after?: string
+  generated_at?: string
+  reference_close?: number
+  p_wide: number
+  band_label: string
+  expected_range_points?: number
+  intervals: Record<string, VolInterval>
+  history_bars: number
+  oos_accuracy?: number
+  age_hours: number | null
+  note?: string
+}

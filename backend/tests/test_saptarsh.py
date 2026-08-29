@@ -732,3 +732,42 @@ def test_first_posts_aspects_and_nakshatras():
     assert saptarsh.nak_tone("Purva Phalguni", "Simha", "nifty") == ("bull", "observed")
     assert saptarsh.nak_tone("Anuradha", "Vrischika", "nifty") == ("bear", "observed")
     assert saptarsh.nak_tone("Revati", "Meena", "nifty") == ("bull", "observed")
+
+
+# ---- /api/volatility ----
+
+def test_volatility_endpoint_falls_back_to_the_published_forecast(monkeypatch):
+    from app import quotes
+    monkeypatch.setattr(quotes, "recent_bars", lambda *a, **k: None)
+    monkeypatch.setattr(quotes, "published_forecast", lambda *a, **k: {
+        "band_label": "leaning narrow", "generated_at": "2026-08-27T18:35:50+05:30",
+        "history_bars": 63, "p_wide": 0.36,
+        "intervals": {"0.90": {"half_width_pct": 0.84, "half_width_points": 203,
+                               "high": 24294.2, "low": 23887.5, "realised_coverage": 91.3}}})
+    r = main.volatility()
+    assert r["source"] == "published" and r["band_label"] == "leaning narrow"
+    assert r["age_hours"] is not None and "0.90" in r["intervals"]
+    assert "direction" in r["note"]
+    monkeypatch.setattr(quotes, "published_forecast", lambda *a, **k: None)
+    assert main.volatility().status_code == 503
+
+
+def test_volatility_endpoint_live_path(monkeypatch):
+    """Synthetic bars (a gentle random walk) exercise the live branch
+    without the network; the model needs more than MAX_LOOKBACK bars."""
+    import random
+    from app import quotes, volmodel
+    rng = random.Random(7)
+    bars, px = [], 24000.0
+    for i in range(volmodel.MAX_LOOKBACK + 20):
+        o = px
+        c = o * (1 + rng.uniform(-0.01, 0.01))
+        h, lo = max(o, c) * (1 + rng.uniform(0, 0.004)), min(o, c) * (1 - rng.uniform(0, 0.004))
+        bars.append({"date": (datetime.date(2026, 1, 1) + datetime.timedelta(days=i)).isoformat(),
+                     "open": o, "close": c, "high": h, "low": lo})
+        px = c
+    monkeypatch.setattr(quotes, "recent_bars", lambda *a, **k: bars)
+    r = main.volatility()
+    assert r["source"] == "live" and r["for_session_after"] == bars[-1]["date"]
+    assert 0 <= r["p_wide"] <= 1 and set(r["intervals"]) == {"0.80", "0.90", "0.95"}
+    assert r["intervals"]["0.90"]["low"] < bars[-1]["close"] < r["intervals"]["0.90"]["high"]
