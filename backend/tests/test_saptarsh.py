@@ -577,7 +577,9 @@ def test_dec_2024_week_note_aspects_and_stations():
     assert _aspect(d, "Sun", 144, "Mars")["tone"] == "bear"
     d = saptarsh.day(datetime.date(2024, 12, 13))
     got = _aspect(d, "Moon", 0, "Uranus")
-    assert got["tone"] == "vol" and abs(_mins(got["time"]) - _mins("13:20")) <= 3
+    # tone was "vol" per his 13 Dec 2024 post; his 4 Sep 2026 Glimpse table
+    # labels the same aspect "Bearish" and the newer label wins
+    assert got["tone"] == "bear" and abs(_mins(got["time"]) - _mins("13:20")) <= 3
     st = [i for i in saptarsh.day(datetime.date(2024, 11, 15))["ingresses"] if i["kind"] == "station"]
     assert st and st[0]["planet"] == "Saturn" and st[0]["to"] == "direct"
     assert st[0]["source"] == "observed"
@@ -771,3 +773,30 @@ def test_volatility_endpoint_live_path(monkeypatch):
     assert r["source"] == "live" and r["for_session_after"] == bars[-1]["date"]
     assert 0 <= r["p_wide"] <= 1 and set(r["intervals"]) == {"0.80", "0.90", "0.95"}
     assert r["intervals"]["0.90"]["low"] < bars[-1]["close"] < r["intervals"]["0.90"]["high"]
+
+
+# ---- Sept 2026 update: the Glimpse tables and the Tara Chakra card ----
+
+def test_tara_cautious_revati_card():
+    # the 30 Aug 2026 "who should be cautious today" card, Revati day
+    t = saptarsh.tara_cautious("Revati")
+    assert set(t["Vipat"]) == {"Punarvasu", "Vishakha", "Purva Bhadrapada"}
+    assert set(t["Pratyak"]) == {"Mrigashira", "Chitra", "Dhanishta"}
+    assert set(t["Vadha"]) == {"Krittika", "Uttara Phalguni", "Uttara Ashadha"}
+
+
+def test_glimpse_table_tones_observed():
+    # tones read off the 27 Aug - 4 Sep 2026 Glimpse aspect tables
+    assert saptarsh.aspect_tone("Mercury", "Venus", 45) == ("vol", "observed")
+    assert saptarsh.aspect_tone("Sun", "Moon", 180) == ("bull", "observed")
+    assert saptarsh.aspect_tone("Jupiter", "Saturn", 120) == ("bull", "observed")
+    assert saptarsh.aspect_tone("Mars", "Saturn", 90) == ("bear", "observed")
+    # the two flips: the newer table wins over the older prose
+    assert saptarsh.aspect_tone("Moon", "Rahu", 60) == ("bull", "observed")
+    assert saptarsh.aspect_tone("Moon", "Uranus", 0) == ("bear", "observed")
+
+
+def test_day_carries_tara_card():
+    d = saptarsh.day(datetime.date(2026, 8, 28))
+    assert set(d["tara_cautious"]) == {"Vipat", "Pratyak", "Vadha"}
+    assert all(len(v) == 3 for v in d["tara_cautious"].values())

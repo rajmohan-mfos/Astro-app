@@ -310,6 +310,8 @@ export interface SaptarshDay {
   mercury_retro_midpoint?: boolean
   mercury?: { retrograde: boolean; sun_distance: number; combust: boolean; venus_combust: boolean }
   eclipse: string | null
+  /** his Tara Chakra card: birth stars that should be cautious today */
+  tara_cautious?: Record<'Vipat' | 'Pratyak' | 'Vadha', string[]>
   flags: string[]
   calls: Record<'nifty' | 'gold' | 'silver', SaptarshCall>
   windows: { start: string; end: string; tone: SaptarshTone; driver: string }[]

@@ -21,7 +21,23 @@ const TONE_LABEL: Record<SaptarshTone, string> = {
 const INSTRUMENTS = ['nifty', 'gold', 'silver'] as const
 const INST_NAME = { nifty: 'Nifty', gold: 'Gold', silver: 'Silver' }
 
-function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
+// for the Tara Chakra selector (his 30 Aug 2026 "who should be
+// cautious today" card, computed per day by the backend)
+const NAKSHATRAS = ['Ashwini', 'Bharani', 'Krittika', 'Rohini', 'Mrigashira',
+  'Ardra', 'Punarvasu', 'Pushya', 'Ashlesha', 'Magha', 'Purva Phalguni',
+  'Uttara Phalguni', 'Hasta', 'Chitra', 'Swati', 'Vishakha', 'Anuradha',
+  'Jyeshtha', 'Mula', 'Purva Ashadha', 'Uttara Ashadha', 'Shravana',
+  'Dhanishta', 'Shatabhisha', 'Purva Bhadrapada', 'Uttara Bhadrapada', 'Revati']
+
+function taraOf(d: SaptarshDay, birth: string): string | null {
+  if (!d.tara_cautious || !birth) return null
+  for (const name of ['Vadha', 'Pratyak', 'Vipat'] as const) {
+    if (d.tara_cautious[name]?.includes(birth)) return name
+  }
+  return null
+}
+
+function DayRow({ d, today, birthNak }: { d: SaptarshDay; today: string; birthNak: string }) {
   const [open, setOpen] = useState(false)
   const live = d.aspects.filter((a) => a.in_session)
   const moonLine = `Moon in ${d.moon.sign} · ${d.moon.nakshatra}`
@@ -38,6 +54,12 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
         <span className="gann-title">{moonLine}</span>
         {d.mercury?.retrograde && (
           <span className="verdict-badge v-trap" title="his 28 Aug 2024 moratorium: predictions unreliable during retrograde Mercury">Mercury ℞</span>
+        )}
+        {taraOf(d, birthNak) && (
+          <span className="verdict-badge v-trap"
+            title={`his Tara Chakra card: ${birthNak} natives are at the ${taraOf(d, birthNak)} tara on a ${d.moon.nakshatra} day — "should be extra cautious today" (severity Vipat < Pratyak < Vadha)`}>
+            {taraOf(d, birthNak)} day for you
+          </span>
         )}
       </div>
       <div className="sap-line">
@@ -127,9 +149,19 @@ function DayRow({ d, today }: { d: SaptarshDay; today: string }) {
   )
 }
 
+function loadBirthNak(): string {
+  try { return localStorage.getItem('sap-birth-nak') ?? '' } catch { return '' }
+}
+
 export default function SaptarshWeek({ date }: { date?: string }) {
   const [data, setData] = useState<SaptarshWeekResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [birthNak, setBirthNak] = useState<string>(loadBirthNak)
+
+  const pickBirthNak = (v: string) => {
+    setBirthNak(v)
+    try { localStorage.setItem('sap-birth-nak', v) } catch { /* private mode */ }
+  }
 
   useEffect(() => {
     setData(null)
@@ -184,8 +216,18 @@ export default function SaptarshWeek({ date }: { date?: string }) {
         )}
       </div>
       <h3 className="gann-h3">Upcoming — {data.start} to {data.end}</h3>
+      <p className="muted-note">
+        Tara Chakra (his 30 Aug 2026 "who should be cautious today" card):
+        pick your birth Moon nakshatra{' '}
+        <select value={birthNak} onChange={(e) => pickBirthNak(e.target.value)}>
+          <option value="">— none —</option>
+          {NAKSHATRAS.map((n) => <option key={n} value={n}>{n}</option>)}
+        </select>
+        {' '}and days where you land on the Vipat / Pratyak / Vadha tara are
+        flagged below. Personal-caution lore, not a market signal.
+      </p>
       <ul className="gann-list">
-        {data.days.map((d) => <DayRow key={d.date} d={d} today={today} />)}
+        {data.days.map((d) => <DayRow key={d.date} d={d} today={today} birthNak={birthNak} />)}
       </ul>
       <p className="muted-note">{data.note}</p>
     </section>

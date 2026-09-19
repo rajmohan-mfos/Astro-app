@@ -64,6 +64,20 @@ GULIKA_SEG = [6, 5, 4, 3, 2, 1, 7]
 # (a, b, angle) -> tone, exactly as the channel labelled them. Pairs are
 # stored in BODIES order (Sun before Moon before Mercury ...).
 OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
+    # Telegram "Saptarsh Glimpse" aspect tables, 27 Aug – 4 Sep 2026
+    # (the channel went tables-only when Insight became paid on 31 Aug).
+    # Engine times matched every row to 1-2 minutes.
+    ("Sun", "Moon", 90): "bear",            # 4 Sep 13:22
+    ("Sun", "Moon", 180): "bull",           # 28 Aug 09:50 (the eclipse full moon)
+    ("Moon", "Venus", 135): "bull",         # 28 Aug, 4 Sep
+    ("Moon", "Venus", 180): "bear",         # 1 Sep
+    ("Moon", "Mars", 120): "bull",          # 28 Aug 21:45
+    ("Moon", "Jupiter", 60): "bull",        # 4 Sep 17:48
+    ("Mercury", "Venus", 45): "vol",        # 28 Aug 02:38
+    ("Mercury", "Uranus", 90): "bear",      # 28 Aug 12:56
+    ("Mercury", "Pluto", 135): "bull",      # 4 Sep 08:05
+    ("Jupiter", "Saturn", 120): "bull",     # 1 Sep 03:49
+    ("Mars", "Saturn", 90): "bear",         # 1 Sep 15:30
     ("Sun", "Moon", 135): "bull",
     ("Sun", "Mercury", 0): "bull",
     ("Sun", "Neptune", 150): "bull",
@@ -103,7 +117,9 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Moon", "Saturn", 180): "bull",        # 26 May
     ("Moon", "Uranus", 60): "bear",         # 9 Jun
     ("Moon", "Neptune", 0): "bear",         # 9 Jun
-    ("Moon", "Rahu", 60): "bear",           # 2 Jun
+    ("Moon", "Rahu", 60): "bull",           # 1 Sep 2026 table "Bullish" —
+                                            # CONFLICTS with his 2 Jun 2026 prose
+                                            # ("bearish"); the newer table wins
     ("Mercury", "Saturn", 90): "vol",       # 10 Jun "high volatile"
     ("Venus", "Jupiter", 0): "bear",        # 10 Jun "strong bearish for the day"
     ("Venus", "Uranus", 45): "vol",         # 2 Jun
@@ -128,7 +144,9 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
                                             # — but his own 2000-2023 study (23 Feb 2024): "clearly did not
                                             #   make sharp fall … almost 50-60% rate"
     # X posts, Nov-Dec 2024 (the launch)
-    ("Moon", "Uranus", 0): "vol",           # 13 Dec 2024 "Moon-Uranus conjunction will create volatility"
+    ("Moon", "Uranus", 0): "bear",          # 4 Sep 2026 table "Bearish" —
+                                            # CONFLICTS with 13 Dec 2024 "will
+                                            # create volatility"; newer table wins
     ("Venus", "Neptune", 45): "vol",        # 16 Dec 2024 week note "very important, can turn the market one way"
     ("Sun", "Neptune", 90): "vol",          # same note
     ("Venus", "Jupiter", 120): "bear",      # same note: "Friday aspects are bearish"
@@ -705,6 +723,28 @@ def mercury_state(d: datetime.date) -> dict:
     }
 
 
+# Tara Chakra — the channel's "who should be cautious today" card
+# (30 Aug 2026): count from the BIRTH star to the day's Moon star
+# inclusive; taras 3, 5 and 7 of 9 are inauspicious for that native.
+# Severity, his words: "vipat < Pratyak < Vadha. Vadha is most
+# unauspicious." Verified against the Revati card (Vipat = Punarvasu /
+# Vishakha / P.Bhadrapada, Pratyak = Mrigashira / Chitra / Dhanishta,
+# Vadha = Krittika / U.Phalguni / U.Ashadha).
+TARA_NAMES = {3: "Vipat", 5: "Pratyak", 7: "Vadha"}
+
+
+def tara_cautious(day_nak: str) -> dict[str, list[str]]:
+    """Birth nakshatras that should be cautious on a `day_nak` day."""
+    i = NAKSHATRAS.index(day_nak)
+    out: dict[str, list[str]] = {name: [] for name in TARA_NAMES.values()}
+    for b in range(27):
+        count = (i - b) % 27 + 1
+        tara = (count - 1) % 9 + 1
+        if tara in TARA_NAMES:
+            out[TARA_NAMES[tara]].append(NAKSHATRAS[b])
+    return out
+
+
 def eclipse_on(d: datetime.date) -> str | None:
     jd0, jd1 = _jd_local(d, 0), _jd_local(d, 24)
     try:
@@ -1223,6 +1263,7 @@ def day(d: datetime.date, lat: float = 19.076, lon: float = 72.8777) -> dict:
         "mercury_retro_midpoint": retro_mid,
         "mercury": merc,
         "eclipse": ecl,
+        "tara_cautious": tara_cautious(moon["nakshatra"]),
         "flags": flags,
         "calls": calls,
         "windows": windows,
