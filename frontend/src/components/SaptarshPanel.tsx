@@ -507,17 +507,34 @@ const FIRST_LOG: [string, string, string][] = [
 ]
 
 const SEP_CONCEPTS: [string, string, string][] = [
-  ['The channel went paid on 31 Aug 2026', '"Your Free Access ends today. From tomorrow, this channel will be converted into Saptarsh Glimpse, where you can continue to stay connected and receive selected updates" — full Saptarsh Insight is now ₹2,500/month (₹6,000/3 months). Since 1 Sep the public channel posts only the tables: panchang, planetary transit, aspect times with tones, astronomical diary. No prose calls. Everything this tab computes for dates after 31 Aug 2026 is therefore extrapolation by his rules, with only the aspect TONES still observable.', '31 Aug 2026'],
+  ['The channel went paid on 31 Aug 2026', '"Your Free Access ends today. From tomorrow, this channel will be converted into Saptarsh Glimpse, where you can continue to stay connected and receive selected updates" — full Saptarsh Insight is now ₹2,500/month (₹6,000/3 months). 1–6 Sep the free channel posted only tables; from 7 Sep it settled into a daily one-pager that still carries short prose calls (below).', '31 Aug 2026'],
+  ['The "Daily Market Insight" one-pager', 'The free channel\'s new daily shape (from 7 Sep): header ASTROLOGY · MARKET INTELLIGENCE · STRATEGY; a panchang strip (tithi, Moon sign, nakshatra, yog, Rahu Kaal — each with end times); PLANETARY ASPECTS & MARKET BIAS (aspect + exact time, tones on some days); positions, later with a Jagannath Hora day-kundali showing Jaimini karakas (AmK, BK, DK…); the Tara Chakra card — split into two cards when the nakshatra changes inside the day; then MARKET MOOD / INSIGHT / INTERPRETATION: two prose boxes, Nifty/Equity and Gold/Silver, with a research-only disclaimer.', 'from 7 Sep 2026'],
+  ['30° aspects joined his toolkit', 'The Sep tables list semisextiles for the first time: Moon 30 Mars "Bullish" (4 Sep 19:53), Sun 30 Jupiter "Bullish" (7 Sep 22:30), Sun 30 Moon, Moon 30 Mercury/Jupiter, Mercury 30 Venus (9–11 Sep, times only). The engine now scans 30° too and both observed tones are in the table; engine times matched his to 1–2 minutes.', '4–11 Sep 2026'],
+  ['Uttara Phalguni — the 27th star, observed at last', '11 Sep: "The Moon is in Leo and it stays in Purvafalguni nakshatra till 13:17 IST then enters in Uttarfalguni. Both are favourable for bulls. Do not expect steep fall … 13:00 to 14:00 IST is important pivot time." Every one of the 27 nakshatras now has an observed Nifty reading.', '11 Sep 2026'],
+  ['"Sun-Moon Yog — Bhadra"', '9 Sep: "Ashlesha is bullish for Nifty but Sun-Moon Yog- Bhadra is strong bearish. High volatility is expected from opening to 11:30 IST … Bhadra can push prices to lower till closing." Bhadra is the classical name of the Vishti karana — his strongest recurring bear flag, now framed as a Sun–Moon yog (the karana is exactly the Sun–Moon elongation).', '9 Sep 2026'],
   ['Lunar eclipse & market outlook (the essay)', 'Eclipses are "potential turning-point periods", strongest in markets tied to the sign/nakshatra: Aquarius + Shatabhisha → "particularly relevant to white metals and textiles" → watch silver. "The effect should not necessarily be expected to appear immediately … over a period of several trading sessions." His history: immediate effect negligible; ~30 trading days later average +1.28% Nifty, +4.60% Bank Nifty → "Bank Nifty may develop a bullish bias after the 28 August eclipse … key point is confirmation through actual price behaviour."', '26 Aug 2026'],
   ['Full Moon as a turning point', '"Full Moon periods have coincided with important tops and bottoms on several occasions … watch price behaviour around the Full Moon rather than assuming it will automatically produce either a bullish or bearish move. The most important signal would be a change in price structure around the event." Same discipline as his eclipse rule: the event marks the window, the chart gives the direction.', '26 Aug 2026'],
   ['Event stacking', 'The 26 Aug essay grades the window by the STACK: Lunar Eclipse → Full Moon influence → Sun–Mercury superior conjunction (27 Aug 22:35 IST) "creates an important period for market observation, particularly around 27–28 August and the sessions that follow". On 28 Aug he wrote "WE ARE NOT CONFIDENT AS MANY ASTRO. EVENTS ARE OCCURRING AT THE SAME DAY. BE CAREFUL" — confluence lowers his confidence rather than raising it.', '26–28 Aug 2026'],
   ['Tara Chakra — "who should be cautious today"', 'A new daily card (from 30 Aug): starting from the day\'s Moon nakshatra, birth stars landing on the Vipat (3rd), Pratyak (5th) or Vadha (7th) tara "should be extra cautious today"; "severity of Tara chakra — vipat < Pratyak < Vadha. Vadha is most unauspicious." Personal astrology applied to trading discipline, not a market direction. The week outlook above now computes the card for every day — pick your birth star there.', '29–30 Aug 2026'],
   ['NSE natal-chart transits', '"From the chart of NSE and transit chart, the Moon is transiting above NSE\'s Ketu today. This is not seems bullish. 12:45 IST is imp pivotal time … IF YOU ARE SHORT, BE CAREFUL AFTER 12:45 IST" (31 Aug). First time he reads transits against the EXCHANGE\'s natal chart (he now posts an astro-seek transit wheel alongside). His natal data for NSE is not published, so the app notes the concept but does not compute it.', '31 Aug 2026'],
   ['Metal-wise weekend report', 'The Saturday metals post got a new rendered shape: nakshatra with IST and ET end-times, the aspect list, an interpretation line ("Dhanistha nakshatra is bullish for gold and silver … this may be trend changer. Many bearish planetary configuration are present. Caution needed"), then a METAL-WISE OUTLOOK box per metal and TRADING WINDOWS with a bias per window (03:30–07:30 IST / 18:00–22:00 ET Bias-Bearish …) — the same 03:30→27:30 Globex clock this tab renders.', '30 Aug 2026'],
-  ['New observed aspect tones', 'The Glimpse tables carry tones the engine had never seen in his output: Sun 90 Moon bearish · Sun 180 Moon bullish · Moon 135 Venus bullish · Moon 180 Venus bearish · Moon 120 Mars bullish · Moon 60 Jupiter bullish · Mercury 45 Venus volatile · Mercury 90 Uranus bearish · Mercury 135 Pluto bullish · Jupiter 120 Saturn bullish · Mars 90 Saturn bearish. Two flips vs his older posts: Moon 60 Rahu is now bullish (was bearish, 2 Jun) and Moon 0 Uranus bearish (was volatile, Dec 2024). His 4 Sep table also lists a Moon 30 Mars row — a 30° Moon aspect, an angle the engine does not scan yet. Engine times matched every row to 1–2 minutes.', '27 Aug – 4 Sep 2026'],
+  ['New observed aspect tones', 'The Glimpse tables carry tones the engine had never seen in his output: Sun 90 Moon bearish · Sun 180 Moon bullish · Sun 45 Moon bearish · Moon 135 Venus bullish · Moon 180 Venus bearish · Moon 120 Mars bullish · Moon 60 Mercury bullish · Moon 60 Jupiter bullish · Moon 45 Uranus bearish · Moon 150 Rahu bullish · Mercury 45 Venus volatile · Mercury 90 Uranus bearish · Mercury 135 Pluto bullish · Jupiter 120 Saturn bullish · Mars 90 Saturn bearish, plus the two 30° rows. Flips vs his older posts (newest wins on a 1-vs-1): Moon 60 Rahu → bullish, Moon 0 Uranus → bearish, Moon 90 Venus → neutral; Moon 0 Mars stayed bullish on a 2-vs-1 majority against the 7 Sep table. Engine times matched every row to 1–2 minutes.', '27 Aug – 18 Sep 2026'],
+]
+
+const SEP_LOG: [string, string, string][] = [
+  ['7 Sep', 'Nifty', 'Punarvasu: "Today market seems bullish. You should avoid short." Metals: "no strong bullish/bearish yog."'],
+  ['8 Sep', 'Both', 'Cancer/Pushya: "slightly bullish for Nifty. Vaar-Tithi yog is bearish. Intraday yogs are bullish and bearish. Stay cautious. Volatile session is expected." Gold/silver: Pushya → Ashlesha 16:40, "neutral … range bound".'],
+  ['9 Sep', 'Both', 'Ashlesha "bullish for Nifty but Sun-Moon Yog Bhadra [Vishti] is strong bearish. High volatility from opening to 11:30 IST … can push prices lower till closing." Gold: Magha bullish; "in the evening strong but very tricky yog … can take prices to any side."'],
+  ['10 Sep', 'Both', 'Leo/Magha → P.Phalguni 14:05: "the undertone of the market may remain weak." Gold/silver: "may remain weak but high volatility is expected. Stay cautious."'],
+  ['11 Sep', 'Nifty', 'P.Phalguni till 13:17 → U.Phalguni: "Both are favourable for bulls. Do not expect steep fall … may remain in green but in range bound trading. 13:00 to 14:00 IST is important pivot time."'],
+  ['14 Sep', 'Both', 'Libra/Swati till 15:21 → Vishakha: "Nakshatra is Bearish. Vaidhrit yog starts from 12:20 IST, this will create volatility. We may get bearish sentiment today." Metals: "Vaidhriti yogs are bullish and bearish. You have to flip your trade quickly."'],
+  ['15 Sep', 'Nifty', 'Text update, 16:13: "Now you have to be very careful in shorts. Tomorrow may be the last day of correction? Bounce is expected from Thursday." (dated forward call — gradeable)'],
+  ['17 Sep', 'Both', 'Scorpio/Anuradha: "not much favourable for Nifty. We may start with bearish price action. From opening to 12:15 IST is not good time" — note: his Apr 2026 posts had Anuradha bullish; the reading wobbles. Metals: "bullish and bearish yogs will make the session volatile."'],
+  ['18 Sep', 'Both', 'Jyeshtha: "neutral for Nifty. Sluggish movement is expected." Metals: Jyeshtha till 22:46 then Mula — "former is not favourable for precious metals" — his own words matching this app\'s best Saptarsh lead (Moon in Jyeshtha → gold down, 36% up-rate, both halves).'],
 ]
 
 const SOURCES: [string, string][] = [
+  ['Screen Recording 2026-09-19 17:48', 'Telegram Web, "Saptarsh Glimpse" — posts 3–18 Sep 2026: the Daily Market Insight one-pagers (7–18 Sep) with prose Nifty and Gold/Silver calls, 30° aspect rows, split Tara cards, the Jagannath Hora day-kundali, the 11 Sep Uttara Phalguni call, the 15 Sep "bounce from Thursday" update.'],
   ['Screen Recording 2026-09-19 17:47', 'Telegram Web, channel now renamed "Saptarsh Glimpse" (371 subscribers) — posts 26 Aug – 4 Sep 2026: the lunar-eclipse essay, the 27/28/31 Aug outlooks, the Tara Chakra cards, the NSE-natal-transit note, the metal-wise weekend report, aspect tables with tones, the paid-conversion notice.'],
   ['Recording 2026-08-28 16:54', 'Telegram channel "Saptarsh Insight" — Nifty / Gold / Silver bulletins 14–28 Aug 2026, panchang + planet sheets, aspect tables, conjunction calendar, astronomical diary, eclipse note.'],
   ['Recording 2026-08-28 18:12', 'X account @sonisunil59 "MARKET ASTROLOGY" (Sunil J. Soni, Saptarsh Astrological Services, Gujarat) — Gold & Silver Premium Reports 2 Jul–10 Aug, Jupiter-in-Cancer table, Sun+Ketu analog, July conjunction and Moon-sign calendars, channel tiers.'],
@@ -556,16 +573,26 @@ function SaptarshPanel({ date }: { date?: string }) {
       <section className="panel">
         <h2>Update, Sept 2026 — the channel goes paid; eclipse playbook; Tara Chakra</h2>
         <p className="learn-lead">
-          From a 19 Sep 2026 recording of the Telegram channel (now renamed{' '}
-          <em>Saptarsh Glimpse</em>), covering 26 Aug – 4 Sep: the free daily
-          prose calls ended on 31 Aug and the public channel now posts tables
-          only. What the last free fortnight taught:
+          From two 19 Sep 2026 recordings of the Telegram channel (now renamed{' '}
+          <em>Saptarsh Glimpse</em>), covering 26 Aug – 18 Sep: the full
+          Insight service went paid on 31 Aug, but after a tables-only week the
+          free channel settled into a daily one-pager that still carries short
+          prose calls. What the transition taught:
         </p>
         <table className="graha-table learn-table">
           <thead><tr><th>Concept</th><th>Their practice, as posted</th><th>When</th></tr></thead>
           <tbody>
             {SEP_CONCEPTS.map(([k, v, w]) => (
               <tr key={k}><td className="learn-key">{k}</td><td>{v}</td><td className="learn-missing">{w}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <h3 className="gann-h3">Calls log, 7–18 Sep 2026 (the one-pager era)</h3>
+        <table className="graha-table learn-table">
+          <thead><tr><th>Date</th><th>Market</th><th>Call</th></tr></thead>
+          <tbody>
+            {SEP_LOG.map(([d, m, c]) => (
+              <tr key={d + m}><td className="learn-key">{d}</td><td>{m}</td><td>{c}</td></tr>
             ))}
           </tbody>
         </table>
@@ -1069,10 +1096,11 @@ function SaptarshPanel({ date }: { date?: string }) {
           </tbody>
         </table>
         <p className="muted-note">
-          Thirteen recordings, 31 Dec 2023 → 4 Sep 2026: the account's entire
-          public record — which is now closed, since the channel went paid on
-          31 Aug 2026. The Nifty nakshatra table has an observed reading for
-          26 of 27 stars (Uttara Phalguni is the last gap).
+          Fourteen recordings, 31 Dec 2023 → 18 Sep 2026: the account's public
+          record. The full Insight service went paid on 31 Aug 2026; the free
+          one-pager continues with shorter calls. The Nifty nakshatra table now
+          has an observed reading for <strong>all 27 stars</strong> — the 11 Sep
+          Uttara Phalguni call closed the last gap.
         </p>
 
         <h3 className="gann-h3">Sources ingested so far</h3>

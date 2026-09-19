@@ -181,7 +181,9 @@ def test_metals_nakshatra_calls_from_the_x_reports():
     # with a star the metals table has never seen (nak_tone does not
     # check that the star lies in the sign)
     assert saptarsh.nak_tone("Magha", "Kanya", "gold") == ("neutral", "observed")  # Virgo, 26 May
-    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "nifty")[1] == "extrapolated"   # the one star with no Nifty reading
+    # was the one star with no Nifty reading until 11 Sep 2026:
+    # "Purvafalguni … then Uttarfalguni. Both are favourable for bulls"
+    assert saptarsh.nak_tone("Uttara Phalguni", "Kanya", "nifty") == ("bull", "observed")
 
 
 # ---- third learning pass: X posts of Apr-Jun 2026 (may.mp4) ----
@@ -646,7 +648,10 @@ def test_june_2024_nifty_reports_and_vaidhriti_for_nifty():
     # Krittika is neutral for Nifty; exaltation lifts it, Vaidhriti knocks it to volatile
     assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
     moon = {"sign": "Kanya", "nakshatra": "Uttara Phalguni", "sign_change": None, "nakshatra_change": None}
-    assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "bear"
+    # U.Phalguni became observed-bull on 11 Sep 2026, so Vaidhriti now
+    # knocks the bullish base to volatile (it was bear when the star had
+    # no Nifty reading of its own)
+    assert saptarsh._call("nifty", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
     assert saptarsh._call("gold", moon, [], [], "Vaidhriti", None, 6)["tone"] == "vol"
     d = saptarsh.day(datetime.date(2024, 6, 24))
     assert abs(_mins(_aspect(d, "Moon", 0, "Pluto")["time"]) - _mins("11:22")) <= 3
@@ -800,3 +805,26 @@ def test_day_carries_tara_card():
     d = saptarsh.day(datetime.date(2026, 8, 28))
     assert set(d["tara_cautious"]) == {"Vipat", "Pratyak", "Vadha"}
     assert all(len(v) == 3 for v in d["tara_cautious"].values())
+
+
+def test_one_pager_era_tones_and_30_degree_aspects():
+    # 7 Sep 2026 one-pager table (tones) and the first 30-degree rows
+    assert saptarsh.aspect_tone("Sun", "Jupiter", 30) == ("bull", "observed")
+    assert saptarsh.aspect_tone("Moon", "Mars", 30) == ("bull", "observed")
+    assert saptarsh.aspect_tone("Moon", "Uranus", 45) == ("bear", "observed")
+    assert saptarsh.aspect_tone("Moon", "Venus", 90) == ("neutral", "observed")
+    assert saptarsh.aspect_tone("Moon", "Rahu", 150) == ("bull", "observed")
+    # engine reproduces his 30-degree rows to the minute
+    d = saptarsh.day(datetime.date(2026, 9, 7))
+    got = _aspect(d, "Sun", 30, "Jupiter")     # his 22:30:29
+    assert abs(_mins(got["time"]) - _mins("22:30")) <= 3
+    d = saptarsh.day(datetime.date(2026, 9, 4))
+    got = _aspect(d, "Moon", 30, "Mars")       # his 19:53:49
+    assert abs(_mins(got["time"]) - _mins("19:53")) <= 3
+
+
+def test_uttara_phalguni_closes_the_nifty_table():
+    # 11 Sep 2026: "Both are favourable for bulls" — all 27 stars observed
+    for nak in saptarsh.NAKSHATRAS:
+        tone, src = saptarsh.nak_tone(nak, "Kanya", "nifty")
+        assert src == "observed", nak

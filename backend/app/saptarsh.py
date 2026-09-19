@@ -43,8 +43,11 @@ BODIES = [("Sun", swe.SUN), ("Moon", swe.MOON), ("Mercury", swe.MERCURY),
           ("Saturn", swe.SATURN), ("Uranus", swe.URANUS),
           ("Neptune", swe.NEPTUNE), ("Pluto", swe.PLUTO),
           ("Rahu", swe.MEAN_NODE)]          # the channel's "Mn Node"
-ANGLES = [0, 45, 60, 72, 90, 120, 135, 144, 150, 180]
-ASPECT_NAMES = {0: "conjunction", 45: "semi-square", 60: "sextile",
+# 30 joined the list on 4 Sep 2026: the Glimpse one-pagers started
+# carrying semisextiles with tones (Moon 30 Mars "Bullish" 4 Sep,
+# Sun 30 Jupiter "Bullish" 7 Sep, more on 9-11 Sep)
+ANGLES = [0, 30, 45, 60, 72, 90, 120, 135, 144, 150, 180]
+ASPECT_NAMES = {0: "conjunction", 30: "semisextile", 45: "semi-square", 60: "sextile",
                 72: "quintile", 90: "square", 120: "trine",
                 135: "sesquiquadrate", 144: "biquintile", 150: "quincunx",
                 180: "opposition"}
@@ -78,13 +81,21 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Mercury", "Pluto", 135): "bull",      # 4 Sep 08:05
     ("Jupiter", "Saturn", 120): "bull",     # 1 Sep 03:49
     ("Mars", "Saturn", 90): "bear",         # 1 Sep 15:30
+    # the one-pager era, 4-18 Sep 2026 (aspect tables with tones)
+    ("Sun", "Moon", 45): "bear",            # 7 Sep 22:30
+    ("Sun", "Jupiter", 30): "bull",         # 7 Sep 22:30
+    ("Moon", "Mercury", 60): "bull",        # 7 Sep 12:32
+    ("Moon", "Mars", 30): "bull",           # 4 Sep 19:53
+    ("Moon", "Uranus", 45): "bear",         # 7 Sep 06:44
+    ("Moon", "Rahu", 150): "bull",          # 7 Sep 20:35 (Mn Node)
     ("Sun", "Moon", 135): "bull",
     ("Sun", "Mercury", 0): "bull",
     ("Sun", "Neptune", 150): "bull",
     ("Sun", "Pluto", 150): "bear",
     ("Moon", "Mercury", 135): "bull",
     ("Moon", "Mercury", 180): "neutral",
-    ("Moon", "Venus", 90): "bear",
+    ("Moon", "Venus", 90): "neutral",       # 7 Sep 2026 table "Neutral" —
+                                            # was "bear" from the older posts
     ("Moon", "Venus", 120): "bull",
     ("Moon", "Mars", 135): "bull",
     ("Moon", "Mars", 150): "bull",
@@ -111,7 +122,10 @@ OBSERVED_ASPECTS: dict[tuple[str, str, int], str] = {
     ("Sun", "Moon", 120): "bear",           # 26 May
     ("Sun", "Saturn", 60): "bear",          # 3 Jun
     ("Moon", "Venus", 0): "bear",           # 19 May "bearish for 1-2 hours"
-    ("Moon", "Mars", 0): "bull",            # 15 May "bullish for few hours"
+    ("Moon", "Mars", 0): "bull",            # 15 May 2026 "bullish for few hours"
+                                            # and 16 Apr 2026 report; the 7 Sep
+                                            # 2026 table says "Bearish" — kept
+                                            # bull on the 2-vs-1 majority
     ("Moon", "Jupiter", 0): "bear",         # 20 May "bearish for few hrs"
     ("Moon", "Saturn", 0): "bull",          # 10 Jun "strong bullish"
     ("Moon", "Saturn", 180): "bull",        # 26 May
@@ -214,7 +228,8 @@ def aspect_tone(a: str, b: str, angle: int) -> tuple[str, str]:
     if (a, b, angle) in OBSERVED_ASPECTS:
         return OBSERVED_ASPECTS[(a, b, angle)], "observed"
     other = b if a in ("Sun", "Moon") else a
-    if angle in (60, 120):
+    if angle in (30, 60, 120):
+        # the soft-aspect family; both observed 30-degree rows are bullish
         return "bull", "extrapolated"
     if angle == 0:
         if other in HEAVY:
@@ -252,7 +267,10 @@ OBSERVED_NAK: dict[str, tuple[str | None, str | None]] = {
     "Ashlesha": ("bull", "neutral"),        # Dow "favourable for stocks" 17 Apr 2024; metals 15 Jul
     "Magha": ("bear", None),                # Nifty "not supportive … consider it as a bearish" 16 May 2024; Dow "unpredictable" 20 Dec 2024
     "Purva Phalguni": ("bull", None),       # Nifty "favourable for stocks but other yogas may kill this" 29 Jan 2024
-    "Uttara Phalguni": (None, "bull"),      # 14 Nov 2025
+    "Uttara Phalguni": ("bull", "bull"),    # Nifty 11 Sep 2026 "Purvafalguni …
+                                            # then Uttarfalguni. Both are favourable
+                                            # for bulls" — the last star observed;
+                                            # metals 14 Nov 2025
     "Hasta": ("bull", "bear"),              # Nifty "favourable / supportive" 23-24 Dec 2024; metals 26 May, 20 Jul
     "Chitra": ("bull", "bull"),             # Nifty supportive 24 Dec 2024, 17 Feb 2025; neutral 27 Nov 2024 (2 of 3); metals 20 Jul
     "Swati": ("bear", "bear"),              # Nifty 18 Feb 2025, 18 Aug; metals bearish 18-19 Nov 2025, both sides 18 Aug
